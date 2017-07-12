@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
+import ProposalsController from './src/Controllers/proposalController';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -36,6 +37,7 @@ class App {
       });
     });
     this.express.use('/', router);
+    this.express.use('/api/proposals', ProposalsController);
   }
 
 }
