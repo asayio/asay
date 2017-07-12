@@ -1,5 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Proposal {
+class Article {
 }
-exports.Proposal = Proposal;
+exports.Article = Article;

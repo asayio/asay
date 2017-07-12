@@ -37,6 +37,7 @@
     "fs-extra": "^3.0.1",
     "morgan": "^1.7.0",
     "pg-promise": "^6.3.5",
+    "ts-dependency-injection": "^1.2.2",
     "typescript": "^2.4.1"
   },
   "devDependencies": {
