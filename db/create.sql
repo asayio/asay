@@ -1,5 +1,5 @@
 -- Created by @holgerthorup
--- Last modification date: 2017-07-11 15:21:20.522
+-- Last modification date: 2017-07-12 08:04:44.252
 
 -- tables
 -- Table: article
@@ -11,6 +11,7 @@ CREATE TABLE article (
     imgURL text  NOT NULL,
     linkURL text  NOT NULL,
     proposal_id int  NOT NULL,
+    CONSTRAINT article_constraint UNIQUE (proposal_id, linkURL) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT article_pk PRIMARY KEY (id)
 );
 
@@ -18,8 +19,9 @@ CREATE TABLE article (
 CREATE TABLE articleVote (
     id serial  NOT NULL,
     result boolean  NULL,
-    articles_id int  NOT NULL,
+    article_id int  NOT NULL,
     user_id int  NOT NULL,
+    modifiedOn timestamp  NOT NULL DEFAULT NOW(),
     CONSTRAINT articleVote_constraint UNIQUE (articles_id, user_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT articleVote_pk PRIMARY KEY (id)
 );
@@ -30,14 +32,8 @@ CREATE TABLE attachment (
     title text  NOT NULL,
     URL text  NOT NULL,
     proposal_id int  NOT NULL,
+    sortOrder int  NOT NULL,
     CONSTRAINT attachment_pk PRIMARY KEY (id)
-);
-
--- Table: category
-CREATE TABLE category (
-    id serial  NOT NULL,
-    category text  NOT NULL,
-    CONSTRAINT category_pk PRIMARY KEY (id)
 );
 
 -- Table: comment
@@ -45,9 +41,9 @@ CREATE TABLE comment (
     id serial  NOT NULL,
     comment text  NOT NULL,
     argument boolean  NULL,
-    createdOn timestamp  NOT NULL,
+    createdOn timestamp  NOT NULL DEFAULT NOW(),
     proposal_id int  NOT NULL,
-    parent_id int  NULL,
+    parent_id int  NULL DEFAULT NULL,
     user_id int  NOT NULL,
     CONSTRAINT comment_pk PRIMARY KEY (id)
 );
@@ -58,6 +54,7 @@ CREATE TABLE commentVote (
     result boolean  NULL,
     comment_id int  NOT NULL,
     user_id int  NOT NULL,
+    modifiedOn timestamp  NOT NULL DEFAULT NOW(),
     CONSTRAINT commentVote_constraint UNIQUE (user_id, comment_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT commentVote_pk PRIMARY KEY (id)
 );
@@ -68,7 +65,7 @@ CREATE TABLE parliamentVote (
     mandates int  NOT NULL,
     result boolean  NULL,
     poll_id int  NOT NULL,
-    CONSTRAINT parliamentVote_constraint UNIQUE (poll_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT parliamentVote_constraint UNIQUE (poll_id, result) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT parliamentVote_pk PRIMARY KEY (id)
 );
 
@@ -76,9 +73,10 @@ CREATE TABLE parliamentVote (
 CREATE TABLE poll (
     id serial  NOT NULL,
     due timestamp  NULL,
-    testURL text  NOT NULL,
+--    testURL text  NOT NULL,
     proposal_id int  NOT NULL,
     status_id int  NOT NULL,
+    CONSTRAINT poll_constraint UNIQUE (proposal_id, status_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT poll_pk PRIMARY KEY (id)
 );
 
@@ -88,6 +86,8 @@ CREATE TABLE pollVote (
     result boolean  NULL,
     user_id int  NOT NULL,
     poll_id int  NOT NULL,
+    modifiedOn timestamp  NOT NULL DEFAULT NOW(),
+    CONSTRAINT pollVote_constraint UNIQUE (poll_id, user_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT pollVote_pk PRIMARY KEY (id)
 );
 
@@ -98,10 +98,19 @@ CREATE TABLE proposal (
     title text  NOT NULL,
     subtitle text  NOT NULL,
     type_id int  NOT NULL,
-    subject_id int  NOT NULL,
     session_id int  NOT NULL,
+    status_id int  NOT NULL,
     CONSTRAINT proposal_constraint UNIQUE (ref, session_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT proposal_pk PRIMARY KEY (id)
+);
+
+-- Table: proposalTag_map
+CREATE TABLE proposalTag_map (
+    id serial  NOT NULL,
+    tag_id int  NOT NULL,
+    proposal_id int  NOT NULL,
+    CONSTRAINT proposalTag_map_constraint UNIQUE (tag_id, proposal_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT proposalTag_map_pk PRIMARY KEY (id)
 );
 
 -- Table: session
@@ -118,12 +127,11 @@ CREATE TABLE status (
     CONSTRAINT status_pk PRIMARY KEY (id)
 );
 
--- Table: subject
-CREATE TABLE subject (
+-- Table: tag
+CREATE TABLE tag (
     id serial  NOT NULL,
-    subject text  NOT NULL,
-    category_id int  NOT NULL,
-    CONSTRAINT subject_pk PRIMARY KEY (id)
+    tag text  NOT NULL,
+    CONSTRAINT tag_pk PRIMARY KEY (id)
 );
 
 -- Table: type
@@ -140,6 +148,7 @@ CREATE TABLE "user" (
     firstName text  NOT NULL,
     lastName text  NOT NULL,
     pictureURL text  NOT NULL,
+    CONSTRAINT user_constraint UNIQUE (email) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
@@ -256,6 +265,22 @@ ALTER TABLE poll ADD CONSTRAINT poll_status
     INITIALLY IMMEDIATE
 ;
 
+-- Reference: proposalTag_map_proposal (table: proposalTag_map)
+ALTER TABLE proposalTag_map ADD CONSTRAINT proposalTag_map_proposal
+    FOREIGN KEY (proposal_id)
+    REFERENCES proposal (id)
+    NOT DEFERRABLE
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: proposalTag_map_tag (table: proposalTag_map)
+ALTER TABLE proposalTag_map ADD CONSTRAINT proposalTag_map_tag
+    FOREIGN KEY (tag_id)
+    REFERENCES tag (id)
+    NOT DEFERRABLE
+    INITIALLY IMMEDIATE
+;
+
 -- Reference: proposal_session (table: proposal)
 ALTER TABLE proposal ADD CONSTRAINT proposal_session
     FOREIGN KEY (session_id)
@@ -264,10 +289,10 @@ ALTER TABLE proposal ADD CONSTRAINT proposal_session
     INITIALLY IMMEDIATE
 ;
 
--- Reference: proposal_subject (table: proposal)
-ALTER TABLE proposal ADD CONSTRAINT proposal_subject
-    FOREIGN KEY (subject_id)
-    REFERENCES subject (id)
+-- Reference: proposal_status (table: proposal)
+ALTER TABLE proposal ADD CONSTRAINT proposal_status
+    FOREIGN KEY (status_id)
+    REFERENCES status (id)
     NOT DEFERRABLE
     INITIALLY IMMEDIATE
 ;
@@ -276,14 +301,6 @@ ALTER TABLE proposal ADD CONSTRAINT proposal_subject
 ALTER TABLE proposal ADD CONSTRAINT proposal_type
     FOREIGN KEY (type_id)
     REFERENCES type (id)
-    NOT DEFERRABLE
-    INITIALLY IMMEDIATE
-;
-
--- Reference: subject_category (table: subject)
-ALTER TABLE subject ADD CONSTRAINT subject_category
-    FOREIGN KEY (category_id)
-    REFERENCES category (id)
     NOT DEFERRABLE
     INITIALLY IMMEDIATE
 ;
