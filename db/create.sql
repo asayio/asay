@@ -1,5 +1,5 @@
 -- Created by @holgerthorup
--- Last modification date: 2017-07-12 08:04:44.252
+-- Last modification date: 2017-07-12 10:19:37.17
 
 -- tables
 -- Table: article
@@ -11,7 +11,7 @@ CREATE TABLE article (
     imgURL text  NOT NULL,
     linkURL text  NOT NULL,
     proposal_id int  NOT NULL,
-    CONSTRAINT article_constraint UNIQUE (proposal_id, linkURL) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT article_constraint UNIQUE (linkURL, proposal_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT article_pk PRIMARY KEY (id)
 );
 
@@ -22,7 +22,7 @@ CREATE TABLE articleVote (
     article_id int  NOT NULL,
     user_id int  NOT NULL,
     modifiedOn timestamp  NOT NULL DEFAULT NOW(),
-    CONSTRAINT articleVote_constraint UNIQUE (articles_id, user_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT articleVote_constraint UNIQUE (article_id, user_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT articleVote_pk PRIMARY KEY (id)
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE comment (
     argument boolean  NULL,
     createdOn timestamp  NOT NULL DEFAULT NOW(),
     proposal_id int  NOT NULL,
-    parent_id int  NULL DEFAULT NULL,
+    parent_id int  NULL DEFAULT null,
     user_id int  NOT NULL,
     CONSTRAINT comment_pk PRIMARY KEY (id)
 );
@@ -153,9 +153,9 @@ CREATE TABLE "user" (
 );
 
 -- foreign keys
--- Reference: articleVote_articles (table: articleVote)
-ALTER TABLE articleVote ADD CONSTRAINT articleVote_articles
-    FOREIGN KEY (articles_id)
+-- Reference: articleVote_article (table: articleVote)
+ALTER TABLE articleVote ADD CONSTRAINT articleVote_article
+    FOREIGN KEY (article_id)
     REFERENCES article (id)
     NOT DEFERRABLE
     INITIALLY IMMEDIATE
@@ -169,8 +169,8 @@ ALTER TABLE articleVote ADD CONSTRAINT articleVote_user
     INITIALLY IMMEDIATE
 ;
 
--- Reference: articles_proposal (table: article)
-ALTER TABLE article ADD CONSTRAINT articles_proposal
+-- Reference: article_proposal (table: article)
+ALTER TABLE article ADD CONSTRAINT article_proposal
     FOREIGN KEY (proposal_id)
     REFERENCES proposal (id)
     NOT DEFERRABLE

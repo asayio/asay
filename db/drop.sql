@@ -1,15 +1,15 @@
 -- Created by @holgerthorup
--- Last modification date: 2017-07-11 15:21:20.522
+-- Last modification date: 2017-07-12 10:19:37.17
 
 -- foreign keys
 ALTER TABLE articleVote
-    DROP CONSTRAINT articleVote_articles;
+    DROP CONSTRAINT articleVote_article;
 
 ALTER TABLE articleVote
     DROP CONSTRAINT articleVote_user;
 
 ALTER TABLE article
-    DROP CONSTRAINT articles_proposal;
+    DROP CONSTRAINT article_proposal;
 
 ALTER TABLE attachment
     DROP CONSTRAINT attachment_proposal;
@@ -44,17 +44,20 @@ ALTER TABLE poll
 ALTER TABLE poll
     DROP CONSTRAINT poll_status;
 
+ALTER TABLE proposalTag_map
+    DROP CONSTRAINT proposalTag_map_proposal;
+
+ALTER TABLE proposalTag_map
+    DROP CONSTRAINT proposalTag_map_tag;
+
 ALTER TABLE proposal
     DROP CONSTRAINT proposal_session;
 
 ALTER TABLE proposal
-    DROP CONSTRAINT proposal_subject;
+    DROP CONSTRAINT proposal_status;
 
 ALTER TABLE proposal
     DROP CONSTRAINT proposal_type;
-
-ALTER TABLE subject
-    DROP CONSTRAINT subject_category;
 
 -- tables
 DROP TABLE article;
@@ -62,8 +65,6 @@ DROP TABLE article;
 DROP TABLE articleVote;
 
 DROP TABLE attachment;
-
-DROP TABLE category;
 
 DROP TABLE comment;
 
@@ -77,11 +78,13 @@ DROP TABLE pollVote;
 
 DROP TABLE proposal;
 
+DROP TABLE proposalTag_map;
+
 DROP TABLE session;
 
 DROP TABLE status;
 
-DROP TABLE subject;
+DROP TABLE tag;
 
 DROP TABLE type;
 
