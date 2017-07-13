@@ -1,0 +1,44 @@
+<div id="sib_embed_signup">
+  <form id="theform" name="theform" action="" method="POST">
+     <input type="hidden" name="js_id" id="js_id" value="2udmf">
+     <input type="hidden" name="listid" id="listid" value="13">
+     <input type="hidden" name="from_url" id="from_url" value="yes">
+     <input type="hidden" name="hdn_email_txt" id="hdn_email_txt" value="">
+     <input type="hidden" name="sib_simple" value="simple">
+     <input type="hidden" name="sib_forward_url" value="http://initiativet.net" id="sib_forward_url">
+     <div>
+        <input type="hidden" name="req_hid" id="req_hid" value="">
+        <div>
+           <h1 data-editfield="newsletter_name">initiativet.</h1>
+           <h3 id="company-name">By</h3>
+        </div>
+        <div data-editfield="newsletter_description">vælgererklæring</div>
+        <div>
+          <input type="text" name="FIRSTNAME" id="FIRSTNAME" value="" placeholder="Fornavn">
+          <input type="text" name="LASTNAME" id="LASTNAME" value="" placeholder="Efternavn">
+          <input type="email" name="email" id="email" value="" placeholder="E-mail*">
+          <input id="checkbox" type="checkbox" checked="checked">
+          <span>Ja, hold mig opdateret</span>
+        </div>
+        <div id="gcaptcha"></div>
+        <button type="submit" data-editfield="subscribe">Skriv under</button>
+     </div>
+  </form>
+  <script>
+
+    var form = document.getElementById("theform");
+    var checkbox = document.getElementById("checkbox");
+
+    form.onsubmit = function() {
+      if(checkbox.checked) {
+        form.setAttribute("action", ""); // https://my.sendinblue.com/users/subscribeembed/js_id/2udmf/id/1
+        form.submit();
+      }
+      else {
+        form.setAttribute("action", ""); //https://my.sendinblue.com/users/subscribeembed/js_id/2udmf/id/2
+        form.submit();
+      }
+    }
+
+  </script>
+</div>
