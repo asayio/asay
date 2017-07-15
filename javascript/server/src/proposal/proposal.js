@@ -12,13 +12,13 @@ const selectProposal = db.sql('./src/proposal/selectProposal.sql')
 async function getProposal (proposalId) {
   const proposal = await db.cx.query(selectProposal,
     {
-      proposal: proposalId, // request.body.proposalId
+      proposal: proposalId,
     });
   return proposal
 }
 
 async function getProposalBundle (request, response) {
-  const proposalId = 1 // request.params.id
+  const proposalId = request.params.id
   const userId = 1 // collect through auth ...
   const proposalInfo = await getProposal(proposalId);
   const articles = await getArticles(proposalId, userId);

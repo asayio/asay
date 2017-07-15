@@ -9,7 +9,7 @@ function map(app) {
   // GET
   app.get("/api/lists", lists.getLists);
   app.get("/api/proposals", proposals.getProposals);
-  app.get("/api/proposal", proposal.getProposalBundle);
+  app.get("/api/proposal/:id", proposal.getProposalBundle);
 
   // POST
   app.post("/api/auth", auth.lookupUser);
