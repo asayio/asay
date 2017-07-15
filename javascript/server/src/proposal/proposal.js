@@ -9,20 +9,22 @@ const getTags = require('./tags/proposalTags.js').getTags
 const selectProposal = db.sql('./src/proposal/selectProposal.sql')
 
 // Functions
-async function getProposal (request, response) {
+async function getProposal (proposalId) {
   const proposal = await db.cx.query(selectProposal,
     {
-      proposal: 1, // request.body.proposalId
+      proposal: proposalId, // request.body.proposalId
     });
   return proposal
 }
 
 async function getProposalBundle (request, response) {
-  const proposalInfo = await getProposal(request, response);
-  const articles = await getArticles(request, response);
-  const attachments = await getAttachments(request, response);
-  const polls = await getPolls(request, response)
-  const tags = await getTags(request, response)
+  const proposalId = 1 // request.params.id
+  const userId = 1 // collect through auth ...
+  const proposalInfo = await getProposal(proposalId);
+  const articles = await getArticles(proposalId, userId);
+  const attachments = await getAttachments(proposalId);
+  const polls = await getPolls(proposalId, userId)
+  const tags = await getTags(proposalId)
   const proposal = {proposalInfo, articles, attachments, polls, tags}
   response.send(proposal);
 }

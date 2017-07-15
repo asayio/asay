@@ -5,10 +5,10 @@ const db = require('../../../db.js');
 const selectAttachments = db.sql('./src/proposal/attachments/selectProposalAttachments.sql');
 
 // Functions
-async function getAttachments (request, response) {
+async function getAttachments (proposalId) {
   const attachments = await db.cx.query(selectAttachments,
     {
-      proposal: 1, // request.body.proposalId
+      proposal: proposalId,
     });
   return attachments
 }
