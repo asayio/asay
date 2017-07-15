@@ -24,8 +24,8 @@ select
   ,(
     select result
     from pollvote
-    where user_id = $/user_id/
+    where user_id = $/user/
     and pollvote.poll_id = poll.id
   ) as userVote
 from poll
-where proposal_id = $/proposal_id/
+where proposal_id = $/proposal/

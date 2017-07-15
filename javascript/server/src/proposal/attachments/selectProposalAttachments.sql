@@ -3,4 +3,4 @@ select
   ,title
   ,url
 from attachment
-where proposal_id = $/proposal_id/
+where proposal_id = $/proposal/

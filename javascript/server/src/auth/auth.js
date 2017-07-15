@@ -1,7 +1,11 @@
+// Import
 const jwt = require('jsonwebtoken');
 const db = require('../../db.js')
+
+// Queries
 const selectUser = db.sql('./sql/selectUser')
 
+// Functions
 async function lookupUser (authToken) {
   const clientSecret = process.env.AUTH0SECRET;
   const clientId = process.env.AUTH0CLIENTID;
@@ -10,12 +14,11 @@ async function lookupUser (authToken) {
   });
   const rowList = await db.cx.query(selectUser,
     {
-      email: tokenInfo.email
+      email: 'test@initiativet.net' // tokenInfo.email
     });
   return rowList.length > 0 ? rowList[0] : null;
 }
 
-// Webserver functions
 async function loginPostHandler (request, response) {
   const authToken = request.body.authToken;
   const userRow = await lookupUser(authToken);
@@ -23,13 +26,7 @@ async function loginPostHandler (request, response) {
   response.sendStatus(status)
 }
 
-// Routes
-function map(app) {
-  app.post("/api/auth/login", loginPostHandler);
-}
-
-// Export to master
+// Export
 module.exports = {
-  lookupUser,
-  map
+  lookupUser
 }

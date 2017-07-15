@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 // Import
-const auth = require('./src/auth/auth.js');
+const routes = require('./routes.js');
 
 // Variables
 const express = require('express');
@@ -12,7 +12,7 @@ const app = express();
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
-auth.map(app);
+routes.map(app);
 
 app.use(express.static('app')); // Note: serve app as static assets
 app.get("/", function (request, response) { // Note: redirect root URL to index.html in app

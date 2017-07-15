@@ -15,8 +15,8 @@ select
   ,(
     select result
     from articleVote
-    where user_id = $/user_id/
+    where user_id = $/user/
     and articlevote.article_id = article.id
   ) as userVote
 from article
-where proposal_id = $/proposal_id/
+where proposal_id = $/proposal/
