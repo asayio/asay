@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProposalListSection from './RootPage/ProposalListSection/ProposalListSection'
+import Root from './RootPage/Root.js'
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={ProposalListSection}/>
+          <Route exact path="/" component={Root}/>
           <Route exact path="/proposal/:id" component={Proposal}/>
         </div>
       </Router>
