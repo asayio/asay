@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="sans-serif near-black bg-near-white pa4">
+        <div className="sans-serif near-black pv4 ph3">
           <Route exact path="/auth0/" component={LoginValidator}/>
           <Route exact path="/" component={ProposalList}/>
           <Route exact path="/proposal/:id" component={ProposalPage}/>

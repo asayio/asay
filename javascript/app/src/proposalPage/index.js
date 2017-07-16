@@ -26,20 +26,24 @@ class ProposalPage extends Component {
       return (
         <div className="mw8 center">
           <Nav history={this.props.history}/>
+          <a href = '../' className="dib link dark-blue hover-blue v-btm mb3">
+            <ArrowLeft className="svg-icon mr1" />
+            <span className="lh-copy">Tilbage til listen</span>
+          </a>
           <div className="pa4 bg-white ba b--light-gray br2">
             <ProposalInfo proposalInfo = {proposalData.proposalInfo} polls = {proposalData.polls} />
             <ProposalArticles articles = {proposalData.articles} />
-            <a href = '../' className="dib link dark-blue hover-blue v-btm mt3">
-              <ArrowLeft className="svg-icon mr1" />
-              <span className="lh-copy">Tilbage til listen</span>
-            </a>
           </div>
+          <a href = '../' className="dib link dark-blue hover-blue v-btm mt3">
+            <ArrowLeft className="svg-icon mr1" />
+            <span className="lh-copy">Tilbage til listen</span>
+          </a>
         </div>
       );
     } else {
       return (
-        <div>
-          Loading...
+        <div className="tc vh-100 gray">
+          Loading ...
         </div>
       );
     }

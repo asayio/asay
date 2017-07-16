@@ -1,3 +1,7 @@
+html {
+  background-color: #f4f4f4;
+}
+
 .svg-icon {
   position: relative;
   bottom: -0.125em;
