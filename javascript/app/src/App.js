@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ProposalListSection from './RootPage/ProposalListSection/ProposalListSection'
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -11,17 +12,18 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={ProposalListSection}/>
+          <Route exact path="/proposal/:id" component={Proposal}/>
         </div>
       </Router>
     );
   }
 }
 
-class Home extends Component {
+class Proposal extends Component {
   render() {
     return (
-      <div>hello world</div>
+      <div>Her kommer et proposal en dag</div>
     );
   }
 }
