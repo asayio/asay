@@ -16,7 +16,7 @@ class ProposalArticles extends Component {
                   <h3>
                     {article.title}
                   </h3>
-                  <small className = 'underline'>
+                  <small>
                     {article.publisher}
                   </small>
                   <img href = {article.imgurl} alt = {article.preview} />
