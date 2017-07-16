@@ -14,7 +14,11 @@ async function getProposal (proposalId) {
     {
       proposal: proposalId,
     });
-  return proposal
+  if (proposal.length > 1) {
+    throw 'more than one proposal found at context: ' + proposal;
+  } else {
+    return proposal[0]
+  }
 }
 
 async function getProposalBundle (request, response) {

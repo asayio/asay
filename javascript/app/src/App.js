@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Root from './RootPage/Root.js'
 import './App.css';
+import ProposalPage from './proposalPage';
 import {
   BrowserRouter as Router,
   Route
@@ -13,17 +14,9 @@ class App extends Component {
       <Router>
         <div>
           <Route exact path="/" component={Root}/>
-          <Route exact path="/proposal/:id" component={Proposal}/>
+          <Route exact path="/proposal/:id" component={ProposalPage}/>
         </div>
       </Router>
-    );
-  }
-}
-
-class Proposal extends Component {
-  render() {
-    return (
-      <div>Her kommer et proposal en dag</div>
     );
   }
 }
