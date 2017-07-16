@@ -2,9 +2,14 @@ html {
   background-color: #f4f4f4;
 }
 
+select {
+  appearance: none;
+  background: url(/assets/arrow-down.svg) 97% / 1rem no-repeat #eee;
+}
+
 .svg-icon {
   position: relative;
-  bottom: -0.125em;
+  bottom: -0.175em;
   height: 1em;
   width: 1em;
 }
@@ -17,4 +22,18 @@ html {
 
 .h10 {
   height: 10rem;
+}
+
+.grow.grow-alt {
+  transition: all 0.25s ease-out;
+}
+
+.grow.grow-alt:hover,
+.grow.grow-alt:focus {
+  transform: scale(1.01);
+  box-shadow: 0 4px 4px 2px rgba(0,0,0,0.015);
+}
+
+.grow.grow-alt:active {
+  transform: scale(.99);
 }

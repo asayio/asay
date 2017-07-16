@@ -16,11 +16,11 @@ class ProposalListSection extends Component {
     return (
       <div>
       {this.props.filteredProposals.map((proposal, index) =>
-        <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link near-black hover-dark-gray">
-          <div className="pv0 ph3 ba b--light-gray br2 mv3 lh-solid">
+        <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link near-black">
+          <div className="pv0 ph3 ba b--light-gray br2 mv3 lh-solid grow grow-alt">
             <h2 className="f3">{proposal.ref} {proposal.subtitle}</h2>
-            <h3 className="f5 small-caps silver">({proposal.title})</h3>
-            <p className="dark-gray mb3"><b>Session: </b>{proposal.session}, <b>Status: </b> {proposal.status}, <b>Deadline: </b>{proposal.duedate}</p>
+            <h3 className="f5 normal small-caps silver">({proposal.title})</h3>
+            <p className="mid-gray mb3"><b>Session: </b>{proposal.session}, <b>Status: </b> {proposal.status}, <b>Deadline: </b>{proposal.duedate}</p>
           </div>
         </Link>
       )}

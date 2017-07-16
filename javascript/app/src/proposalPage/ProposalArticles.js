@@ -10,7 +10,7 @@ class ProposalArticles extends Component {
           {articles.map(function (article) {
             return (
               <li key = {article.id}>
-                <a href = {article.linkurl} className="db link near-black hover-dark-gray ba b--light-gray br2 mv3 h10 overflow-hidden">
+                <a href = {article.linkurl} className="db near-black ba b--light-gray br2 mv3 h10 overflow-hidden grow grow-alt">
                   <div className="dib w-30 h10 br b--light-gray overflow-hidden">
                     <img src = {article.imgurl} alt = {article.preview} className="h-100 mw-100" />
                   </div>
@@ -21,7 +21,7 @@ class ProposalArticles extends Component {
                     <small className="f5 small-caps silver">
                       {article.publisher}
                     </small>
-                    <p className="dark-gray">
+                    <p className="mid-gray">
                       {article.preview}
                     </p>
                   </div>

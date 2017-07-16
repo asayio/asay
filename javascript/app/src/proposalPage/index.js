@@ -30,7 +30,7 @@ class ProposalPage extends Component {
             <ArrowLeft className="svg-icon mr1" />
             <span className="lh-copy">Tilbage til listen</span>
           </a>
-          <div className="pa4 bg-white ba b--light-gray br2">
+          <div className="pt3 pb4 ph4 bg-white ba b--light-gray br2">
             <ProposalInfo proposalInfo = {proposalData.proposalInfo} polls = {proposalData.polls} />
             <ProposalArticles articles = {proposalData.articles} />
           </div>
