@@ -19,20 +19,19 @@ class ProposalListSection extends Component {
 
   render() {
     return (
-      <table>
-        <tbody>
-        {this.state.proposalList.map((proposal, index) =>
-          <tr key={proposal.id}>
-            <Link to={`/proposal/${proposal.id}`}>
-              <td>{proposal.ref} {proposal.subtitle} </td>
-              <td>{proposal.session}</td>
-              <td>{proposal.status}</td>
-              <td>{proposal.duedate}</td>
-            </Link>
-          </tr>
-        )}
-        </tbody>
-      </table>
+      <div>
+      {this.state.proposalList.map((proposal, index) =>
+        <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
+          <div>
+            <h1>{proposal.ref} {proposal.subtitle}</h1>
+            <h2>({proposal.title})</h2>
+            <p>{proposal.session}</p>
+            <p>{proposal.status}</p>
+            <p>{proposal.duedate}</p>
+          </div>
+        </Link>
+      )}
+      </div>
     );
   }
 }
