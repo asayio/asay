@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Nav from '../nav/Nav.js'
 import ProposalInfo from './ProposalInfo';
 import ProposalArticles from './ProposalArticles';
+import { ArrowLeft } from 'react-feather';
 
 class ProposalPage extends Component {
 
@@ -23,19 +24,26 @@ class ProposalPage extends Component {
     if (Object.keys(proposalData).length !== 0)
     {
       return (
-        <div className="mw8 center pt2 ph4 pb4 bg-white ba b--light-gray br2">
+        <div className="mw8 center">
           <Nav history={this.props.history}/>
-          <ProposalInfo proposalInfo = {proposalData.proposalInfo} polls = {proposalData.polls} />
-          <ProposalArticles articles = {proposalData.articles} />
-          <a href = '../'>
-            Back to list
+          <a href = '../' className="dib link dark-blue hover-blue v-btm mb3">
+            <ArrowLeft className="svg-icon mr1" />
+            <span className="lh-copy">Tilbage til listen</span>
+          </a>
+          <div className="pa4 bg-white ba b--light-gray br2">
+            <ProposalInfo proposalInfo = {proposalData.proposalInfo} polls = {proposalData.polls} />
+            <ProposalArticles articles = {proposalData.articles} />
+          </div>
+          <a href = '../' className="dib link dark-blue hover-blue v-btm mt3">
+            <ArrowLeft className="svg-icon mr1" />
+            <span className="lh-copy">Tilbage til listen</span>
           </a>
         </div>
       );
     } else {
       return (
-        <div>
-          Loading...
+        <div className="tc vh-100 gray">
+          Loading ...
         </div>
       );
     }

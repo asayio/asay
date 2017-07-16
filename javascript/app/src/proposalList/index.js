@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalList.js';
 import Nav from '../nav/Nav.js'
+import { ArrowDown } from 'react-feather';
 
 class Root extends Component {
   constructor(props) {
@@ -55,34 +56,37 @@ class Root extends Component {
 
   render() {
     return (
-      <main>
+      <div className="mw8 center">
         <Nav history={this.props.history}/>
-        <div>
-          <select name="session" onChange={this.handleChange} value={this.state.session}>
-            {this.state.sessions.map((session) =>
-              <option key={session.id}>{session.session}</option>
-            )}
-          </select>
-          <select name="status" onChange={this.handleChange} value={this.state.status}>
-            {this.state.statuses.map((status) =>
-              <option key={status.id}>{status.status}</option>
-            )}
-          </select>
-          <select name="tag" onChange={this.handleChange} value={this.state.tag}>
-            {this.state.tags.map((tag) =>
-              <option key={tag.id}>{tag.tag}</option>
-            )}
-          </select>
-          <select name="type" onChange={this.handleChange} value={this.state.type}>
-            {this.state.types.map((type) =>
-              <option key={type.id}>{type.type}</option>
-            )}
-          </select>
+        <div className="pa4 bg-white ba b--light-gray br2">
+          <span className="db mb3">Du kan filtrere her<ArrowDown className="svg-icon ml1" /></span>
+          <div className="mb4">
+            <select name="session" onChange={this.handleChange} value={this.state.session} className="w-25">
+              {this.state.sessions.map((session) =>
+                <option key={session.id}>{session.session}</option>
+              )}
+            </select>
+            <select name="status" onChange={this.handleChange} value={this.state.status} className="w-25">
+              {this.state.statuses.map((status) =>
+                <option key={status.id}>{status.status}</option>
+              )}
+            </select>
+            <select name="tag" onChange={this.handleChange} value={this.state.tag} className="w-25">
+              {this.state.tags.map((tag) =>
+                <option key={tag.id}>{tag.tag}</option>
+              )}
+            </select>
+            <select name="type" onChange={this.handleChange} value={this.state.type} className="w-25">
+              {this.state.types.map((type) =>
+                <option key={type.id}>{type.type}</option>
+              )}
+            </select>
+          </div>
+          <ProposalListSection
+            filteredProposals = {this.state.filteredProposals}
+          />
         </div>
-        <ProposalListSection
-          filteredProposals = {this.state.filteredProposals}
-        />
-      </main>
+      </div>
     );
   }
 }

@@ -1,10 +1,16 @@
-#root {
-  background-color: #fafafa;
+html {
+  background-color: #f4f4f4;
 }
 
-.hover--mid-gray {
-  transition: color .15s ease-in;
+.svg-icon {
+  position: relative;
+  bottom: -0.125em;
+  height: 1em;
+  width: 1em;
 }
-.hover--mid-gray:hover {
-  color: #555555;
+
+/* TACHYONS CORRECTIONS */
+
+.pointer {
+  cursor: pointer;
 }

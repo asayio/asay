@@ -17,13 +17,13 @@ class ProposalInfo extends Component {
           {subtitle}
         </h1>
         <h2 className="f4 normal dib mr3 dark-gray">
-          <b>Type:</b> {type}
+          <b>Type:</b> {type},
         </h2>
         <h2 className="f4 normal dib mr3 dark-gray">
-          <b>Tef:</b> {ref}
+          <b>Ref:</b> {ref},
         </h2>
         <h2 className="f4 normal dib mr3 dark-gray">
-          <b>Session:</b> {session}
+          <b>Session:</b> {session},
         </h2>
         <h2 className="f4 normal dib dark-gray">
           <b>Status:</b> {status}
