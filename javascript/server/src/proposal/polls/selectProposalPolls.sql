@@ -1,13 +1,13 @@
 select
   id
-  due
+  ,poll.due
   ,(
-    select count(*)
+    select cast(count(*) as int)
     from pollvote where pollvote.poll_id = poll.id
     and result = true
   ) as platformvotesfor
   ,(
-    select count(*)
+    select cast(count(*) as int)
     from pollvote where pollvote.poll_id = poll.id
     and result = false
   ) as platformvotesagainst
