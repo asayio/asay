@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalList.js';
 import Nav from '../nav/Nav.js'
-import { ArrowDown } from 'react-feather';
 
 class Root extends Component {
   constructor(props) {
