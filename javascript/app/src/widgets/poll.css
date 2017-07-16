@@ -1,5 +1,6 @@
 .poll {
   width: 400px;
+  text-align: center;
 }
 
 .poll .section {
@@ -14,7 +15,7 @@
   position: relative;
 }
 
-.poll .bars span {
+.poll .bar-container div {
   background-color: black;
   width: 100%;
   position: absolute;

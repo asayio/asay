@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Poll from '../widgets/Poll';
 
 class ProposalInfo extends Component {
 
@@ -30,6 +31,11 @@ class ProposalInfo extends Component {
         <p>
           {title}
         </p>
+        <div>
+          {this.props.polls.map( (poll) => {
+            return <Poll poll = {poll} />
+          })}
+        </div>
       </div>
     );
   }

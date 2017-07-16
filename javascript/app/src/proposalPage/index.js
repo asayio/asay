@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Nav from '../nav/Nav.js'
 import ProposalInfo from './ProposalInfo';
 import ProposalArticles from './ProposalArticles';
-import ProposalPolls from './ProposalPolls';
 
 class ProposalPage extends Component {
 
@@ -26,9 +25,8 @@ class ProposalPage extends Component {
       return (
         <div className = 'propsal-page'>
           <Nav history={this.props.history}/>
-          <ProposalInfo proposalInfo = {proposalData.proposalInfo} />
+          <ProposalInfo proposalInfo = {proposalData.proposalInfo} polls = {proposalData.polls} />
           <ProposalArticles articles = {proposalData.articles} />
-          <ProposalPolls polls = {proposalData.polls} />
           <a href = '../'>
             back to list
           </a>

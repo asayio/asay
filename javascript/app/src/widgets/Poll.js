@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './poll.css';
 
+// This component could use some refactoring
+// There is also an issue with handling 0
+
 class Poll extends Component {
 
   render() {
@@ -8,13 +11,12 @@ class Poll extends Component {
     const parliamentVotesFor = this.props.poll.parliamentvotesfor || 0;
     const platformVotesAgainst = this.props.poll.platformvotesagainst || 0;
     const platformVotesFor = this.props.poll.platformvotesfor || 0;
-    console.log(parliamentVotesAgainst, parliamentVotesFor, platformVotesAgainst, platformVotesFor);
     const totalValueParliament = parliamentVotesAgainst + parliamentVotesFor;
     const totalValuePlatform = platformVotesAgainst + platformVotesFor;
-    const relativeAgainstParliament = Math.floor(parliamentVotesAgainst / totalValueParliament * 100);
-    const relativeForParliament = Math.floor(parliamentVotesFor / totalValueParliament * 100);
-    const relativeAgainstPlatform = Math.floor(platformVotesAgainst / totalValuePlatform * 100);
-    const relativeForPlatform = Math.floor(platformVotesFor / totalValuePlatform * 100);
+    const relativeAgainstParliament = Math.floor(parliamentVotesAgainst / totalValueParliament * 100) || 0;
+    const relativeForParliament = Math.floor(parliamentVotesFor / totalValueParliament * 100) || 0;
+    const relativeAgainstPlatform = Math.floor(platformVotesAgainst / totalValuePlatform * 100) || 0;
+    const relativeForPlatform = Math.floor(platformVotesFor / totalValuePlatform * 100) || 0;
     const barHeightParliamentAgainst = {height: relativeAgainstParliament + '%'}
     const barHeightParliamentFor = {height: relativeForParliament + '%'}
     const barHeightPlatformAgainst = {height: relativeAgainstPlatform + '%'}
@@ -28,23 +30,19 @@ class Poll extends Component {
           </h4>
           <div className = 'bars'>
             <div className = 'bar-container'>
-              <span style = {barHeightParliamentAgainst}>
-                {relativeAgainstParliament}
-              </span>
+              <div style = {barHeightParliamentAgainst}></div>
             </div>
             <div className = 'bar-container'>
-              <span style = {barHeightParliamentFor}>
-                {relativeForParliament}
-              </span>
+              <div style = {barHeightParliamentFor}></div>
             </div>
           </div>
           <div>
-            <span>
-              for
-            </span>
-            <span>
-              against
-            </span>
+            <div>
+              {relativeAgainstParliament} against
+            </div>
+            <div>
+              {relativeForParliament} for
+            </div>
           </div>
         </div>
         <div className = 'section'>
@@ -53,23 +51,19 @@ class Poll extends Component {
           </h4>
           <div className = 'bars'>
             <div className = 'bar-container'>
-              <span style = {barHeightPlatformAgainst}>
-                {relativeAgainstPlatform}
-              </span>
+              <div style = {barHeightPlatformAgainst}></div>
             </div>
             <div className = 'bar-container'>
-              <span style = {barHeightPlatformFor}>
-                {relativeForPlatform}
-              </span>
+              <div style = {barHeightPlatformFor}></div>
             </div>
           </div>
           <div>
-            <span>
-              for
-            </span>
-            <span>
-              against
-            </span>
+            <div>
+              {relativeAgainstPlatform} against
+            </div>
+            <div>
+              {relativeForPlatform} for
+            </div>
           </div>
         </div>
       </div>
