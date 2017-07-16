@@ -8,9 +8,13 @@
   display: inline-block;
 }
 
-.poll .bar-container {
+.poll .bar-container,
+.poll .label div {
   width: 50%;
   display: inline-block;
+}
+
+.poll .bar-container {
   height: 100px;
   position: relative;
 }

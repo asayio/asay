@@ -36,7 +36,7 @@ class Poll extends Component {
               <div style = {barHeightParliamentFor}></div>
             </div>
           </div>
-          <div>
+          <div className = 'label'>
             <div>
               {relativeAgainstParliament} against
             </div>
@@ -57,7 +57,7 @@ class Poll extends Component {
               <div style = {barHeightPlatformFor}></div>
             </div>
           </div>
-          <div>
+          <div className = 'label'>
             <div>
               {relativeAgainstPlatform} against
             </div>
