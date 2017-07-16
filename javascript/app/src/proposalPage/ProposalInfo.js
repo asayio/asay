@@ -11,9 +11,9 @@ class ProposalInfo extends Component {
     const session = proposalInfo.session;
     const status = proposalInfo.status;
     return (
-      <div className='proposal-info'>
+      <div className = 'proposal-info'>
         <h1>
-          {title}
+          {subtitle}
         </h1>
         <h2>
           type: {type}
@@ -28,7 +28,7 @@ class ProposalInfo extends Component {
           status: {status}
         </h2>
         <p>
-          {subtitle}
+          {title}
         </p>
       </div>
     );

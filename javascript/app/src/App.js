@@ -1,5 +1,7 @@
+import tachyons from 'tachyons'
 import React, { Component } from 'react';
 import Root from './RootPage/Root.js'
+import './App.css';
 import './App.css';
 import ProposalPage from './proposalPage';
 import {
