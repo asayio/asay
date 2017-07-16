@@ -18,8 +18,11 @@ async function getProposal (proposalId) {
 }
 
 async function getProposalBundle (request, response) {
+  // Variables
   const proposalId = request.params.id
   const userId = 1 // collect through auth ...
+
+  // Functions
   const proposalInfo = await getProposal(proposalId);
   const articles = await getArticles(proposalId, userId);
   const attachments = await getAttachments(proposalId);
