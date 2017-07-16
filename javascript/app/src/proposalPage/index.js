@@ -22,7 +22,6 @@ class ProposalPage extends Component {
     const proposalData = this.state.proposalData;
     if (Object.keys(proposalData).length !== 0)
     {
-      console.log(proposalData);
       return (
         <div className = 'propsal-page'>
           <ProposalInfo proposalInfo = {proposalData.proposalInfo} />

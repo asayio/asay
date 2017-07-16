@@ -1,4 +1,4 @@
-import tachyons from 'tachyons'
+import 'tachyons'
 import React, { Component } from 'react';
 import Root from './rootPage/index.js'
 import './App.css';
