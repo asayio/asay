@@ -9,8 +9,8 @@ import {
 class Nav extends Component {
   render () {
     return (
-      <nav>
-        <Link to="/">asay</Link>
+      <nav className="mb4">
+        <Link to="/" className="f3 link dark-green hover-green">asay</Link>
         {window.sessionStorage.authToken ? <Logout history={this.props.history}/> : <Login/>}
       </nav>
     )

@@ -1,4 +1,4 @@
-import 'tachyons'
+import 'tachyons';
 import './App.css';
 import React, { Component } from 'react';
 import LoginValidator from './auth'
@@ -9,12 +9,11 @@ import {
   Route
 } from 'react-router-dom';
 
-
 class App extends Component {
   render() {
     return (
       <Router>
-        <div className="sans-serif near-black pa4">
+        <div className="sans-serif near-black bg-near-white pa4">
           <Route exact path="/auth0/" component={LoginValidator}/>
           <Route exact path="/" component={ProposalList}/>
           <Route exact path="/proposal/:id" component={ProposalPage}/>
