@@ -3,6 +3,7 @@ const lists = require('./src/lists/lists.js');
 const auth = require('./src/auth/auth.js');
 const proposals = require('./src/proposals/proposals.js')
 const proposal = require('./src/proposal/proposal.js')
+const pollVote = require('./src/poll/vote/pollVote.js')
 
 // Routes
 function map(app) {
@@ -13,6 +14,7 @@ function map(app) {
 
   // POST
   app.post("/api/auth", auth.lookupUser);
+  app.post("/api/vote/poll/:id", pollVote.postVote)
 }
 
 // Export
