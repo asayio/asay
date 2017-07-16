@@ -2,9 +2,9 @@
 const db = require('../../../db.js')
 
 // Queries
-const selectVote = db.sql('./sql/selectVote.sql')
-const insertVote = db.sql('./sql/insertVote.sql')
-const updateVote = db.sql('./sql/updateVote.sql')
+const selectVote = db.sql('./src/poll/vote/selectPollVote.sql')
+const insertVote = db.sql('./src/poll/vote/insertPollVote.sql')
+const updateVote = db.sql('./src/poll/vote/updatePollVote.sql')
 
 // Functions
 async function voteChecker (userId, pollId) {
@@ -18,12 +18,13 @@ async function voteChecker (userId, pollId) {
 
 async function postVote (request, response) {
   // Variables
-  const pollId = request.body.pollId
+  const pollId = request.params.id
   const userId = 1 // collect through auth ...
   const voteResult = request.body.userVote
 
   // Functions
   const hasVoted = await voteChecker(userId, pollId)
+  console.log(hasVoted);
   const vote = hasVoted ? await db.cx.query(updateVote,
     {
       user: userId,
