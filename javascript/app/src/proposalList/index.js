@@ -48,7 +48,6 @@ class Root extends Component {
             && (type ? proposal.type === type : true);
         }
       );
-      console.log(filteredProposals, "glo");
       this.setState({filteredProposals: filteredProposals});
     });
   }

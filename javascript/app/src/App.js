@@ -1,8 +1,8 @@
 import 'tachyons'
 import React, { Component } from 'react';
-import Root from './rootPage/index.js'
+import ProposalList from './proposalList'
 import './App.css';
-import ProposalPage from './proposalPage/index.js';
+import ProposalPage from './proposalPage';
 import {
   BrowserRouter as Router,
   Route
@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={Root}/>
+          <Route exact path="/" component={ProposalList}/>
           <Route exact path="/proposal/:id" component={ProposalPage}/>
         </div>
       </Router>
