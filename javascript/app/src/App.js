@@ -2,7 +2,7 @@ import tachyons from 'tachyons'
 import React, { Component } from 'react';
 import Root from './RootPage/index.js'
 import './App.css';
-import ProposalPage from './proposalPage';
+import ProposalPage from './ProposalPage/index.js';
 import {
   BrowserRouter as Router,
   Route
