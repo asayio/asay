@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../../db.js')
 
 // Queries
-const selectUser = db.sql('./sql/selectUser')
+const selectUser = db.sql('./src/auth/selectUser.sql')
 
 // Functions
 async function lookupUser (authToken) {
@@ -14,7 +14,7 @@ async function lookupUser (authToken) {
   });
   const rowList = await db.cx.query(selectUser,
     {
-      email: 'test@initiativet.net' // tokenInfo.email
+      email: tokenInfo.email
     });
   return rowList.length > 0 ? rowList[0] : null;
 }
@@ -28,5 +28,5 @@ async function loginPostHandler (request, response) {
 
 // Export
 module.exports = {
-  lookupUser
+  loginPostHandler
 }

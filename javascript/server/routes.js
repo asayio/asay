@@ -13,7 +13,7 @@ function map(app) {
   app.get("/api/proposal/:id", proposal.getProposalBundle);
 
   // POST
-  app.post("/api/auth", auth.lookupUser);
+  app.post("/api/auth", auth.loginPostHandler);
   app.post("/api/vote/poll/:id", pollVote.postVote)
 }
 

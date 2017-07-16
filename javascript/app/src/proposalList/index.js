@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalList.js';
+import Nav from '../nav/Nav.js'
 
 class Root extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class Root extends Component {
   render() {
     return (
       <main>
+        <Nav history={this.props.history}/>
         <div>
           <select name="session" onChange={this.handleChange} value={this.state.session}>
             {this.state.sessions.map((session) =>
