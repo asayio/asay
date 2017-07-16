@@ -57,9 +57,9 @@ class Root extends Component {
     return (
       <div>
         <Nav history={this.props.history}/>
-        <div className="pa4 bg-white ba b--light-gray br2">
-          <h3 className="mb3">Filtrer</h3>
-          <div className="mb4 h1">
+        <div className="pa4 bg-white ba b--light-gray br2 shadow-6">
+          <h3 className="mb3">Filtre</h3>
+          <div className="mb4 h2">
             <div className="fl w-25 pr1">
               <select name="session" onChange={this.handleChange} value={this.state.session} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 {this.state.sessions.map((session) =>
@@ -89,6 +89,7 @@ class Root extends Component {
               </select>
             </div>
           </div>
+          <h3>Forslag</h3>
           <ProposalListSection
             filteredProposals = {this.state.filteredProposals}
           />

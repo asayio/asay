@@ -17,7 +17,7 @@ class ProposalListSection extends Component {
       <div>
       {this.props.filteredProposals.map((proposal, index) =>
         <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link near-black">
-          <div className="pv0 ph3 ba b--light-gray br2 mv3 lh-solid grow grow-alt">
+          <div className="pv0 ph3 ba b--light-gray br2 mv3 lh-solid card">
             <h2 className="f3">{proposal.ref} {proposal.subtitle}</h2>
             <h3 className="f5 normal small-caps silver">({proposal.title})</h3>
             <p className="mid-gray mb3"><b>Session: </b>{proposal.session}, <b>Status: </b> {proposal.status}, <b>Deadline: </b>{proposal.duedate}</p>
