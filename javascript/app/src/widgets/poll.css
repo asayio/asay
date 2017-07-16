@@ -1,0 +1,23 @@
+.poll {
+  width: 400px;
+}
+
+.poll .section {
+  width: 50%;
+  display: inline-block;
+}
+
+.poll .bar-container {
+  width: 50%;
+  display: inline-block;
+  height: 100px;
+  position: relative;
+}
+
+.poll .bars span {
+  background-color: black;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

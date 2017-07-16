@@ -28,7 +28,7 @@ class ProposalPage extends Component {
           <Nav history={this.props.history}/>
           <ProposalInfo proposalInfo = {proposalData.proposalInfo} />
           <ProposalArticles articles = {proposalData.articles} />
-          <ProposalPolls />
+          <ProposalPolls polls = {proposalData.polls} />
           <a href = '../'>
             back to list
           </a>
