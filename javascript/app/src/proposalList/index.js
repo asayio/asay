@@ -56,7 +56,7 @@ class Root extends Component {
 
   render() {
     return (
-      <div className="mw8 center">
+      <div>
         <Nav history={this.props.history}/>
         <div className="pa4 bg-white ba b--light-gray br2">
           <span className="db mb3">Du kan filtrere her<ArrowDown className="svg-icon ml1" /></span>

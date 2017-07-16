@@ -14,3 +14,7 @@ html {
 .pointer {
   cursor: pointer;
 }
+
+.h10 {
+  height: 10rem;
+}

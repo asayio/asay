@@ -24,7 +24,7 @@ class ProposalPage extends Component {
     if (Object.keys(proposalData).length !== 0)
     {
       return (
-        <div className="mw8 center">
+        <div>
           <Nav history={this.props.history}/>
           <a href = '../' className="dib link dark-blue hover-blue v-btm mb3">
             <ArrowLeft className="svg-icon mr1" />
