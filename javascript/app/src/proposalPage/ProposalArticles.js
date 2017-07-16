@@ -19,7 +19,7 @@ class ProposalArticles extends Component {
                   <small>
                     {article.publisher}
                   </small>
-                  <img href = {article.imgurl} alt = {article.preview} />
+                  <img src = {article.imgurl} alt = {article.preview} />
                   <p>
                     {article.preview}
                   </p>
