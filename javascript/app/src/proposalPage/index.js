@@ -23,19 +23,19 @@ class ProposalPage extends Component {
     if (Object.keys(proposalData).length !== 0)
     {
       return (
-        <div className = 'propsal-page'>
+        <div className="mw8 center pt2 ph4 pb4 bg-white ba b--light-gray br2">
           <Nav history={this.props.history}/>
           <ProposalInfo proposalInfo = {proposalData.proposalInfo} polls = {proposalData.polls} />
           <ProposalArticles articles = {proposalData.articles} />
           <a href = '../'>
-            back to list
+            Back to list
           </a>
         </div>
       );
     } else {
       return (
         <div>
-          loading...
+          Loading...
         </div>
       );
     }

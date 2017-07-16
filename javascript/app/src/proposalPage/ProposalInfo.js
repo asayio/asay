@@ -12,23 +12,23 @@ class ProposalInfo extends Component {
     const session = proposalInfo.session;
     const status = proposalInfo.status;
     return (
-      <div className = 'proposal-info'>
-        <h1>
+      <div>
+        <h1 className="mb1">
           {subtitle}
         </h1>
-        <h2>
-          type: {type}
+        <h2 className="f4 normal dib mr3 dark-gray">
+          <b>Type:</b> {type}
         </h2>
-        <h2>
-          ref: {ref}
+        <h2 className="f4 normal dib mr3 dark-gray">
+          <b>Tef:</b> {ref}
         </h2>
-        <h2>
-          session: {session}
+        <h2 className="f4 normal dib mr3 dark-gray">
+          <b>Session:</b> {session}
         </h2>
-        <h2>
-          status: {status}
+        <h2 className="f4 normal dib dark-gray">
+          <b>Status:</b> {status}
         </h2>
-        <p>
+        <p className="mid-gray mt2 mb4">
           {title}
         </p>
         <div>

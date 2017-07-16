@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="sans-serif near-black pa4">
           <Route exact path="/auth0/" component={LoginValidator}/>
           <Route exact path="/" component={ProposalList}/>
           <Route exact path="/proposal/:id" component={ProposalPage}/>
