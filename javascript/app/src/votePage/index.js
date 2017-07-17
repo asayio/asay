@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Nav from '../nav/Nav.js';
 import './style.css';
+import { ArrowLeft } from 'react-feather';
 
 class VotePage extends Component {
   constructor(props) {
@@ -55,6 +56,10 @@ class VotePage extends Component {
     return (
       <div>
       <Nav history={this.props.history}/>
+        <a href = {`../${this.props.match.params.id}`} className="dib link dark-blue hover-blue v-btm mb3">
+          <ArrowLeft className="svg-icon mr1" />
+          <span className="lh-copy">Tilbage til forslag</span>
+        </a>
         <h1>ref: subtitle</h1>
         <form id="voteForm" onSubmit={this.handleSubmit}>
           <input name="voteresult" type="radio" onChange={this.handleChange} value="true" required/>For
