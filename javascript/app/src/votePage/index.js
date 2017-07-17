@@ -22,7 +22,6 @@ class VotePage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const form = document.getElementById("voteForm");
     fetch('/api/vote/poll/2', //make dynamic
       {
         method: 'POST',
@@ -33,6 +32,7 @@ class VotePage extends Component {
           'Content-Type': 'application/json',
         }
       });
+    window.location.href="../../confirmed/"
   };
 
   handleWithdraw(event) {
