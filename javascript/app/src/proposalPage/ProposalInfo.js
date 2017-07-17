@@ -29,9 +29,9 @@ class ProposalInfo extends Component {
           {title}
         </p>
         <div>
-          {this.props.polls.map( (poll) => {
-            return <Poll poll = {poll} />
-          })}
+          {this.props.polls.map( (poll) =>
+            <Poll key={poll.id} poll = {poll} />
+          )}
         </div>
       </div>
     );
