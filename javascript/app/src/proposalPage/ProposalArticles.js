@@ -18,10 +18,10 @@ class ProposalArticles extends Component {
                     <h3>
                       {article.title}
                     </h3>
-                    <small className="f5 small-caps silver">
+                    <small className="f5 small-caps ttl silver">
                       {article.publisher}
                     </small>
-                    <p className="mid-gray">
+                    <p className="dark-gray">
                       {article.preview}
                     </p>
                   </div>

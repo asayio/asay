@@ -57,31 +57,31 @@ class Root extends Component {
     return (
       <div>
         <Nav history={this.props.history}/>
-        <div className="pa4 bg-white ba b--light-gray br2 shadow-6">
-          <h3 className="mb3">Filtre</h3>
-          <div className="mb4 h2">
-            <div className="fl w-25 pr1">
+        <div className="pa2 pa3-m pa4-l bg-white ba b--light-gray br2 shadow-6">
+          <h3 className="mb3 pl1">Filtre</h3>
+          <div className="mb4 cf">
+            <div className="fl w-100 w-50-m w-25-l pa1">
               <select name="session" onChange={this.handleChange} value={this.state.session} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 {this.state.sessions.map((session) =>
                   <option key={session.id}>{session.session}</option>
                 )}
               </select>
             </div>
-            <div className="fl w-25 ph1">
+            <div className="fl w-100 w-50-m w-25-l pa1">
               <select name="status" onChange={this.handleChange} value={this.state.status} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 {this.state.statuses.map((status) =>
                   <option key={status.id}>{status.status}</option>
                 )}
               </select>
             </div>
-            <div className="fl w-25 ph1">
+            <div className="fl w-100 w-50-m w-25-l pa1">
               <select name="tag" onChange={this.handleChange} value={this.state.tag} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 {this.state.tags.map((tag) =>
                   <option key={tag.id}>{tag.tag}</option>
                 )}
               </select>
             </div>
-            <div className="fl w-25 pl1">
+            <div className="fl w-100 w-50-m w-25-l pa1">
               <select name="type" onChange={this.handleChange} value={this.state.type} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 {this.state.types.map((type) =>
                   <option key={type.id}>{type.type}</option>
@@ -89,7 +89,7 @@ class Root extends Component {
               </select>
             </div>
           </div>
-          <h3>Forslag</h3>
+          <h3 className="pl1">Forslag</h3>
           <ProposalListSection
             filteredProposals = {this.state.filteredProposals}
           />
