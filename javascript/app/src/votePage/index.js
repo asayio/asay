@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Nav from '../nav/Nav.js'
-import './style.css'
+import Nav from '../nav/Nav.js';
+import './style.css';
 
 class VotePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pollid: [],
       voteresult: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +21,7 @@ class VotePage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch('/api/vote/poll/2', //make dynamic
+    fetch(`/api/proposal/${this.props.match.params.id}/vote`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -31,7 +30,7 @@ class VotePage extends Component {
         headers: {
           'Content-Type': 'application/json',
         }
-      });
+      }); // must await reponse from POST above and evalute before redirecting
     window.location.href="../../confirmed/"
   };
 
@@ -58,8 +57,8 @@ class VotePage extends Component {
       <Nav history={this.props.history}/>
         <h1>ref: subtitle</h1>
         <form id="voteForm" onSubmit={this.handleSubmit}>
-          <input name="voteresult" type="radio" onChange={this.handleChange} value="true"/>For
-          <input name="voteresult" type="radio" onChange={this.handleChange} value="false"/>Imod
+          <input name="voteresult" type="radio" onChange={this.handleChange} value="true" required/>For
+          <input name="voteresult" type="radio" onChange={this.handleChange} value="false" required />Imod
           <br/><button type="submit">Skriv under</button>
         </form>
         {this.props.voteresult === null ?
@@ -74,7 +73,7 @@ class VotePage extends Component {
             : <p>Du er ved at stemme <b>{this.state.voteresult === "true" ? "for" : "imod"} </b>.</p>
           }
           <br/><button id="closemodal">Annuller</button>
-          <button id="submitWithdrawal" type="submit" onSubmit={this.handleSubmit}>Bekræft</button>
+          <button onClick={this.handleSubmit}>Bekræft</button>
           </div>
         </div>
       </div>

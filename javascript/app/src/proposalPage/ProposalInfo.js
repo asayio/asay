@@ -30,7 +30,7 @@ class ProposalInfo extends Component {
         </p>
         <div>
           {this.props.polls.map( (poll) =>
-            <Poll key={poll.id} poll = {poll} />
+            <Poll key={poll.id} poll = {poll} proposal = {proposalInfo} />
           )}
         </div>
       </div>

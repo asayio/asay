@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './poll.css';
+import {
+  Link
+} from 'react-router-dom';
 
 // This component could use some refactoring
 // There is also an issue with handling 0
@@ -7,6 +10,7 @@ import './poll.css';
 class Poll extends Component {
 
   render() {
+    const proposalid = this.props.proposal.id
     const parliamentVotesAgainst = this.props.poll.parliamentvotesagainst || 0;
     const parliamentVotesFor = this.props.poll.parliamentvotesfor || 0;
     const platformVotesAgainst = this.props.poll.platformvotesagainst || 0;
@@ -66,6 +70,9 @@ class Poll extends Component {
             </div>
           </div>
         </div>
+      <Link to={`${proposalid}/vote`}>
+          <button>Stem</button>
+        </Link>
       </div>
     );
   }

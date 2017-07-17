@@ -14,7 +14,7 @@ function map(app) {
 
   // POST
   app.post("/api/auth", auth.loginPostHandler);
-  app.post("/api/vote/poll/:id", pollVote.postVote)
+  app.post("/api/proposal/:id/vote", pollVote.postVote)
 }
 
 // Export
