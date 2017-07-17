@@ -12,9 +12,13 @@ const RandomIcon = Icons[Math.floor(Math.random()*Icons.length)];
 class Nav extends Component {
   render () {
     return (
-      <nav className="mb4">
-        <Link to="/" className="f3 link dark-pink hover-hot-pink ttl"><RandomIcon className="svg-icon mr2" />Asay</Link>
-        {window.sessionStorage.authToken ? <Logout history={this.props.history}/> : <Login/>}
+      <nav className="w-100 mb4">
+        <div className="dib w-30">
+          <Link to="/" className="f3 link dark-pink hover-hot-pink ttl"><RandomIcon className="svg-icon mr2" />Asay</Link>
+        </div>
+        <div className="dib w-70 tr">
+          {window.sessionStorage.authToken ? <Logout history={this.props.history}/> : <Login/>}
+        </div>
       </nav>
     )
   }

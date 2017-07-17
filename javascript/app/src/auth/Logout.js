@@ -9,7 +9,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <a onClick={this.logout} className="fr pointer link dark-blue hover-blue">Log ud</a>
+      <a onClick={this.logout} className="pointer link dark-blue hover-blue">Log ud</a>
     );
   }
   logout = async() => {

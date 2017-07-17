@@ -10,7 +10,7 @@ class ProposalArticles extends Component {
           {articles.map(function (article) {
             return (
               <li key = {article.id}>
-                <a href = {article.linkurl} className="db near-black ba b--light-gray br2 mv3 h10 overflow-hidden card">
+                <a href = {article.linkurl} target="_blank" className="db near-black ba b--light-gray br2 mv3 h10 overflow-hidden card">
                   <div className="dib w-30 h10 br b--light-gray overflow-hidden">
                     <img src = {article.imgurl} alt = {article.preview} className="h-100 mw-100" />
                   </div>

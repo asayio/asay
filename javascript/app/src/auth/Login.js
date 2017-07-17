@@ -4,7 +4,7 @@ import Lock from 'auth0-lock';
 class Login extends Component {
   render() {
     return (
-      <a onClick={this.login} className="fr pointer link dark-blue hover-blue">Log ind</a>
+      <a onClick={this.login} className="pointer link dark-blue hover-blue">Log ind</a>
     );
   }
   login = async() => {

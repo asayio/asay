@@ -14,13 +14,10 @@ class ProposalInfo extends Component {
     return (
       <div>
         <h1 className="mb1">
-          {subtitle}
+          {ref}: {subtitle}
         </h1>
         <h2 className="f4 normal ttl small-caps dib mr3 silver">
           <b>Type:</b> {type},
-        </h2>
-        <h2 className="f4 normal ttl small-caps dib mr3 silver">
-          <b>Ref:</b> {ref},
         </h2>
         <h2 className="f4 normal ttl small-caps dib mr3 silver">
           <b>Session:</b> {session},
@@ -32,9 +29,9 @@ class ProposalInfo extends Component {
           {title}
         </p>
         <div>
-          {/* {this.props.polls.map( (poll) => {
+          {this.props.polls.map( (poll) => {
             return <Poll poll = {poll} />
-          })} */}
+          })}
         </div>
       </div>
     );
