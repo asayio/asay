@@ -50,13 +50,15 @@ class Root extends Component {
         function(proposal) {
           return (status ? proposal.status === status || status === all : true)
             && (session ? proposal.session === session || session === all : true)
-            && (tag ? proposal.tags === tag || tag === all : true)
+            && (tag ? proposal.tags.find(tagItem => tagItem.tag === tag) != undefined || tag === all : true)
             && (type ? proposal.type === type || type === all : true);
         }
       );
       this.setState({filteredProposals: filteredProposals});
     });
   }
+
+  
 
   render() {
     return (
