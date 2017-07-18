@@ -70,8 +70,8 @@ class Poll extends Component {
             </div>
           </div>
         </div>
-      <Link to={`${proposalid}/vote`}>
-          <button>Stem</button>
+      <Link to={`${proposalid}/vote`} target="_blank">
+          <button>Gå til stemmeboks</button>
         </Link>
       </div>
     );
