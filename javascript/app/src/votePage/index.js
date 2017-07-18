@@ -31,8 +31,11 @@ class VotePage extends Component {
         headers: {
           'Content-Type': 'application/json',
         }
-      }); // must await reponse from POST above and evalute before redirecting
-    window.location.href="../../confirmed/"
+      }).then(function() {
+        window.location.href="../../confirmed/"
+    }).catch(function() {
+      alert("Der opstod en fejl. Prøv igen senere.");
+    });
   };
 
   handleWithdraw(event) {
