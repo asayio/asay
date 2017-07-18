@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-// import Nav from '../nav/Nav.js'
-// import './style.css'
 
 class ConfirmationPage extends Component {
   render() {
+    function closeTab (event) {
+      window.close()
+    }
     return (
       <div>
-       Hurra
+        <h1>Din stemme er registreret</h1>
+        <p>Luk vinduet for at vende tilbage forslaget</p>
+        <button onClick={() => closeTab()}>Luk stemmeboks</button>
       </div>
     );
   }
