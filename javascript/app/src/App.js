@@ -20,7 +20,7 @@ class App extends Component {
           <Route exact path="/" component={ProposalList}/>
           <Route exact path="/proposal/:id" component={ProposalPage}/>
           <Route exact path="/proposal/:id/vote" component={VotePage}/>
-          <Route exact path="/confirmation" component={ConfirmationPage}/>
+          <Route exact path="/confirmed" component={ConfirmationPage}/>
         </div>
       </Router>
     );
