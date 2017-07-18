@@ -22,11 +22,12 @@ class VotePage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const voteresult = this.state.voteresult
     fetch(`/api/proposal/${this.props.match.params.id}/vote`,
       {
         method: 'POST',
         body: JSON.stringify({
-          voteresult: this.state.voteresult,
+          voteresult: voteresult,
         }),
         headers: {
           'Content-Type': 'application/json',
