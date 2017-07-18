@@ -12,9 +12,15 @@ class ProposalInfo extends Component {
         <h2 className="f4 normal ttl small-caps dib mr3 silver"><b>Session:</b> {proposal.session},</h2>
         <h2 className="f4 normal ttl small-caps dib mr3 silver"><b>Status:</b> {proposal.status}</h2>
         <p className="dark-gray mt2 mb4">{proposal.title}</p>
+        <h3>Relevante dokumenter</h3>
+        <p>{this.props.attachments.map( (attachment) =>
+          <a key={attachment.id} href={attachment.url}>{attachment.title}</a>
+        )}</p>
+        <br/><h3>Afstemninger</h3>
         {this.props.polls.map( (poll) =>
           <Poll key={poll.status} poll = {poll} proposal = {proposal} />
         )}
+
       </div>
     );
   }

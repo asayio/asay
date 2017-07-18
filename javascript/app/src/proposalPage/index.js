@@ -31,7 +31,11 @@ class ProposalPage extends Component {
             <span className="lh-copy">Tilbage til listen</span>
           </a>
           <div className="pt3 pb4 ph4 bg-white ba b--light-gray br2 shadow-6">
-            <ProposalInfo proposalInfo = {proposalData.proposalInfo} polls = {proposalData.polls} />
+            <ProposalInfo
+              proposalInfo = {proposalData.proposalInfo}
+              polls = {proposalData.polls}
+              attachments = {proposalData.attachments}
+            />
             <ProposalArticles articles = {proposalData.articles} />
           </div>
           <a href = '../' className="dib link dark-blue hover-blue v-btm mt3">
