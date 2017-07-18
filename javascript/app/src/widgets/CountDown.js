@@ -31,7 +31,7 @@ class CountDown extends Component {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var counter = 'Expired';
     if (distance > 0) {
-      counter = days + ':' + hours + ':' + minutes;
+      counter = days < 1 ? ( hours < 1 ? minutes + ' minutter' : hours + ' timer') : days + ' dage'
     }
     return (
       <span>
