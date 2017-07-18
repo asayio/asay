@@ -1,6 +1,13 @@
 select
-  id
+  poll.id
   ,poll.due
+  ,status
+  ,case when (
+    select count(*)
+    from poll as temp
+    where temp.proposal_id = poll.proposal_id
+    and temp.due > poll.due
+  ) < 1 then true else false end as current
   ,(
     select cast(count(*) as int)
     from pollvote where pollvote.poll_id = poll.id
@@ -28,4 +35,5 @@ select
     and pollvote.poll_id = poll.id
   ) as userVote
 from poll
+left join status on status.id = status_id
 where proposal_id = $/proposal/

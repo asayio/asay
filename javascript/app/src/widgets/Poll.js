@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CountDown from '../widgets/CountDown';
 import './poll.css';
 import {
   Link
@@ -11,10 +12,13 @@ class Poll extends Component {
 
   render() {
     const proposalid = this.props.proposal.id
-    const parliamentVotesAgainst = this.props.poll.parliamentvotesagainst || 0;
-    const parliamentVotesFor = this.props.poll.parliamentvotesfor || 0;
-    const platformVotesAgainst = this.props.poll.platformvotesagainst || 0;
-    const platformVotesFor = this.props.poll.platformvotesfor || 0;
+    const poll = this.props.poll
+
+    // Graphs
+    const parliamentVotesAgainst = poll.parliamentvotesagainst || 0;
+    const parliamentVotesFor = poll.parliamentvotesfor || 0;
+    const platformVotesAgainst = poll.platformvotesagainst || 0;
+    const platformVotesFor = poll.platformvotesfor || 0;
     const totalValueParliament = parliamentVotesAgainst + parliamentVotesFor;
     const totalValuePlatform = platformVotesAgainst + platformVotesFor;
     const relativeAgainstParliament = Math.floor(parliamentVotesAgainst / totalValueParliament * 100) || 0;
@@ -26,53 +30,54 @@ class Poll extends Component {
     const barHeightPlatformAgainst = {height: relativeAgainstPlatform + '%'}
     const barHeightPlatformFor = {height: relativeForPlatform + '%'}
 
+    // Styling
+    const currentPollClass = "pt2 pb3 ph3 ba b--light-gray br2 mv3 lh-solid ma1"
+    const pastPollClass = "pt2 pb3 ph3 ba b--red br2 mv3 lh-solid ma1"
+
     return (
-      <div className = 'poll'>
-        <div className = 'section'>
-          <h4>
-            Parliament
-          </h4>
-          <div className = 'bars'>
-            <div className = 'bar-container'>
-              <div style = {barHeightParliamentAgainst}></div>
-            </div>
-            <div className = 'bar-container'>
-              <div style = {barHeightParliamentFor}></div>
-            </div>
-          </div>
-          <div className = 'label'>
-            <div>
-              {relativeAgainstParliament} against
-            </div>
-            <div>
-              {relativeForParliament} for
-            </div>
-          </div>
-        </div>
-        <div className = 'section'>
-          <h4>
-            Users
-          </h4>
-          <div className = 'bars'>
-            <div className = 'bar-container'>
-              <div style = {barHeightPlatformAgainst}></div>
-            </div>
-            <div className = 'bar-container'>
-              <div style = {barHeightPlatformFor}></div>
+      <div className={poll.current === false ? pastPollClass : currentPollClass }>
+        <h2>{poll.status}</h2>
+        <h4>Antal stemmer: {totalValuePlatform}</h4>
+        {poll.current === true ?
+        <div>
+          <CountDown dueDate = {poll.due} />
+          <Link to={`${proposalid}/vote`} target="_blank">
+            <button>Gå til stemmeboks</button>
+          </Link>
+        </div> :
+        <div className="poll">
+          <p><i>Afstemning er afsluttet.</i></p>
+          <div className = 'section'>
+            <h4>Parliament</h4>
+            <div className = 'bars'>
+              <div className = 'bar-container'>
+                <div style = {barHeightParliamentAgainst}></div>
+              </div>
+              <div className = 'bar-container'>
+                <div style = {barHeightParliamentFor}></div>
+              </div>
+              <div className = 'label'>
+                <div>{relativeAgainstParliament} against</div>
+                <div>{relativeForParliament} for</div>
+              </div>
             </div>
           </div>
-          <div className = 'label'>
-            <div>
-              {relativeAgainstPlatform} against
+          <div className = 'section'>
+            <h4>Users</h4>
+            <div className = 'bars'>
+              <div className = 'bar-container'>
+                <div style = {barHeightPlatformAgainst}></div>
+              </div>
+              <div className = 'bar-container'>
+                <div style = {barHeightPlatformFor}></div>
+              </div>
             </div>
-            <div>
-              {relativeForPlatform} for
+            <div className = 'label'>
+              <div>{relativeAgainstPlatform} against</div>
+              <div>{relativeForPlatform} for</div>
             </div>
           </div>
-        </div>
-      <Link to={`${proposalid}/vote`} target="_blank">
-          <button>Gå til stemmeboks</button>
-        </Link>
+        </div>}
       </div>
     );
   }
