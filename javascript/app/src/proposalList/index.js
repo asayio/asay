@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalList.js';
+import FilterList from './FilterList.js';
 import Nav from '../nav/Nav.js'
 
 class Root extends Component {
@@ -34,6 +35,10 @@ class Root extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+
+    //This needs to be in some sort of a constants file
+    const all = 'Alle';
+
     this.setState({
       [name]: value
     }, () => {
@@ -43,10 +48,10 @@ class Root extends Component {
       const type = this.state.type;
       const filteredProposals = this.state.proposals.filter(
         function(proposal) {
-          return (status ? proposal.status === status : true)
-            && (session ? proposal.session === session : true)
-            && (tag ? proposal.tags === tag : true)
-            && (type ? proposal.type === type : true);
+          return (status ? proposal.status === status || status === all : true)
+            && (session ? proposal.session === session || session === all : true)
+            && (tag ? proposal.tags === tag || tag === all : true)
+            && (type ? proposal.type === type || type === all : true);
         }
       );
       this.setState({filteredProposals: filteredProposals});
@@ -62,6 +67,7 @@ class Root extends Component {
           <div className="mb4 cf">
             <div className="fl w-25 pa1">
               <select name="session" onChange={this.handleChange} value={this.state.session} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                <option>Alle</option>
                 {this.state.sessions.map((session) =>
                   <option key={session.id}>{session.session}</option>
                 )}
@@ -69,6 +75,7 @@ class Root extends Component {
             </div>
             <div className="fl w-25 pa1">
               <select name="status" onChange={this.handleChange} value={this.state.status} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                <option>Alle</option>
                 {this.state.statuses.map((status) =>
                   <option key={status.id}>{status.status}</option>
                 )}
@@ -76,6 +83,7 @@ class Root extends Component {
             </div>
             <div className="fl w-25 pa1">
               <select name="tag" onChange={this.handleChange} value={this.state.tag} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                <option>Alle</option>
                 {this.state.tags.map((tag) =>
                   <option key={tag.id}>{tag.tag}</option>
                 )}
@@ -83,6 +91,7 @@ class Root extends Component {
             </div>
             <div className="fl w-25 pa1">
               <select name="type" onChange={this.handleChange} value={this.state.type} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                <option>Alle</option>
                 {this.state.types.map((type) =>
                   <option key={type.id}>{type.type}</option>
                 )}
