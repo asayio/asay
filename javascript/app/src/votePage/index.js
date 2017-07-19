@@ -43,6 +43,10 @@ class VotePage extends Component {
         }
       }).then(function() {
         window.location.href="../../confirmed/"
+        window.onunload = refreshParent;
+        function refreshParent() {
+            window.opener.location.reload();
+        }
     }).catch(function() {
       alert("Der opstod en fejl. Prøv igen senere.");
     });
