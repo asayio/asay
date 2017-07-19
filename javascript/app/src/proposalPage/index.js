@@ -36,7 +36,7 @@ class ProposalPage extends Component {
               polls = {proposalData.polls}
               attachments = {proposalData.attachments}
             />
-            <ProposalArticles articles = {proposalData.articles} />
+            <ProposalArticles articles = {proposalData.articles} proposalInfo = {proposalData.proposalInfo} />
           </div>
           <a href = '../' className="dib link dark-blue hover-blue v-btm mt3">
             <ArrowLeft className="svg-icon mr1" />

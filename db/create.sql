@@ -4,13 +4,14 @@
 -- tables
 -- Table: article
 CREATE TABLE article (
-    id serial  NOT NULL,
-    publisher text  NOT NULL,
-    title text  NOT NULL,
-    preview text  NOT NULL,
-    imgURL text  NOT NULL,
+    id serial  NULL,
+    publisher text  NULL,
+    title text  NULL,
+    preview text  NULL,
+    imgURL text  NULL,
     linkURL text  NOT NULL,
     proposal_id int  NOT NULL,
+    approved boolean NULL,
     CONSTRAINT article_constraint UNIQUE (linkURL, proposal_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT article_pk PRIMARY KEY (id)
 );

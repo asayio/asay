@@ -20,3 +20,4 @@ select
   ) as userVote
 from article
 where proposal_id = $/proposal/
+order by score desc
