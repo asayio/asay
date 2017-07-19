@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import CountDown from '../widgets/CountDown';
 import './poll.css';
-import {
-  Link
-} from 'react-router-dom';
 
 // This component could use some refactoring
 // There is also an issue with handling 0
@@ -11,7 +7,6 @@ import {
 class Poll extends Component {
 
   render() {
-    const proposalid = this.props.proposal.id
     const poll = this.props.poll
 
     // Graphs
@@ -30,23 +25,8 @@ class Poll extends Component {
     const barHeightPlatformAgainst = {height: relativeAgainstPlatform + '%'}
     const barHeightPlatformFor = {height: relativeForPlatform + '%'}
 
-    // Styling
-    const currentPollClass = "pt2 pb3 ph3 ba b--light-gray br2 mv3 lh-solid ma1"
-    const pastPollClass = "pt2 pb3 ph3 ba b--red br2 mv3 lh-solid ma1"
-
     return (
-      <div className={poll.current === false ? pastPollClass : currentPollClass }>
-        <h2>{poll.status}</h2>
-        <h4>Antal stemmer: {totalValuePlatform}</h4>
-        {poll.current === true ?
-        <div>
-          <CountDown dueDate = {poll.due} />
-          <Link to={`${proposalid}/vote`} target="_blank">
-            <button>Gå til stemmeboks</button>
-          </Link>
-        </div> :
         <div className="poll">
-          <p><i>Afstemning er afsluttet.</i></p>
           <div className = 'section'>
             <h4>Parliament</h4>
             <div className = 'bars'>
@@ -77,8 +57,7 @@ class Poll extends Component {
               <div>{relativeForPlatform} for</div>
             </div>
           </div>
-        </div>}
-      </div>
+        </div>
     );
   }
 }

@@ -29,7 +29,7 @@ class CountDown extends Component {
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var counter = 'Udløbet';
+    var counter = 'Afsluttet';
     if (distance > 0) {
       counter = days < 1 ? ( hours < 1 ? minutes + ' minutter' : hours + ' timer') : days + ' dage'
     }

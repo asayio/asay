@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Poll from '../widgets/Poll';
+import Poll from '../widgets/poll/Poll';
 
 class ProposalInfo extends Component {
 

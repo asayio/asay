@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalList.js';
-import FilterList from './FilterList.js';
+// import FilterList from './FilterList.js';
 import Nav from '../nav/Nav.js'
 
 class Root extends Component {
@@ -50,7 +50,7 @@ class Root extends Component {
         function(proposal) {
           return (status ? proposal.status === status || status === all : true)
             && (session ? proposal.session === session || session === all : true)
-            && (tag ? proposal.tags.find(tagItem => tagItem.tag === tag) != undefined || tag === all : true)
+            && (tag ? proposal.tags.find(tagItem => tagItem.tag === tag) !== undefined || tag === all : true)
             && (type ? proposal.type === type || type === all : true);
         }
       );
@@ -58,7 +58,7 @@ class Root extends Component {
     });
   }
 
-  
+
 
   render() {
     return (
