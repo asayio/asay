@@ -19,7 +19,7 @@ class Poll extends Component {
           <CountDown dueDate = {poll.due} />
         </div>
         <h4>Deltagelse: {poll.platformvotesfor + poll.platformvotesagainst} stemmer</h4>
-        {poll.uservote ? <p>Du har stemt {poll.uservote === true ? "for" : "imod"}</p> : <nothing/>}
+        {poll.uservote === null ? <nothing/> : <p>Du har stemt {poll.uservote === true ? "for" : "imod"}</p>}
         <div className="poll">
           {poll.current === true ?
             <PollCurrent poll = {poll} proposal = {proposal}/>

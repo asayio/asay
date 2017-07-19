@@ -9,9 +9,9 @@ class PollCurrent extends Component {
     const poll = this.props.poll
     return (
       <div>
-        {poll.uservote ?
-          <VotingBoothBtn vote="Ændre stemme" proposalid={proposalid}/>
-          :<VotingBoothBtn vote="Stem" proposalid={proposalid}/>
+        {poll.uservote = null ?
+          <VotingBoothBtn vote="Stem" proposalid={proposalid}/>
+          :<VotingBoothBtn vote="Ændre stemme" proposalid={proposalid}/>
         }
       </div>
     );
