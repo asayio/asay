@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CommentSection from 'react-disqus-thread';
-import Nav from '../nav/Nav'
+import CommentSection from 'react-disqus-comments';
+import Nav from '../nav/Nav';
 import ProposalInfo from './ProposalInfo';
 import ProposalArticles from './ProposalArticles';
 import { ArrowLeft } from 'react-feather';
@@ -44,7 +44,9 @@ class ProposalPage extends Component {
             <span className="lh-copy">Tilbage til listen</span>
           </a>
           <CommentSection
-            shortname="asay"/>
+            shortname = "asay"
+    				identifier = {this.props.match.params.id}
+    				title = {proposalData.proposalInfo.title} />
         </div>
       );
     } else {
