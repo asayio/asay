@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../votePage/style.css';
+import UpDownVote from '../widgets/UpDownVote'
 
 //handleChange, handleSubmit, modal and css are also defined in pollVote. Consider refactoring
 class ProposalArticles extends Component {
@@ -48,16 +49,15 @@ class ProposalArticles extends Component {
 
   render() {
     const articles = this.props.articles;
+    console.log(articles);
     return (
       <div>
         <ul className="list pl0">
           {articles.map(function (article) {
             return (
               <li key = {article.id}>
+              <UpDownVote type="article" score={article.score} id={article.id} uservote={article.uservote} />
                 <a href = {article.linkurl} target="_blank" className="db near-black ba b--light-gray br2 mv3 h10 overflow-hidden card">
-                  <div>
-                    {article.score}
-                  </div>
                   <div className="dib w-30 h10 br b--light-gray overflow-hidden">
                     <img src = {article.imgurl} alt = {article.preview} className="h-100 mw-100" />
                   </div>

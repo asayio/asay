@@ -1,10 +1,11 @@
 // Variables
-const lists = require('./src/lists/lists.js');
-const auth = require('./src/auth/auth.js');
-const proposals = require('./src/proposals/proposals.js')
-const proposal = require('./src/proposal/proposal.js')
-const pollVote = require('./src/poll/vote/pollVote.js')
-const article = require('./src/article/article.js');
+const lists = require('./src/lists/lists');
+const auth = require('./src/auth/auth');
+const proposals = require('./src/proposals/proposals')
+const proposal = require('./src/proposal/proposal')
+const pollVote = require('./src/poll/vote/pollVote')
+const article = require('./src/article/article');
+const articleVote = require('./src/article/vote/articleVote')
 
 // Routes
 function map(app) {
@@ -15,8 +16,9 @@ function map(app) {
 
   // POST
   app.post("/api/auth", auth.loginPostHandler);
-  app.post("/api/proposal/:id/vote", pollVote.postVote)
-  app.post("/api/article/:id", article.postArticle)
+  app.post("/api/proposal/:id/vote", pollVote.postVote);
+  app.post("/api/article/:id", article.postArticle);
+  app.post("/api/article/:id/vote", articleVote.postVote);
 }
 
 // Export

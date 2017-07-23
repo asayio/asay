@@ -40,6 +40,7 @@ class VotePage extends Component {
         }),
         headers: {
           'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer ' + window.sessionStorage.authToken
         }
       }).then(function() {
         window.location.href="../../confirmed/"
