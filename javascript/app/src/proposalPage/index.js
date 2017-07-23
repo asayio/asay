@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Nav from '../nav/Nav.js'
+import CommentSection from 'react-disqus-thread';
+import Nav from '../nav/Nav'
 import ProposalInfo from './ProposalInfo';
 import ProposalArticles from './ProposalArticles';
 import { ArrowLeft } from 'react-feather';
@@ -42,6 +43,8 @@ class ProposalPage extends Component {
             <ArrowLeft className="svg-icon mr1" />
             <span className="lh-copy">Tilbage til listen</span>
           </a>
+          <CommentSection
+            shortname="asay"/>
         </div>
       );
     } else {
