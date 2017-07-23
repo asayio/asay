@@ -5,14 +5,6 @@ import {
 } from 'react-router-dom';
 
 class ProposalListSection extends Component {
-  constructor() {
-    super();
-    this.state = {
-      proposals:[],
-      filteredProposals: [],
-    };
-  };
-
   render() {
     console.log(this.props.filteredProposals);
     return (
