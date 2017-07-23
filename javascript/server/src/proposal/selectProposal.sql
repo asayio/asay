@@ -3,9 +3,9 @@ select
   ,ref
   ,title
   ,subtitle
-  ,session
-  ,type
-  ,status
+  ,session.label as session
+  ,type.label as type
+  ,status.label as status
 from proposal
 left join type on type.id = type_id
 left join session on session.id = session_id

@@ -1,4 +1,4 @@
 select
   id
-  ,type
+  ,label
 from type

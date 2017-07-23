@@ -1,4 +1,4 @@
 select
   id
-  ,session
+  ,label
 from session

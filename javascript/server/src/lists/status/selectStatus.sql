@@ -1,4 +1,4 @@
 select
   id
-  ,status
+  ,label
 from status

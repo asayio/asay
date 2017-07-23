@@ -1,4 +1,4 @@
 select
   id
-  ,tag
+  ,label
 from tag

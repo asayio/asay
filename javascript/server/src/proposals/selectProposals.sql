@@ -11,9 +11,9 @@ select
   ,ref
   ,title
   ,subtitle
-  ,session
-  ,type
-  ,status
+  ,session.label as session
+  ,type.label as type
+  ,status.label as status
   ,(
   select max (due)
   from poll
