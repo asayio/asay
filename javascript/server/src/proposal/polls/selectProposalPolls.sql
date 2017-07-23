@@ -1,7 +1,7 @@
 select
   poll.id
   ,poll.due
-  ,status
+  ,status.label as status
   ,case when (
     select count(*)
     from poll as temp
