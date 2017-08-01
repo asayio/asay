@@ -28,6 +28,7 @@
     "express": "^4.15.3",
     "fs-extra": "^3.0.1",
     "jsonwebtoken": "^7.4.1",
+    "open-graph-scraper": "^2.5.4",
     "pg-promise": "^6.3.5"
   }
 }
