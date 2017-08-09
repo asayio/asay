@@ -7,7 +7,7 @@ export default function postVote (type, id, voteresult) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        'Authorization': 'Bearer ' + window.sessionStorage.authToken
       }
     }
   );

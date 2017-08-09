@@ -6,7 +6,6 @@ import {
 
 class ProposalListSection extends Component {
   render() {
-    console.log(this.props.filteredProposals);
     return (
       <div>
       {this.props.filteredProposals.map((proposal, index) =>

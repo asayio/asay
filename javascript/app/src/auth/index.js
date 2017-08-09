@@ -29,7 +29,6 @@ class LoginValidator extends Component {
     this.props.history.replace({
       pathname: './'
     })
-    // generalise post help-function
   }
 
   render() {

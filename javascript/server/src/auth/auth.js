@@ -6,6 +6,11 @@ const db = require('../../db.js')
 const selectUser = db.sql('./src/auth/selectUser.sql')
 
 // Functions
+function getToken (request) {
+  authToken = request.headers.authorization.split(' ')[1];
+  return authToken
+}
+
 async function lookupUser (authToken) {
   const clientSecret = process.env.AUTH0SECRET;
   const clientId = process.env.AUTH0CLIENTID;
@@ -28,5 +33,7 @@ async function loginPostHandler (request, response) {
 
 // Export
 module.exports = {
-  loginPostHandler
+  loginPostHandler,
+  lookupUser,
+  getToken
 }

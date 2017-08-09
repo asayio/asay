@@ -1,5 +1,6 @@
 // Import
-const db = require('../../../db.js')
+const db = require('../../../db.js');
+const auth = require('../../auth/auth.js');
 
 // Queries
 const selectVote = db.sql('./src/article/vote/selectArticleVote.sql')
@@ -18,24 +19,30 @@ async function voteChecker (user, article) {
 
 async function postVote (request, response) {
   // Variables
+  const authToken = await auth.getToken(request);
+  const user = await auth.lookupUser(authToken);
+  const userId = user.id
   const article = request.params.id
-  const user = 1 // collect through auth ...
   const voteresult = request.body.voteresult
-
   // Functions
-  const hasVoted = await voteChecker(user, article)
-  const vote = hasVoted ? await db.cx.query(updateVote,
-    {
-      user: user,
-      article: article,
-      result: voteresult,
-    }) : db.cx.query(insertVote,
-    {
-      user: user,
-      article: article,
-      result: voteresult,
-    });
-  response.sendStatus(200)
+  if (userId) {
+    const hasVoted = await voteChecker(userId, article)
+    const vote = hasVoted ? await db.cx.query(updateVote,
+      {
+        user: userId,
+        article: article,
+        result: voteresult,
+      }) : db.cx.query(insertVote,
+      {
+        user: userId,
+        article: article,
+        result: voteresult,
+      });
+    response.sendStatus(200)
+  } else {
+    response.sendStatus(401)
+  }
+
 }
 
 // Export
