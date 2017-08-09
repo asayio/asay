@@ -14,12 +14,12 @@ function getToken (request) {
 async function lookupUser (authToken) {
   const clientSecret = process.env.AUTH0SECRET;
   const clientId = process.env.AUTH0CLIENTID;
+
   try {
     const tokenInfo = jwt.verify(authToken, clientSecret, {
       audience: clientId
     })
-  }
-  catch(err) {
+  } catch(err) {
     return null
   };
 

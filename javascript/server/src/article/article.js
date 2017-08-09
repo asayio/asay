@@ -12,10 +12,8 @@ async function postArticle (request, response) {
     'timeout': 10000,
     'url': articleUrl
   };
-  console.log(request.params.id);
 
   ogs(options, function (error, result) {
-    console.log(result);
     db.cx.query(insertArticle,
       {
         publisher: result.data.ogSiteName,
@@ -28,9 +26,6 @@ async function postArticle (request, response) {
       });
     response.sendStatus(200)
   });
-
-
-
 }
 
 module.exports = {
