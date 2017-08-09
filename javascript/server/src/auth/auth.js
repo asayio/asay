@@ -16,7 +16,7 @@ async function lookupUser (authToken) {
   const clientId = process.env.AUTH0CLIENTID;
 
   try {
-    const tokenInfo = jwt.verify(authToken, clientSecret, {
+    var tokenInfo = jwt.verify(authToken, clientSecret, {
       audience: clientId
     })
   } catch(err) {
