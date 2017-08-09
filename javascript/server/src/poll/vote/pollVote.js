@@ -18,14 +18,12 @@ async function voteChecker (userId, proposalid) {
 }
 
 async function postVote (request, response) {
-  // Variables
   const authToken = await auth.getToken(request);
   const user = await auth.lookupUser(authToken);
-  const userId = user.id
-  const voteResult = request.body.voteresult
-  const proposalId = request.params.id
-  if (userId) {
-    // Functions
+  if (user) {
+    const userId = user.id
+    const voteResult = request.body.voteresult
+    const proposalId = request.params.id
     const hasVoted = await voteChecker(userId, proposalId)
     const vote = hasVoted ? await db.cx.query(updateVote,
       {
