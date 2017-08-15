@@ -1,27 +1,14 @@
 // Import
 const db = require('../../db.js');
-const getTags = require('../proposal/tags/proposalTags.js').getTags
-
-// Queries
-const selectProposals = db.sql('./src/proposals/selectProposals.sql');
+const fetch = require('node-fetch');
 
 // Functions
 async function getProposals (request, response) {
-  var list = []
-  var proposalsSansTags = db.cx.query(selectProposals).then( async function(proposalsSansTags) {
-    var length = proposalsSansTags.length;
-    var counter = 1;
-    const proposalsWithTags = proposalsSansTags.map( async (proposal) => {
-      proposal.tags = await getTags(proposal.id);
-      list.push(proposal);
-      if (counter < length){
-        counter = counter +1;
-      } else {
-        response.send(list);
-      }
-      return proposal;
-    });
+  const url = 'http://oda.ft.dk/api/Sag?$inlinecount=allpages&$filter=typeid%20eq%203';
+  const proposals = await fetch(url).then(function (response) {
+    return response.json();
   });
+  response.send(proposals);
 }
 
 // Export

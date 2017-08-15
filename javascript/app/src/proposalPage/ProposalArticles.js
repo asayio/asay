@@ -49,7 +49,6 @@ class ProposalArticles extends Component {
 
   render() {
     const articles = this.props.articles;
-    console.log(articles);
     return (
       <div>
         <ul className="list pl0">
