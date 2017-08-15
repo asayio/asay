@@ -16,11 +16,9 @@ class Root extends Component {
     const listResponse = await fetch('/api/lists');
     const filters = await listResponse.json();
     this.setState({filters});
-
     const proposalResponse = await fetch('/api/proposals');
     const proposals = await proposalResponse.json();
-    const filteredProposals = proposals
-    this.setState({proposals, filteredProposals});
+    this.setState({proposals});
   };
 
   handleChange(event) {
@@ -48,29 +46,37 @@ class Root extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Nav history={this.props.history}/>
-        <div className="pa4 bg-white ba b--light-gray br2 shadow-6">
-          <div className="mb4 cf">
-          {this.state.filters.map((filter, index) =>
-            <div className="fl w-25 pa1" key={index}>
-              <h5 className="mb3 pl1">{filter.name.toUpperCase()}</h5>
-              <select name={filter.name} onChange={this.handleChange} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                <option>Alle</option>
-                {filter.options.map((option) =>
-                  <option key={option.id}>{option.label}</option>
-                )}
-              </select>
+    if (this.state.proposals.value) {
+      return (
+        <div>
+          <Nav history={this.props.history}/>
+          <div className="pa4 bg-white ba b--light-gray br2 shadow-6">
+            <div className="mb4 cf">
+            {this.state.filters.map((filter, index) =>
+              <div className="fl w-25 pa1" key={index}>
+                <h5 className="mb3 pl1">{filter.name.toUpperCase()}</h5>
+                <select name={filter.name} onChange={this.handleChange} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                  <option>Alle</option>
+                  {filter.options.map((option) =>
+                    <option key={option.id}>{option.label}</option>
+                  )}
+                </select>
+              </div>
+            )}
             </div>
-          )}
+            <ProposalListSection
+              proposals = {this.state.proposals.value}
+            />
           </div>
-          <ProposalListSection
-            filteredProposals = {this.state.filteredProposals}
-          />
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          loading!
+        </div>
+      )
+    }
   }
 }
 
