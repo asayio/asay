@@ -6,7 +6,7 @@ class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      proposals: [],  filteredProposals: [], filters: [],
+      proposals: {proposals: [], periods: [], status: []},  filteredProposals: [], filters: [],
       session: '',    status: '',   tag: '',    type: '',
     };
   this.handleChange = this.handleChange.bind(this);
@@ -46,7 +46,8 @@ class Root extends Component {
   }
 
   render() {
-    if (this.state.proposals.value) {
+    var proposals = this.state.proposals.value;
+    if (proposals) {
       return (
         <div>
           <Nav history={this.props.history}/>
@@ -65,7 +66,7 @@ class Root extends Component {
             )}
             </div>
             <ProposalListSection
-              proposals = {this.state.proposals.value}
+              proposals = {proposals}
             />
           </div>
         </div>

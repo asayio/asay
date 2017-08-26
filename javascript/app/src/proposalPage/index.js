@@ -22,8 +22,10 @@ class ProposalPage extends Component {
 
   render() {
     const proposalData = this.state.proposalData;
-    if (Object.keys(proposalData).length !== 0)
+    const proposalInfo = proposalData.proposalInfo;
+    if (proposalInfo)
     {
+      const proposalValue = proposalInfo.value[0]; // we filter on an ID so there should really only be one element in this array
       return (
         <div>
           <Nav history={this.props.history}/>
@@ -33,7 +35,7 @@ class ProposalPage extends Component {
           </a>
           <div className="pt3 pb4 ph4 bg-white ba b--light-gray br2 shadow-6">
             <ProposalInfo
-              proposalInfo = {proposalData.proposalInfo}
+              proposalInfo = {proposalValue}
               polls = {proposalData.polls}
               attachments = {proposalData.attachments}
             />
@@ -46,7 +48,7 @@ class ProposalPage extends Component {
           <CommentSection
             shortname = "asay"
     				identifier = {this.props.match.params.id}
-    				title = {proposalData.proposalInfo.title} />
+    				title = {proposalValue.titel} />
         </div>
       );
     } else {

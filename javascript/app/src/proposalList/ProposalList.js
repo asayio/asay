@@ -6,19 +6,19 @@ import {
 
 class ProposalListSection extends Component {
   render() {
-    console.log(this.props.proposals);
+    var proposals = this.props.proposals;
+    console.log(proposals);
     return (
       <div>
-      {this.props.proposals.map(function (proposal, index) {
-        console.log(proposal);
+      {proposals.map(function (proposal, index) {
         return (
           <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link near-black">
             <div className="pt2 pb3 ph3 ba b--light-gray br2 mv3 lh-solid card ma1">
               <h2 className="f3">{proposal.nummer}: {proposal.titelkort}</h2>
               <h3 className="f5 normal small-caps ttl silver mb4">
-                <b>Session: </b>{proposal.session}
-                <b> Status: </b> {proposal.status}
-                <b> Deadline: </b><CountDown dueDate = {proposal.duedate} /><br/>
+                <b>Session: </b>{proposal.Periode.startdato} - {proposal.Periode.slutdato}
+                <b> Status: </b> {proposal.Sagsstatus.status}
+                <b> Deadline: </b><CountDown dueDate = {proposal.afgørelsesdato} /><br/>
               </h3>
               <p className="dark-gray">{proposal.title}</p>
             </div>

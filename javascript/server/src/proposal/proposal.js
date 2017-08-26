@@ -4,21 +4,18 @@ const getArticles = require('./articles/proposalArticles.js').getArticles
 const getAttachments = require('./attachments/proposalAttachments.js').getAttachments
 const getPolls = require('./polls/proposalPolls.js').getPolls
 const getTags = require('./tags/proposalTags.js').getTags
+const fetch = require('node-fetch');
 
 // Queries
 const selectProposal = db.sql('./src/proposal/selectProposal.sql')
 
 // Functions
-async function getProposal (proposalId) {
-  const proposal = await db.cx.query(selectProposal,
-    {
-      proposal: proposalId,
-    });
-  if (proposal.length > 1) {
-    throw 'more than one proposal found at context: ' + proposal;
-  } else {
-    return proposal[0]
-  }
+async function getProposal (proposalId, response) {
+  const proposalUrl = 'http://oda.ft.dk/api/Sag?$filter=id%20eq%20' + proposalId;
+  const proposal = await fetch(proposalUrl).then(function (response) {
+    return response.json();
+  });
+  return proposal;
 }
 
 async function getProposalBundle (request, response) {

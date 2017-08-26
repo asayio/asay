@@ -4,8 +4,8 @@ const fetch = require('node-fetch');
 
 // Functions
 async function getProposals (request, response) {
-  const url = 'http://oda.ft.dk/api/Sag?$inlinecount=allpages&$filter=typeid%20eq%203';
-  const proposals = await fetch(url).then(function (response) {
+  const proposalsUrl = 'http://oda.ft.dk/api/Sag?$filter=typeid%20eq%203&$orderby=id%20desc&$expand=Sagsstatus,Periode';
+  const proposals = await fetch(proposalsUrl).then(function (response) {
     return response.json();
   });
   response.send(proposals);
