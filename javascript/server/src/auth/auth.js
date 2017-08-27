@@ -31,10 +31,10 @@ async function lookupUser (authToken) {
 }
 
 async function loginPostHandler (request, response) {
-  const authToken = request.body.authToken;
+  const authToken = request.params.authToken;
   const userRow = await lookupUser(authToken);
-  const status = userRow ? 200 : 401;
-  response.sendStatus(status)
+  const userStatus = userRow ? userRow : 401;
+  response.send(userStatus)
 }
 
 // Export

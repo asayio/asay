@@ -13,9 +13,9 @@ function map(app) {
   app.get("/api/lists", lists.getLists);
   app.get("/api/proposals", proposals.getProposals);
   app.get("/api/proposal/:id", proposal.getProposalBundle);
+  app.get("/api/auth/:authToken", auth.loginPostHandler);
 
   // POST
-  app.post("/api/auth", auth.loginPostHandler);
   app.post("/api/proposal/:id/vote", pollVote.postVote);
   app.post("/api/article/:id", article.postArticle);
   app.post("/api/article/:id/vote", articleVote.postVote);
