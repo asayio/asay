@@ -4,14 +4,33 @@ const fetch = require('node-fetch');
 
 // Functions
 async function getProposals (request, response) {
-  const proposalsUrl = 'http://oda.ft.dk/api/Sag?$filter=typeid%20eq%203&$orderby=id%20desc&$expand=Sagsstatus,Periode';
+  const searchCriteria = request.params.searchCriteria;
+  const proposalsUrl = 'http://oda.ft.dk/api/' + searchCriteria;
   const proposals = await fetch(proposalsUrl).then(function (response) {
     return response.json();
   });
   response.send(proposals);
 }
 
+async function getOpenDataCaseType (request, response) {
+  const infoUrl = 'http://oda.ft.dk/api/Sagstype';
+  const openDataCaseType = await fetch(infoUrl).then(function (response) {
+    return response.json();
+  });
+  response.send(openDataCaseType);
+}
+
+async function getOpenDataPeriod (request, response) {
+  const infoUrl = 'http://oda.ft.dk/api/Periode';
+  const openDataPeriod = await fetch(infoUrl).then(function (response) {
+    return response.json();
+  });
+  response.send(openDataPeriod);
+}
+
 // Export
 module.exports = {
-  getProposals
+  getProposals: getProposals,
+  getOpenDataCaseType: getOpenDataCaseType,
+  getOpenDataPeriod: getOpenDataPeriod
 }
