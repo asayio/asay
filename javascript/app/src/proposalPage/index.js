@@ -18,7 +18,7 @@ class ProposalPage extends Component {
   }
 
   async componentDidMount() {
-    const propsalUrl = encodeURIComponent('Sag?$filter=id%20eq%20' + this.props.match.params.id);
+    const propsalUrl = encodeURIComponent('Sag?$filter=id%20eq%20' + this.props.match.params.id + '&$expand=Sagsstatus,Periode,Sagstype');
     const response = await fetch(`/api/openDataFetcher/fetchAllPages/${propsalUrl}`);
     const proposalData = await response.json();
     this.setState({proposalData});
