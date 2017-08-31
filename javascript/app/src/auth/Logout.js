@@ -17,10 +17,9 @@ class Logout extends Component {
     );
   }
   logout = async() => {
-    window.sessionStorage.removeItem('authToken')
-    this.props.history.replace({
-      pathname: './'
-    })
+    window.sessionStorage.removeItem('authToken');
+    window.sessionStorage.removeItem('user');
+    window.location.reload();
   }
 }
 

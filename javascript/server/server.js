@@ -14,10 +14,11 @@ app.use(bodyParser.json())
 
 routes.map(app);
 
+const path = require('path')
 app.use(express.static('app')); // Note: serve app as static assets
-app.get("/", function (request, response) { // Note: redirect root URL to index.html in app
-  response.sendFile(__dirname + '/app/index.html');
-});
+app.get('*', function (request, response) {
+  response.sendFile(path.join(__dirname, '../app/index.html'));
+})
 
 // Initate webserver
 function listeningHandler () {

@@ -1,47 +1,41 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 
-class LoginValidator extends Component {
-  constructor() {
-    super();
-    this.state = {
-      status: null
-    };
-  }
+class Auth extends Component {
 
   async componentDidMount() {
-    const parsedHash = queryString.parse(window.location.hash);
-    const authToken = parsedHash.id_token
-    const response = await fetch(`/api/auth/${authToken}`,
-      {method: 'GET',
-      // body: JSON.stringify({
-      //   authToken
-      // }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    if (response.ok)  {
-      const user = await response.json();
-      window.sessionStorage.user = user.firstname + ' ' + user.lastname
-      window.sessionStorage.authToken = authToken;
+    if (window.sessionStorage.authToken) {
       this.props.history.replace({
         pathname: './'
       })
     } else {
-      this.setState({status: false})
+      const parsedHash = queryString.parse(window.location.hash);
+      const authToken = parsedHash.id_token
+      const response = await fetch(`/api/auth/${authToken}`,
+        {method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log("her");
+      if (response.ok)  {
+        const user = await response.json();
+        window.sessionStorage.user = user.firstname + ' ' + user.lastname;
+        window.sessionStorage.authToken = authToken;
+        await window.location.reload();
+      } else {
+        this.props.history.replace({
+          pathname: './401'
+        });
+      };
     }
   }
 
   render() {
     return (
-      <main>
-        {this.state.status === false ?
-        <p>Oops. The user you're trying is not authorized. Please contact the administrator.</p>:
-        <p>Verifying login details. Please wait.</p>}
-      </main>
+      <p>Verifying login details. Please wait.</p>
     );
   }
 }
 
-export default LoginValidator;
+export default Auth;
