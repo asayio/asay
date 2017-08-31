@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 class ProposalInfo extends Component {
   render() {
     const proposal = this.props.proposalInfo;
+    console.log(proposal);
     if (this.props.openDataCaseType && this.props.openDataStatus && this.props.openDataPeriod) {
       return (
         <div>
@@ -11,13 +12,13 @@ class ProposalInfo extends Component {
             {proposal.nummer}: {proposal.titelkort}
           </h1>
           <h2 className="f4 normal ttl small-caps dib mr3 silver">
-            <b>Type:</b> {this.props.openDataCaseType[(proposal.typeid - 1)].type} { /* this does NOT work. We need a find på id function! */ }
+            <b>Type:</b> {proposal.Sagstype.type}
           </h2>
           <h2 className="f4 normal ttl small-caps dib mr3 silver">
-            <b>Session:</b> {this.props.openDataPeriod[(proposal.periodeid - 1)].titel} { /* this does NOT work. We need a find på id function! */ }
+            <b>Session:</b> {proposal.Periode.titel}
           </h2>
           <h2 className="f4 normal ttl small-caps dib mr3 silver">
-            <b>Status:</b> {this.props.openDataStatus[(proposal.statusid - 1)].status} { /* this does NOT work. We need a find på id function! */ }
+            <b>Status:</b> {proposal.Sagsstatus.status}
           </h2>
           <p className="dark-gray mt2 mb4">
             {proposal.titel}
