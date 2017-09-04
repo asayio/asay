@@ -33,8 +33,7 @@ async function lookupUser (authToken) {
 async function loginPostHandler (request, response) {
   const authToken = request.params.authToken;
   const userRow = await lookupUser(authToken);
-  const userStatus = userRow ? userRow : 401;
-  response.send(userStatus)
+  userRow ? response.send(userRow) : response.sendStatus(401);
 }
 
 // Export
