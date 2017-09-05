@@ -28,15 +28,16 @@ class ProposalInfo extends Component {
           <p className="dark-gray mt2 mb4">
             {proposal.resume}
           </p>
+          <a href={`http://www.ft.dk/ripdf/samling/${ftSessionId}/${proposal.Sagstype.type}/${ftProposalIdOriginal}/${ftSessionId}_${ftProposalIdOriginal}_som_fremsat.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
+            <File className="svg-icon mr1" />
+            <span className="lh-copy">Forslag som fremsat</span>
+          </a>
           {ftProposalPassed ?
           <a href={`http://www.ft.dk/ripdf/samling/${ftSessionId}/${proposal.Sagstype.type}/${ftProposalId}/${ftSessionId}_${ftProposalId}_som_vedtaget.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
             <File className="svg-icon mr1" />
             <span className="lh-copy">Forslag som vedtaget</span>
           </a>
-          :<a href={`http://www.ft.dk/ripdf/samling/${ftSessionId}/${proposal.Sagstype.type}/${ftProposalIdOriginal}/${ftSessionId}_${ftProposalIdOriginal}_som_fremsat.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
-            <File className="svg-icon mr1" />
-            <span className="lh-copy">Forslag som fremsat</span>
-          </a>}
+          :<div/>}
           { /*
           <h3>Relevante dokumenter</h3>
           <ul>{this.props.attachments.map( (attachment) =>
