@@ -47,12 +47,23 @@ class Root extends Component {
   async componentDidMount() {
     const caseTypeFilter = encodeURIComponent('Sagstype');
     const openDataCaseTypeResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${caseTypeFilter}`);
-    const openDataCaseType = await openDataCaseTypeResponse.json();
+    const openDataCaseTypeAll = await openDataCaseTypeResponse.json();
+    const openDataCaseType = openDataCaseTypeAll.filter(function(type) {
+      return type.id === 3 || type.id === 5
+    })
     this.setState({openDataCaseType});
-    const periodFilter = encodeURIComponent('Periode');
+
+    const periodFilter = encodeURIComponent(`Periode?$inlinecount=allpages&$filter=type%20eq%20'samling'`);
     const openDataPeriodResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${periodFilter}`);
-    const openDataPeriod = await openDataPeriodResponse.json();
+    const openDataPeriodAll = await openDataPeriodResponse.json();
+    openDataPeriodAll.sort(function(b, a) {
+      return a.kode.localeCompare(b.kode)
+    })
+    const openDataPeriod = openDataPeriodAll.filter(function(period) {
+      return period.id >= 144 //session: 2016-17
+    })
     this.setState({openDataPeriod});
+
     const statusFilter = encodeURIComponent('Sagsstatus');
     const openDataStatusResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${statusFilter}`);
     const openDataStatus = await openDataStatusResponse.json();
