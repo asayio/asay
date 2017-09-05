@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Nav from '../nav/Nav';
 import ProposalInfo from './ProposalInfo';
 // import ProposalArticles from './ProposalArticles';
-import { ArrowLeft } from 'react-feather';
+import { ArrowLeft, ArrowRight } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 class ProposalPage extends Component {
 
@@ -57,6 +58,10 @@ class ProposalPage extends Component {
               attachments = {proposalData.attachments}
             />
           { /* <ProposalArticles articles = {proposalData.articles} proposalInfo = {proposalInfo} /> */ }
+            <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="dib link dark-blue hover-blue v-btm mt3">
+              <ArrowRight className="svg-icon mr1" />
+              <span className="lh-copy">Gå til stemmeboks</span>
+            </Link>
           </div>
           <a href = '../' className="dib link dark-blue hover-blue v-btm mt3">
             <ArrowLeft className="svg-icon mr1" />
