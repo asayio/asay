@@ -5,11 +5,7 @@ import { File } from 'react-feather';
 class ProposalInfo extends Component {
   render() {
     const proposal = this.props.proposalInfo;
-    const ftSessionId = proposal.Periode.titel.substr(0,4) + '1';
-    const ftProposalId = proposal.nummer.replace(/\s/g,'');
-    const ftProposalSplit = ftProposalId.indexOf("A") > -1 || ftProposalId.indexOf("B") > -1 || ftProposalId.indexOf("C") > -1 ? true : false
-    const ftProposalIdOriginal = ftProposalSplit ? ftProposalId.substr(0,ftProposalId.length-1) : ftProposalId
-    const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
+    const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
     if (this.props.openDataCaseType && this.props.openDataStatus && this.props.openDataPeriod) {
       return (
         <div>
@@ -28,12 +24,12 @@ class ProposalInfo extends Component {
           <p className="dark-gray mt2 mb4">
             {proposal.resume}
           </p>
-          <a href={`http://www.ft.dk/ripdf/samling/${ftSessionId}/${proposal.Sagstype.type}/${ftProposalIdOriginal}/${ftSessionId}_${ftProposalIdOriginal}_som_fremsat.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
+          <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_fremsat.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
             <File className="svg-icon mr1" />
             <span className="lh-copy">Forslag som fremsat</span>
           </a>
           {ftProposalPassed ?
-          <a href={`http://www.ft.dk/ripdf/samling/${ftSessionId}/${proposal.Sagstype.type}/${ftProposalId}/${ftSessionId}_${ftProposalId}_som_vedtaget.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
+          <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_vedtaget.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
             <File className="svg-icon mr1" />
             <span className="lh-copy">Forslag som vedtaget</span>
           </a>
