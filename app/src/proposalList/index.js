@@ -38,7 +38,7 @@ class Root extends Component {
       '72732'  // B110
     ];
     let hardCodedPropsalListUrl = '&$filter=';
-    const buildPropsalListQuery = hardCodedPropsalList.map(function (id, index) {
+    hardCodedPropsalList.forEach(function (id, index) {
       if (index === 0) {
         hardCodedPropsalListUrl += 'id eq ' + id;
       } else {
