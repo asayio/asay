@@ -1,5 +1,3 @@
-select
-  firstname
-  ,lastname
+select *
 from public.user
 where email = $/email/
