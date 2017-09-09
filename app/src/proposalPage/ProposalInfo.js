@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { File } from 'react-feather';
+import LoadingSpinner from '../widgets/LoadingSpinner.js';
 // import Poll from '../widgets/poll/Poll';
 
 class ProposalInfo extends Component {
@@ -48,9 +49,7 @@ class ProposalInfo extends Component {
       );
     } else {
       return(
-        <div>
-          loading!
-        </div>
+        <LoadingSpinner/>
       )
     }
   }
