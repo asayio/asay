@@ -79,6 +79,9 @@ class Root extends Component {
     const value = target.value;
     const name = target.name;
     this.setState({
+      openDataPage: 1
+    })
+    this.setState({
       [name]: value
     }, async function () {
       this.getProposals();
@@ -99,7 +102,7 @@ class Root extends Component {
               <div className="fl w-25 pa1" key={index}>
                 <h5 className="mb3 pl1">{filter.name.toUpperCase()}</h5>
                 <select name={filter.name} onChange={this.handleChange} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                  <option>Alle</option>
+                  <option value=''>Alle</option>
                   {this.state[filter.idName].map((option) =>
                     <option key={option.id} value={option.id}>{option.titel || option.type || option.status}</option>
                   )}
