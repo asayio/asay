@@ -13,7 +13,8 @@ class Root extends Component {
         {idName: 'openDataStatus', name: 'status'}],
       openDataCaseType: '',
       openDataPeriod: '',
-      openDataStatus: ''
+      openDataStatus: '',
+      openDataPage: 1
     };
   this.handleChange = this.handleChange.bind(this);
   this.getProposals = this.getProposals.bind(this);
@@ -23,7 +24,8 @@ class Root extends Component {
     const type = this.state.type;
     const status = this.state.status;
     const session = this.state.periode;
-    let filterString = '';
+    const page = this.state.openDataPage;
+    let filterString = '&$filter=typeid%20eq%203%20or%20typeid%20eq%205';
     if (type || status || session) {
       filterString = '&$filter=';
       if (type) {
@@ -38,6 +40,7 @@ class Root extends Component {
         filterString += 'periodeid eq ' + session;
       }
     }
+    filterString += '&$skip=' + (page - 1) * 20;
     const filter = encodeURIComponent('Sag?$orderby=id desc&$expand=Sagsstatus,Periode' + filterString);
     const proposalResponse = await fetch(`/api/openDataFetcher/fetchOnePage/${filter}`);
     const proposals = await proposalResponse.json();
@@ -84,6 +87,8 @@ class Root extends Component {
 
   render() {
     var proposals = this.state.proposals.value;
+    var nextLink = this.state.proposals['odata.nextLink'];
+    var page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
     if (proposals) {
       return (
         <div>
@@ -105,6 +110,8 @@ class Root extends Component {
             <ProposalListSection
               proposals = {proposals}
             />
+          {page >= 2 && <button name='openDataPage' value={page - 1} onClick={this.handleChange}>forrige side</button>}
+          {nextLink && <button name='openDataPage' value={page + 1} onClick={this.handleChange}>næste side</button>}
           </div>
         </div>
       );

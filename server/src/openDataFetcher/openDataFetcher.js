@@ -4,7 +4,8 @@ const fetch = require('node-fetch');
 
 // Functions
 async function fetchOnePage (request, response) {
-  const openData = await fetchOpenData('http://oda.ft.dk/api/' + request.params.searchCriteria);
+  const url = 'http://oda.ft.dk/api/' + request.params.searchCriteria;
+  const openData = await fetchOpenData(url);
   response.send(openData)
 }
 
