@@ -25,12 +25,12 @@ class ProposalInfo extends Component {
           <p className="dark-gray mt2 mb4">
             {proposal.resume}
           </p>
-          <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_fremsat.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
+          <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
             <File className="svg-icon mr1" />
             <span className="lh-copy">Forslag som fremsat</span>
           </a>
           {ftProposalPassed ?
-          <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_vedtaget.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
+          <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_vedtaget.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
             <File className="svg-icon mr1" />
             <span className="lh-copy">Forslag som vedtaget</span>
           </a>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
+import LoadingSpinner from '../widgets/LoadingSpinner.js';
 
 class Auth extends Component {
 
@@ -33,7 +34,7 @@ class Auth extends Component {
 
   render() {
     return (
-      <p>Verifying login details. Please wait.</p>
+      <LoadingSpinner/>
     );
   }
 }

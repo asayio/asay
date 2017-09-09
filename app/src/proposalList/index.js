@@ -26,7 +26,17 @@ class Root extends Component {
     const status = this.state.status;
     const session = this.state.periode;
     const page = this.state.openDataPage;
-    const hardCodedPropsalList = ['73332', '73333', '73334', '73335'];
+    const hardCodedPropsalList = [
+      '70703', // L69
+      '72432', // L153
+      '73014', // L195
+      '71402', // B41
+      '71762', // B132
+      '71644', // B54
+      '72745', // B117
+      '71731', // B121
+      '72732'  // B110
+    ];
     let hardCodedPropsalListUrl = '&$filter=';
     const buildPropsalListQuery = hardCodedPropsalList.map(function (id, index) {
       if (index === 0) {
