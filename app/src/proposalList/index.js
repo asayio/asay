@@ -25,7 +25,7 @@ class Root extends Component {
     const status = this.state.status;
     const session = this.state.periode;
     const page = this.state.openDataPage;
-    let filterString = '&$filter=typeid%20eq%203%20or%20typeid%20eq%205';
+    let filterString = '&$filter=typeid eq 3 or typeid eq 5'; // default filter
     if (type || status || session) {
       filterString = '&$filter=';
       if (type) {
