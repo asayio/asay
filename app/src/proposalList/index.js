@@ -25,6 +25,15 @@ class Root extends Component {
     const status = this.state.status;
     const session = this.state.periode;
     const page = this.state.openDataPage;
+    const hardCodedPropsalList = ['73332', '73333', '73334', '73335'];
+    let hardCodedPropsalListUrl = '&$filter=';
+    const buildPropsalListQuery = hardCodedPropsalList.map(function (id, index) {
+      if (index === 0) {
+        hardCodedPropsalListUrl += 'id eq ' + id;
+      } else {
+        hardCodedPropsalListUrl += ' or id eq ' + id;
+      }
+    })
     let filterString = '&$filter=typeid eq 3 or typeid eq 5'; // default filter
     if (type || status || session) {
       filterString = '&$filter=';
@@ -41,7 +50,7 @@ class Root extends Component {
       }
     }
     filterString += '&$skip=' + (page - 1) * 20;
-    const filter = encodeURIComponent('Sag?$orderby=id desc&$expand=Sagsstatus,Periode' + filterString);
+    const filter = encodeURIComponent('Sag?$orderby=id desc&$expand=Sagsstatus,Periode' + hardCodedPropsalListUrl);
     const proposalResponse = await fetch(`/api/openDataFetcher/fetchOnePage/${filter}`);
     const proposals = await proposalResponse.json();
     this.setState({proposals});
@@ -97,7 +106,7 @@ class Root extends Component {
         <div>
           <Nav history={this.props.history}/>
           <div className="pa4 bg-white ba b--light-gray br2 shadow-6">
-            <div className="mb4 cf">
+            {/* <div className="mb4 cf">
             {this.state.filters.map((filter, index) =>
               <div className="fl w-25 pa1" key={index}>
                 <h5 className="mb3 pl1">{filter.name.toUpperCase()}</h5>
@@ -109,7 +118,7 @@ class Root extends Component {
                 </select>
               </div>
             )}
-            </div>
+            </div> */}
             <ProposalListSection
               proposals = {proposals}
             />
