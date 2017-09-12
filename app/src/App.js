@@ -23,6 +23,7 @@ class App extends Component {
       return (
         <Router>
           <div className="sans-serif black-90 pt4 pb5 ph3 mw8 center">
+            <Nav/>
             <Switch>
               <Route exact path="/" component={ProposalList}/>
               <Route exact path="/proposal/:id" component={ProposalPage}/>
