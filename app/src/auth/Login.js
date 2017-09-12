@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Lock from 'auth0-lock';
-import { LogIn } from 'react-feather';
+import Da from './i18n/da';
 
 class Login extends Component {
   render() {
@@ -20,12 +20,13 @@ class Login extends Component {
         }
       },
       theme: {
-        // logo: '',
-        primaryColor: '#42BFB4'
+        primaryColor: '#42BFB4',
       },
-      languageDictionary: {
-        title: ''
-},
+      languageDictionary: Da,
+      allowSignUp: false,
+      rememberLastLogin: false,
+      allowForgotPassword: false,
+      allowShowPassword: true
     }
     const lock = new Lock (clientId, domain, options)
     lock.show() //show password dialog from Auth0
