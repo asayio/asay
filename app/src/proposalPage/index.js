@@ -44,7 +44,6 @@ class ProposalPage extends Component {
     if (proposalInfo) {
       return (
         <div>
-          <Nav history={this.props.history}/>
           <a href = '../' className="dib link dark-blue hover-blue v-btm mb3">
             <ArrowLeft className="svg-icon mr1" />
             <span className="lh-copy">Tilbage til listen</span>
