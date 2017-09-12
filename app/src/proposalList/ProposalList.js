@@ -11,15 +11,14 @@ class ProposalListSection extends Component {
       <div>
       {proposals.map(function (proposal, index) {
         return (
-          <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link near-black">
-            <div className="pt2 pb3 ph3 ba b--light-gray br2 mv3 lh-solid card ma1">
+          <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
+            <div className="pv2 ph4 ba b--black-10 br2 mv3 card shadow-6">
               <h2 className="f3">{proposal.nummer}: {proposal.titelkort}</h2>
-              <h3 className="f5 normal small-caps ttl silver mb4">
-                <b>Session: </b>{proposal.Periode.titel}
-                <b> Status: </b> {proposal.Sagsstatus.status}
-                <b> Deadline: </b><CountDown dueDate = {proposal.afgørelsesdato} /><br/>
-              </h3>
-              <p className="dark-gray">{proposal.title}</p>
+              <p className="f5 ttl small-caps black-50">
+                <span className="mr2"><b>Session: </b>{proposal.Periode.titel}</span>
+                <span className="mr2"><b>Status: </b> {proposal.Sagsstatus.status}</span>
+                <span><b>Deadline: </b><CountDown dueDate = {proposal.afgørelsesdato} /></span>
+              </p>
             </div>
           </Link>
         );

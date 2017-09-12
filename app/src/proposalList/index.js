@@ -116,7 +116,7 @@ class Root extends Component {
       return (
         <div>
           <Nav history={this.props.history}/>
-          <div className="pa4 bg-white ba b--light-gray br2 shadow-6">
+          <div className="pa4 bg-white ba b--black-10 br2 shadow-6">
             {/* <div className="mb4 cf">
             {this.state.filters.map((filter, index) =>
               <div className="fl w-25 pa1" key={index}>

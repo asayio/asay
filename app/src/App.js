@@ -20,7 +20,7 @@ class App extends Component {
     if (window.sessionStorage.authToken) {
       return (
         <Router>
-          <div className="sans-serif near-black pt4 pb5 ph3 mw8 center">
+          <div className="sans-serif black-90 pt4 pb5 ph3 mw8 center">
             <Switch>
               <Route exact path="/" component={ProposalList}/>
               <Route exact path="/proposal/:id" component={ProposalPage}/>

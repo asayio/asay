@@ -1,5 +1,5 @@
 html {
-  background-color: #f4f4f4;
+  background-color: #f5f5f5;
 }
 
 select {
@@ -12,6 +12,14 @@ svg {
   bottom: -0.2em;
   height: 1.2em;
   width: 1.2em;
+}
+
+.card {
+  transition: all 0.25s ease-out;
+}
+.card:hover,
+.card:focus {
+  transform: translateY(-1px);
 }
 
 .i-green {
@@ -34,21 +42,8 @@ svg {
   height: 10rem;
 }
 
-.card {
-  transition: all 0.25s ease-out;
-}
-.card:hover,
-.card:focus {
-  border-color: #CCCCCC;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.02);
-}
-.card:active {
-  border-color: #AAAAAA;
-  box-shadow: 0 -4px 8px rgba(0,0,0,0.02);
-}
-
 .shadow-6 {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 /* TACHYONS CORRECTIONS */
@@ -56,6 +51,8 @@ svg {
 .pointer {
   cursor: pointer;
 }
+
+/* LOADING SPINNER */
 
 .loading-spinner {
   width: 50px;
@@ -75,8 +72,6 @@ svg {
   width: 10%;
   height: 10%;
 }
-
-/* LOADING SPINNER */
 
 @keyframes loading-spinner {
   0% {
