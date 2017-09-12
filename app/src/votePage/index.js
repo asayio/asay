@@ -89,7 +89,6 @@ class VotePage extends Component {
     console.log(this.state.voteresult);
     return (
       <div>
-      <Nav history={this.props.history}/>
       <a href = {`../${this.props.match.params.id}`} className="dib link dark-blue hover-blue v-btm mb3">
         <ArrowLeft className="svg-icon mr1" />
         <span className="lh-copy">Tilbage til forslag</span>
