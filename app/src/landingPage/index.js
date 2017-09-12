@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Login from '../auth/Login'
-import Nav from '../nav/Nav'
 import { Heart, UserPlus } from 'react-feather'
 
 class LandingPage extends Component {
   render() {
     return (
       <div>
-        <Nav/>
         <h1>
           Hvis alle kunne bestemme...<br/>
           <span>Initiativets demokratiske platform til politik udvikling</span>

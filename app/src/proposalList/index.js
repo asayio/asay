@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalList.js';
 import LoadingSpinner from '../widgets/LoadingSpinner.js';
-import Nav from '../nav/Nav.js'
 
 class Root extends Component {
   constructor(props) {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import CommentSection from 'react-disqus-comments';
-import Nav from '../nav/Nav';
 import ProposalInfo from './ProposalInfo';
 import LoadingSpinner from '../widgets/LoadingSpinner.js';
 // import ProposalArticles from './ProposalArticles';
