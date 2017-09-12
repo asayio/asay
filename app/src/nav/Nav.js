@@ -15,7 +15,7 @@ class Nav extends Component {
         <div className="flex-auto">
           <RandomIcon className="i-green mr2"/><Link to="/" className="link black-90 hover-black-70 b">Initiativet</Link>
         </div>
-        {window.sessionStorage.authToken ? <Logout history={this.props.history}/> : <Login/>}
+        {window.sessionStorage.authToken ? <div><span className="black-90 mr2">{window.sessionStorage.user}</span> <Logout history={this.props.history}/></div> : <Login/>}
       </nav>
     )
   }
