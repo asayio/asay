@@ -7,7 +7,7 @@ class Auth extends Component {
   async componentDidMount() {
     if (window.sessionStorage.authToken) {
       this.props.history.replace({
-        pathname: './'
+        pathname: './disclaimer'
       })
     } else {
       const parsedHash = queryString.parse(window.location.hash);
