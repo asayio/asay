@@ -5,7 +5,7 @@ import { LogIn } from 'react-feather';
 class Login extends Component {
   render() {
     return (
-      <a onClick={this.login} className="pointer link dark-blue hover-blue"><LogIn className="svg-icon mr2" />Log ind</a>
+      <a onClick={this.login} className="pointer link dark-blue hover-blue"><LogIn/>Log ind</a>
     );
   }
   login = async() => {
