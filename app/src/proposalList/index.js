@@ -114,28 +114,25 @@ class Root extends Component {
     var page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
     if (proposals) {
       return (
-        <div>
-          <Nav history={this.props.history}/>
-          <div className="pa4 bg-white ba b--black-10 br2 shadow-6">
-            {/* <div className="mb4 cf">
-            {this.state.filters.map((filter, index) =>
-              <div className="fl w-25 pa1" key={index}>
-                <h5 className="mb3 pl1">{filter.name.toUpperCase()}</h5>
-                <select name={filter.name} onChange={this.handleChange} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                  <option value=''>Alle</option>
-                  {this.state[filter.idName].map((option) =>
-                    <option key={option.id} value={option.id}>{option.titel || option.type || option.status}</option>
-                  )}
-                </select>
-              </div>
-            )}
-            </div> */}
-            <ProposalListSection
-              proposals = {proposals}
-            />
-          {page >= 2 && <button name='openDataPage' value={page - 1} onClick={this.handleChange}>forrige side</button>}
-          {nextLink && <button name='openDataPage' value={page + 1} onClick={this.handleChange}>næste side</button>}
-          </div>
+        <div className="pa4 bg-white ba b--light-gray br2 shadow-6">
+          {/* <div className="mb4 cf">
+          {this.state.filters.map((filter, index) =>
+            <div className="fl w-25 pa1" key={index}>
+              <h5 className="mb3 pl1">{filter.name.toUpperCase()}</h5>
+              <select name={filter.name} onChange={this.handleChange} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                <option value=''>Alle</option>
+                {this.state[filter.idName].map((option) =>
+                  <option key={option.id} value={option.id}>{option.titel || option.type || option.status}</option>
+                )}
+              </select>
+            </div>
+          )}
+          </div> */}
+          <ProposalListSection
+            proposals = {proposals}
+          />
+        {page >= 2 && <button name='openDataPage' value={page - 1} onClick={this.handleChange}>forrige side</button>}
+        {nextLink && <button name='openDataPage' value={page + 1} onClick={this.handleChange}>næste side</button>}
         </div>
       );
     } else {

@@ -8,7 +8,9 @@ import VotePage from './votePage';
 import ConfirmationPage from './confirmationPage';
 import LandingPage from './landingPage'
 import Unauthorized from './401';
+import Disclaimer from './disclaimer'
 import NotFound from './404';
+import Nav from './nav/Nav.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -26,6 +28,7 @@ class App extends Component {
               <Route exact path="/proposal/:id" component={ProposalPage}/>
               <Route exact path="/proposal/:id/vote" component={VotePage}/>
               <Route exact path="/confirmed" component={ConfirmationPage}/>
+              <Route exact path="/disclaimer" component={Disclaimer}/>
               <Route exact path="/auth0" component={Auth}/>
               <Route path="*" component={NotFound}/>
             </Switch>
@@ -36,6 +39,7 @@ class App extends Component {
       return (
         <Router>
           <div className="sans-serif near-black pt4 pb5 ph3 mw8 center">
+            <Nav/>
             <Switch>
               <Route exact path="/auth0" component={Auth}/>
               <Route exact path="/401" component={Unauthorized}/>
