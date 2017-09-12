@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Nav from '../nav/Nav.js';
 import './style.css';
 import { ArrowLeft, XSquare, CheckSquare, MinusSquare, ArrowRight, Check, X } from 'react-feather';
 
@@ -8,13 +7,14 @@ class VotePage extends Component {
     super(props);
     this.state = {
       voteresult: undefined,
+      error: null,
       proposalInfo: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleVote = this.handleVote.bind(this);
     this.handleWithdraw = this.handleWithdraw.bind(this);
-    this.resetForm = this.resetForm.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   async componentDidMount() {
@@ -26,27 +26,29 @@ class VotePage extends Component {
   }
 
   handleChange(event) {
-    this.setState({
-      voteresult: event.target.value
-    });
+    this.setState({voteresult: event.target.value});
+    this.setState({error: null })
   }
 
-  resetForm(event) {
+  closeModal(event) {
     document.getElementById("voteForm").reset();
     this.setState({
       voteresult: undefined
     })
+    const modal = document.getElementById('modal');
+    modal.style.display = "none";
   }
 
-  async handleWithdraw(event) {
-    await this.setState({
+  handleWithdraw(event) {
+    this.setState({
       voteresult: null
-    });
-    this.handleVote();
+    },
+    this.handleVote
+    );
   }
 
   handleSubmit(event) {
-    fetch(`/api/proposal/${this.props.match.params.id}/vote`,
+    const response = fetch(`/api/proposal/${this.props.match.params.id}/vote`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -56,37 +58,28 @@ class VotePage extends Component {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + window.sessionStorage.authToken
         }
-      }).then(function() {
-        window.location.href="../../confirmed/"
-        window.onunload = refreshParent;
-        function refreshParent() {
-            window.opener.location.reload();
-        }
-    }).catch(function() {
-      alert("Der opstod en fejl. Prøv igen senere.");
-    });
+      })
+    if (response.ok) {
+      window.location.href="../../confirmed/"
+      window.onunload = refreshParent;
+      function refreshParent() {
+          window.opener.location.reload();
+      }
+    } else {
+      this.setState({error: 'postVoteError'})
+    }
   };
 
   handleVote(event) {
     if (this.state.voteresult !== undefined) {
-      const modal = document.getElementById('withdraw-modal');
+      const modal = document.getElementById('modal');
       modal.style.display = "flex";
-      const closeBtn = document.getElementById("closemodal");
-      closeBtn.onclick = function() {
-        modal.style.display = "none";
-      }
-      window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-      }
     } else {
-      alert("Hovsa. Du skal lige vælge hvad du vil stemme først.")
+      this.setState({error: 'missingVote'})
     }
   }
 
   render() {
-    console.log(this.state.voteresult);
     return (
       <div>
       <a href = {`../${this.props.match.params.id}`} className="dib link dark-blue hover-blue v-btm mb3">
@@ -106,12 +99,24 @@ class VotePage extends Component {
       <a onClick={this.handleVote}>
         <ArrowRight className="svg-icon mr1"/>
         <span className="lh-copy">Stem</span>
-      </a> <br/>
+      </a>
+      {this.state.error === 'missingVote' ? <span><br/>Vælg hvad du vil stemme først.<br/></span> : <br/>}
       <a onClick={this.handleWithdraw} value="null">
         <MinusSquare className="svg-icon mr1"/>
         <span className="lh-copy">Træk stemme tilbage</span>
       </a>
-      <div className="modal" id="withdraw-modal">
+      <div className="modal" id="modal">
+
+        {this.state.error === 'postVoteError' ?
+        <div className="modal-content">
+          <h3>Der et sket en fejl</h3>
+          <p>Det er ikke dig, det er os. Prøv igen. <br/>Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net">send os en mail.</a></p>
+          <a id="closemodal" onClick={this.closeModal}>
+            <ArrowLeft className="svg-icon mr1"/>
+            <span className="lh-copy">Tilbage</span>
+          </a>
+        </div>
+        :
         <div className="modal-content">
         <h3>Er du sikker?</h3>
         {this.state.voteresult === null ?
@@ -119,7 +124,7 @@ class VotePage extends Component {
           : <p>Du er ved at stemme <b>{this.state.voteresult === "true" ? "for" : "imod"} </b>.</p>
         }
         <br/>
-        <a id="closemodal" onClick={this.resetForm}>
+        <a id="closemodal" onClick={this.closeModal}>
           <X className="svg-icon mr1"/>
           <span className="lh-copy">Annuller</span>
         </a>
@@ -127,7 +132,7 @@ class VotePage extends Component {
           <Check className="svg-icon mr1"/>
           <span className="lh-copy">Bekræft</span>
         </a>
-        </div>
+        </div>}
       </div>
       </div>
     );
