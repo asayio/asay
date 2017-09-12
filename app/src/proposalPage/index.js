@@ -43,11 +43,11 @@ class ProposalPage extends Component {
     if (proposalInfo) {
       return (
         <div>
-          <Link to="/" className="dib link dark-blue hover-blue v-btm mb3">
-            <ArrowLeft className="svg-icon mr1" />
-            <span className="lh-copy">Tilbage til listen</span>
+          <Link to="/" className="dib link dark-blue hover-blue mb3">
+            <ArrowLeft className="mr1" />
+            <span>Tilbage til listen</span>
           </Link>
-          <div className="pa4 bg-white ba b--black-10 br2 shadow-6">
+          <div className="pa4 pb5 bg-white ba b--black-10 br2 shadow-6">
             <ProposalInfo
               proposalInfo = {proposalInfo}
               openDataCaseType = {this.state.openDataCaseType}
@@ -57,14 +57,13 @@ class ProposalPage extends Component {
               attachments = {proposalData.attachments}
             />
           { /* <ProposalArticles articles = {proposalData.articles} proposalInfo = {proposalInfo} /> */ }
-            <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="dib link dark-blue hover-blue v-btm mt3">
-              <ArrowRight className="svg-icon mr1" />
-              <span className="lh-copy">Gå til stemmeboks</span>
+            <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="pv2 ph3 br1 white bg-i-green link shadow-6 mb5">
+              <ArrowRight className="mr2"/>Gå til stemmeboks
             </Link>
           </div>
-          <a href = '../' className="dib link dark-blue hover-blue v-btm mt3">
-            <ArrowLeft className="svg-icon mr1" />
-            <span className="lh-copy">Tilbage til listen</span>
+          <a href = '../' className="dib link dark-blue hover-blue mt3">
+            <ArrowLeft className="mr1" />
+            <span>Tilbage til listen</span>
           </a>
           { /*
           <CommentSection
