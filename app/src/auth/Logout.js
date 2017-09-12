@@ -11,7 +11,7 @@ class Logout extends Component {
     return (
       <div>
         <span className="black-90 mr2">{window.sessionStorage.user}</span>
-        <a onClick={this.logout} className="link pointer i-green hover-i-green">Log ud</a>
+        <a onClick={this.logout} className="link pointer dark-blue hover-blue">Log ud</a>
       </div>
     );
   }

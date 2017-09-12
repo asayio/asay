@@ -45,11 +45,11 @@ class ProposalPage extends Component {
       return (
         <div>
           <Nav history={this.props.history}/>
-          <a href = '../' className="dib link dark-blue hover-blue v-btm mb3">
+          <Link to="/" className="dib link dark-blue hover-blue v-btm mb3">
             <ArrowLeft className="svg-icon mr1" />
             <span className="lh-copy">Tilbage til listen</span>
-          </a>
-          <div className="pt3 pb4 ph4 bg-white ba b--light-gray br2 shadow-6">
+          </Link>
+          <div className="pa4 bg-white ba b--black-10 br2 shadow-6">
             <ProposalInfo
               proposalInfo = {proposalInfo}
               openDataCaseType = {this.state.openDataCaseType}

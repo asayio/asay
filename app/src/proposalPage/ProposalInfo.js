@@ -10,29 +10,25 @@ class ProposalInfo extends Component {
     if (this.props.openDataCaseType && this.props.openDataStatus && this.props.openDataPeriod) {
       return (
         <div>
-          <h1 className="mb1">
+          <h1>
             {proposal.nummer}: {proposal.titelkort}
           </h1>
-          <h2 className="f4 normal ttl small-caps dib mr3 silver">
-            <b>Type:</b> {proposal.Sagstype.type}
-          </h2>
-          <h2 className="f4 normal ttl small-caps dib mr3 silver">
-            <b>Session:</b> {proposal.Periode.titel}
-          </h2>
-          <h2 className="f4 normal ttl small-caps dib mr3 silver">
-            <b>Status:</b> {proposal.Sagsstatus.status}
-          </h2>
-          <p className="dark-gray mt2 mb4">
+          <p className="f5 ttl small-caps black-50">
+            <span className="mr2"><b>Type:</b> {proposal.Sagstype.type}</span>
+            <span className="mr2"><b>Session:</b> {proposal.Periode.titel}</span>
+            <span><b>Status:</b> {proposal.Sagsstatus.status}</span>
+          </p>
+          <p className="black-70 lh-copy mr4">
             {proposal.resume}
           </p>
           <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
-            <File className="svg-icon mr1" />
-            <span className="lh-copy">Forslag som fremsat</span>
+            <File className="mr1" />
+            <span>Forslag som fremsat</span>
           </a>
           {ftProposalPassed ?
           <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_vedtaget.pdf`} target="blank" className="dib link dark-blue hover-blue v-btm mt3">
-            <File className="svg-icon mr1" />
-            <span className="lh-copy">Forslag som vedtaget</span>
+            <File className="mr1" />
+            <span>Forslag som vedtaget</span>
           </a>
           :<div/>}
           { /*
