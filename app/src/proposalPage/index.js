@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import CommentSection from 'react-disqus-comments';
 import ProposalInfo from './ProposalInfo';
 import LoadingSpinner from '../widgets/LoadingSpinner.js';
+import BackBtn from '../widgets/BackBtn.js';
 // import ProposalArticles from './ProposalArticles';
 import { ArrowLeft, ArrowRight } from 'react-feather';
 import { Link } from 'react-router-dom';
@@ -43,10 +44,7 @@ class ProposalPage extends Component {
     if (proposalInfo) {
       return (
         <div>
-          <Link to="/" className="dib link dark-blue hover-blue mb3">
-            <ArrowLeft className="mr1" />
-            <span>Tilbage til listen</span>
-          </Link>
+          <BackBtn title="Tilbage til listen"/>
           <div className="pa4 pb5 bg-white ba b--black-10 br2 shadow-6">
             <ProposalInfo
               proposalInfo = {proposalInfo}
@@ -61,10 +59,7 @@ class ProposalPage extends Component {
               <ArrowRight className="mr2"/>Gå til stemmeboks
             </Link>
           </div>
-          <a href = '../' className="dib link dark-blue hover-blue mt3">
-            <ArrowLeft className="mr1" />
-            <span>Tilbage til listen</span>
-          </a>
+          <BackBtn title="Tilbage til listen"/>
           { /*
           <CommentSection
             shortname = "asay"

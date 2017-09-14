@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
-import { ArrowLeft, XSquare, CheckSquare, MinusSquare, ArrowRight, Check, X } from 'react-feather';
+import BackBtn from '../widgets/BackBtn.js';
+import { ArrowLeft, XSquare, CheckSquare, MinusSquare, Check, X } from 'react-feather';
 
 class VotePage extends Component {
   constructor(props) {
@@ -70,10 +71,7 @@ class VotePage extends Component {
   render() {
     return (
       <div>
-        <a href = {`../${this.props.match.params.id}`} className="dib link dark-blue hover-blue v-btm mb3">
-          <ArrowLeft className="svg-icon mr1" />
-          <span className="lh-copy">Tilbage til forslag</span>
-        </a>
+        <BackBtn title="Tilbage til forslaget" href={`../${this.props.match.params.id}`} />
         <h1>{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort}</h1>
         <a onClick={() => this.handleVote(true)}>
           <CheckSquare className="svg-icon mr1"/>
