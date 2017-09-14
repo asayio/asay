@@ -7,14 +7,13 @@ class VotePage extends Component {
     super(props);
     this.state = {
       voteresult: undefined,
-      error: null,
+      error: false,
       proposalInfo: [],
     };
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleVote = this.handleVote.bind(this);
-    this.handleWithdraw = this.handleWithdraw.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   async componentDidMount() {
@@ -25,30 +24,28 @@ class VotePage extends Component {
     this.setState({proposalInfo});
   }
 
-  handleChange(event) {
-    this.setState({voteresult: event.target.value});
-    this.setState({error: null })
-  }
-
   closeModal(event) {
-    document.getElementById("voteForm").reset();
-    this.setState({
-      voteresult: undefined
-    })
+    this.setState({voteresult: undefined, error: false})
     const modal = document.getElementById('modal');
     modal.style.display = "none";
   }
 
-  handleWithdraw(event) {
+  openModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = "flex";
+  }
+
+  handleVote(voteresult) {
+    console.log(voteresult);
     this.setState({
-      voteresult: null
+      voteresult: voteresult
     },
-    this.handleVote
+    this.openModal
     );
   }
 
-  handleSubmit(event) {
-    const response = fetch(`/api/proposal/${this.props.match.params.id}/vote`,
+  async handleSubmit(event) {
+    const response = await fetch(`/api/proposal/${this.props.match.params.id}/vote`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -66,74 +63,57 @@ class VotePage extends Component {
           window.opener.location.reload();
       }
     } else {
-      this.setState({error: 'postVoteError'})
+      this.setState({error: true})
     }
   };
-
-  handleVote(event) {
-    if (this.state.voteresult !== undefined) {
-      const modal = document.getElementById('modal');
-      modal.style.display = "flex";
-    } else {
-      this.setState({error: 'missingVote'})
-    }
-  }
 
   render() {
     return (
       <div>
-      <a href = {`../${this.props.match.params.id}`} className="dib link dark-blue hover-blue v-btm mb3">
-        <ArrowLeft className="svg-icon mr1" />
-        <span className="lh-copy">Tilbage til forslag</span>
-      </a>
-      <h1>{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort}</h1>
-      <form id="voteForm">
-        <input name="voteresult" type="radio" onChange={this.handleChange} value="true" required/>
+        <a href = {`../${this.props.match.params.id}`} className="dib link dark-blue hover-blue v-btm mb3">
+          <ArrowLeft className="svg-icon mr1" />
+          <span className="lh-copy">Tilbage til forslag</span>
+        </a>
+        <h1>{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort}</h1>
+        <a onClick={() => this.handleVote(true)}>
           <CheckSquare className="svg-icon mr1"/>
           <span className="lh-copy">For</span>
-        <input name="voteresult" type="radio" onChange={this.handleChange} value="false" required />
+        </a>
+        <a onClick={() => this.handleVote(false)}>
           <XSquare className="svg-icon mr1"/>
           <span className="lh-copy">Imod</span>
-      </form>
-      <br/>
-      <a onClick={this.handleVote}>
-        <ArrowRight className="svg-icon mr1"/>
-        <span className="lh-copy">Stem</span>
-      </a>
-      {this.state.error === 'missingVote' ? <span><br/>Vælg hvad du vil stemme først.<br/></span> : <br/>}
-      <a onClick={this.handleWithdraw} value="null">
-        <MinusSquare className="svg-icon mr1"/>
-        <span className="lh-copy">Træk stemme tilbage</span>
-      </a>
-      <div className="modal" id="modal">
-
-        {this.state.error === 'postVoteError' ?
-        <div className="modal-content">
-          <h3>Der et sket en fejl</h3>
-          <p>Det er ikke dig, det er os. Prøv igen. <br/>Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net">send os en mail.</a></p>
-          <a id="closemodal" onClick={this.closeModal}>
-            <ArrowLeft className="svg-icon mr1"/>
-            <span className="lh-copy">Tilbage</span>
-          </a>
-        </div>
-        :
-        <div className="modal-content">
-        <h3>Er du sikker?</h3>
-        {this.state.voteresult === null ?
-          <p>Du er ved et trække din stemme tilbage.</p>
-          : <p>Du er ved at stemme <b>{this.state.voteresult === "true" ? "for" : "imod"} </b>.</p>
-        }
+        </a>
         <br/>
-        <a id="closemodal" onClick={this.closeModal}>
-          <X className="svg-icon mr1"/>
-          <span className="lh-copy">Annuller</span>
+        <a onClick={() => this.handleVote(null)}>
+          <MinusSquare className="svg-icon mr1"/>
+          <span className="lh-copy">Træk stemme tilbage</span>
         </a>
-        <a onClick={this.handleSubmit}>
-          <Check className="svg-icon mr1"/>
-          <span className="lh-copy">Bekræft</span>
-        </a>
-        </div>}
-      </div>
+        <div className="modal" id="modal">
+          {this.state.error ?
+          <div className="modal-content">
+            <h3>Der er sket en fejl</h3>
+            <p>Det er ikke dig, det er os. Prøv igen.<br/>Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net">send os en mail.</a></p>
+            <a id="closemodal" onClick={this.closeModal}>
+              <ArrowLeft className="svg-icon mr1"/>
+              <span className="lh-copy">Tilbage</span>
+            </a>
+          </div> :
+          <div className="modal-content">
+            <h3>Er du sikker?</h3>
+            {this.state.voteresult === null ?
+              <p>Du er ved et trække din stemme tilbage.</p>
+              : <p>Du er ved at stemme <b>{this.state.voteresult === true ? "for" : "imod"} </b>.</p>
+            } <br/>
+            <a id="closemodal" onClick={this.closeModal}>
+              <X className="svg-icon mr1"/>
+              <span className="lh-copy">Annuller</span>
+            </a>
+            <a onClick={this.handleSubmit}>
+              <Check className="svg-icon mr1"/>
+              <span className="lh-copy">Bekræft</span>
+            </a>
+          </div>}
+        </div>
       </div>
     );
   }
