@@ -4,7 +4,7 @@ import ProposalInfo from './ProposalInfo';
 import LoadingSpinner from '../widgets/LoadingSpinner.js';
 import BackBtn from '../widgets/BackBtn.js';
 // import ProposalArticles from './ProposalArticles';
-import { ArrowLeft, ArrowRight } from 'react-feather';
+import { ArrowRight } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 class ProposalPage extends Component {
