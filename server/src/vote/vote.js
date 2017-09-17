@@ -8,11 +8,6 @@ const insertVote = db.sql('./src/vote/insertVote.sql')
 const updateVote = db.sql('./src/vote/updateVote.sql')
 
 // Functions
-async function voteChecker (userId, proposalId) {
-  const vote = await getVote(userId, proposalId)
-  return vote.length > 0 ? true : false;
-}
-
 async function getVote (userId, proposalId) {
   const vote = await db.cx.query(selectVote,
     {
@@ -31,10 +26,11 @@ async function postVote (request, response) {
 
     if (user) {
 
-      const userId = user.id
-      const voteResult = request.body.voteresult
-      const proposalId = request.params.id
-      const hasVoted = await voteChecker(userId, proposalId)
+      const userId = user.id;
+      const voteResult = request.body.voteresult;
+      const proposalId = request.params.id;
+      const currentVote = await getVote(userId, proposalId);
+      const hasVoted = currentVote.length > 0 ? true : false;
 
       const vote = hasVoted ? await db.cx.query(updateVote,
         {
