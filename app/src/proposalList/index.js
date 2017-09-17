@@ -61,7 +61,15 @@ class Root extends Component {
     }
     filterString += '&$skip=' + (page - 1) * 20;
     const filter = encodeURIComponent('Sag?$orderby=id desc&$expand=Sagsstatus,Periode' + hardCodedPropsalListUrl);
-    const proposalResponse = await fetch(`/api/openDataFetcher/fetchOnePage/${filter}`);
+    const proposalResponse = await fetch(`/api/openDataFetcher/fetchOnePage/${filter}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        }
+      }
+    );
     const proposals = await proposalResponse.json();
     this.setState({proposals});
   }

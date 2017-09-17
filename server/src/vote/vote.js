@@ -9,12 +9,17 @@ const updateVote = db.sql('./src/vote/updateVote.sql')
 
 // Functions
 async function voteChecker (userId, proposalId) {
+  const vote = await getVote(userId, proposalId)
+  return vote.length > 0 ? true : false;
+}
+
+async function getVote (userId, proposalId) {
   const vote = await db.cx.query(selectVote,
     {
       user: userId,
       proposal: proposalId,
     });
-  return vote.length > 0 ? true : false;
+  return vote
 }
 
 async function postVote (request, response) {
@@ -56,5 +61,6 @@ async function postVote (request, response) {
 
 // Export
 module.exports = {
-  postVote
+  postVote,
+  getVote
 }

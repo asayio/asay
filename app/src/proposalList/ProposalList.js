@@ -3,7 +3,7 @@ import CountDown from '../widgets/CountDown';
 import {
   Link
 } from 'react-router-dom';
-import { CheckSquare } from 'react-feather';
+import { CheckSquare, Square } from 'react-feather';
 
 class ProposalListSection extends Component {
   render() {
@@ -15,7 +15,9 @@ class ProposalListSection extends Component {
           <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
             <div className="pv3 ph4 ba b--black-10 br2 mv3 card shadow-6 flex">
               <div className="pr4 flex items-center">
-                <CheckSquare className="f3 i-green pb2"/>
+                { proposal.vote ? <CheckSquare className="f3 i-green pb2"/>:
+                <Square className="f3 i-green pb2"/>
+                }
               </div>
               <div className="flex-auto">
                 <h2 className="f3 mv2">{proposal.nummer}: {proposal.titelkort}</h2>

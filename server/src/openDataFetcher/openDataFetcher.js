@@ -1,11 +1,19 @@
 // Import
-const db = require('../../db.js');
 const fetch = require('node-fetch');
+const auth = require('../auth/auth.js');
+const vote = require('../vote/vote.js');
 
 // Functions
 async function fetchOnePage (request, response) {
+  const authToken = await auth.getToken(request);
+  const user = await auth.lookupUser(authToken);
   const url = 'http://oda.ft.dk/api/' + request.params.searchCriteria;
   const openData = await fetchOpenData(url);
+  for (let proposal of openData.value) {
+    const userVote = await vote.getVote(user.id, proposal.id);
+    const hasVoted = userVote.length > 0 && userVote[0].result !== null ? true : false;
+    proposal.vote = hasVoted
+  };
   response.send(openData)
 }
 
