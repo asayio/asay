@@ -4,6 +4,29 @@ import LoadingSpinner from '../widgets/LoadingSpinner.js';
 // import Poll from '../widgets/poll/Poll';
 
 class ProposalInfo extends Component {
+  constructor() {
+    super();
+    this.state = {
+      proposalPresentation: '',
+    };
+  }
+
+  async componentDidMount() {
+    const proposal = this.props.proposalInfo;
+    const getProposalPresentation = await fetch('/api/ftScraper/', {
+      method: 'GET',
+      headers: {
+        period: proposal.Periode.kode,
+        type: proposal.Sagstype.type,
+        id: proposal.nummerprefix + proposal.nummernumerisk,
+      }
+    });
+    const proposalPresentation = await getProposalPresentation.json();
+    const presentatioStartIndex = proposalPresentation[1]
+    this.setState({proposalPresentation: presentatioStartIndex});
+  }
+
+
   render() {
     const proposal = this.props.proposalInfo;
     const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
@@ -20,6 +43,9 @@ class ProposalInfo extends Component {
           </p>
           <p className="black-70 lh-copy mv4">
             {proposal.resume}
+          </p>
+          <p className="black-70 lh-copy mv4">
+            {this.state.proposalPresentation}
           </p>
           <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="pv2 ph3 br1 white bg-dark-blue link shadow-6 mr3">
             <DownloadCloud className="mr2" />
