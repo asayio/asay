@@ -30,6 +30,7 @@
     "jsonwebtoken": "^7.4.1",
     "node-fetch": "^1.7.2",
     "open-graph-scraper": "^2.5.4",
-    "pg-promise": "^6.3.5"
+    "pg-promise": "^6.3.5",
+    "scrape-it": "^3.3.3"
   }
 }
