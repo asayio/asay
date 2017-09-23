@@ -26,11 +26,14 @@ class CountDown extends Component {
   render() {
     const dueDate = new Date(this.props.dueDate);
     const distance = dueDate - this.state.now;
-    console.log(distance);
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var counter = 'Afsluttet';
+    console.log(distance);
+    if (isNaN(distance)) {
+      counter = 'Ingen deadline endnu';
+    }
     if (distance > 0) {
       counter = days < 1 ? ( hours < 1 ? minutes + ' minutter' : hours + ' timer') : days + ' dage'
     }
