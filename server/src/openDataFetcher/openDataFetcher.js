@@ -9,23 +9,30 @@ async function fetchOnePage (request, response) {
   const user = await auth.lookupUser(authToken);
   const url = 'http://oda.ft.dk/api/' + request.params.searchCriteria;
   const openData = await fetchOpenData(url);
-  for (let proposal of openData.value) {
-    const userVote = await vote.getVote(user.id, proposal.id);
-    const hasVoted = userVote.length > 0 && userVote[0].result !== null ? true : false;
-    proposal.vote = hasVoted
-  };
+  if (!openData.message) {
+    for (let proposal of openData.value) {
+      const userVote = await vote.getVote(user.id, proposal.id);
+      const hasVoted = userVote.length > 0 && userVote[0].result !== null ? true : false;
+      proposal.vote = hasVoted
+    };
+  }
   response.send(openData)
 }
 
 async function fetchOpenData (searchCriteria) {
   const openData = await fetch(searchCriteria).then(function (data) {
     return data.json();
+  }).catch(function(reason) {
+    return reason
   });
   return openData;
 }
 
 async function fetchNextPage (nextPageUrl, page) {
   const nextPage = await fetchOpenData(nextPageUrl);
+  if (await nextPage.message) {
+    return await nextPage;
+  }
   var pages = await page.concat(nextPage.value);
   if (await nextPage['odata.nextLink']) {
     return fetchNextPage(nextPage['odata.nextLink'], pages)

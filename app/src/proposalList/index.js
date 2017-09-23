@@ -119,6 +119,16 @@ class Root extends Component {
     var proposals = this.state.proposals.value;
     var nextLink = this.state.proposals['odata.nextLink'];
     var page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
+    if (this.state.proposals.message) {
+      return (
+        <div>
+          <h3>Hov!</h3>
+          <p>Noget gik galt i folketingets EDB kælder :(</p>
+          <p>Prøv at genindlæse siden</p>
+          <button onClick={function() {window.location.reload()}}>Genindlæs siden</button>
+          </div>
+      )
+    }
     if (proposals) {
       return (
         <div className="pa4 bg-white ba b--black-10 br2 shadow-6">

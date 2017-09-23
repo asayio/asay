@@ -41,6 +41,16 @@ class ProposalPage extends Component {
   render() {
     const proposalData = this.state.proposalData;
     const proposalInfo = proposalData[0];
+    if (proposalData.message) { // should extract this to own component along with the one on propsal list
+      return (
+        <div>
+          <h3>Hov!</h3>
+          <p>Noget gik galt i folketingets EDB kælder :(</p>
+          <p>Prøv at genindlæse siden</p>
+          <button onClick={function() {window.location.reload()}}>Genindlæs siden</button>
+          </div>
+      )
+    }
     if (proposalInfo) {
       return (
         <div>
