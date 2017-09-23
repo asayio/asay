@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
 
-class Unauthorized extends Component {
+class Curious extends Component {
   render() {
     return (
       <div>
@@ -16,4 +16,4 @@ class Unauthorized extends Component {
   }
 }
 
-export default Unauthorized;
+export default Curious;

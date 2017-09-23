@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalListItem.js';
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
+import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
 
 class Root extends Component {
   constructor(props) {
@@ -121,12 +122,7 @@ class Root extends Component {
     var page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
     if (this.state.proposals.message) {
       return (
-        <div>
-          <h3>Hov!</h3>
-          <p>Noget gik galt i folketingets EDB kælder :(</p>
-          <p>Prøv at genindlæse siden</p>
-          <button onClick={function() {window.location.reload()}}>Genindlæs siden</button>
-          </div>
+        <OpenDataErrorHandler/>
       )
     }
     if (proposals) {

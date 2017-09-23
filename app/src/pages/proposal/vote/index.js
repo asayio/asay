@@ -3,7 +3,7 @@ import './style.css';
 import BackBtn from '../../../widgets/BackBtn.js';
 import { ArrowLeft, XSquare, CheckSquare, MinusSquare, Check, X } from 'react-feather';
 
-class VotePage extends Component {
+class Vote extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -117,4 +117,4 @@ class VotePage extends Component {
   }
 }
 
-export default VotePage;
+export default Vote;

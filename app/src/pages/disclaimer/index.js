@@ -3,7 +3,7 @@ import Logout from '../../widgets/auth/Logout'
 import { Check } from 'react-feather';
 import { Link } from 'react-router-dom';
 
-class NotFound extends Component {
+class Disclaimer extends Component {
   render() {
     return (
       <div>
@@ -19,4 +19,4 @@ class NotFound extends Component {
   }
 }
 
-export default NotFound;
+export default Disclaimer;

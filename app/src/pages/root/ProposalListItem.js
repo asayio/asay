@@ -19,11 +19,11 @@ class ProposalListSection extends Component {
                 }
               </div>
               <div className="flex-auto">
-                <h2 className="f3 mv2">{proposal.nummer}: {proposal.titelkort}</h2>
-                <p className="f5 ttl small-caps black-70 mv2">
+                <h2 className="f4 mv2">{proposal.nummer}: {proposal.titelkort}</h2>
+                {/*<p className="f5 ttl small-caps black-70 mv2">
                   <span className="mr2"><b>Session:</b> {proposal.Periode.titel}</span>
                   <span className="mr2"><b>Status:</b> {proposal.Sagsstatus.status}</span>
-                </p>
+                </p>*/}
               </div>
             </div>
           </Link>

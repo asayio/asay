@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Home } from 'react-feather';
 
-class NotFound extends Component {
+class Lost extends Component {
   render() {
     return (
       <div>
@@ -15,4 +15,4 @@ class NotFound extends Component {
   }
 }
 
-export default NotFound;
+export default Lost;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ConfirmationPage extends Component {
+class Confirmation extends Component {
   render() {
     function closeTab (event) {
       window.close()
@@ -15,4 +15,4 @@ class ConfirmationPage extends Component {
   }
 }
 
-export default ConfirmationPage;
+export default Confirmation;
