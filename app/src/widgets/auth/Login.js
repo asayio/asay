@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Lock from 'auth0-lock';
-import Da from './i18n/da';
+import Da from './i18n_da.js';
 
 class Login extends Component {
   render() {
@@ -13,7 +13,7 @@ class Login extends Component {
     const domain = 'initiativet.eu.auth0.com'
     const options = {
       auth: {
-        redirectUrl: 'http://localhost:3000/auth0', // make dynamic
+        redirectUrl: 'http://localhost:3000/auth', // make dynamic
         responseType: 'token',
         params: {
           scope: 'openid email picture'

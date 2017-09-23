@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
-import LoadingSpinner from '../widgets/LoadingSpinner.js';
+import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 
 class Auth extends Component {
 

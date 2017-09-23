@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Login from './auth/Login'
+import Login from '../../widgets/auth/Login'
 
 class Unauthorized extends Component {
   render() {

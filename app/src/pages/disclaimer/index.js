@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logout from '../auth/Logout'
+import Logout from '../../widgets/auth/Logout'
 import { Check } from 'react-feather';
 import { Link } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
-import BackBtn from '../widgets/BackBtn.js';
+import BackBtn from '../../../widgets/BackBtn.js';
 import { ArrowLeft, XSquare, CheckSquare, MinusSquare, Check, X } from 'react-feather';
 
 class VotePage extends Component {

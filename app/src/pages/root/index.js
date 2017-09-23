@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
-import Login from '../auth/Login'
+import Login from '../../widgets/auth/Login'
 import { Heart, UserPlus } from 'react-feather'
+import ProposalList from './ProposalList'
 
-class LandingPage extends Component {
+class Root extends Component {
+  render() {
+    if (window.sessionStorage.authToken) {
+      return (
+        <ProposalList/>
+      )
+    } else {
+      return (
+        <Welcome/>
+      );
+    }
+  }
+}
+
+class Welcome extends Component {
   render() {
     return (
       <div>
@@ -38,4 +53,4 @@ class LandingPage extends Component {
   }
 }
 
-export default LandingPage;
+export default Root;

@@ -1,16 +1,15 @@
 import 'tachyons';
 import './App.css';
 import React, { Component } from 'react';
-import Auth from './auth'
-import ProposalList from './proposalList';
-import ProposalPage from './proposalPage';
-import VotePage from './votePage';
-import ConfirmationPage from './confirmationPage';
-import LandingPage from './landingPage'
-import Unauthorized from './401';
-import Disclaimer from './disclaimer'
-import NotFound from './404';
-import Nav from './nav/Nav.js';
+import Auth from './pages/auth'
+import Proposal from './pages/proposal';
+import Vote from './pages/proposal/vote';
+import Confirmation from './pages/confirmation';
+import Root from './pages/root'
+import Unauthorized from './pages/401';
+import Disclaimer from './pages/disclaimer';
+import Lost from './pages/404';
+import Nav from './widgets/Nav.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -25,13 +24,13 @@ class App extends Component {
           <div className="sans-serif black-90 pt4 pb5 ph3 mw8 center">
             <Nav/>
             <Switch>
-              <Route exact path="/" component={ProposalList}/>
-              <Route exact path="/proposal/:id" component={ProposalPage}/>
-              <Route exact path="/proposal/:id/vote" component={VotePage}/>
-              <Route exact path="/confirmed" component={ConfirmationPage}/>
+              <Route exact path="/" component={Root}/>
+              <Route exact path="/proposal/:id" component={Proposal}/>
+              <Route exact path="/proposal/:id/vote" component={Vote}/>
+              <Route exact path="/confirmed" component={Confirmation}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
               <Route exact path="/auth0" component={Auth}/>
-              <Route path="*" component={NotFound}/>
+              <Route path="*" component={Lost}/>
             </Switch>
           </div>
         </Router>
@@ -42,9 +41,9 @@ class App extends Component {
           <div className="sans-serif near-black pt4 pb5 ph3 mw8 center">
             <Nav/>
             <Switch>
-              <Route exact path="/auth0" component={Auth}/>
+              <Route exact path="/auth" component={Auth}/>
               <Route exact path="/401" component={Unauthorized}/>
-              <Route path="*" component={LandingPage}/>
+              <Route path="*" component={Root}/>
             </Switch>
           </div>
         </Router>

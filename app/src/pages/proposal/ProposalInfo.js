@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 import { DownloadCloud } from 'react-feather';
-import LoadingSpinner from '../widgets/LoadingSpinner.js';
-import CountDown from '../widgets/CountDown.js';
+import LoadingSpinner from '../../widgets/LoadingSpinner.js';
+import CountDown from '../../widgets/CountDown.js';
 // import Poll from '../widgets/poll/Poll';
 
 class ProposalInfo extends Component {

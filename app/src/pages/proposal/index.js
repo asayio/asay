@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import CommentSection from 'react-disqus-comments';
 import ProposalInfo from './ProposalInfo';
-import LoadingSpinner from '../widgets/LoadingSpinner.js';
-import BackBtn from '../widgets/BackBtn.js';
+import LoadingSpinner from '../../widgets/LoadingSpinner.js';
+import BackBtn from '../../widgets/BackBtn.js';
 // import ProposalArticles from './ProposalArticles';
 import { ArrowRight } from 'react-feather';
 import { Link } from 'react-router-dom';
