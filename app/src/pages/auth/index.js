@@ -18,7 +18,6 @@ class Auth extends Component {
           'Content-Type': 'application/json'
         }
       });
-      console.log("her");
       if (response.ok)  {
         const user = await response.json();
         window.sessionStorage.user = user.firstname + ' ' + user.lastname;

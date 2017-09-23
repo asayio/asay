@@ -29,7 +29,7 @@ class App extends Component {
               <Route exact path="/proposal/:id/vote" component={Vote}/>
               <Route exact path="/confirmed" component={Confirmation}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
-              <Route exact path="/auth0" component={Auth}/>
+              <Route exact path="/auth" component={Auth}/>
               <Route path="*" component={Lost}/>
             </Switch>
           </div>
