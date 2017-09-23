@@ -29,6 +29,7 @@ async function fetchOpenData (searchCriteria) {
 }
 
 async function fetchNextPage (nextPageUrl, page) {
+  console.log(nextPageUrl);
   const nextPage = await fetchOpenData(nextPageUrl);
   if (await nextPage.message) {
     return await nextPage;

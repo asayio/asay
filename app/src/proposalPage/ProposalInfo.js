@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import R from 'ramda';
 import { DownloadCloud } from 'react-feather';
 import LoadingSpinner from '../widgets/LoadingSpinner.js';
+import CountDown from '../widgets/CountDown.js';
 // import Poll from '../widgets/poll/Poll';
 
 class ProposalInfo extends Component {
@@ -30,7 +32,8 @@ class ProposalInfo extends Component {
   render() {
     const proposal = this.props.proposalInfo;
     const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
-    if (this.props.openDataCaseType && this.props.openDataStatus && this.props.openDataPeriod) {
+    if (this.props.openDataCaseType && this.props.openDataStatus && this.props.openDataPeriod && this.props.openDataStage) {
+      var deadline = R.path(['dato'], R.last(this.props.openDataStage));
       return (
         <div className="mb4">
           <h1>
@@ -40,6 +43,7 @@ class ProposalInfo extends Component {
             <span className="mr2"><b>Type:</b> {proposal.Sagstype.type}</span>
             <span className="mr2"><b>Session:</b> {proposal.Periode.titel}</span>
             <span><b>Status:</b> {proposal.Sagsstatus.status}</span>
+            <span><b>Deadline:</b> <CountDown dueDate = {deadline} /></span>
           </p>
           <p className="black-70 lh-copy mv4">
             {proposal.resume}

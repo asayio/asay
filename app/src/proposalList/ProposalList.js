@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CountDown from '../widgets/CountDown';
 import {
   Link
 } from 'react-router-dom';
@@ -24,7 +23,6 @@ class ProposalListSection extends Component {
                 <p className="f5 ttl small-caps black-70 mv2">
                   <span className="mr2"><b>Session:</b> {proposal.Periode.titel}</span>
                   <span className="mr2"><b>Status:</b> {proposal.Sagsstatus.status}</span>
-                  <span><b>Deadline:</b> <CountDown dueDate = {proposal.afgørelsesdato} /></span>
                 </p>
               </div>
             </div>

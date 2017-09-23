@@ -15,13 +15,14 @@ class ProposalPage extends Component {
       proposalData: '',
       openDataCaseType: '',
       openDataPeriod: '',
-      openDataStatus: ''
+      openDataStatus: '',
+      openDataStage: ''
     };
   }
 
   async componentDidMount() {
-    const propsalUrl = encodeURIComponent('Sag?$filter=id%20eq%20' + this.props.match.params.id + '&$expand=Sagsstatus,Periode,Sagstype');
-    const response = await fetch(`/api/openDataFetcher/fetchAllPages/${propsalUrl}`);
+    const proposalUrl = encodeURIComponent('Sag?$filter=id%20eq%20' + this.props.match.params.id + '&$expand=Sagsstatus,Periode,Sagstype');
+    const response = await fetch(`/api/openDataFetcher/fetchAllPages/${proposalUrl}`);
     const proposalData = await response.json();
     this.setState({proposalData});
     const caseTypeFilter = encodeURIComponent('Sagstype');
@@ -36,6 +37,10 @@ class ProposalPage extends Component {
     const openDataStatusResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${statusFilter}`);
     const openDataStatus = await openDataStatusResponse.json();
     this.setState({openDataStatus});
+    const proposalStage = encodeURIComponent('Sag(' + this.props.match.params.id + ')/Sagstrin');
+    const openDataStageResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${proposalStage}`);
+    const openDataStage = await openDataStageResponse.json();
+    this.setState({openDataStage});
   }
 
   render() {
@@ -61,6 +66,7 @@ class ProposalPage extends Component {
               openDataCaseType = {this.state.openDataCaseType}
               openDataPeriod = {this.state.openDataPeriod}
               openDataStatus = {this.state.openDataStatus}
+              openDataStage = {this.state.openDataStage}
               polls = {proposalData.polls}
               attachments = {proposalData.attachments}
             />
