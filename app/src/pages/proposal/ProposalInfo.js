@@ -45,7 +45,7 @@ class ProposalInfo extends Component {
         <p className="black-70 lh-copy mv4">
           {this.state.proposalPresentation}
         </p>
-        <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/20161/lovforslag/L69/index.htm`}>ft.dk</a></p>
+        <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`}>ft.dk</a></p>
         <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="pv2 ph3 br1 white bg-dark-blue link shadow-6 mr3">
           <DownloadCloud className="mr2" />
           Forslag som fremsat
