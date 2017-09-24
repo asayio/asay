@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { ArrowLeft } from 'react-feather';
 
 export default class OpenDataErrorHandler extends Component {
   render () {
-    const href = this.props.href ? this.props.href : '../'
     return (
       <div>
         <h3>Hov!</h3>
