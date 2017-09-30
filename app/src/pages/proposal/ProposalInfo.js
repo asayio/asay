@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 import CountDown from '../../widgets/CountDown.js';
+import LoadingSpinner from '../../widgets/LoadingSpinner.js'
 
 class ProposalInfo extends Component {
   constructor() {
@@ -42,11 +43,11 @@ class ProposalInfo extends Component {
             Forslag
           </div>
         </a>
-        <a onClick={() => this.setState({view: 'background'})} className="pointer">
+        {proposal.nummerprefix !== 'B' ? <a onClick={() => this.setState({view: 'background'})} className="pointer">
           <div className="b dib ph3 pv2 bg-white ba b--black-10 br1">
             Baggrund
           </div>
-        </a>
+        </a>: <a></a>}
         <div className="row">
           <div className="col9 bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             {this.state.view === 'resume' ?
@@ -55,13 +56,13 @@ class ProposalInfo extends Component {
             </p>
             :
             <div>
-            {proposalPresentation.map(function (paragraph, index) {
+            {proposalPresentation ? proposalPresentation.map(function (paragraph, index) {
               return (
                 <p key={index} className="black-70 lh-copy mt0 mb3">
                   {paragraph}
                 </p>
               )
-              })}
+            }) : <LoadingSpinner/>}
             </div>}
           </div>
           <div className="col3 pl3">
