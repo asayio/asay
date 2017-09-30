@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 
 class Confirmation extends Component {
   render() {
-    function closeTab (event) {
-      window.close()
-    }
     return (
       <div>
-        <h1>Din stemme er registreret</h1>
+        <h1>Din valghandling er registreret</h1>
         <p>Luk vinduet for at vende tilbage forslaget</p>
-        <button onClick={() => closeTab()}>Luk stemmeboks</button>
+        <button onClick={() => window.close()}>Luk stemmeboks</button>
       </div>
     );
   }
