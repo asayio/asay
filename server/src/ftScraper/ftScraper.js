@@ -10,10 +10,11 @@ async function ftScraper(request, response) {
   const url = `http://www.ft.dk/samling/${period}/${type}/${id}/${period}_${id}_fremsaettelsestale.htm`
   const doc = await scrapeIt(url, {
     proposer: ".Fremsaetter",
-    paragraphs: ".TekstGenerel",
+    paragraphs: {
+      listItem: ".TekstGenerel"
+    },
   }).then(page => {
-    const paragraphs = page.paragraphs.split(":");
-    return paragraphs
+    return page
   })
   response.send(doc)
 };

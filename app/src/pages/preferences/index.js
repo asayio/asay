@@ -26,13 +26,13 @@ class Preferences extends Component {
     this.setState({categoryPreferences});
   }
 
-  async updatePreference() {
+  async updatingPreference (index) {
     await fetch('/api/preferences/categories',
       {
         method: 'POST',
         body: JSON.stringify({
-          preference: !this.state.categoryPreferences[0].preference,
-          id: this.state.categoryPreferences[0].id
+          preference: !this.state.categoryPreferences[index].preference,
+          id: this.state.categoryPreferences[index].id
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -48,6 +48,7 @@ class Preferences extends Component {
     this.setState({
       categoryPreferences: updatedCategoryPreferences
     })
+    this.updatingPreference(index);
   }
 
   render () {

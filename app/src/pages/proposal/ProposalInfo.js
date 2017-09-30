@@ -23,13 +23,13 @@ class ProposalInfo extends Component {
       }
     });
     const proposalPresentation = await getProposalPresentation.json();
-    const presentationStartIndex = proposalPresentation[1]
-    this.setState({proposalPresentation: presentationStartIndex});
+    this.setState({proposalPresentation: proposalPresentation});
   }
 
 
   render() {
-    console.log(this.state.view);
+    const proposalPresentation = this.state.proposalPresentation.paragraphs
+    proposalPresentation && proposalPresentation.splice(-1, 1); // we remove the last annoying paragraph
     const proposal = this.props.proposalInfo;
     const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
     const deadline = R.path(['dato'], R.last(this.props.openDataStage));
@@ -42,14 +42,21 @@ class ProposalInfo extends Component {
           <span><b>Deadline:</b> <CountDown dueDate = {deadline} /></span>
         </p>
         <a onClick={() => this.setState({view: 'resume'})}>Forslag</a>
-        {this.state.proposalPresentation ? <a onClick={() => this.setState({view: 'background'})}>Baggrund</a> : <b/> }
-        {this.state.view ===  'resume' ?
+        {proposalPresentation ? <a onClick={() => this.setState({view: 'background'})}>Baggrund</a> : <b/> }
+        {this.state.view === 'resume' ?
         <p className="black-70 lh-copy mv4">
           {proposal.resume}
-        </p>:
-        <p className="black-70 lh-copy mv4">
-          {this.state.proposalPresentation}
-        </p>}
+        </p>
+        :
+        <div>
+        {proposalPresentation.map(function (paragraph, index) {
+          return (
+            <p key={index} className="black-70 lh-copy mv4">
+              {paragraph}
+            </p>
+          )
+          })}
+        </div>}
         <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`}>ft.dk</a></p>
         <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="pv2 ph3 br1 white bg-dark-blue link shadow-6 mr3">
           <DownloadCloud className="mr2" />
