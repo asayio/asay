@@ -8,24 +8,24 @@ class Root extends Component {
     this.state = {
       proposals: {},
       selectedSection: 'udvalgte forslag',
-      filters: [
-        {idName: 'openDataCaseType', name: 'type'},
-        {idName: 'openDataPeriod', name: 'periode'},
-        {idName: 'openDataStatus', name: 'status'}],
-      openDataCaseType: '',
-      openDataPeriod: '',
-      openDataStatus: '',
-      openDataPage: 1
+      // filters: [
+      //   {idName: 'openDataCaseType', name: 'type'},
+      //   {idName: 'openDataPeriod', name: 'periode'},
+      //   {idName: 'openDataStatus', name: 'status'}],
+      // openDataCaseType: '',
+      // openDataPeriod: '',
+      // openDataStatus: '',
+      // openDataPage: 1
     };
   this.handleChange = this.handleChange.bind(this);
   this.getProposals = this.getProposals.bind(this);
   }
 
   async getProposals(proposalIdList) {
-    const type = this.state.type;
-    const status = this.state.status;
-    const session = this.state.periode;
-    const page = this.state.openDataPage;
+    // const type = this.state.type;
+    // const status = this.state.status;
+    // const session = this.state.periode;
+    // const page = this.state.openDataPage;
     let hardCodedPropsalListUrl = '&$filter=';
     proposalIdList.forEach(function (id, index) {
       if (index === 0) {
@@ -65,29 +65,29 @@ class Root extends Component {
   }
 
   async componentDidMount() {
-    const caseTypeFilter = encodeURIComponent('Sagstype');
-    const openDataCaseTypeResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${caseTypeFilter}`);
-    const openDataCaseTypeAll = await openDataCaseTypeResponse.json();
-    const openDataCaseType = openDataCaseTypeAll.filter(function(type) {
-      return type.id === 3 || type.id === 5
-    })
-    this.setState({openDataCaseType});
-
-    const periodFilter = encodeURIComponent(`Periode?$inlinecount=allpages&$filter=type%20eq%20'samling'`);
-    const openDataPeriodResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${periodFilter}`);
-    const openDataPeriodAll = await openDataPeriodResponse.json();
-    openDataPeriodAll.sort(function(b, a) {
-      return a.kode.localeCompare(b.kode)
-    })
-    const openDataPeriod = openDataPeriodAll.filter(function(period) {
-      return period.id >= 144 //session: 2016-17
-    })
-    this.setState({openDataPeriod});
-
-    const statusFilter = encodeURIComponent('Sagsstatus');
-    const openDataStatusResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${statusFilter}`);
-    const openDataStatus = await openDataStatusResponse.json();
-    this.setState({openDataStatus});
+    // const caseTypeFilter = encodeURIComponent('Sagstype');
+    // const openDataCaseTypeResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${caseTypeFilter}`);
+    // const openDataCaseTypeAll = await openDataCaseTypeResponse.json();
+    // const openDataCaseType = openDataCaseTypeAll.filter(function(type) {
+    //   return type.id === 3 || type.id === 5
+    // })
+    // this.setState({openDataCaseType});
+    //
+    // const periodFilter = encodeURIComponent(`Periode?$inlinecount=allpages&$filter=type%20eq%20'samling'`);
+    // const openDataPeriodResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${periodFilter}`);
+    // const openDataPeriodAll = await openDataPeriodResponse.json();
+    // openDataPeriodAll.sort(function(b, a) {
+    //   return a.kode.localeCompare(b.kode)
+    // })
+    // const openDataPeriod = openDataPeriodAll.filter(function(period) {
+    //   return period.id >= 144 //session: 2016-17
+    // })
+    // this.setState({openDataPeriod});
+    //
+    // const statusFilter = encodeURIComponent('Sagsstatus');
+    // const openDataStatusResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${statusFilter}`);
+    // const openDataStatus = await openDataStatusResponse.json();
+    // this.setState({openDataStatus});
 
     const proposalIdList = [
       '70703', // L69
@@ -103,7 +103,7 @@ class Root extends Component {
     this.getProposals(proposalIdList);
   };
 
-  handleChange(event) {
+  async handleChange(event) {
     let proposalIdList;
     if (event.target.value === 'udvalgte forslag') {
       proposalIdList = [
@@ -118,28 +118,41 @@ class Root extends Component {
         '72732'  // B110
       ];
     } else if (event.target.value === 'afstemte forslag') {
-      proposalIdList = [
-        '70703', // L69
-      ];
+      const response = await fetch('/api/vote/history', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        }
+      })
+      const resolvedResponse = await response.json()
+      proposalIdList = resolvedResponse.map(id => {
+        return id.propsal
+      })
     }
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      openDataPage: 1
-    })
-    this.setState({
-      [name]: value
-    }, async function () {
-      this.getProposals(proposalIdList);
-    });
+    this.setState(
+      async function () {
+        this.getProposals(proposalIdList);
+      }
+    );
+    // const target = event.target;
+    // const value = target.value;
+    // const name = target.name;
+    // this.setState({
+    //   openDataPage: 1
+    // })
+    // this.setState({
+    //   // [name]: value
+    // }, async function () {
+    //   this.getProposals(proposalIdList);
+    // });
   }
 
   render() {
     const proposals = this.state.proposals.value;
-    const nextLink = this.state.proposals['odata.nextLink'];
-    const page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
-    const selectedSection = this.state.selectedSection
+    // const nextLink = this.state.proposals['odata.nextLink'];
+    // const page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
+    // const selectedSection = this.state.selectedSection
     const selectSection = event => {
       const section = event.target.value
       this.setState({
@@ -171,10 +184,10 @@ class Root extends Component {
         {this.state.proposals.message &&
           <OpenDataErrorHandler/>}
         <ProposalListSection proposals = {proposals}/>
-        {page >= 2 &&
+        {/* {page >= 2 &&
           <button name='openDataPage' value={page - 1} onClick={this.handleChange}>forrige side</button>}
         {nextLink &&
-          <button name='openDataPage' value={page + 1} onClick={this.handleChange}>næste side</button>}
+          <button name='openDataPage' value={page + 1} onClick={this.handleChange}>næste side</button>} */}
       </div>
     )
   }
