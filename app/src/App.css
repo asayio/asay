@@ -1,4 +1,6 @@
-@import url('https://assets.initiativet.net/fonts/clear-sans/css/clear-sans.css');
+html {
+  background-color: #f5f5f5;
+}
 
 select {
   appearance: none;
@@ -12,20 +14,28 @@ svg {
   width: 1.2em;
 }
 
-.clear-sans {
-  font-family: 'Clear Sans','Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Ubuntu, Noto, 'Segoe UI', Arial, sans-serif;
-  letter-spacing: .02rem;
-}
-p {
-  color: rgba(0,0,0,.9);
-}
-
 .card {
   transition: all 0.25s ease-out;
 }
 .card:hover,
 .card:focus {
   transform: translateY(-1px);
+}
+
+.i-green {
+  color: #42BFB4;
+}
+.bg-i-green {
+  background-color: #42BFB4;
+}
+.b--i-green {
+  border-color: #42BFB4;
+}
+.hover-i-green:hover {
+  color: #47CCC0;
+}
+.hover-bg-i-green:hover {
+  background-color: #47CCC0;
 }
 
 .h10 {

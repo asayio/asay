@@ -22,7 +22,7 @@ class App extends Component {
     if (window.sessionStorage.authToken) {
       return (
         <Router>
-          <div>
+          <div className="sans-serif black-90 pt4 pb5 ph3 mw8 center">
             <Nav/>
             <Switch>
               <Route exact path="/" component={Root}/>
@@ -40,7 +40,7 @@ class App extends Component {
     } else {
       return (
         <Router>
-          <div>
+          <div className="sans-serif near-black pt4 pb5 ph3 mw8 center">
             <Nav/>
             <Switch>
               <Route exact path="/auth" component={Auth}/>
