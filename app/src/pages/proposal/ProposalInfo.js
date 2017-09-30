@@ -23,13 +23,13 @@ class ProposalInfo extends Component {
       }
     });
     const proposalPresentation = await getProposalPresentation.json();
+    proposalPresentation.paragraphs && proposalPresentation.paragraphs.splice(-1, 1); // we remove the last annoying paragraph
     this.setState({proposalPresentation: proposalPresentation});
   }
 
 
   render() {
     const proposalPresentation = this.state.proposalPresentation.paragraphs
-    proposalPresentation && proposalPresentation.splice(-1, 1); // we remove the last annoying paragraph
     const proposal = this.props.proposalInfo;
     const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
     const deadline = R.path(['dato'], R.last(this.props.openDataStage));
