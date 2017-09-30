@@ -17,7 +17,8 @@ class Preferences extends Component {
     const getCategoryPreferences = await fetch('/api/preferences/categories', {
       method: 'GET',
       headers: {
-        authtoken: window.sessionStorage.authToken
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + window.sessionStorage.authToken
       }
     });
     const categoryPreferences = await getCategoryPreferences.json();
