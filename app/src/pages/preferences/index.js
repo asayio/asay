@@ -25,22 +25,38 @@ class Preferences extends Component {
     this.setState({categoryPreferences});
   }
 
-  updatePreference (category, index) {
-    console.log(!this.state.categoryPreferences[index].preference);
-    const newPreference = Object.assign({}, this.state.categoryPreferences[index])
-    newPreference.preference = !this.state.categoryPreferences[index].preference
-    this.setState({
-        categoryPreferences: Object.assign([], this.state.categoryPreferences, newPreference)
+  // updatePreference (category, index) {
+  //   console.log(!this.state.categoryPreferences[index].preference);
+  //   const newPreference = Object.assign({}, this.state.categoryPreferences[index])
+  //   newPreference.preference = !this.state.categoryPreferences[index].preference
+  //   this.setState({
+  //       categoryPreferences: Object.assign([], this.state.categoryPreferences, newPreference)
+  //     }
+  //   )
+  // }
+
+  async updatePreference() {
+    await fetch('/api/preferences/categories',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          preference: !this.state.categoryPreferences[0].preference,
+          id: this.state.categoryPreferences[0].id
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        }
       }
     )
-  }
+  };
 
   render () {
     console.log(this.state.categoryPreferences);
     return(
       <div>
         {this.state.categoryPreferences.map((category, index) =>
-          <div key={category.id} onClick={() => this.updatePreference(category, index)}>
+          <div key={category.id} onClick={() => this.updatePreference()}>
             {category.preference ? <Icon.CheckCircle/> : <Icon.Circle/>}
             <h3><FeatherIcon name={category.feathericon}/> {category.title}</h3>
             <p>{category.description}</p>

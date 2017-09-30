@@ -4,8 +4,9 @@ const auth = require('../auth/auth.js')
 
 // Queries
 const selectCategoryPreferences = db.sql('./src/preferences/selectCategoryPreferences.sql')
-// const insertVote = db.sql('./src/vote/insertVote.sql')
-// const updateVote = db.sql('./src/vote/updateVote.sql')
+const selectCategoryPreference = db.sql('./src/preferences/selectCategoryPreference.sql')
+const insertCategoryPreference = db.sql('./src/preferences/insertCategoryPreference.sql')
+const updateCategoryPreference = db.sql('./src/preferences/updateCategoryPreference.sql')
 
 // Functions
 async function getCategoryPreferences (request, response) {
@@ -24,6 +25,47 @@ async function getCategoryPreferences (request, response) {
     }
   }
   catch(err) {
+    response.sendStatus(500)
+  }
+}
+
+async function getCategoryPreference (userId, categoryId) {
+  const preference = await db.cx.query(selectCategoryPreference,
+    {
+      user: userId,
+      category: categoryId,
+    });
+  return preference
+}
+
+async function postCategoryPreference (request, response) {
+  try {
+    const authToken = await auth.getToken(request);
+    const user = await auth.lookupUser(authToken);
+    if (user) {
+      const userId = user.id;
+      const preference = request.body.preference;
+      const categoryId = request.body.id;
+      const currentPreference = await getCategoryPreference(userId, categoryId);
+      const hasPreference = currentPreference.length > 0 ? true : false;
+      const setPreference = hasPreference ? await db.cx.query(updateCategoryPreference,
+        {
+          user: userId,
+          category: categoryId,
+          preference: preference,
+        }) : db.cx.query(insertCategoryPreference,
+        {
+          user: userId,
+          category: categoryId,
+          preference: preference,
+        });
+      response.sendStatus(200)
+    } else {
+      response.sendStatus(401)
+    }
+  }
+
+  catch(err) {
     console.log(err);
     response.sendStatus(500)
   }
@@ -31,6 +73,6 @@ async function getCategoryPreferences (request, response) {
 
 // Export
 module.exports = {
-  getCategoryPreferences
-//  updatePreferences
+  getCategoryPreferences,
+  postCategoryPreference
 }

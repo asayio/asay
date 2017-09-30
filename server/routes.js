@@ -27,6 +27,7 @@ function map(app) {
 
   // POST
   app.post("/api/proposal/:id/vote", vote.postVote);
+  app.post("/api/preferences/categories", preferences.postCategoryPreference);
   // app.post("/api/article/:id", article.postArticle);
   // app.post("/api/article/:id/vote", articleVote.postVote);
 }
