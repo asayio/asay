@@ -127,12 +127,13 @@ class Root extends Component {
     }
     if (proposals) {
       return (
-        <div className="pa4 bg-white ba b--black-10 br2 shadow-6">
+        <div className="mw8 center">
+          <h1 className="f3 tc mt5 mb4">Udvalgte forslag</h1>
           {/* <div className="mb4 cf">
           {this.state.filters.map((filter, index) =>
-            <div className="fl w-25 pa1" key={index}>
-              <h5 className="mb3 pl1">{filter.name.toUpperCase()}</h5>
-              <select name={filter.name} onChange={this.handleChange} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+            <div key={index}>
+              <h5>{filter.name.toUpperCase()}</h5>
+              <select name={filter.name} onChange={this.handleChange}>
                 <option value=''>Alle</option>
                 {this.state[filter.idName].map((option) =>
                   <option key={option.id} value={option.id}>{option.titel || option.type || option.status}</option>
