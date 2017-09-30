@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ProposalListSection from './ProposalListItem.js';
-import LoadingSpinner from '../../widgets/LoadingSpinner.js';
+import ProposalListSection from './ProposalListSection.js';
 import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
 
 class Root extends Component {
@@ -8,6 +7,7 @@ class Root extends Component {
     super(props);
     this.state = {
       proposals: {},
+      selectedSection: 'udvalgte forslag',
       filters: [
         {idName: 'openDataCaseType', name: 'type'},
         {idName: 'openDataPeriod', name: 'periode'},
@@ -21,46 +21,35 @@ class Root extends Component {
   this.getProposals = this.getProposals.bind(this);
   }
 
-  async getProposals() {
+  async getProposals(proposalIdList) {
     const type = this.state.type;
     const status = this.state.status;
     const session = this.state.periode;
     const page = this.state.openDataPage;
-    const hardCodedPropsalList = [
-      '70703', // L69
-      '72432', // L153
-      '73014', // L195
-      '71402', // B41
-      '73286', // B132
-      '71644', // B54
-      '72745', // B117
-      '71731', // B121
-      '72732'  // B110
-    ];
     let hardCodedPropsalListUrl = '&$filter=';
-    hardCodedPropsalList.forEach(function (id, index) {
+    proposalIdList.forEach(function (id, index) {
       if (index === 0) {
         hardCodedPropsalListUrl += 'id eq ' + id;
       } else {
         hardCodedPropsalListUrl += ' or id eq ' + id;
       }
     })
-    let filterString = '&$filter=typeid eq 3 or typeid eq 5'; // default filter
-    if (type || status || session) {
-      filterString = '&$filter=';
-      if (type) {
-        filterString += 'typeid eq ' + type;
-      }
-      if (status) {
-        if (filterString !== '&$filter=') {filterString += ' and '}
-        filterString += 'statusid eq ' + status;
-      }
-      if (session) {
-        if (filterString !== '&$filter=') {filterString += ' and '}
-        filterString += 'periodeid eq ' + session;
-      }
-    }
-    filterString += '&$skip=' + (page - 1) * 20;
+    // let filterString = '&$filter=typeid eq 3 or typeid eq 5'; // default filter
+    // if (type || status || session) {
+    //   filterString = '&$filter=';
+    //   if (type) {
+    //     filterString += 'typeid eq ' + type;
+    //   }
+    //   if (status) {
+    //     if (filterString !== '&$filter=') {filterString += ' and '}
+    //     filterString += 'statusid eq ' + status;
+    //   }
+    //   if (session) {
+    //     if (filterString !== '&$filter=') {filterString += ' and '}
+    //     filterString += 'periodeid eq ' + session;
+    //   }
+    // }
+    // filterString += '&$skip=' + (page - 1) * 20;
     const filter = encodeURIComponent('Sag?$orderby=id desc&$expand=Sagsstatus,Periode' + hardCodedPropsalListUrl);
     const proposalResponse = await fetch(`/api/openDataFetcher/fetchOnePage/${filter}`,
       {
@@ -99,10 +88,40 @@ class Root extends Component {
     const openDataStatusResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${statusFilter}`);
     const openDataStatus = await openDataStatusResponse.json();
     this.setState({openDataStatus});
-    this.getProposals();
+
+    const proposalIdList = [
+      '70703', // L69
+      '72432', // L153
+      '73014', // L195
+      '71402', // B41
+      '73286', // B132
+      '71644', // B54
+      '72745', // B117
+      '71731', // B121
+      '72732'  // B110
+    ];
+    this.getProposals(proposalIdList);
   };
 
   handleChange(event) {
+    let proposalIdList;
+    if (event.target.value === 'udvalgte forslag') {
+      proposalIdList = [
+        '70703', // L69
+        '72432', // L153
+        '73014', // L195
+        '71402', // B41
+        '73286', // B132
+        '71644', // B54
+        '72745', // B117
+        '71731', // B121
+        '72732'  // B110
+      ];
+    } else if (event.target.value === 'afstemte forslag') {
+      proposalIdList = [
+        '70703', // L69
+      ];
+    }
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -112,48 +131,52 @@ class Root extends Component {
     this.setState({
       [name]: value
     }, async function () {
-      this.getProposals();
+      this.getProposals(proposalIdList);
     });
   }
 
   render() {
-    var proposals = this.state.proposals.value;
-    var nextLink = this.state.proposals['odata.nextLink'];
-    var page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
-    if (this.state.proposals.message) {
-      return (
-        <OpenDataErrorHandler/>
-      )
+    const proposals = this.state.proposals.value;
+    const nextLink = this.state.proposals['odata.nextLink'];
+    const page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
+    const selectedSection = this.state.selectedSection
+    const selectSection = event => {
+      const section = event.target.value
+      this.setState({
+        selectedSection: section,
+        proposals: []
+      })
+      this.handleChange(event)
     }
-    if (proposals) {
-      return (
-        <div className="mw8 center">
-          <h1 className="f3 tc mt5 mb4">Udvalgte forslag</h1>
-          {/* <div className="mb4 cf">
-          {this.state.filters.map((filter, index) =>
-            <div key={index}>
-              <h5>{filter.name.toUpperCase()}</h5>
-              <select name={filter.name} onChange={this.handleChange}>
-                <option value=''>Alle</option>
-                {this.state[filter.idName].map((option) =>
-                  <option key={option.id} value={option.id}>{option.titel || option.type || option.status}</option>
-                )}
-              </select>
-            </div>
-          )}
-          </div> */}
-          <ProposalListSection
-            proposals = {proposals}
-          />
-        {page >= 2 && <button name='openDataPage' value={page - 1} onClick={this.handleChange}>forrige side</button>}
-        {nextLink && <button name='openDataPage' value={page + 1} onClick={this.handleChange}>næste side</button>}
+    return (
+      <div className="mw8 center">
+        {/* <div className="mb4 cf">
+        {this.state.filters.map((filter, index) =>
+          <div key={index}>
+            <h5>{filter.name.toUpperCase()}</h5>
+            <select name={filter.name} onChange={this.handleChange}>
+              <option value=''>Alle</option>
+              {this.state[filter.idName].map((option) =>
+                <option key={option.id} value={option.id}>{option.titel || option.type || option.status}</option>
+              )}
+            </select>
+          </div>
+        )}
+        </div> */}
+        <div>
+          <button value="udvalgte forslag" onClick={selectSection}>udvalgte forslag</button>
+          <button value="afstemte forslag" onClick={selectSection}>afstemte forslag</button>
         </div>
-      );
-    } else {
-      return (
-        <LoadingSpinner/>
-      )
-    }
+        <h1 className="f3 tc mt5 mb4">{this.state.selectedSection}</h1>
+        {this.state.proposals.message &&
+          <OpenDataErrorHandler/>}
+        <ProposalListSection proposals = {proposals}/>
+        {page >= 2 &&
+          <button name='openDataPage' value={page - 1} onClick={this.handleChange}>forrige side</button>}
+        {nextLink &&
+          <button name='openDataPage' value={page + 1} onClick={this.handleChange}>næste side</button>}
+      </div>
+    )
   }
 }
 
