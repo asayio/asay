@@ -4,6 +4,7 @@ const auth = require('../auth/auth.js')
 
 // Queries
 const selectVote = db.sql('./src/vote/selectVote.sql')
+const selectVoteHistory = db.sql('./src/vote/selectVoteHistory.sql')
 const insertVote = db.sql('./src/vote/insertVote.sql')
 const updateVote = db.sql('./src/vote/updateVote.sql')
 
@@ -17,21 +18,37 @@ async function getVote (userId, proposalId) {
   return vote
 }
 
-async function postVote (request, response) {
-
+async function getVoteHistory (request, response) {
   try {
-
     const authToken = await auth.getToken(request);
     const user = await auth.lookupUser(authToken);
-
     if (user) {
+      const voteHistory = await db.cx.query(selectVoteHistory,
+        {
+          user: user.id
+        }
+      );
+      response.send(voteHistory)
+    } else {
+      response.sendStatus(401)
+    }
+  }
+  catch(err) {
+    console.log(err);
+    response.sendStatus(500)
+  }
+}
 
+async function postVote (request, response) {
+  try {
+    const authToken = await auth.getToken(request);
+    const user = await auth.lookupUser(authToken);
+    if (user) {
       const userId = user.id;
       const voteResult = request.body.voteresult;
       const proposalId = request.params.id;
       const currentVote = await getVote(userId, proposalId);
       const hasVoted = currentVote.length > 0 ? true : false;
-
       const vote = hasVoted ? await db.cx.query(updateVote,
         {
           user: userId,
@@ -48,7 +65,6 @@ async function postVote (request, response) {
       response.sendStatus(401)
     }
   }
-
   catch(err) {
     response.sendStatus(500)
   }
@@ -57,5 +73,6 @@ async function postVote (request, response) {
 // Export
 module.exports = {
   postVote,
-  getVote
+  getVote,
+  getVoteHistory
 }

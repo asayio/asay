@@ -13,6 +13,7 @@ function map(app) {
   app.get("/api/openDataFetcher/fetchAllPages/:searchCriteria", openDataFetcher.fetchAllPages);
   app.get("/api/auth/:authToken", auth.loginPostHandler);
   app.get("/api/preferences/categories", preferences.getCategoryPreferences);
+  app.get("/api/vote/history", vote.getVoteHistory);
 
   // POST
   app.post("/api/proposal/:id/vote", vote.postVote);
