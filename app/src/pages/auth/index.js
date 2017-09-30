@@ -6,6 +6,10 @@ class Auth extends Component {
 
   async componentDidMount() {
     if (window.sessionStorage.authToken) {
+      window.sessionStorage.termsAccepted === "true" ?
+      this.props.history.replace({
+        pathname: './'
+      }) :
       this.props.history.replace({
         pathname: './disclaimer'
       })
@@ -21,6 +25,7 @@ class Auth extends Component {
       if (response.ok)  {
         const user = await response.json();
         window.sessionStorage.user = user.firstname + ' ' + user.lastname;
+        window.sessionStorage.termsAccepted = user.terms_accepted
         window.sessionStorage.authToken = authToken;
         await window.location.reload();
       } else {

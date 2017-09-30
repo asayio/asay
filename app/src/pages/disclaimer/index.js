@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
 import Logout from '../../widgets/auth/Logout'
 import { Check } from 'react-feather';
-import { Link } from 'react-router-dom';
 
 class Disclaimer extends Component {
+
+  async handleAccept(event) {
+    const response = await fetch('/api/user/terms',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        }
+      }
+    // ).then(
+    //     window.location.href="../"
+    )
+    if (response.ok) {
+      window.location.href="../"
+    }
+  };
+
   render() {
     return (
       <div>
@@ -13,7 +30,7 @@ class Disclaimer extends Component {
         <h2>Datasikkerhed og privatliv</h2>
         <p>Dine oplysninger behandles efter gældende persondatalovgivning med Initiativet som databehandler. Vi har dit fornavn- og efternavn samt din email registret sammen med de stemmer du afgiver. Hvis du ikke er okay med det, så vent med at stem. Vi arbejder nemlig på en bedre, mere sikker og privat løsning. Det tager bare lidt længere tid. Tak for din tålmodighed.</p>
         <Logout />
-        <Link to="./" className="pointer link dark-blue hover-blue"><Check className="svg-icon"/>Accepter</Link>
+        <a onClick={this.handleAccept} className="pointer link dark-blue hover-blue"><Check className="svg-icon"/>Accepter</a>
       </div>
     );
   }
