@@ -5,7 +5,6 @@ const insertArticle = db.sql('./src/article/insertArticle.sql')
 
 async function postArticle (request, response) {
 
-  const userId = 1 // collect through auth ...
   const articleUrl = request.body.article;
 
   const options = {
