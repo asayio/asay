@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import R from 'ramda';
-import { DownloadCloud } from 'react-feather';
 import CountDown from '../../widgets/CountDown.js';
 
 class ProposalInfo extends Component {
@@ -34,40 +33,54 @@ class ProposalInfo extends Component {
     const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
     const deadline = R.path(['dato'], R.last(this.props.openDataStage));
     return (
-      <div className="mb4">
-        <h1 className="f3">
+      <div>
+        <h1 className="f3 tc mt5 mb4">
           {proposal.nummer}: {proposal.titelkort.replace('.', '')}
         </h1>
-        <p className="f5 ttl small-caps black-70">
-          <span><b>Deadline:</b> <CountDown dueDate = {deadline} /></span>
-        </p>
-        <a onClick={() => this.setState({view: 'resume'})}>Forslag</a>
-        {proposalPresentation ? <a onClick={() => this.setState({view: 'background'})}>Baggrund</a> : <b/> }
-        {this.state.view === 'resume' ?
-        <p className="black-70 lh-copy mv4">
-          {proposal.resume}
-        </p>
-        :
-        <div>
-        {proposalPresentation.map(function (paragraph, index) {
-          return (
-            <p key={index} className="black-70 lh-copy mv4">
-              {paragraph}
+        <a onClick={() => this.setState({view: 'resume'})} className="pointer">
+          <div className="b dib ph3 pv2 bg-white ba b--black-10 br1 mr2">
+            Forslag
+          </div>
+        </a>
+        <a onClick={() => this.setState({view: 'background'})} className="pointer">
+          <div className="b dib ph3 pv2 bg-white ba b--black-10 br1">
+            Baggrund
+          </div>
+        </a>
+        <div className="row">
+          <div className="col9 bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
+            {this.state.view === 'resume' ?
+            <p className="black-70 lh-copy mt0 mb3">
+              {proposal.resume}
             </p>
-          )
-          })}
-        </div>}
-        <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`}>ft.dk</a></p>
-        <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="pv2 ph3 br1 white bg-dark-blue link shadow-6 mr3">
-          <DownloadCloud className="mr2" />
-          Forslag som fremsat
-        </a>
-        {ftProposalPassed ?
-        <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_vedtaget.pdf`} target="blank" className="pv2 ph3 br1 white bg-dark-blue link shadow-6 mr3">
-          <DownloadCloud className="mr2" />
-          Forslag som vedtaget
-        </a>
-        :<div/>}
+            :
+            <div>
+            {proposalPresentation.map(function (paragraph, index) {
+              return (
+                <p key={index} className="black-70 lh-copy mt0 mb3">
+                  {paragraph}
+                </p>
+              )
+              })}
+            </div>}
+          </div>
+          <div className="col3 pl3">
+            <div className="bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
+              <p>
+                Deadline: <CountDown dueDate = {deadline} />
+              </p>
+              <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`}>ft.dk</a></p>
+            </div>
+            <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="dib w-100 tc pv2 mv2 dark-blue ba b--dark-blue br1 link">
+              Forslag som fremsat
+            </a>
+            {ftProposalPassed ?
+            <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_vedtaget.pdf`} target="blank" className="dib w-100 tc pv2 mv2 dark-blue ba b--dark-blue br1 link">
+              Forslag som vedtaget
+            </a>
+            :<div/>}
+          </div>
+        </div>
       </div>
     );
   }

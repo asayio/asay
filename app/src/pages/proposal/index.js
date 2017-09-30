@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import ProposalInfo from './ProposalInfo';
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
-import BackBtn from '../../widgets/BackBtn.js';
-import { ArrowRight } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 class ProposalPage extends Component {
@@ -38,15 +36,16 @@ class ProposalPage extends Component {
     if (proposalInfo) {
       return (
         <div>
-          <BackBtn title="Tilbage til listen"/>
-          <div className="pa4 pb5 bg-white ba b--black-10 br2 shadow-6">
+          <div className="mw8 center">
             <ProposalInfo
               proposalInfo = {proposalInfo}
               openDataStage = {this.state.openDataStage}
             />
-            <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="pv2 ph3 br1 white bg-i-green link shadow-6 mb5">
-              <ArrowRight className="mr2"/>Gå til stemmeboks
-            </Link>
+            <div className="col9 tc">
+              <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="dib link white bg-dark-blue mt3 pv3 ph4 ba b--black-10 br1 shadow-6">
+                Gå til stemmeboks
+              </Link>
+            </div>
           </div>
         </div>
       )

@@ -12,7 +12,7 @@ class ProposalListSection extends Component {
       {proposals.map(function (proposal, index) {
         return (
           <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
-            <div className="bg-white pa4 mv2 ba b--black-10 br2 card shadow-6 flex">
+            <div className="bg-white pa4 mv2 ba b--black-10 br1 card shadow-6 flex">
               <div className="pr4 flex items-center">
                 { proposal.vote ?
                 <CheckSquare className="f3 dark-pink pb2"/>:
