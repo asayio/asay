@@ -11,7 +11,7 @@ class Root extends Component {
       )
     } else {
       return (
-        <Welcome/>
+        <YC/>
       );
     }
   }
@@ -48,6 +48,22 @@ class Welcome extends Component {
         <a href="https://initiativet.net/membership" className="pointer link dark-blue hover-blue"><UserPlus className="svg-icon mr2"/>Bliv medlem</a>
         <p>Har du ikke modtaget login? <a href="mailto:dinevenner@initiativet.net" className="pointer link dark-blue hover-blue">Send os en mail</a></p>
         <footer><a href="https://asay.io" className="link dark-pink ttl f7">Coded with <Heart className="svg-icon"/> by asay</a></footer>
+      </div>
+    );
+  }
+}
+
+class YC extends Component {
+  render() {
+    return (
+      <div>
+        <div>
+          <p>Hey guys! Sorry for forcing you, but disabling authentication throughout the project is not worthwhile.<br/>
+          <b>e-mail:</b> yc@asay.io<br/>
+          <b>pw:</b> W2018<br/>
+          You're looking at actual legislation from Danish parliament. That's why it's all in Danish. But click around and vote anyway!</p>
+        </div>
+        <Login/>
       </div>
     );
   }
