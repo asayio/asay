@@ -8,6 +8,7 @@ import Confirmation from './pages/confirmation';
 import Root from './pages/root'
 import Unauthorized from './pages/401';
 import Disclaimer from './pages/disclaimer';
+import Preferences from './pages/preferences';
 import Lost from './pages/404';
 import Nav from './widgets/Nav.js';
 import {
@@ -29,6 +30,7 @@ class App extends Component {
               <Route exact path="/proposal/:id/vote" component={Vote}/>
               <Route exact path="/confirmed" component={Confirmation}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
+              <Route exact path="/preferences" component={Preferences}/>
               <Route exact path="/auth" component={Auth}/>
               <Route path="*" component={Lost}/>
             </Switch>

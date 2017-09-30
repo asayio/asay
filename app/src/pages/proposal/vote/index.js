@@ -37,7 +37,6 @@ class Vote extends Component {
   }
 
   handleVote(voteresult) {
-    console.log(voteresult);
     this.setState({
       voteresult: voteresult
     },

@@ -5,6 +5,7 @@ const openDataFetcher = require('./src/openDataFetcher/openDataFetcher')
 const auth = require('./src/auth/auth');
 const proposals = require('./src/proposals/proposals')
 const vote = require('./src/vote/vote');
+const preferences = require('./src/preferences/preferences')
 // const proposal = require('./src/proposal/proposal')
 // const pollVote = require('./src/poll/vote/pollVote')
 // const article = require('./src/article/article');
@@ -22,6 +23,7 @@ function map(app) {
   app.get("/api/proposals/getOpenDataPeriod", proposals.getOpenDataPeriod);
   // app.get("/api/proposal/:id", proposal.getProposalBundle);
   app.get("/api/auth/:authToken", auth.loginPostHandler);
+  app.get("/api/preferences/categories", preferences.getCategoryPreferences);
 
   // POST
   app.post("/api/proposal/:id/vote", vote.postVote);
