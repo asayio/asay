@@ -43,11 +43,11 @@ class ProposalInfo extends Component {
             Forslag
           </div>
         </a>
-        {proposal.nummerprefix !== 'B' ? <a onClick={() => this.setState({view: 'background'})} className="pointer">
+        {proposal.nummerprefix !== 'B' && <a onClick={() => this.setState({view: 'background'})} className="pointer">
           <div className="b dib ph3 pv2 bg-white ba b--black-10 br1">
             Baggrund
           </div>
-        </a>: <a></a>}
+        </a>}
         <div className="row">
           <div className="col9 bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             {this.state.view === 'resume' ?
@@ -70,7 +70,7 @@ class ProposalInfo extends Component {
               <p>
                 Deadline: <CountDown dueDate = {deadline} />
               </p>
-              <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`}>ft.dk</a></p>
+              <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`} target="blank" >ft.dk</a></p>
             </div>
             <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="dib w-100 tc pv2 mv2 dark-blue ba b--dark-blue br1 link">
               Forslag som fremsat

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
-import { Heart, UserPlus } from 'react-feather'
+// import { Heart, UserPlus } from 'react-feather'
 import ProposalList from './ProposalList'
 
 class Root extends Component {
@@ -17,7 +17,7 @@ class Root extends Component {
   }
 }
 
-class Welcome extends Component {
+/*class Welcome extends Component {
   render() {
     return (
       <div>
@@ -51,7 +51,7 @@ class Welcome extends Component {
       </div>
     );
   }
-}
+}*/
 
 class YC extends Component {
   render() {

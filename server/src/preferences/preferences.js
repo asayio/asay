@@ -66,7 +66,6 @@ async function postCategoryPreference (request, response) {
   }
 
   catch(err) {
-    console.log(err);
     response.sendStatus(500)
   }
 }

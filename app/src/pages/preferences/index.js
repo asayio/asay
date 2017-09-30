@@ -25,7 +25,7 @@ class Preferences extends Component {
       return a.title.localeCompare(b.title)
     })
     this.setState({categoryPreferences});
-    const workload = this.workload(categoryPreferences);
+    this.workload(categoryPreferences);
   }
 
   workload(categoryPreferences) {
@@ -64,7 +64,6 @@ class Preferences extends Component {
   }
 
   render () {
-    console.log(this.state.workload);
     return(
       <div>
         Du skal i gennemsnit tage stilling til ca. <b>{this.state.workload}</b> forslag om året. Det svarer til <b>{Math.round(this.state.workload / 52, 0) }</b> om ugen i gennemsnit.
