@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
 import BackBtn from '../../../widgets/BackBtn.js';
-import { ArrowLeft, XSquare, CheckSquare, MinusSquare, Check, X } from 'react-feather';
 
 class Vote extends Component {
   constructor(props) {
@@ -69,29 +68,20 @@ class Vote extends Component {
 
   render() {
     return (
-      <div>
-        <BackBtn title="Tilbage til forslaget" href={`../${this.props.match.params.id}`} />
-        <h1>{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort}</h1>
-        <a onClick={() => this.handleVote(true)}>
-          <CheckSquare className="svg-icon mr1"/>
-          <span className="lh-copy">For</span>
-        </a>
-        <a onClick={() => this.handleVote(false)}>
-          <XSquare className="svg-icon mr1"/>
-          <span className="lh-copy">Imod</span>
-        </a>
-        <br/>
-        <a onClick={() => this.handleVote(null)}>
-          <MinusSquare className="svg-icon mr1"/>
-          <span className="lh-copy">Træk stemme tilbage</span>
-        </a>
+      <div className="mw8 center tc">
+        <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort}</h1>
+        <div className="mw6 center bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
+          <h2 className="f4">Afgiv din stemme</h2>
+          <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv3 ma3 ba b--black-10 br1 shadow-6">For</a>
+          <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv3 ma3 ba b--black-10 br1 shadow-6">Imod</a>
+          <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy">Træk stemme tilbage</a>
+        </div>
         <div className="modal" id="modal">
           {this.state.error ?
           <div className="modal-content">
             <h3>Der er sket en fejl</h3>
             <p>Det er ikke dig, det er os. Prøv igen.<br/>Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net">send os en mail.</a></p>
             <a id="closemodal" onClick={this.closeModal}>
-              <ArrowLeft className="svg-icon mr1"/>
               <span className="lh-copy">Tilbage</span>
             </a>
           </div> :
@@ -102,11 +92,9 @@ class Vote extends Component {
               : <p>Du er ved at stemme <b>{this.state.voteresult === true ? "for" : "imod"} </b>.</p>
             } <br/>
             <a id="closemodal" onClick={this.closeModal}>
-              <X className="svg-icon mr1"/>
               <span className="lh-copy">Annuller</span>
             </a>
             <a onClick={this.handleSubmit}>
-              <Check className="svg-icon mr1"/>
               <span className="lh-copy">Bekræft</span>
             </a>
           </div>}

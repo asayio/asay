@@ -42,7 +42,7 @@ class ProposalPage extends Component {
               openDataStage = {this.state.openDataStage}
             />
             <div className="col9 tc">
-              <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="dib link white bg-dark-blue mt3 pv3 ph4 ba b--black-10 br1 shadow-6">
+              <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="dib link white bg-dark-blue hover-bg-blue mt3 pv3 ph4 ba b--black-10 br1 shadow-6">
                 Gå til stemmeboks
               </Link>
             </div>
