@@ -20,7 +20,8 @@ class Login extends Component {
         }
       },
       theme: {
-        primaryColor: '#42BFB4',
+        logo: 'https://sjwinther.github.io/asay.landing/favicon.svg',
+        primaryColor: '#00449E',
       },
       languageDictionary: Da,
       allowSignUp: false,

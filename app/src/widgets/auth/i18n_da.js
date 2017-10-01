@@ -7,11 +7,11 @@ export default {
       'lock.unauthorized': 'Denne bruger har ikke adgang.',
     },
   },
-  blankErrorHint: 'du mangler at skrive noget',
-  emailInputPlaceholder: 'dinevenner@initiativet.net',
+  blankErrorHint: 'Du mangler at skrive noget',
+  emailInputPlaceholder: 'email@email.com',
   loginSubmitLabel: 'Log Ind',
   passwordInputPlaceholder: 'password',
-  title: '',
+  title: 'Asay',
   forgotPasswordTitle: '',
   showPassword: 'Vis password'
 };
