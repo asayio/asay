@@ -34,6 +34,7 @@
     "node-fetch": "^1.7.2",
     "open-graph-scraper": "^2.5.4",
     "pg-promise": "^6.3.5",
+    "ramda": "^0.24.1",
     "scrape-it": "^3.3.3"
   }
 }

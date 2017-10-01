@@ -1,4 +1,5 @@
 // Import
+const R = require('ramda')
 const auth = require('../auth/auth.js')
 const openDataFetcher = require('./openDataFetcher.js')
 const vote = require('../vote/vote.js')
@@ -27,6 +28,13 @@ async function proposalFetcher (request, response) {
     proposalIdList = voteHistory.map(id => {
       return id.propsal
     })
+    if (R.isEmpty(proposalIdList)) {
+      response.send({
+        value: {
+          empty: true
+        }
+      })
+    }
   } else if (specificProposalId) {
     proposalIdList = [specificProposalId]
   }

@@ -13,6 +13,8 @@ class ProposalListSection extends Component {
           <LoadingSpinner/>
         </div>
       )
+    } else if (proposals.empty) {
+      return <p>Du har vist ikke stemt på noget endnu</p>
     } else {
       return (
         <div>
