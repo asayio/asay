@@ -1,5 +1,9 @@
 @import url('https://assets.initiativet.net/fonts/clear-sans/css/clear-sans.css');
 
+a {
+  text-decoration: none;
+  transition: all .1s ease-in;
+}
 select {
   appearance: none;
   background: url(/assets/arrow-down.svg) 97% / 1rem no-repeat #eee;
