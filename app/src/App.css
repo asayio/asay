@@ -20,9 +20,6 @@ svg {
   font-family: 'Clear Sans','Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Ubuntu, Noto, 'Segoe UI', Arial, sans-serif;
   letter-spacing: .02rem;
 }
-p {
-  color: rgba(0,0,0,.9);
-}
 
 .card {
   transition: all 0.25s ease-out;
