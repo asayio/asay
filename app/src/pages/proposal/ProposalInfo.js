@@ -38,16 +38,8 @@ class ProposalInfo extends Component {
         <h1 className="f3 tc mt5 mb4">
           {proposal.nummer}: {proposal.titelkort.replace('.', '')}
         </h1>
-        <a onClick={() => this.setState({view: 'resume'})} className="pointer">
-          <div className="b dib ph3 pv2 bg-white ba b--black-10 br1 mr2">
-            Forslag
-          </div>
-        </a>
-        {proposal.nummerprefix !== 'B' && <a onClick={() => this.setState({view: 'background'})} className="pointer">
-          <div className="b dib ph3 pv2 bg-white ba b--black-10 br1">
-            Baggrund
-          </div>
-        </a>}
+        <a onClick={() => this.setState({view: 'resume'})} className={(this.state.view === 'resume' ? "bg-white" : "bg-near-white pointer")  + " b dib ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }>Forslag</a>
+        {proposal.nummerprefix !== 'B' && <a onClick={() => this.setState({view: 'background'})} className={(this.state.view === 'background' ? "bg-white" : "bg-near-white pointer")  + " b dib ph3 pv2 ba b--black-10 shadow-6 br1" }>Baggrund</a>}
         <div className="row">
           <div className="col9 bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             {this.state.view === 'resume' ?
