@@ -17,7 +17,7 @@ routes.map(app);
 const path = require('path')
 app.use(express.static('app')); // Note: serve app as static assets
 app.get('*', function (request, response) {
-  response.sendFile(path.join(__dirname, '../app/index.html'));
+  response.sendFile(path.join(__dirname, './app/index.html'));
 })
 
 // Initate webserver

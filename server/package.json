@@ -3,6 +3,9 @@
     "files": [
       "app",
       ".env",
+      "src",
+      "db.js",
+      "routes.js",
       "server.js"
     ]
   },
