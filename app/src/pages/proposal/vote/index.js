@@ -72,7 +72,7 @@ class Vote extends Component {
     if (!R.isEmpty(this.state.proposalInfo)) {
       return (
         <div className="mw8 center tc">
-          <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort}</h1>
+          <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort.replace('.', '')}</h1>
           <div className="mw6 center bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             <h2 className="f4">Afgiv din stemme</h2>
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma3 ba b--black-10 br1 shadow-6">For</a>
