@@ -130,11 +130,7 @@ class Root extends Component {
         return id.propsal
       })
     }
-    this.setState(
-      async function () {
-        this.getProposals(proposalIdList);
-      }
-    );
+    this.getProposals(proposalIdList);
     // const target = event.target;
     // const value = target.value;
     // const name = target.name;
