@@ -76,25 +76,25 @@ class Vote extends Component {
           <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv3 ma3 ba b--black-10 br1 shadow-6">Imod</a>
           <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy">Træk stemme tilbage</a>
         </div>
-        <div className="modal" id="modal">
+        <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
           {this.state.error ?
-          <div className="modal-content">
-            <h3>Der er sket en fejl</h3>
-            <p>Det er ikke dig, det er os. Prøv igen.<br/>Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net">send os en mail.</a></p>
-            <a id="closemodal" onClick={this.closeModal}>
-              <span className="lh-copy">Tilbage</span>
-            </a>
+          <div className="mw6 m-auto pa4 tc bg-white ba b--black-10 br1">
+            <h2 className="f4">Der er sket en fejl</h2>
+            <p>Det er ikke dig, det er os. Prøv igen.
+              <br/><br/>
+            Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" className="dark-blue hover-blue">send os en mail.</a></p>
+            <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma3 ba b--dark-blue br1">Tilbage</a>
           </div> :
-          <div className="modal-content">
-            <h3>Er du sikker?</h3>
+          <div className="mw6 m-auto pa4 tc bg-white ba b--black-10 br1">
+            <h2 className="f4">Er du sikker?</h2>
             {this.state.voteresult === null ?
               <p>Du er ved et trække din stemme tilbage.</p>
-              : <p>Du er ved at stemme <b>{this.state.voteresult === true ? "for" : "imod"} </b>.</p>
-            } <br/>
-            <a id="closemodal" onClick={this.closeModal}>
+              : <p>Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
+            }
+            <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma3 ba b--dark-blue br1">
               <span className="lh-copy">Annuller</span>
             </a>
-            <a onClick={this.handleSubmit}>
+            <a onClick={this.handleSubmit} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma3 ba b--black-10 br1 shadow-6">
               <span className="lh-copy">Bekræft</span>
             </a>
           </div>}

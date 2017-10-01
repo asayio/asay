@@ -1,31 +1,6 @@
-/* MODAL */
-.modal {
-  display: none; /* Hidden by default */
-  -ms-flex-pack: center;
-      justify-content: center;
-  -ms-flex-align: center;
-      align-items: center;
-  position: fixed; /* Stay in place */
-  z-index: 20; /* Sit on top */
+#modal {
+  position: fixed;
   left: 0;
   top: 0;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-.modal-content {
-  background-color: #fefefe;
-  margin: 0 20vw;
-  text-align: center;
-  line-height: 20px;
-  padding: 60px 20px 40px 20px;
-  border-radius: 4px;
-  color: black;
-}
-
-@media screen and (max-width: 720px) {
-  .modal-content {
-    margin: 10px 10px;
-  }
+  background-color: rgba(0,0,0,0.5);
 }

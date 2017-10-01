@@ -62,7 +62,7 @@ class YC extends Component {
           <p>Hey guys! Sorry for forcing you to login, but disabling authentication throughout the project is not worthwhile.<br/>
           <b>E-mail:</b> yc@asay.io<br/>
           <b>Password:</b> W2018<br/>
-          You're looking at actual legislation from Danish parliament. That's why it's all in Danish. (Including the log-in buttons) But click around and vote anyway!</p>
+          You're looking at actual legislation from Danish parliament. That's why it's all in Danish. But click around and vote anyway!</p>
         </div>
         <Login className="pointer dib white bg-dark-blue hover-bg-blue mt3 pv3 ph4 ba b--black-10 br1 shadow-6"/>
       </div>
