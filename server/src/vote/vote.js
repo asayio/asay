@@ -18,7 +18,7 @@ async function getVote (userId, proposalId) {
   return vote
 }
 
-async function getVoteHistory (request, response) {
+async function getVoteHistory (request) {
   try {
     const authToken = await auth.getToken(request);
     const user = await auth.lookupUser(authToken);
@@ -28,14 +28,11 @@ async function getVoteHistory (request, response) {
           user: user.id
         }
       );
-      response.send(voteHistory)
-    } else {
-      response.sendStatus(401)
+      return voteHistory
     }
   }
   catch(err) {
     console.log(err);
-    response.sendStatus(500)
   }
 }
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ProposalInfo from './ProposalInfo';
+import proposalFetcher from '../../fetcher/proposalFetcher.js';
+import stageFetcher from '../../fetcher/stageFetcher.js';
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
 import { Link } from 'react-router-dom';
@@ -15,30 +17,25 @@ class ProposalPage extends Component {
   }
 
   async componentDidMount() {
-    const proposalUrl = encodeURIComponent('Sag?$filter=id eq ' + this.props.match.params.id + '&$expand=Sagsstatus,Periode,Sagstype');
-    const response = await fetch(`/api/openDataFetcher/fetchAllPages/${proposalUrl}`);
-    const proposalData = await response.json();
-    this.setState({proposalData});
-    const proposalStage = encodeURIComponent('Sag(' + this.props.match.params.id + ')/Sagstrin?$filter=typeid eq 7 or typeid eq 17');
-    const openDataStageResponse = await fetch(`/api/openDataFetcher/fetchAllPages/${proposalStage}`);
-    const openDataStage = await openDataStageResponse.json();
+    const proposalData = await proposalFetcher({specificProposalId: this.props.match.params.id})
+    this.setState({proposalData: proposalData.value[0]});
+    const openDataStage = await stageFetcher({specificProposalId: this.props.match.params.id})
     this.setState({openDataStage});
   }
 
   render() {
     const proposalData = this.state.proposalData;
-    const proposalInfo = proposalData[0];
     if (proposalData.message) { // should extract this to own component along with the one on propsal list
       return (
         <OpenDataErrorHandler/>
       )
     }
-    if (proposalInfo) {
+    if (proposalData) {
       return (
         <div>
           <div className="mw8 center">
             <ProposalInfo
-              proposalInfo = {proposalInfo}
+              proposalInfo = {proposalData}
               openDataStage = {this.state.openDataStage}
             />
             <div className="col9 tc">

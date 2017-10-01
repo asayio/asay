@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import R from 'ramda'
 import './style.css';
 import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
-
+import proposalFetcher from '../../../fetcher/proposalFetcher.js';
+import { ArrowLeft, XSquare, CheckSquare, MinusSquare, Check, X } from 'react-feather';
 
 class Vote extends Component {
   constructor(props) {
@@ -19,11 +20,8 @@ class Vote extends Component {
   }
 
   async componentDidMount() {
-    const propsalUrl = encodeURIComponent('Sag?$filter=id%20eq%20' + this.props.match.params.id + '&$expand=Sagsstatus,Periode,Sagstype');
-    const response = await fetch(`/api/openDataFetcher/fetchAllPages/${propsalUrl}`);
-    const proposalData = await response.json();
-    const proposalInfo = proposalData[0];
-    this.setState({proposalInfo});
+    const proposalInfo = await proposalFetcher({specificProposalId: this.props.match.params.id})
+    this.setState({proposalInfo: proposalInfo.value[0]});
   }
 
   closeModal(event) {
