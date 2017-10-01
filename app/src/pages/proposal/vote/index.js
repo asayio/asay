@@ -3,7 +3,6 @@ import R from 'ramda'
 import './style.css';
 import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
 import proposalFetcher from '../../../fetcher/proposalFetcher.js';
-import { ArrowLeft, XSquare, CheckSquare, MinusSquare, Check, X } from 'react-feather';
 
 class Vote extends Component {
   constructor(props) {
