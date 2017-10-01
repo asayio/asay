@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { Home } from 'react-feather';
 
 class Lost extends Component {
   render() {
     return (
-      <div>
-        <h1>
-          Der er problemer...<br/>
-          <span>Der er ikke dig, det er os. Vi mangler at lave en side til den URL du har valgt</span>
-        </h1>
-        <a href="https://app.initiativet.net/" className="pointer link dark-blue hover-blue"><Home className="svg-icon"/>Tag mig hjem</a>
+      <div className="mw8 center tc">
+        <h1 className="f3 mt5 mb4">Der er problemer...</h1>
+        <p>Der er ikke dig, det er os. Vi mangler at lave en side til den URL, du har valgt.</p>
+        <a href="https://app.initiativet.net/" className="pointer dib white bg-dark-blue hover-bg-blue mv3 pv3 ph4 ba b--black-10 br1 shadow-6">Gå til forsiden</a>
       </div>
     );
   }
