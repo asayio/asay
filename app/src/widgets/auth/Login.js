@@ -5,7 +5,7 @@ import Da from './i18n_da.js';
 class Login extends Component {
   render() {
     return (
-      <a onClick={this.login} className="pointer link dark-blue hover-blue">Log ind</a>
+      <a onClick={this.login} className={this.props.className}>Log ind</a>
     );
   }
   login = async() => {

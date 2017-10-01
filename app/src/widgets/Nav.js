@@ -13,13 +13,15 @@ class Nav extends Component {
     return (
       <nav className="mw8 center mv4">
         <div className="dib w-30">
-          <RandomIcon className="dark-pink mr2"/><Link to="/" className="link black-90 hover-black-70 b">Asay</Link>
+          <RandomIcon className="dark-pink mr2"/><Link to="/" className="black-90 hover-black-70 b">Asay</Link>
         </div>
-        {window.sessionStorage.authToken ?
         <div className="dib w-70 tr">
           <span className="black-90 mr2">{window.sessionStorage.user}</span>
-          <Logout history={this.props.history}/>
-        </div> : <Login/>}
+          {window.sessionStorage.authToken ?
+          <Logout history={this.props.history} className="pointer dark-blue hover-blue"/>
+          : <Login className="pointer dark-blue hover-blue" />
+          }
+        </div>
       </nav>
     )
   }
