@@ -82,7 +82,7 @@ class Vote extends Component {
               <h2 className="f4">Der er sket en fejl</h2>
               <p>Det er ikke dig, det er os. Prøv igen.
                 <br/><br/>
-              Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" className="dark-blue hover-blue">send os en mail.</a></p>
+              Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
               <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">Tilbage</a>
             </div> :
             <div className="pv4 ph5 tc bg-white ba b--black-10 br1">
