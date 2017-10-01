@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import R from 'ramda'
 import './style.css';
-import BackBtn from '../../../widgets/BackBtn.js';
+import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
+
 
 class Vote extends Component {
   constructor(props) {
@@ -67,40 +69,46 @@ class Vote extends Component {
   };
 
   render() {
-    return (
-      <div className="mw8 center tc">
-        <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort}</h1>
-        <div className="mw6 center bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
-          <h2 className="f4">Afgiv din stemme</h2>
-          <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv3 ma3 ba b--black-10 br1 shadow-6">For</a>
-          <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv3 ma3 ba b--black-10 br1 shadow-6">Imod</a>
-          <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy">Træk stemme tilbage</a>
+    if (!R.isEmpty(this.state.proposalInfo)) {
+      return (
+        <div className="mw8 center tc">
+          <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort.replace('.', '')}</h1>
+          <div className="mw6 center bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
+            <h2 className="f4">Afgiv din stemme</h2>
+            <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv3 ma3 ba b--black-10 br1 shadow-6">For</a>
+            <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv3 ma3 ba b--black-10 br1 shadow-6">Imod</a>
+            <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy">Træk stemme tilbage</a>
+          </div>
+          <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
+            {this.state.error ?
+            <div className="mw6 m-auto pa4 tc bg-white ba b--black-10 br1">
+              <h2 className="f4">Der er sket en fejl</h2>
+              <p>Det er ikke dig, det er os. Prøv igen.
+                <br/><br/>
+              Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
+              <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma3 ba b--dark-blue br1">Tilbage</a>
+            </div> :
+            <div className="mw6 m-auto pa4 tc bg-white ba b--black-10 br1">
+              <h2 className="f4">Er du sikker?</h2>
+              {this.state.voteresult === null ?
+                <p>Du er ved et trække din stemme tilbage.</p>
+                : <p>Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
+              }
+              <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma3 ba b--dark-blue br1">
+                <span className="lh-copy">Annuller</span>
+              </a>
+              <a onClick={this.handleSubmit} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma3 ba b--black-10 br1 shadow-6">
+                <span className="lh-copy">Bekræft</span>
+              </a>
+            </div>}
+          </div>
         </div>
-        <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
-          {this.state.error ?
-          <div className="mw6 m-auto pa4 tc bg-white ba b--black-10 br1">
-            <h2 className="f4">Der er sket en fejl</h2>
-            <p>Det er ikke dig, det er os. Prøv igen.
-              <br/><br/>
-            Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" className="dark-blue hover-blue">send os en mail.</a></p>
-            <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma3 ba b--dark-blue br1">Tilbage</a>
-          </div> :
-          <div className="mw6 m-auto pa4 tc bg-white ba b--black-10 br1">
-            <h2 className="f4">Er du sikker?</h2>
-            {this.state.voteresult === null ?
-              <p>Du er ved et trække din stemme tilbage.</p>
-              : <p>Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
-            }
-            <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma3 ba b--dark-blue br1">
-              <span className="lh-copy">Annuller</span>
-            </a>
-            <a onClick={this.handleSubmit} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma3 ba b--black-10 br1 shadow-6">
-              <span className="lh-copy">Bekræft</span>
-            </a>
-          </div>}
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <LoadingSpinner/>
+      )
+    }
   }
 }
 
