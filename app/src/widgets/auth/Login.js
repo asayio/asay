@@ -13,7 +13,7 @@ class Login extends Component {
     const domain = 'initiativet.eu.auth0.com'
     const options = {
       auth: {
-        redirectUrl: 'http://localhost:3000/auth', // make dynamic
+        redirectUrl: window.location.origin + '/auth',
         responseType: 'token',
         params: {
           scope: 'openid email picture'
