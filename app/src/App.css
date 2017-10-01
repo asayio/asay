@@ -15,6 +15,11 @@ svg {
   height: 1.2em;
   width: 1.2em;
 }
+.auth0-lock svg {
+  bottom: 0;
+  height: auto;
+  width: auto;
+}
 
 .clear-sans {
   font-family: 'Clear Sans','Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Ubuntu, Noto, 'Segoe UI', Arial, sans-serif;
