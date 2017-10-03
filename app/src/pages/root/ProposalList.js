@@ -9,7 +9,7 @@ class Root extends Component {
     super(props);
     this.state = {
       proposals: {},
-      selectedSection: 'udvalgte forslag',
+      selectedSection: 'Udvalgte forslag',
       // filters: [
       //   {idName: 'openDataCaseType', name: 'type'},
       //   {idName: 'openDataPeriod', name: 'periode'},

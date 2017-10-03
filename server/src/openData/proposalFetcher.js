@@ -11,7 +11,7 @@ async function proposalFetcher (request, response) {
   const selectedSection = request.body.selectedSection
   const specificProposalId = request.body.specificProposalId
   let proposalIdList
-  if (selectedSection === 'udvalgte forslag') {
+  if (selectedSection === 'Udvalgte forslag') {
     proposalIdList = [
       '70703', // L69
       '72432', // L153
