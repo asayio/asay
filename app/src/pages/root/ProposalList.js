@@ -77,11 +77,11 @@ class Root extends Component {
             </select>
           </div>
         )}
-        </div> */}
+        </div>
         <div>
           <button value="udvalgte forslag" onClick={selectSection}>udvalgte forslag</button>
           <button value="afstemte forslag" onClick={selectSection}>afstemte forslag</button>
-        </div>
+        </div>*/}
         <h1 className="f3 tc mt5 mb4">{this.state.selectedSection}</h1>
         {this.state.proposals.message &&
           <OpenDataErrorHandler/>}
