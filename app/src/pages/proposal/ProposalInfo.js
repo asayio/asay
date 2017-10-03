@@ -5,7 +5,7 @@ import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import {
   Link
 } from 'react-router-dom';
-import { ArrowLeft } from 'react-feather';
+import { FileText,ArrowLeft,Download } from 'react-feather';
 
 class ProposalInfo extends Component {
   constructor() {
@@ -43,8 +43,8 @@ class ProposalInfo extends Component {
           {proposal.nummer}: {proposal.titelkort.replace('.', '')}
         </h1>
         <Link to="/" className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til listen</Link>
-        <a onClick={() => this.setState({view: 'resume'})} className={(this.state.view === 'resume' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }>Forslag</a>
-        {proposal.nummerprefix !== 'B' && <a onClick={() => this.setState({view: 'background'})} className={(this.state.view === 'background' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 shadow-6 br1" }>Baggrund</a>}
+        <a onClick={() => this.setState({view: 'resume'})} className={(this.state.view === 'resume' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }><FileText className="mr1"/>Forslag</a>
+        {proposal.nummerprefix !== 'B' && <a onClick={() => this.setState({view: 'background'})} className={(this.state.view === 'background' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 shadow-6 br1" }><FileText className="mr1"/>Baggrund</a>}
         <div className="row">
           <div className="col12 col9-l bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             {this.state.view === 'resume' ?
@@ -70,10 +70,12 @@ class ProposalInfo extends Component {
               <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`} target="blank" className="dark-blue hover-blue">https://ft.dk</a></p>
             </div>
             <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="dib w-100 pv2 mv2 dark-blue ba b--dark-blue br1 link">
+              <Download className="mr2"/>
               Forslag som fremsat
             </a>
             {ftProposalPassed ?
             <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_vedtaget.pdf`} target="blank" className="dib w-100 pv2 mv2 dark-blue ba b--dark-blue br1 link">
+              <Download className="mr2"/>
               Forslag som vedtaget
             </a>
             :<div/>}

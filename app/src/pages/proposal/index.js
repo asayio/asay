@@ -5,6 +5,7 @@ import stageFetcher from '../../fetcher/stageFetcher.js';
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
 import { Link } from 'react-router-dom';
+import { CheckSquare } from 'react-feather';
 
 class ProposalPage extends Component {
 
@@ -40,6 +41,7 @@ class ProposalPage extends Component {
             />
             <div className="col12 col9-l tc">
               <Link to={`${this.props.match.params.id}/vote`} target="_blank" className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
+                <CheckSquare className="mr2"/>
                 Gå til stemmeboks
               </Link>
             </div>

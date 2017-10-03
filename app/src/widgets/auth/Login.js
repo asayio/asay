@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Lock from 'auth0-lock';
 import Da from './i18n_da.js';
+import { LogIn } from 'react-feather';
 
 class Login extends Component {
   render() {
     return (
-      <a onClick={this.login} className={this.props.className}>Log ind</a>
+      <a onClick={this.login} className={this.props.className}><LogIn className="mr2"/>Log ind</a>
     );
   }
   login = async() => {

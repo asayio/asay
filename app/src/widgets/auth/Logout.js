@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LogOut } from 'react-feather';
 
 class Logout extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <a onClick={this.logout} className={this.props.className}>Log ud</a>
+      <a onClick={this.logout} className={this.props.className}><LogOut className="mr1"/>Log ud</a>
     );
   }
   logout = async() => {

@@ -3,6 +3,7 @@ import R from 'ramda'
 import './style.css';
 import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
 import proposalFetcher from '../../../fetcher/proposalFetcher.js';
+import { Check,X,Minus } from 'react-feather';
 
 class Vote extends Component {
   constructor(props) {
@@ -72,9 +73,9 @@ class Vote extends Component {
           <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort.replace('.', '')}</h1>
           <div className="mw6 center bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             <h2 className="f4">Afgiv din stemme</h2>
-            <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">For</a>
-            <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Imod</a>
-            <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy">Træk stemme tilbage</a>
+            <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
+            <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><X className="mr2"/>Imod</a>
+            <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Træk stemme tilbage</a>
           </div>
           <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
             {this.state.error ?
