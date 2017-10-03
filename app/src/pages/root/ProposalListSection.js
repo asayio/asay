@@ -29,7 +29,7 @@ class ProposalListSection extends Component {
                   }
                 </div>
                 <div className="flex-auto">
-                  <h3 className="f4 mv2">{proposal.nummer}: {proposal.titelkort.replace('.','')}</h3>
+                  <h3 className="f5 f4-ns hyphens mv2">{proposal.nummer}: {proposal.titelkort.replace('.','')}</h3>
                   {/*<p className="f5 ttl small-caps black-70 mv2">
                     <span className="mr2"><b>Session:</b> {proposal.Periode.titel}</span>
                     <span className="mr2"><b>Status:</b> {proposal.Sagsstatus.status}</span>

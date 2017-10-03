@@ -42,17 +42,30 @@ svg {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* TACHYONS CORRECTIONS */
+/* TACHYONS CORRECTIONS / ADDITIONS */
 
 .pointer {
   cursor: pointer;
+}
+.hyphens {
+  hyphens: auto;
+}
+
+/* KÆMPE HØKERE */
+
+.cursor-default {
+  cursor: default;
+}
+.nav-active:focus {
+  color: rgba(0,0,0,0.9);
+  outline: none;
 }
 
 /* LOADING SPINNER */
 
 .loading-spinner {
-  width: 50px;
-  height: 50px;
+  width: 2rem;
+  height: 2rem;
   display: block;
   margin: 0 auto;
   position: relative;
