@@ -55,14 +55,14 @@ class Root extends Component {
     // const nextLink = this.state.proposals['odata.nextLink'];
     // const page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
     // const selectedSection = this.state.selectedSection
-    const selectSection = event => {
+    /* const selectSection = event => {
       const section = event.target.value
       this.setState({
         selectedSection: section,
         proposals: []
       })
       this.handleChange(event)
-    }
+    } */
     return (
       <div className="mw8 center">
         {/* <div className="mb4 cf">
