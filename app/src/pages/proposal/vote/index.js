@@ -71,7 +71,7 @@ class Vote extends Component {
       return (
         <div className="mw8 center tc">
           <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort.replace('.', '')}</h1>
-          <div className="mw6 center bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
+          <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
             <h2 className="f4">Afgiv din stemme</h2>
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
             <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><X className="mr2"/>Imod</a>
@@ -86,7 +86,7 @@ class Vote extends Component {
               Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
               <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">Tilbage</a>
             </div> :
-            <div className="pv4 ph5 tc bg-white ba b--black-10 br1">
+            <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">
               <h2 className="f4">Er du sikker?</h2>
               {this.state.voteresult === null ?
                 <p>Du er ved et trække din stemme tilbage.</p>

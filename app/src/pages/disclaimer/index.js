@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Logout from '../../widgets/auth/Logout'
+import Logout from '../../widgets/auth/Logout';
+import { Check } from 'react-feather';
 
 class Disclaimer extends Component {
 
@@ -31,7 +32,7 @@ class Disclaimer extends Component {
           <p>Dine oplysninger behandles efter gældende persondatalovgivning med Initiativet som databehandler. Vi har dit fornavn- og efternavn samt din email registret sammen med de stemmer du afgiver. Hvis du ikke er okay med det, så vent med at stem. Vi arbejder nemlig på en bedre, mere sikker og privat løsning. Det tager bare lidt længere tid. Tak for din tålmodighed.</p>
         </div>
         <Logout className="pointer dib dark-blue w4 pv2 ma3 ba b--dark-blue br1" />
-        <a onClick={this.handleAccept} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma3 ba b--black-10 br1 shadow-6">Accepter</a>
+        <a onClick={this.handleAccept} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma3 ba b--black-10 br1 shadow-6"><Check className="mr2"/>Accepter</a>
       </div>
     );
   }
