@@ -21,15 +21,15 @@ class ProposalListSection extends Component {
         {proposals.map(function (proposal, index) {
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
-              <div className="bg-white pa4 mv2 ba b--black-10 br2 card shadow-6 flex">
-                <div className="pr4 flex items-center">
+              <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
+                <div className="pr3 pr4-ns flex items-center">
                   { proposal.vote ?
-                  <CheckSquare className="f3 dark-pink pb2"/>:
-                  <Square className="f3 dark-pink pb2"/>
+                  <CheckSquare className="f3 dark-pink pb1"/>:
+                  <Square className="f3 dark-pink pb1"/>
                   }
                 </div>
                 <div className="flex-auto">
-                  <h3 className="f5 f4-ns hyphens mv2">{proposal.nummer}: {proposal.titelkort.replace('.','')}</h3>
+                  <h3 className="f5 f4-ns hyphen-text mv2">{proposal.nummer}: {proposal.titelkort.replace('.','')}</h3>
                   {/*<p className="f5 ttl small-caps black-70 mv2">
                     <span className="mr2"><b>Session:</b> {proposal.Periode.titel}</span>
                     <span className="mr2"><b>Status:</b> {proposal.Sagsstatus.status}</span>

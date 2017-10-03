@@ -11,9 +11,8 @@ select {
 
 svg {
   position: relative;
-  bottom: -0.2em;
-  height: 1.2em;
-  width: 1.2em;
+  margin-bottom: -0.2em;
+  height: 1em;
 }
 .auth0-lock svg {
   bottom: 0;
@@ -47,7 +46,9 @@ svg {
 .pointer {
   cursor: pointer;
 }
-.hyphens {
+.hyphen-text {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
   hyphens: auto;
 }
 
