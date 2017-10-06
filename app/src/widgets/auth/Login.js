@@ -24,7 +24,7 @@ class Login extends Component {
         }
       },
       theme: {
-        logo: 'https://assets.initiativet.net/og/favicon.png',
+        logo: '%PUBLIC_URL%/nav_logo.svg',
         primaryColor: '#42BFB4',
       },
       additionalSignUpFields: [{
