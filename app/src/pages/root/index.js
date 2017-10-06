@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
-import { Heart } from 'react-feather'
 import ProposalList from './ProposalList'
 
 class Root extends Component {
