@@ -24,7 +24,7 @@ class Login extends Component {
         }
       },
       theme: {
-        logo: '%PUBLIC_URL%/nav_logo.svg',
+        logo: '%PUBLIC_URL%/auth_logo.svg',
         primaryColor: '#42BFB4',
       },
       additionalSignUpFields: [{
