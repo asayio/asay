@@ -15,5 +15,6 @@ export default {
   forgotPasswordTitle: '',
   showPassword: 'Vis password',
   loginLabel: 'Log ind',
-  signUpLabel: 'Opret bruger'
+  signUpLabel: 'Opret bruger',
+  signUpSubmitLabel: "Opret bruger"
 };

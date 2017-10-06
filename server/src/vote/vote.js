@@ -20,8 +20,7 @@ async function getVote (userId, proposalId) {
 
 async function getVoteHistory (request) {
   try {
-    const authToken = await auth.getToken(request);
-    const user = await auth.lookupUser(authToken);
+    const user = await auth.getUser(request);
     if (user) {
       const voteHistory = await db.cx.query(selectVoteHistory,
         {
@@ -38,8 +37,7 @@ async function getVoteHistory (request) {
 
 async function postVote (request, response) {
   try {
-    const authToken = await auth.getToken(request);
-    const user = await auth.lookupUser(authToken);
+    const user = await auth.getUser(request);
     if (user) {
       const userId = user.id;
       const voteResult = request.body.voteresult;

@@ -6,7 +6,7 @@ import FeatherIcon from '../FeatherIcon'
 class Login extends Component {
   render() {
     const login = this.props.type === 'login' ? true : false;
-    const title = login ? "Log Ind" : "Opret bruger";
+    const title = login ? "Log ind" : "Opret bruger";
     const icon = login ? "LogIn" : "UserPlus";
     return (
       <a onClick={this.login} className={this.props.className}><FeatherIcon name={icon} /> {title}</a>
@@ -20,7 +20,7 @@ class Login extends Component {
         redirectUrl: window.location.origin + '/auth',
         responseType: 'token',
         params: {
-          scope: 'openid email picture'
+          scope: 'openid email user_metadata'
         }
       },
       theme: {

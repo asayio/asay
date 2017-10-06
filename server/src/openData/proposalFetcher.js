@@ -6,8 +6,7 @@ const vote = require('../vote/vote.js')
 
 // Functions
 async function proposalFetcher (request, response) {
-  const authToken = await auth.getToken(request);
-  const user = await auth.lookupUser(authToken);
+  const user = await auth.getUser(request);
   const selectedSection = request.body.selectedSection
   const specificProposalId = request.body.specificProposalId
   let proposalIdList

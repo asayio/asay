@@ -8,8 +8,7 @@ const updateTerms = db.sql('./src/user/updateTerms.sql')
 // Functions
 async function postTermsAccept (request, response) {
   try {
-    const authToken = await auth.getToken(request);
-    const user = await auth.lookupUser(authToken);
+    const user = await auth.getUser(request);
     if (user) {
       const userId = user.id;
       await db.cx.query(updateTerms,

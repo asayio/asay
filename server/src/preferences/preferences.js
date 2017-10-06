@@ -11,8 +11,7 @@ const updateCategoryPreference = db.sql('./src/preferences/updateCategoryPrefere
 // Functions
 async function getCategoryPreferences (request, response) {
   try {
-    const authToken = await auth.getToken(request);
-    const user = await auth.lookupUser(authToken);
+    const user = await auth.getUser(request);
     if (user) {
       const userId = user.id;
       const categoryPreferences = await db.cx.query(selectCategoryPreferences,
@@ -41,8 +40,7 @@ async function getCategoryPreference (userId, categoryId) {
 
 async function postCategoryPreference (request, response) {
   try {
-    const authToken = await auth.getToken(request);
-    const user = await auth.lookupUser(authToken);
+    const user = await auth.getUser(request);
     if (user) {
       const userId = user.id;
       const preference = request.body.preference;
