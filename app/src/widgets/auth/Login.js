@@ -24,8 +24,8 @@ class Login extends Component {
         }
       },
       theme: {
-        logo: 'https://sjwinther.github.io/asay.landing/favicon.svg',
-        primaryColor: '#00449E',
+        logo: 'https://assets.initiativet.net/og/favicon.png',
+        primaryColor: '#42BFB4',
       },
       additionalSignUpFields: [{
         name: "firstname",
