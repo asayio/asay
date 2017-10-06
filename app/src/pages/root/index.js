@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
-// import { Heart, UserPlus } from 'react-feather'
+import { Heart, UserPlus } from 'react-feather'
 import ProposalList from './ProposalList'
 
 class Root extends Component {
@@ -11,13 +11,13 @@ class Root extends Component {
       )
     } else {
       return (
-        <YC/>
+        <Welcome/>
       );
     }
   }
 }
 
-/*class Welcome extends Component {
+class Welcome extends Component {
   render() {
     return (
       <div>
@@ -48,23 +48,6 @@ class Root extends Component {
         <a href="https://initiativet.net/membership" className="pointer dark-blue hover-blue"><UserPlus className="svg-icon mr2"/>Bliv medlem</a>
         <p>Har du ikke modtaget login? <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue">Send os en mail</a></p>
         <footer><a href="https://asay.io" className="dark-pink ttl f7">Coded with <Heart className="svg-icon"/> by asay</a></footer>
-      </div>
-    );
-  }
-}*/
-
-class YC extends Component {
-  render() {
-    return (
-      <div className="mw8 center tc">
-        <h1 className="f3 mt5 mb3">Hi YC!</h1>
-        <div className="tl bg-white pa4 mb2 ba b--black-10 br1 shadow-6 lh-copy">
-          <p>Hey guys! Sorry for forcing you to login, but disabling authentication throughout the project is not worthwhile.<br/><br/>
-          <b>E-mail:</b> yc@asay.io<br/>
-          <b>Password:</b> W2018<br/><br/>
-          You're looking at actual legislation from Danish parliament. That's why it's all in Danish. But click around and vote anyway!</p>
-        </div>
-        <Login className="pointer dib white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6"/>
       </div>
     );
   }
