@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Lock from 'auth0-lock';
 import Da from './i18n_da.js';
-import { LogIn } from 'react-feather';
+import FeatherIcon from '../FeatherIcon'
 
 class Login extends Component {
   render() {
+    const login = this.props.type === 'login' ? true : false;
+    const title = login ? "Log Ind" : "Opret bruger";
+    const icon = login ? "LogIn" : "UserPlus";
     return (
-      <a onClick={this.login} className={this.props.className}><LogIn className="mr2"/>Log ind</a>
+      <a onClick={this.login} className={this.props.className}><FeatherIcon name={icon} /> {title}</a>
     );
   }
   login = async() => {
@@ -24,11 +27,18 @@ class Login extends Component {
         logo: 'https://sjwinther.github.io/asay.landing/favicon.svg',
         primaryColor: '#00449E',
       },
+      additionalSignUpFields: [{
+        name: "firstname",
+        placeholder: "Fornavn"
+      }, {
+        name: "lastname",
+        placeholder: "Efternavn"
+      }],
       languageDictionary: Da,
-      allowSignUp: false,
-      rememberLastLogin: false,
       allowForgotPassword: false,
-      allowShowPassword: true
+      allowShowPassword: true,
+      rememberLastLogin: false,
+      initialScreen: this.props.type
     }
     const lock = new Lock (clientId, domain, options)
     lock.show() //show password dialog from Auth0

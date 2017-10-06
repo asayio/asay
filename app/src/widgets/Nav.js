@@ -19,7 +19,7 @@ class Nav extends Component {
           <span className="dn di-ns black-90 mr3">{window.sessionStorage.user}</span>
           {window.sessionStorage.authToken ?
           <Logout history={this.props.history} className="pointer dark-blue hover-blue"/>
-          : <Login className="pointer dark-blue hover-blue" />
+          : <Login className="pointer dark-blue hover-blue" type="login" />
           }
         </div>
       </nav>

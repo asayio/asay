@@ -40,8 +40,8 @@ class Welcome extends Component {
             <li>... uden at kende til Folketingets terminologi</li>
           </ul>
         </div>
-        <Login className="pointer db dib-ns white bg-dark-blue hover-bg-blue mt3 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"/>
-        <a href="" className="pointer db dib-ns white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6"><UserPlus className="mr2"/>Opret bruger</a>
+        <Login type="login" className="pointer db dib-ns white bg-dark-blue hover-bg-blue mt3 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"/>
+        <Login type="signUp" className="pointer db dib-ns white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6"/>
         <p className="black-70 ma4">Problemer? <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue">Send os en mail</a></p>
       </div>
     );
