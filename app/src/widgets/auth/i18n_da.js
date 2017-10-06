@@ -9,9 +9,11 @@ export default {
   },
   blankErrorHint: 'Du mangler at skrive noget',
   emailInputPlaceholder: 'email@email.com',
-  loginSubmitLabel: 'Log Ind',
+  loginSubmitLabel: 'Log ind',
   passwordInputPlaceholder: 'password',
   title: 'Asay',
   forgotPasswordTitle: '',
-  showPassword: 'Vis password'
+  showPassword: 'Vis password',
+  loginLabel: 'Log ind',
+  signUpLabel: 'Opret bruger'
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
-import { Heart, UserPlus } from 'react-feather'
+import { Heart } from 'react-feather'
 import ProposalList from './ProposalList'
 
 class Root extends Component {
@@ -25,8 +25,8 @@ class Welcome extends Component {
           Initiativets demokratiske platform til politik udvikling
         </h1>
         <p className="black-70">Hos Initiativet er det dig der bestemmer. Hver gang. Og det gør du her.</p>
-        <Login className="pointer db dib-ns white bg-dark-blue hover-bg-blue mv2 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"/>
-        <a href="" className="pointer db dib-ns white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"><UserPlus className="mr2"/>Opret bruger</a>
+        <Login type="login" className="pointer db dib-ns white bg-dark-blue hover-bg-blue mv2 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"/>
+        <Login type="signUp" className="pointer db dib-ns white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"/>
         <div className="tl bg-white pa4 mv3 ba b--black-10 br1 shadow-6 lh-copy">
           <h2 className="mt2 mb0">Denne release</h2>
           <span className="black-50">Udgivet september 2017</span>
