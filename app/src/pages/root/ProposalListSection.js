@@ -24,8 +24,8 @@ class ProposalListSection extends Component {
               <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
                 <div className="pr3 pr4-ns flex items-center">
                   { proposal.vote ?
-                  <CheckSquare className="f3 dark-pink pb1"/>:
-                  <Square className="f3 dark-pink pb1"/>
+                  <CheckSquare className="f3 i-green pb1"/>:
+                  <Square className="f3 i-green pb1"/>
                   }
                 </div>
                 <div className="flex-auto">

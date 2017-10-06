@@ -13,7 +13,7 @@ class Nav extends Component {
     return (
       <nav className="mw8 center mv4">
         <div className="dib w-30">
-          <Link to="/" className="black-90 hover-black-70 b nav-active"><RandomIcon className="dark-pink f4 mr2"/>Asay</Link>
+          <Link to="/" className="black-90 hover-black-70 b nav-active"><RandomIcon className="i-green f4 mr2"/>Asay</Link>
         </div>
         <div className="dib w-70 tr">
           <span className="dn di-ns black-90 mr3">{window.sessionStorage.user}</span>

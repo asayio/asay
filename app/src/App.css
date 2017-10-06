@@ -41,6 +41,25 @@ svg {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+/* COLORS */
+
+.i-green {
+  color: #42BFB4;
+}
+.bg-i-green {
+  background-color: #42BFB4;
+}
+.b--i-green {
+  border-color: #42BFB4;
+}
+
+.hover-i-green:hover {
+  color: #47CCC0;
+}
+.hover-bg-i-green:hover {
+  background-color: #47CCC0;
+}
+
 /* TACHYONS CORRECTIONS / ADDITIONS */
 
 .pointer {
