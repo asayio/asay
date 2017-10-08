@@ -9,7 +9,7 @@ class Root extends Component {
     super(props);
     this.state = {
       proposals: {},
-      selectedSection: 'Udvalgte forslag',
+      selectedSection: 'udvalgte forslag',
       // filters: [
       //   {idName: 'openDataCaseType', name: 'type'},
       //   {idName: 'openDataPeriod', name: 'periode'},
@@ -54,15 +54,15 @@ class Root extends Component {
     const proposals = this.state.proposals.value;
     // const nextLink = this.state.proposals['odata.nextLink'];
     // const page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
-    // const selectedSection = this.state.selectedSection
-    /* const selectSection = event => {
+    const selectedSection = this.state.selectedSection
+    const selectSection = event => {
       const section = event.target.value
       this.setState({
         selectedSection: section,
         proposals: []
       })
       this.handleChange(event)
-    } */
+    }
     return (
       <div className="mw8 center">
         {/* <div className="mb4 cf">
@@ -77,12 +77,13 @@ class Root extends Component {
             </select>
           </div>
         )}
-        </div>
+        </div>*/}
         <div>
+          <button value="alle forslag" onClick={selectSection}>alle forslag</button>
           <button value="udvalgte forslag" onClick={selectSection}>udvalgte forslag</button>
           <button value="afstemte forslag" onClick={selectSection}>afstemte forslag</button>
-        </div>*/}
-        <h1 className="f3 tc mt5 mb4">{this.state.selectedSection}</h1>
+        </div>
+        <h1 className="f3 tc mt5 mb4">{selectedSection}</h1>
         {this.state.proposals.message &&
           <OpenDataErrorHandler/>}
         <ProposalListSection proposals = {proposals}/>
