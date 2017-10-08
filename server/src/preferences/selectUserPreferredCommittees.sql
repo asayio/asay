@@ -4,4 +4,4 @@ from category_map
   on category_map.category_id = category.id
   inner join category_preferences
   on category.id = category_preferences.category_id
-where user_id = $/user/ and preference = true
+where user_id = $/user/ and preference = true and ft_period_id = 146

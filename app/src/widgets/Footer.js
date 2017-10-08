@@ -7,9 +7,9 @@ class Footer extends Component {
     return (
       <footer>
         <div>
-          <a href="https://github.com/asayio/asay"><Github/>Help us improve</a>
-          <a href="https://join.slack.com/t/asay/shared_invite/enQtMjUyNjQxODYxNjM0LTgzNWFkZTc5ZjZlNTdiNTlkMjhjMzdkOTUyMTg0NzRkNTRjNzhhZjVmMjQwMzJjYWUwYThmYWVkYTY1MzZlMzk"><Slack/>Join the conversation</a>
-          <a href="https://initiativet.net/sponsor"><CreditCard/>Sponsor the project</a>
+          <a target="_github" href="https://github.com/asayio/asay"><Github/>Hjælp med udviklingen</a>
+          <a target="_slack" href="https://join.slack.com/t/asay/shared_invite/enQtMjUyNjQxODYxNjM0LTgzNWFkZTc5ZjZlNTdiNTlkMjhjMzdkOTUyMTg0NzRkNTRjNzhhZjVmMjQwMzJjYWUwYThmYWVkYTY1MzZlMzk"><Slack/>Tag del i fælleskabet</a>
+          <a target="_initiativet" href="https://initiativet.net/sponsor"><CreditCard/>Bliv sponsor</a>
         </div>
       </footer>
     )
