@@ -16,6 +16,7 @@ class Nav extends Component {
           <Link to="/" className="black-90 hover-black-70 b nav-active"><RandomIcon className="i-green f4 mr2"/>Initiativet</Link>
         </div>
         <div className="dib w-70 tr">
+          <Link to="/preferences">indstillinger</Link>
           <span className="dn di-ns black-90 mr3">{window.sessionStorage.user}</span>
           {window.sessionStorage.authToken ?
           <Logout history={this.props.history} className="pointer dark-blue hover-blue"/>
