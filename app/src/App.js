@@ -28,7 +28,7 @@ class App extends Component {
               <Route exact path="/" component={Root}/>
               <Route exact path="/proposal/:id" component={Proposal}/>
               <Route exact path="/proposal/:id/vote" component={Vote}/>
-              <Route exact path="/confirmed" component={Confirmation}/>
+              <Route exact path="/proposal/:id/confirmed" component={Confirmation}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
               <Route exact path="/preferences" component={Preferences}/>
               <Route exact path="/auth" component={Auth}/>

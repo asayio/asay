@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import R from 'ramda';
 import CountDown from '../../widgets/CountDown.js';
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
-import {
-  Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FileText,ArrowLeft,Download } from 'react-feather';
 
 class ProposalInfo extends Component {
@@ -36,7 +34,7 @@ class ProposalInfo extends Component {
     const proposalPresentation = this.state.proposalPresentation.paragraphs
     const proposal = this.props.proposalInfo;
     const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
-    const deadline = R.path(['dato'], R.last(this.props.openDataStage));
+    const deadline = R.path(['dato'], R.last(this.props.openDataStage))
     return (
       <div>
         <h1 className="f3 tc mt5 mb3">

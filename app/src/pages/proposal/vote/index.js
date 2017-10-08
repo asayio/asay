@@ -4,7 +4,8 @@ import R from 'ramda'
 import './style.css';
 import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
 import proposalFetcher from '../../../fetcher/proposalFetcher.js';
-import { Check,X,Minus } from 'react-feather';
+import { Link } from 'react-router-dom';
+import { Check, X, Minus, ArrowLeft } from 'react-feather';
 
 class Vote extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Vote extends Component {
     this.state = {
       voteresult: undefined,
       error: false,
+      voteConfirmed: false,
       proposalInfo: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +33,7 @@ class Vote extends Component {
     modal.style.display = "none";
   }
 
-  openModal() {
+  openModal(event) {
     const modal = document.getElementById('modal');
     modal.style.display = "flex";
   }
@@ -57,21 +59,30 @@ class Vote extends Component {
         }
       })
     if (response.ok) {
-      window.location.href="../../confirmed/"
-      window.onunload = refreshParent;
-      function refreshParent() {
-          window.opener.location.reload();
-      }
+      this.setState({voteConfirmed: true})
+      setTimeout(function() {
+        document.getElementById("BackBtn").click(); // Click on the checkbox
+      }, 1500)
     } else {
       this.setState({error: true})
     }
   };
 
   render() {
+    const modalHeader = this.state.error ? "Der er sket en fejl" : this.state.voteConfirmed ? "Din valghandling er registreret" : "Er du sikker?"
+    const modalParagraph = this.state.error ?
+      <p>Det er ikke dig, det er os. Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
+    : this.state.voteConfirmed ?
+      <p>Du sendes nu tilbage til forslaget.</p>
+    : this.state.voteresult === null ?
+      <p>Du er ved et trække din stemme tilbage.</p>
+    : <p> Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
+
     if (!R.isEmpty(this.state.proposalInfo)) {
       return (
         <div className="mw8 center tc">
           <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort.replace('.', '')}</h1>
+          <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til forslag</Link>
           <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
             <h2 className="f4">{this.state.proposalInfo.vote ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
             <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><X className="mr2"/>Imod</a>
@@ -79,27 +90,18 @@ class Vote extends Component {
             {this.state.proposalInfo.vote && <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Træk stemme tilbage</a> }
           </div>
           <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
-            {this.state.error ?
-            <div className="pv4 ph5 tc bg-white ba b--black-10 br1">
-              <h2 className="f4">Der er sket en fejl</h2>
-              <p>Det er ikke dig, det er os. Prøv igen.
-                <br/><br/>
-              Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
-              <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">Tilbage</a>
-            </div> :
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">
-              <h2 className="f4">Er du sikker?</h2>
-              {this.state.voteresult === null ?
-                <p>Du er ved et trække din stemme tilbage.</p>
-                : <p>Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
-              }
-              <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">Annuller</a>
-              <a onClick={this.handleSubmit} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Bekræft</a>
-            </div>}
+              <h2 className="f4">{modalHeader}</h2>
+              {modalParagraph}
+              {this.state.voteConfirmed ? <LoadingSpinner/> :
+              <div>
+                <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">Annuller</a>
+                <a onClick={this.handleSubmit} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Bekræft</a>
+              </div>}
+            </div>
           </div>
         </div>
-      );
-    } else {
+    )} else {
       return (
         <LoadingSpinner/>
       )
