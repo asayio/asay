@@ -25,10 +25,11 @@ async function proposalFetcher (request, response) {
     committees.forEach(function ({committee}, index) {
       if (index === 0) {
         filterString += '(akt%C3%B8rid eq ' + committee;
-      } else if (index + 1 === committees.length) {
-        filterString += ') and rolleid eq 11';
       } else {
         filterString += ' or akt%C3%B8rid eq ' + committee;
+      }
+      if ((index + 1 === committees.length) || (committees.length === 1)) {
+        filterString += ') and rolleid eq 11';
       }
     })
   } else if (selectedSection === 'afstemte forslag') {
