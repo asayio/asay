@@ -9,7 +9,8 @@ import Unauthorized from './pages/401';
 import Disclaimer from './pages/disclaimer';
 import Preferences from './pages/preferences';
 import Lost from './pages/404';
-import Nav from './widgets/Nav.js';
+import Nav from './widgets/Nav';
+import Footer from './widgets/Footer'
 import {
   BrowserRouter as Router,
   Route,
@@ -32,6 +33,7 @@ class App extends Component {
               <Route exact path="/auth" component={Auth}/>
               <Route path="*" component={Lost}/>
             </Switch>
+            <Footer/>
           </div>
         </Router>
       )
@@ -45,6 +47,7 @@ class App extends Component {
               <Route exact path="/401" component={Unauthorized}/>
               <Route path="*" component={Root}/>
             </Switch>
+            <Footer/>
           </div>
         </Router>
       )
