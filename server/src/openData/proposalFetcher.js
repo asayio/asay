@@ -8,9 +8,13 @@ const vote = require('../vote/vote.js')
 async function proposalFetcher (request, response) {
   const user = await auth.getUser(request);
   const selectedSection = request.body.selectedSection
+  const page = request.body.page
   const specificProposalId = request.body.specificProposalId
-  let proposalIdList
-  if (selectedSection === 'udvalgte forslag') {
+  let proposalIdList = []
+  let filterString = '&$filter=';
+  if (selectedSection === 'alle forslag') {
+    filterString += 'periodeid eq 144 and (typeid eq 3 or typeid eq 5)'
+  } else if (selectedSection === 'udvalgte forslag') {
     proposalIdList = [
       '70703', // L69
       '72432', // L153
@@ -37,15 +41,19 @@ async function proposalFetcher (request, response) {
   } else if (specificProposalId) {
     proposalIdList = [specificProposalId]
   }
-  let hardCodedPropsalListUrl = '&$filter=';
-  proposalIdList.forEach(function (id, index) {
-    if (index === 0) {
-      hardCodedPropsalListUrl += 'id%20eq%20' + id;
-    } else {
-      hardCodedPropsalListUrl += ' or%20id%20eq ' + id;
-    }
-  })
-  const filter = 'Sag?$orderby=id%20desc&$expand=Sagsstatus,Periode,Sagstype' + hardCodedPropsalListUrl;
+  if (proposalIdList.length > 0) {
+    proposalIdList.forEach(function (id, index) {
+      if (index === 0) {
+        filterString += 'id eq ' + id;
+      } else {
+        filterString += ' or id eq ' + id;
+      }
+    })
+  }
+  if (page) {
+    filterString += '&$skip=' + (page - 1) * 20;
+  }
+  const filter = 'Sag?$orderby=id desc&$expand=Sagsstatus,Periode,Sagstype' + filterString;
   const url = 'http://oda.ft.dk/api/' + filter
   const openData = await openDataFetcher.fetchOnePage(url);
   if (!openData.message) {
@@ -60,20 +68,3 @@ async function proposalFetcher (request, response) {
 
 // Export
 module.exports = proposalFetcher
-
-// let filterString = '&$filter=typeid eq 3 or typeid eq 5'; // default filter
-// if (type || status || session) {
-//   filterString = '&$filter=';
-//   if (type) {
-//     filterString += 'typeid eq ' + type;
-//   }
-//   if (status) {
-//     if (filterString !== '&$filter=') {filterString += ' and '}
-//     filterString += 'statusid eq ' + status;
-//   }
-//   if (session) {
-//     if (filterString !== '&$filter=') {filterString += ' and '}
-//     filterString += 'periodeid eq ' + session;
-//   }
-// }
-// filterString += '&$skip=' + (page - 1) * 20;
