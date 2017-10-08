@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import Auth from './pages/auth'
 import Proposal from './pages/proposal';
 import Vote from './pages/proposal/vote';
-import Confirmation from './pages/confirmation';
 import Root from './pages/root'
 import Unauthorized from './pages/401';
 import Disclaimer from './pages/disclaimer';
@@ -28,7 +27,6 @@ class App extends Component {
               <Route exact path="/" component={Root}/>
               <Route exact path="/proposal/:id" component={Proposal}/>
               <Route exact path="/proposal/:id/vote" component={Vote}/>
-              <Route exact path="/proposal/:id/confirmed" component={Confirmation}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
               <Route exact path="/preferences" component={Preferences}/>
               <Route exact path="/auth" component={Auth}/>
