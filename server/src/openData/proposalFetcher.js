@@ -3,6 +3,7 @@ const R = require('ramda')
 const auth = require('../auth/auth.js')
 const openDataFetcher = require('./openDataFetcher.js')
 const vote = require('../vote/vote.js')
+const committee = require('../preferences/preferences.js') //committee.getUserPreferredCommittees with param user.id
 
 // Functions
 async function proposalFetcher (request, response) {

@@ -7,6 +7,7 @@ const selectCategoryPreferences = db.sql('./src/preferences/selectCategoryPrefer
 const selectCategoryPreference = db.sql('./src/preferences/selectCategoryPreference.sql')
 const insertCategoryPreference = db.sql('./src/preferences/insertCategoryPreference.sql')
 const updateCategoryPreference = db.sql('./src/preferences/updateCategoryPreference.sql')
+const selectUserPreferredCommittees = db.sql('./src/preferences/selectUserPreferredCommittees.sql')
 
 // Functions
 async function getCategoryPreferences (request, response) {
@@ -36,6 +37,14 @@ async function getCategoryPreference (userId, categoryId) {
       category: categoryId,
     });
   return preference
+}
+
+async function getUserPreferredCommittees (userId) {
+  const comittees = await db.cx.query(selectUserPreferredCommittees,
+    {
+      user: userId,
+    });
+  return comittees
 }
 
 async function postCategoryPreference (request, response) {
@@ -72,5 +81,6 @@ async function postCategoryPreference (request, response) {
 // Export
 module.exports = {
   getCategoryPreferences,
-  postCategoryPreference
+  postCategoryPreference,
+  getUserPreferredCommittees
 }
