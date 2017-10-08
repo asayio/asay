@@ -48,7 +48,9 @@ class Root extends Component {
   }
 
   render() {
-    const proposals = this.state.proposals.value;
+    const proposals = this.state.proposals.value && this.state.proposals.value.map(value => {
+      return value.Sag || value;
+    })
     const nextLink = this.state.proposals['odata.nextLink'];
     const page = Number(this.state.openDataPage); // for some reason it keeps turning into a string :/
     const selectedSection = this.state.selectedSection

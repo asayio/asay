@@ -3,7 +3,7 @@ const R = require('ramda')
 const auth = require('../auth/auth.js')
 const openDataFetcher = require('./openDataFetcher.js')
 const vote = require('../vote/vote.js')
-const committee = require('../preferences/preferences.js') //committee.getUserPreferredCommittees with param user.id
+const committee = require('../preferences/preferences.js')
 
 // Functions
 async function proposalFetcher (request, response) {
@@ -12,21 +12,25 @@ async function proposalFetcher (request, response) {
   const page = request.body.page
   const specificProposalId = request.body.specificProposalId
   let proposalIdList = []
-  let filterString = '&$filter=';
+  let entity = 'Sag'
+  let orderByString = '?$orderby=id desc'
+  let filterString = '&$filter='
+  let expandString = '&$expand=Sagsstatus,Periode,Sagstype'
   if (selectedSection === 'alle forslag') {
-    filterString += 'periodeid eq 144 and (typeid eq 3 or typeid eq 5)'
+    filterString += 'typeid eq 3 or typeid eq 5'
   } else if (selectedSection === 'udvalgte forslag') {
-    proposalIdList = [
-      '70703', // L69
-      '72432', // L153
-      '73014', // L195
-      '71402', // B41
-      '73286', // B132
-      '71644', // B54
-      '72745', // B117
-      '71731', // B121
-      '72732'  // B110
-    ];
+    entity = 'SagAkt%C3%B8r'
+    expandString = '&$expand=Sag'
+    const committees = await committee.getUserPreferredCommittees(user.id)
+    committees.forEach(function ({committee}, index) {
+      if (index === 0) {
+        filterString += '(akt%C3%B8rid eq ' + committee;
+      } else if (index + 1 === committees.length) {
+        filterString += ') and rolleid eq 11';
+      } else {
+        filterString += ' or akt%C3%B8rid eq ' + committee;
+      }
+    })
   } else if (selectedSection === 'afstemte forslag') {
     const voteHistory = await vote.getVoteHistory(request)
     proposalIdList = voteHistory.map(id => {
@@ -54,9 +58,9 @@ async function proposalFetcher (request, response) {
   if (page) {
     filterString += '&$skip=' + (page - 1) * 20;
   }
-  const filter = 'Sag?$orderby=id desc&$expand=Sagsstatus,Periode,Sagstype' + filterString;
+  const filter = entity + orderByString + expandString + filterString;
   const url = 'http://oda.ft.dk/api/' + filter
-  const openData = await openDataFetcher.fetchOnePage(url);
+  const openData = await openDataFetcher.fetchOnePage(url)
   if (!openData.message) {
     for (let proposal of openData.value) {
       const userVote = await vote.getVote(user.id, proposal.id);
