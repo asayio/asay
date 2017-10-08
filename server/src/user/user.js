@@ -4,6 +4,8 @@ const auth = require('../auth/auth.js')
 
 // Queries
 const updateTerms = db.sql('./src/user/updateTerms.sql')
+const selectUser = db.sql('./src/user/selectUser.sql')
+const insertUser = db.sql('./src/user/insertUser.sql')
 
 // Functions
 async function postTermsAccept (request, response) {
@@ -25,7 +27,27 @@ async function postTermsAccept (request, response) {
   }
 }
 
+async function lookupUser (tokenInfo) {
+  const userList = await db.cx.query(selectUser, {
+      email: tokenInfo.email
+    }
+  );
+  const user = userList ? userList[0] : null;
+  return user;
+}
+
+async function createUser (tokenInfo) {
+  await db.cx.query(insertUser, {
+      email: tokenInfo.email,
+      firstname: tokenInfo.user_metadata.firstname,
+      lastname: tokenInfo.user_metadata.lastname
+    }
+  );
+}
+
 // Export
 module.exports = {
-  postTermsAccept
+  postTermsAccept,
+  lookupUser,
+  createUser
 }

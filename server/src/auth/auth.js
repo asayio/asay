@@ -1,17 +1,14 @@
 // Import
 const jwt = require('jsonwebtoken');
 const db = require('../../db.js')
-
-// Queries
-const selectUser = db.sql('./src/auth/selectUser.sql')
-const insertUser = db.sql('./src/auth/insertUser.sql')
+const user = require('../user/user.js')
 
 // Functions
 async function getUser (request) {
   const authToken = await getToken(request);
   const tokenInfo = await parseToken(authToken)
-  const user = await lookupUser(tokenInfo);
-  return user
+  const userRow = await user.lookupUser(tokenInfo);
+  return userRow
 }
 
 async function getToken (request) {
@@ -32,29 +29,17 @@ async function parseToken (authToken) {
   return tokenInfo;
 }
 
-async function lookupUser (tokenInfo) {
-  const userList = await db.cx.query(selectUser, {
-      email: tokenInfo.email
-    });
-  const user = userList ? userList[0] : null;
-  return user;
-}
-
 async function loginPostHandler (request, response) {
   const authToken = request.params.authToken;
   const tokenInfo = await parseToken(authToken);
   if (tokenInfo) {
-    const user = await lookupUser(tokenInfo);
+    const userRow = await user.lookupUser(tokenInfo);
     if (!user) {
-      const createUser = await db.cx.query(insertUser, {
-          email: tokenInfo.email,
-          firstname: tokenInfo.user_metadata.firstname,
-          lastname: tokenInfo.user_metadata.lastname
-        });
-      const newUser = await lookupUser(tokenInfo);
+      const createUser = await user.createUser(tokenInfo);
+      const newUser = await user.lookupUser(tokenInfo);
       response.send(newUser)
     } else {
-      response.send(user)
+      response.send(userRow)
     }
   } else {
     response.sendStatus(401);
@@ -64,7 +49,6 @@ async function loginPostHandler (request, response) {
 // Export
 module.exports = {
   loginPostHandler,
-  lookupUser,
   getToken,
   getUser,
   parseToken,
