@@ -71,7 +71,7 @@ class Vote extends Component {
   render() {
     const modalHeader = this.state.error ? "Der er sket en fejl" : this.state.voteConfirmed ? "Din valghandling er registreret" : "Er du sikker?"
     const modalParagraph = this.state.error ?
-      <p>Det er ikke dig, det er os. Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_blank" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
+      <p>Det er ikke dig, det er os. Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
     : this.state.voteConfirmed ?
       <p>Du sendes nu tilbage til forslaget.</p>
     : this.state.voteresult === null ?

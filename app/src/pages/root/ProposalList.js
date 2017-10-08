@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import R from 'ramda'
 import ProposalListSection from './ProposalListSection.js';
 import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
 import PageControls from '../../widgets/PageControls.js';

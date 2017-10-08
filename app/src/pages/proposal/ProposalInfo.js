@@ -65,14 +65,14 @@ class ProposalInfo extends Component {
               <p>
                 Deadline: <CountDown dueDate = {deadline} />
               </p>
-              <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`} target="blank" className="dark-blue hover-blue">https://ft.dk</a></p>
+              <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/index.htm`} target={"_" + proposal.id + "_ft" } className="dark-blue hover-blue">folketings hjemmeside.</a></p>
             </div>
-            <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target="blank" className="dib w-100 pv2 mv2 dark-blue ba b--dark-blue br1 link">
+            <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_som_fremsat.pdf`} target={"_" + proposal.id + "_som_fremsat" } className="dib w-100 pv2 mv2 dark-blue ba b--dark-blue br1 link">
               <Download className="mr2"/>
               Forslag som fremsat
             </a>
             {ftProposalPassed ?
-            <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_vedtaget.pdf`} target="blank" className="dib w-100 pv2 mv2 dark-blue ba b--dark-blue br1 link">
+            <a href={`http://www.ft.dk/ripdf/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk + proposal.nummerpostfix}_som_vedtaget.pdf`} target={"_" + proposal.id + "_som_vedtaget" } className="dib w-100 pv2 mv2 dark-blue ba b--dark-blue br1 link">
               <Download className="mr2"/>
               Forslag som vedtaget
             </a>

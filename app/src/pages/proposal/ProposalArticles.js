@@ -60,7 +60,7 @@ class ProposalArticles extends Component {
             return (
               <li key = {index}>
               <UpDownVote type="article" score={article.score} id={article.id} uservote={article.uservote} />
-                <a href = {article.linkurl} target="_blank" className="db near-black ba b--light-gray br2 mv3 h10 overflow-hidden card">
+                <a href = {article.linkurl} target="_newtab" className="db near-black ba b--light-gray br2 mv3 h10 overflow-hidden card">
                   <div className="dib w-30 h10 br b--light-gray overflow-hidden">
                     <img src = {imageUrl} alt = {description} className="h-100 mw-100" />
                   </div>
