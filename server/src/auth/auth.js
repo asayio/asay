@@ -44,16 +44,18 @@ async function loginPostHandler (request, response) {
   const authToken = request.params.authToken;
   const tokenInfo = await parseToken(authToken);
   if (tokenInfo) {
-    var userRow = await lookupUser(tokenInfo);
-    if (!userRow) {
+    const user = await lookupUser(tokenInfo);
+    if (!user) {
       const createUser = await db.cx.query(insertUser, {
           email: tokenInfo.email,
           firstname: tokenInfo.user_metadata.firstname,
           lastname: tokenInfo.user_metadata.lastname
         });
-      var userRow = await lookupUser(tokenInfo);
+      const newUser = await lookupUser(tokenInfo);
+      response.send(newUser)
+    } else {
+      response.send(user)
     }
-    response.send(userRow)
   } else {
     response.sendStatus(401);
   }
