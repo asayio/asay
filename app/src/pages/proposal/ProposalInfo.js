@@ -26,6 +26,7 @@ class ProposalInfo extends Component {
     });
     const proposalPresentation = await getProposalPresentation.json();
     proposalPresentation.paragraphs && proposalPresentation.paragraphs.splice(-1, 1); // we remove the last annoying paragraph
+    proposalPresentation.paragraphs && proposalPresentation.paragraphs.splice(0, 1); // we remove the first annoying paragraph
     this.setState({proposalPresentation: proposalPresentation});
   }
 
