@@ -7,6 +7,7 @@ const auth = require('./src/auth/auth')
 const vote = require('./src/vote/vote')
 const preferences = require('./src/preferences/preferences')
 const user = require('./src/user/user')
+const proposalSubscriptions = require('./src/subscriptions/proposals/proposalSubscription')
 
 
 // Routes
@@ -23,6 +24,7 @@ function map(app) {
   app.post("/api/openData/stageFetcher/", stageFetcher)
   app.post("/api/preferences/categories", preferences.postCategoryPreference);
   app.post("/api/user/terms", user.postTermsAccept)
+  app.post("/api/subscription/proposal/:id", proposalSubscriptions.postProposalSubscription)
 }
 
 // Export

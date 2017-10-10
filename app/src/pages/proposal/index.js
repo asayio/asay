@@ -13,8 +13,10 @@ class ProposalPage extends Component {
     super();
     this.state = {
       proposalData: '',
-      openDataStage: ''
+      openDataStage: '',
+      subscription: false
     };
+  this.updateSubscription = this.updateSubscription.bind(this);
   }
 
   async componentDidMount() {
@@ -24,7 +26,26 @@ class ProposalPage extends Component {
     this.setState({openDataStage});
   }
 
+  async updateSubscription() {
+    const newsubscription = !this.state.subscription
+    const response = await fetch(`/api/subscription/proposal/${this.props.match.params.id}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          subscription: newsubscription,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        }
+      })
+    if (response.ok) {
+      this.setState({subscription: newsubscription})
+    }
+  }
+
   render() {
+    console.log(this.state.subscription);
     const proposalData = this.state.proposalData;
     if (proposalData.message) { // should extract this to own component along with the one on propsal list
       return (
@@ -44,6 +65,9 @@ class ProposalPage extends Component {
                 <CheckSquare className="mr2"/>
                 Gå til stemmeboks
               </Link>
+              <a onClick={this.updateSubscription}>
+                {this.state.subscription ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
+              </a>
             </div>
           </div>
         </div>
