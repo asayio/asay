@@ -36,6 +36,7 @@ class ProposalInfo extends Component {
     const proposal = this.props.proposalInfo;
     const ftProposalPassed = proposal.Sagsstatus.status === "2. beh/Vedtaget" || proposal.Sagsstatus.status === "Stadfæstet" ? true : false
     const deadline = R.path(['dato'], R.last(this.props.openDataStage))
+    const resume = proposal.resume.split(/\n/gm)
     return (
       <div>
         <h1 className="f3 tc mt5 mb3">
@@ -47,9 +48,13 @@ class ProposalInfo extends Component {
         <div className="row">
           <div className="col12 col9-l bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             {!proposalPresentation ? <LoadingSpinner/> : this.state.view === 'resume' ?
-            <p className="lh-copy mt0 mb3">
-              {proposal.resume === '' ? "Folketinget har desværre ikke udarbejdet et resume endnu." : proposal.resume}
-            </p>
+              resume.map(function (paragraph, index) {
+                return (
+                  <p key={index} className="lh-copy mt0 mb3">
+                    {paragraph}
+                  </p>
+                )
+              })
             :proposalPresentation.map(function (paragraph, index) {
               return (
                 <p key={index} className="lh-copy mt0 mb3">
