@@ -61,7 +61,7 @@ class Vote extends Component {
     if (response.ok) {
       this.setState({voteConfirmed: true})
       setTimeout(function() {
-        document.getElementById("BackBtn").click(); // Click on the checkbox
+        window.location.href = '../../'
       }, 1500)
     } else {
       this.setState({error: true})
@@ -73,7 +73,7 @@ class Vote extends Component {
     const modalParagraph = this.state.error ?
       <p>Det er ikke dig, det er os. Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
     : this.state.voteConfirmed ?
-      <p>Du sendes nu tilbage til forslaget.</p>
+      <p>Du sendes nu tilbage til dine forslag.</p>
     : this.state.voteresult === null ?
       <p>Du er ved et trække din stemme tilbage.</p>
     : <p> Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
