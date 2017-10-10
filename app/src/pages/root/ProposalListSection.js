@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import R from 'ramda';
 import {Link} from 'react-router-dom';
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
-import { CheckSquare, Square } from 'react-feather';
+import { CheckSquare, Square, Settings } from 'react-feather';
 
 class ProposalListSection extends Component {
   render() {
@@ -14,7 +14,12 @@ class ProposalListSection extends Component {
         </div>
       )
     } else if (proposals.empty) {
-      return <p>Du har vist ikke stemt på noget endnu</p>
+      return (
+        <div>
+          <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
+          <Link to="./preferences"><Settings/>Opdater præferencer</Link>
+        </div>
+      )
     } else {
       return (
         <div>
