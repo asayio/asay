@@ -67,14 +67,22 @@ class Preferences extends Component {
   render () {
     return(
       <div>
-        Du skal i gennemsnit tage stilling til ca. <b>{this.state.workload}</b> forslag om året. Det svarer til <b>{Math.round(this.state.workload / 52, 0) }</b> om ugen i gennemsnit.
-        {this.state.categoryPreferences.map((category, index) =>
-          <div key={category.id} onClick={() => this.updatePreference(index)}>
-            {category.preference ? <Icon.CheckSquare/> : <Icon.Square/>}
-            <h3><FeatherIcon name={category.feathericon}/> {category.title}</h3>
-            <p>{category.description}</p>
+        <h1 className="tc">Dine præferencer</h1>
+        <div className="mw8 center bg-white pa4 ba b--black-10 br1 shadow-6">
+          <div className="tc mb4">
+            <p>Nedenfor kan du vælge, hvilke emner du vil følge med i.</p>
+            <p>Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{this.state.workload}</b> forslag om året. Det svarer til <b>{Math.round(this.state.workload / 52, 0) }</b> om ugen.</p>
           </div>
-        )}
+          <div className="row">
+            {this.state.categoryPreferences.map((category, index) =>
+              <div key={category.id} className="col12 col6-ns pv3 pr3">
+                {category.preference ? <input type="checkbox" onClick={() => this.updatePreference(index)} checked className="ml1"/> : <input type="checkbox" onClick={() => this.updatePreference(index)} className="ml1"/>}
+                <h3 className="mv2"><FeatherIcon name={category.feathericon} className="mr2"/>{category.title}</h3>
+                <p className="black-70 mt0">{category.description}</p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     );
   }

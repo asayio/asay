@@ -5,7 +5,7 @@ export default class FeatherIcon extends Component {
   render () {
     const CategoryIcon = Icon[this.props.name]
     return(
-      <CategoryIcon/>
+      <CategoryIcon className={this.props.className}/>
     )
   }
 }
