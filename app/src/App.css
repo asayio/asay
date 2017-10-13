@@ -30,10 +30,6 @@ svg {
   letter-spacing: .02rem;
 }
 
-nav {
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
 .lh-2 {
   line-height: 2rem;
 }
@@ -88,6 +84,12 @@ nav {
 
 .cursor-default {
   cursor: default;
+}
+nav {
+  margin: 0 -1rem;
+}
+nav a:focus {
+  outline: none;
 }
 
 /* LOADING SPINNER */
