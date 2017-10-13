@@ -46,6 +46,4 @@ class Welcome extends Component {
   }
 }
 
-// <footer><a href="https://asay.io" className="dark-pink ttl f7">Coded with <Heart className="svg-icon"/> by asay</a></footer>
-
 export default Root;
