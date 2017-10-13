@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import Login from './auth/Login.js';
 import Logout from './auth/Logout.js';
 import { Link } from 'react-router-dom';
-import { Bell, Cloud, Edit, Home, MessageCircle, Moon, PieChart, Speaker, Camera, Droplet, Umbrella, Sun, ThumbsUp, Package, Map, Layers, Feather, Heart, Zap } from 'react-feather';
-const Icons = [Bell, Cloud, Edit, Home, MessageCircle, Moon, PieChart, Speaker, Camera, Droplet, Umbrella, Sun, ThumbsUp, Package, Map, Layers, Feather, Heart, Zap]
-const RandomIcon = Icons[Math.floor(Math.random()*Icons.length)];
+import { Feather } from 'react-feather';
 
 class Nav extends Component {
   render () {
     return (
-      <nav className="mw8 center mv4">
-        <div className="dib w-30">
-          <Link to="/" className="black-90 hover-black-70 b nav-active"><RandomIcon className="i-green f4 mr2"/>Initiativet</Link>
-        </div>
-        <div className="dib w-70 tr">
-          <Link to="/preferences">indstillinger</Link>
-          <span className="dn di-ns black-90 mr3">{window.sessionStorage.user}</span>
-          {window.sessionStorage.authToken ?
-          <Logout history={this.props.history} className="pointer dark-blue hover-blue"/>
-          : <Login className="pointer dark-blue hover-blue" type="login" />
-          }
+      <nav className="bg-white bb b--black-10 shadow-6 pa3 mb4">
+        <div className="mw8 center lh-2 flex">
+          <div className="flex-auto flex items-center">
+            <Link to="/" className="merriweather black-90 b ttl">Initiativet<span className="i-green">.</span></Link>
+          </div>
+          <div className="flex-auto tr">
+            <Link to="/" className="db di-ns black-90 hover-black-70 mr3-ns">Lovforslag</Link>
+            <Link to="/preferences" className="db di-ns black-90 hover-black-70 mr3-ns">Indstillinger</Link>
+            {window.sessionStorage.authToken ?
+            <Logout history={this.props.history} className="db di-ns pointer dark-blue hover-blue"/>
+            : <Login className="db di-ns pointer dark-blue hover-blue" type="login" />
+            }
+          </div>
         </div>
       </nav>
     )
