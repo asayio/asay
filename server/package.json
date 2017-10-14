@@ -1,8 +1,11 @@
 {
   "now": {
+    "env": {
+      "NODE_ENV": "production"
+    },
     "files": [
       "app",
-      ".env",
+      ".env.production",
       "src",
       "db.js",
       "routes.js",

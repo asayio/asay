@@ -1,5 +1,6 @@
 // Read .env file
-require('dotenv').config();
+const environment = process.env.NODE_ENV || 'development';
+require('dotenv').config({path: `./.env.${environment}`});
 
 // Import
 const routes = require('./routes.js');
@@ -22,6 +23,6 @@ app.get('*', function (request, response) {
 
 // Initate webserver
 function listeningHandler () {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Server is listening on port ${port}. Environment set to ${environment}.`);
 }
 app.listen(port, listeningHandler);
