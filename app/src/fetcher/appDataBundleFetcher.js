@@ -10,16 +10,16 @@ export default async function appDataBundleFetcher () {
     }
   );
   const appDataBundle = await appDataBundleResponse.json();
-  const voteHistory = appDataBundle.voteHistory
-  const categories = appDataBundle.categories
-  const committee = appDataBundle.committee
-  const subscriptions = appDataBundle.subscriptions
-  const proposalList = appDataBundle.proposals.map(proposal => {
+  const voteList = appDataBundle.voteList
+  const preferenceList = appDataBundle.preferenceList
+  const committeeList = appDataBundle.committeeList
+  const subscriptionList = appDataBundle.subscriptionList
+  const proposalList = appDataBundle.proposalList.map(proposal => {
     const id = proposal.id
     const committeeId = proposal.data.committeeId
-    const hasVoted = !!R.find(R.propEq('proposal', id))(voteHistory)
-    const hasSubscription = R.find(R.propEq('proposal', id))(subscriptions)
-    const matchesCommittee = !!R.find(R.propEq('committee', committeeId))(committee)
+    const hasVoted = !!R.find(R.propEq('proposal', id))(voteList)
+    const hasSubscription = R.find(R.propEq('proposal', id))(subscriptionList)
+    const matchesCommittee = !!R.find(R.propEq('committee', committeeId))(committeeList)
     const isSubscribing = (hasSubscription && hasSubscription.subscription) || matchesCommittee
     return Object.assign({}, proposal.data, {
       hasVoted,
@@ -27,5 +27,5 @@ export default async function appDataBundleFetcher () {
       isSubscribing
     })
   })
-  return {categories, proposalList, voteHistory}
+  return {preferenceList, proposalList, voteList}
 }

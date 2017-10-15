@@ -23,14 +23,16 @@ class App extends Component {
     super(props);
     this.state = {
       proposalList: [],
-      categories: [],
-      voteHistory: []
+      preferenceList: [],
+      // voteList: []
     };
   }
 
   async componentDidMount() {
-    const appDataBundle = await appDataBundleFetcher();
-    this.setState(appDataBundle)
+    if (window.sessionStorage.authToken) {
+      const appDataBundle = await appDataBundleFetcher();
+      this.setState(appDataBundle)
+    }
   }
 
   render() {
@@ -44,7 +46,7 @@ class App extends Component {
               <Route exact path="/proposal/:id" render={props => <Proposal match={props.match} proposalList={this.state.proposalList}/>}/>
               <Route exact path="/proposal/:id/vote" render={props => <Vote match={props.match} proposalList={this.state.proposalList}/>}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
-              <Route exact path="/preferences" render={props => <Preferences categories={this.state.categories}/>}/>
+              <Route exact path="/preferences" render={props => <Preferences preferenceList={this.state.preferenceList}/>}/>
               <Route exact path="/auth" component={Auth}/>
               <Route path="*" component={Lost}/>
             </Switch>

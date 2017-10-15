@@ -7,8 +7,6 @@
       "app",
       ".env.production",
       "src",
-      "db.js",
-      "routes.js",
       "server.js"
     ]
   },

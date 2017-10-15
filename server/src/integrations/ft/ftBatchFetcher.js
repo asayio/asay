@@ -1,19 +1,15 @@
 // Import
-const db = require('../../db.js')
-const pgp = require('pg-promise')();
 const R = require('ramda')
-const auth = require('../auth/auth.js')
-const openDataFetcher = require('./openDataFetcher.js')
-const vote = require('../vote/vote.js')
-const committee = require('../preferences/preferences.js')
+const odaFetcher = require('./odaFetcher')
 const scrapeIt = require('scrape-it')
+const updateProposalList = require('./db/proposal/updateProposalList')
 
 // Functions
-async function openDataBatchFetcher () {
+async function ftBatchFetcher () {
   const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin'
   const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146'
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter
-  const proposalList = await openDataFetcher.fetchAllPages(proposalUrl)
+  const proposalList = await odaFetcher.fetchAllPages(proposalUrl)
   const formattedProposalList = proposalList.map(proposal => {
     return {
       id: proposal.id,
@@ -43,16 +39,10 @@ async function openDataBatchFetcher () {
     const dataWithPresentation = Object.assign({}, proposal.data, {presentation})
     finishedProposalList.push(Object.assign({}, {id: proposal.id}, {data: dataWithPresentation}))
   }
-  const updateDB = await db.cx.tx(t => {
-    const columnSet = new pgp.helpers.ColumnSet(['id', 'data'], {table: 'proposal'});
-    const query = pgp.helpers.insert(finishedProposalList, columnSet);
-    const q1 = t.none('delete from proposal');
-    const q2 =t.none(query)
-    return t.batch([q1, q2]);
-  })
+  updateProposalList(finishedProposalList);
 };
-openDataBatchFetcher() // first time run
+ftBatchFetcher() // first time run
 setInterval(openDataBatchFetcher, 24 * 60 * 60) // update every 24hrs
 
 // Export
-module.exports = openDataBatchFetcher
+module.exports = ftBatchFetcher

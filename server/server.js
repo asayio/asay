@@ -3,7 +3,7 @@ const environment = process.env.NODE_ENV || 'development';
 require('dotenv').config({path: `./.env.${environment}`});
 
 // Import
-const routes = require('./routes.js');
+const routes = require('./src/routes.js');
 
 // Variables
 const express = require('express');

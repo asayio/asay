@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FeatherIcon from '../../widgets/FeatherIcon'
-import update from 'immutability-helper';
+// import update from 'immutability-helper';
 
 class Preferences extends Component {
   constructor() {
@@ -47,7 +47,7 @@ class Preferences extends Component {
             <p>Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{this.state.workload}</b> forslag om året. Det svarer til <b>{Math.round(this.state.workload / 52, 0) }</b> om ugen.</p>
           </div>
           <div className="row">
-            {this.props.categories.map((category, index) =>
+            {this.props.preferenceList.map((category, index) =>
               <div key={category.id} className="col12 col6-ns pv3 pr3">
                 {category.preference ? <input type="checkbox" onClick={() => this.updatePreference(index)} checked className="ml1"/> : <input type="checkbox" onClick={() => this.updatePreference(index)} className="ml1"/>}
                 <h3 className="mv2"><FeatherIcon name={category.feathericon} className="mr2"/>{category.title}</h3>
