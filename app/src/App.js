@@ -33,7 +33,6 @@ class App extends Component {
     const proposalList = packedProposalList.map(proposal => {
       return Object.assign({}, {id: proposal.id}, proposal.info)
     })
-    console.log(proposalList);
     this.setState({proposalList})
   }
 
