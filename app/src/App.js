@@ -29,10 +29,7 @@ class App extends Component {
 
   async componentDidMount() {
     const appDataBundle = await appDataBundleFetcher();
-    const packedProposalList = await proposalFetcher();
-    const proposalList = packedProposalList.map(proposal => {
-      return Object.assign({}, {id: proposal.id}, proposal.info)
-    })
+    const proposalList = await proposalFetcher();
     this.setState({proposalList})
   }
 

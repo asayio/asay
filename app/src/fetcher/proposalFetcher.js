@@ -7,6 +7,9 @@ export default async function proposalFetcher () {
       }
     }
   );
-  const proposals = await proposalResponse.json();
+  const packedProposalList = await proposalResponse.json();
+  const proposalList = packedProposalList.map(proposal => {
+    return Object.assign({}, {id: proposal.id}, proposal.info)
+  })
   return proposals
 }
