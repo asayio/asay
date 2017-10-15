@@ -14,21 +14,23 @@ async function openDataBatchFetcher (request, response) {
   const formattedProposalList = proposalList.map(proposal => {
     return {
       id: proposal.id,
-      committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
-      titel: proposal.titel,
-      shortTitel: proposal.titelkort,
-      type: proposal.Sagstype.type,
-      resume: proposal.resume,
-      number: proposal.nummer,
-      numberPreFix: proposal.nummerprefix,
-      numberNumeric: proposal.nummernumerisk,
-      numberPostFix: proposal.nummerpostfix,
-      statusId: proposal.Sagsstatus.id,
-      status: proposal.Sagsstatus.status,
-      periodId: proposal.Periode.id,
-      periodCode: proposal.Periode.kode,
-      period: proposal.Periode.titel,
-      stage: proposal.Sagstrin
+      info: {
+        committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
+        titel: proposal.titel,
+        shortTitel: proposal.titelkort,
+        type: proposal.Sagstype.type,
+        resume: proposal.resume,
+        number: proposal.nummer,
+        numberPreFix: proposal.nummerprefix,
+        numberNumeric: proposal.nummernumerisk,
+        numberPostFix: proposal.nummerpostfix,
+        statusId: proposal.Sagsstatus.id,
+        status: proposal.Sagsstatus.status,
+        periodId: proposal.Periode.id,
+        periodCode: proposal.Periode.kode,
+        period: proposal.Periode.titel,
+        stage: proposal.Sagstrin
+      }
     }
   })
   response.send(formattedProposalList)
