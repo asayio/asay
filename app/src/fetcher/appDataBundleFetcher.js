@@ -8,5 +8,12 @@ export default async function appDataBundleFetcher () {
     }
   );
   const appDataBundle = await appDataBundleResponse.json();
-  return appDataBundle
+  const proposalList = appDataBundle.proposals.map(proposal => {
+    return Object.assign({}, {id: proposal.id}, proposal.data)
+  })
+  return {
+    categories: appDataBundle.categories,
+    proposalList,
+    voteHistory: appDataBundle.voteHistory
+  }
 }

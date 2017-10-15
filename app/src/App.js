@@ -1,6 +1,5 @@
 import 'tachyons';
 import './App.css';
-import proposalFetcher from './fetcher/proposalFetcher';
 import appDataBundleFetcher from './fetcher/appDataBundleFetcher';
 import React, { Component } from 'react';
 import Auth from './pages/auth'
@@ -23,14 +22,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      proposalList: []
+      proposalList: [],
+      categories: [],
+      voteHistory: []
     };
   }
 
   async componentDidMount() {
     const appDataBundle = await appDataBundleFetcher();
-    const proposalList = await proposalFetcher();
-    this.setState({proposalList})
+    this.setState(appDataBundle)
   }
 
   render() {

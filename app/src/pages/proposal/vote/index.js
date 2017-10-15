@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import R from 'ramda'
 import './style.css';
 import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
-import proposalFetcher from '../../../fetcher/proposalFetcher.js';
 import { Link } from 'react-router-dom';
 import { Check, X, Minus, ArrowLeft } from 'react-feather';
 

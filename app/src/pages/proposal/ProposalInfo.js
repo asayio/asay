@@ -9,30 +9,18 @@ class ProposalInfo extends Component {
   constructor() {
     super();
     this.state = {
-      proposalPresentation: '',
       view:'resume',
     };
   }
 
   async componentDidMount() {
     const proposal = this.props.proposal;
-    if (proposal.resume === "") {this.setState({view:'background'})}
-    const getProposalPresentation = await fetch('/api/ftScraper/', {
-      method: 'GET',
-      headers: {
-        period: proposal.periodCode,
-        type: proposal.type,
-        id: proposal.numberPreFix + proposal.numberNumeric,
-      }
-    });
-    const proposalPresentation = await getProposalPresentation.json();
-    proposalPresentation.paragraphs && proposalPresentation.paragraphs.splice(-1, 1); // we remove the last annoying paragraph
-    proposalPresentation.paragraphs && proposalPresentation.paragraphs.splice(0, 1); // we remove the first annoying paragraph
-    this.setState({proposalPresentation: proposalPresentation});
+    if (proposal.resume === "" && proposal.presentation.paragraphs.length) {this.setState({view:'background'})}
+    proposal.presentation.paragraphs && proposal.presentation.paragraphs.splice(-1, 1); // we remove the last annoying paragraph
+    proposal.presentation.paragraphs && proposal.presentation.paragraphs.splice(0, 1); // we remove the first annoying paragraph
   }
 
   render() {
-    const proposalPresentation = this.state.proposalPresentation.paragraphs
     const proposal = this.props.proposal;
     const ftProposalPassed = proposal.status === "2. beh/Vedtaget" || proposal.status === "Stadfæstet" ? true : false
     const deadline = R.path(['dato'], R.last(proposal.stage))
@@ -49,19 +37,25 @@ class ProposalInfo extends Component {
           <div className="col12 col9-l bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
             {this.state.view === 'resume' ?
               resume.map(function (paragraph, index) {
+                if (!paragraph && !index) {
+                  return (
+                    <p key={index} className="lh-copy mt0 mb3">Det lader ikke til der er skrevet et resume endnu</p>
+                  )
+                } else {
+                  return (
+                    <p key={index} className="lh-copy mt0 mb3">
+                      {paragraph}
+                    </p>
+                  )
+                }
+              })
+              : proposal.presentation.paragraphs.map(function (paragraph, index) {
                 return (
                   <p key={index} className="lh-copy mt0 mb3">
                     {paragraph}
                   </p>
                 )
-              })
-            : !proposalPresentation ? <LoadingSpinner/> : proposalPresentation.map(function (paragraph, index) {
-              return (
-                <p key={index} className="lh-copy mt0 mb3">
-                  {paragraph}
-                </p>
-              )
-            })}
+              })}
           </div>
           <div className="col12 col3-l tc pl3-l">
             <div className="bg-white lh-copy mv2 pv2 ph4 ba b--black-10 br1 shadow-6">

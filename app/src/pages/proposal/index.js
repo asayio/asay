@@ -1,8 +1,6 @@
 import R from 'ramda'
 import React, { Component } from 'react';
 import ProposalInfo from './ProposalInfo';
-import proposalFetcher from '../../fetcher/proposalFetcher.js';
-import stageFetcher from '../../fetcher/stageFetcher.js';
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
 import { Link } from 'react-router-dom';
