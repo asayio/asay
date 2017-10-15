@@ -12,11 +12,20 @@ export default async function appDataBundleFetcher () {
   const appDataBundle = await appDataBundleResponse.json();
   const voteHistory = appDataBundle.voteHistory
   const categories = appDataBundle.categories
-  console.log(categories);
+  const committee = appDataBundle.committee
+  const subscriptions = appDataBundle.subscriptions
   const proposalList = appDataBundle.proposals.map(proposal => {
     const id = proposal.id
-    const hasVoted = R.find(R.propEq('proposal', id))(voteHistory)
-    return Object.assign({}, {id}, proposal.data, {hasVoted: !!hasVoted})
+    const committeeId = proposal.data.committeeId
+    const hasVoted = !!R.find(R.propEq('proposal', id))(voteHistory)
+    const hasSubscription = R.find(R.propEq('proposal', id))(subscriptions)
+    const matchesCommittee = !!R.find(R.propEq('committee', committeeId))(committee)
+    const isSubscribing = (hasSubscription && hasSubscription.subscription) || matchesCommittee
+    return Object.assign({}, proposal.data, {
+      hasVoted,
+      id,
+      isSubscribing
+    })
   })
   return {categories, proposalList, voteHistory}
 }
