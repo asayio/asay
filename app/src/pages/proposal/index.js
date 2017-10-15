@@ -1,8 +1,6 @@
 import R from 'ramda'
 import React, { Component } from 'react';
 import ProposalInfo from './ProposalInfo';
-import LoadingSpinner from '../../widgets/LoadingSpinner.js';
-import OpenDataErrorHandler from '../../widgets/OpenDataErrorHandler.js';
 import { Link } from 'react-router-dom';
 import { CheckSquare } from 'react-feather';
 
@@ -37,30 +35,24 @@ class ProposalPage extends Component {
 
   render() {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
-    if (R.isEmpty(proposal) || R.isNil(proposal)) {
-      return (
-        <LoadingSpinner/>
-      );
-    } else {
-      return (
-        <div>
-          <div className="mw8 center">
-            <ProposalInfo
-              proposal = {proposal}
-            />
-            <div className="col12 col9-l tc">
-              <Link to={`${proposal.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
-                <CheckSquare className="mr2"/>
-                Gå til stemmeboks
-              </Link>
-              <a onClick={this.updateSubscription}>
-                {this.state.subscription ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
-              </a>
-            </div>
+    return (
+      <div>
+        <div className="mw8 center">
+          <ProposalInfo
+            proposal = {proposal}
+          />
+          <div className="col12 col9-l tc">
+            <Link to={`${proposal.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
+              <CheckSquare className="mr2"/>
+              Gå til stemmeboks
+            </Link>
+            <a onClick={this.updateSubscription}>
+              {this.state.subscription ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
+            </a>
           </div>
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
 

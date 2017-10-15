@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FeatherIcon from '../../widgets/FeatherIcon'
-import * as Icon from 'react-feather'
 import update from 'immutability-helper';
 
 class Preferences extends Component {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 import CountDown from '../../widgets/CountDown.js';
-import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import { Link } from 'react-router-dom';
 import { FileText,ArrowLeft,Download } from 'react-feather';
 

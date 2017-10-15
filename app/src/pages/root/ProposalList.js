@@ -23,7 +23,6 @@ class Root extends Component {
 
   changePage(event) {
     const page = event.target.value
-    const selectedSection = this.state.selectedSection
     this.setState({page})
   }
 

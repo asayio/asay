@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Circle, Github, Edit3, CreditCard } from 'react-feather'
 
 class Footer extends Component {
