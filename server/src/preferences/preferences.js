@@ -10,24 +10,13 @@ const updateCategoryPreference = db.sql('./src/preferences/updateCategoryPrefere
 const selectUserPreferredCommittees = db.sql('./src/preferences/selectUserPreferredCommittees.sql')
 
 // Functions
-async function getCategoryPreferences (request, response) {
-  try {
-    const user = await auth.getUser(request);
-    if (user) {
-      const userId = user.id;
-      const categoryPreferences = await db.cx.query(selectCategoryPreferences,
-        {
-          user: userId,
-        }
-      );
-      response.send(categoryPreferences)
-    } else {
-      response.sendStatus(401)
+async function getCategoryPreferences (userId) {
+  const categoryPreferences = await db.cx.query(selectCategoryPreferences,
+    {
+      user: userId,
     }
-  }
-  catch(err) {
-    response.sendStatus(500)
-  }
+  );
+  return categoryPreferences
 }
 
 async function getCategoryPreference (userId, categoryId) {

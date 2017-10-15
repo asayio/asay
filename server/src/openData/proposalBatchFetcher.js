@@ -6,7 +6,7 @@ const vote = require('../vote/vote.js')
 const committee = require('../preferences/preferences.js')
 
 // Functions
-async function openDataBatchFetcher (request, response) {
+async function openDataBatchFetcher () {
   const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin'
   const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 144'
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter
@@ -33,7 +33,8 @@ async function openDataBatchFetcher (request, response) {
       }
     }
   })
-  response.send(formattedProposalList)
+  return formattedProposalList
+  // response.send(formattedProposalList)
   // save formattedProposalList in db
 };
 // openDataBatchFetcher() // first time run

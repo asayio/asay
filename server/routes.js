@@ -6,6 +6,7 @@ const vote = require('./src/vote/vote')
 const preferences = require('./src/preferences/preferences')
 const user = require('./src/user/user')
 const proposalSubscriptions = require('./src/subscriptions/proposals/proposalSubscription')
+const appData = require('./src/appDataBundleFetcher')
 
 
 // Routes
@@ -15,6 +16,7 @@ function map(app) {
   app.get("/api/openData/proposalFetcher/", proposalBatchFetcher)
   app.get("/api/auth/:authToken", auth.loginPostHandler)
   app.get("/api/preferences/categories", preferences.getCategoryPreferences)
+  app.get("/api/appDataBundle", appData.appDataBundleFetcher)
 
   // POST
   app.post("/api/proposal/:id/vote", vote.postVote)

@@ -1,6 +1,7 @@
 import 'tachyons';
 import './App.css';
 import proposalFetcher from './fetcher/proposalFetcher';
+import appDataBundleFetcher from './fetcher/appDataBundleFetcher';
 import React, { Component } from 'react';
 import Auth from './pages/auth'
 import Proposal from './pages/proposal';
@@ -27,7 +28,8 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const packedProposalList = await proposalFetcher()
+    const appDataBundle = await appDataBundleFetcher();
+    const packedProposalList = await proposalFetcher();
     const proposalList = packedProposalList.map(proposal => {
       return Object.assign({}, {id: proposal.id}, proposal.info)
     })

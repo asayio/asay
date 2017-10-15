@@ -18,21 +18,13 @@ async function getVote (userId, proposalId) {
   return vote
 }
 
-async function getVoteHistory (request) {
-  try {
-    const user = await auth.getUser(request);
-    if (user) {
-      const voteHistory = await db.cx.query(selectVoteHistory,
-        {
-          user: user.id
-        }
-      );
-      return voteHistory
+async function getVoteHistory (userId) {
+  const voteHistory = await db.cx.query(selectVoteHistory,
+    {
+      user: userId,
     }
-  }
-  catch(err) {
-    console.log(err);
-  }
+  );
+  return voteHistory
 }
 
 async function postVote (request, response) {
