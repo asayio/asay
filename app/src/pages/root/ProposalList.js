@@ -39,7 +39,7 @@ class Root extends Component {
         </div>
         <h1 className="f3 tc mt5 mb4">{selectedSection}</h1>
         <PageControls page={page} changePage={this.changePage}/>
-        <ProposalListSection proposalList={proposalList}/>
+        <ProposalListSection proposalList={proposalList} selectedSection={selectedSection}/>
         <PageControls page={page} changePage={this.changePage}/>
       </div>
     )

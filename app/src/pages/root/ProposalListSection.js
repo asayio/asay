@@ -1,11 +1,25 @@
+import R from 'ramda'
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { CheckSquare, Square, Settings } from 'react-feather';
 
 class ProposalListSection extends Component {
   render() {
-    var proposalList = this.props.proposalList;
-    if (proposalList.empty) {
+    const proposalList = this.props.proposalList
+    const selectedSection = this.props.selectedSection
+    let selectedSectionProposalList = []
+    if (selectedSection === 'udvalgte forslag') {
+      selectedSectionProposalList = R.filter(proposal => {
+        return proposal.isSubscribing && !proposal.hasVoted
+      }, proposalList)
+    } else if (selectedSection === 'afstemte forslag') {
+      selectedSectionProposalList = R.filter(proposal => {
+        return proposal.hasVoted
+      }, proposalList)
+    } else {
+      selectedSectionProposalList = proposalList
+    }
+    if (!selectedSectionProposalList.length) {
       return (
         <div>
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
@@ -15,7 +29,7 @@ class ProposalListSection extends Component {
     } else {
       return (
         <div>
-        {proposalList.map(function (proposal, index) {
+        {selectedSectionProposalList.map(function (proposal, index) {
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
               <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
