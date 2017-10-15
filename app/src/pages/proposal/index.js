@@ -1,3 +1,4 @@
+import R from 'ramda'
 import React, { Component } from 'react';
 import ProposalInfo from './ProposalInfo';
 import proposalFetcher from '../../fetcher/proposalFetcher.js';
@@ -10,21 +11,13 @@ import { CheckSquare } from 'react-feather';
 class ProposalPage extends Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
-      proposalData: '',
-      openDataStage: '',
       subscription: false
     };
   this.updateSubscription = this.updateSubscription.bind(this);
   }
 
-  async componentDidMount() {
-    const proposalData = await proposalFetcher({specificProposalId: this.props.match.params.id})
-    this.setState({proposalData: proposalData.value[0]});
-    const openDataStage = await stageFetcher({specificProposalId: this.props.match.params.id})
-    this.setState({openDataStage});
-  }
 
   async updateSubscription() {
     const newsubscription = !this.state.subscription
@@ -45,23 +38,20 @@ class ProposalPage extends Component {
   }
 
   render() {
-    console.log(this.state.subscription);
-    const proposalData = this.state.proposalData;
-    if (proposalData.message) { // should extract this to own component along with the one on propsal list
+    const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
+    if (R.isEmpty(proposal) || R.isNil(proposal)) {
       return (
-        <OpenDataErrorHandler/>
-      )
-    }
-    if (proposalData) {
+        <LoadingSpinner/>
+      );
+    } else {
       return (
         <div>
           <div className="mw8 center">
             <ProposalInfo
-              proposalInfo = {proposalData}
-              openDataStage = {this.state.openDataStage}
+              proposal = {proposal}
             />
             <div className="col12 col9-l tc">
-              <Link to={`${this.props.match.params.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
+              <Link to={`${proposal.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
                 <CheckSquare className="mr2"/>
                 Gå til stemmeboks
               </Link>
@@ -72,10 +62,6 @@ class ProposalPage extends Component {
           </div>
         </div>
       )
-    } else {
-      return (
-        <LoadingSpinner/>
-      );
     }
   }
 }

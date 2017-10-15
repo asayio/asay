@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
+import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import ProposalList from './ProposalList'
 
 class Root extends Component {
   render() {
-    if (window.sessionStorage.authToken) {
-      return (
-        <ProposalList/>
-      )
+    if (window.sessionStorage.authToken && !this.props.proposalList.length) {
+      return <LoadingSpinner/>
+    } else if (window.sessionStorage.authToken) {
+      return <ProposalList proposalList={this.props.proposalList}/>
     } else {
-      return (
-        <Welcome/>
-      );
+      return <Welcome/>
     }
   }
 }

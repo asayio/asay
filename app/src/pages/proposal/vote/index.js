@@ -14,17 +14,11 @@ class Vote extends Component {
       voteresult: undefined,
       error: false,
       voteConfirmed: false,
-      proposalInfo: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleVote = this.handleVote.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
-  }
-
-  async componentDidMount() {
-    const proposalInfo = await proposalFetcher({specificProposalId: this.props.match.params.id})
-    this.setState({proposalInfo: proposalInfo.value[0]});
   }
 
   closeModal(event) {
@@ -69,6 +63,8 @@ class Vote extends Component {
   };
 
   render() {
+    console.log(this.props);
+    const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
     const modalHeader = this.state.error ? "Der er sket en fejl" : this.state.voteConfirmed ? "Din valghandling er registreret" : "Er du sikker?"
     const modalParagraph = this.state.error ?
       <p>Det er ikke dig, det er os. Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
@@ -77,17 +73,16 @@ class Vote extends Component {
     : this.state.voteresult === null ?
       <p>Du er ved et trække din stemme tilbage.</p>
     : <p> Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
-
-    if (!R.isEmpty(this.state.proposalInfo)) {
+  if (proposal) {
       return (
         <div className="mw8 center tc">
-          <h1 className="f3 mt5 mb4">{this.state.proposalInfo.nummer}: {this.state.proposalInfo.titelkort.replace('.', '')}</h1>
+          <h1 className="f3 mt5 mb4">{proposal.number}: {proposal.shortTitel.replace('.', '')}</h1>
           <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til forslag</Link>
           <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
-            <h2 className="f4">{this.state.proposalInfo.vote ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
+            <h2 className="f4">{proposal.vote ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
             <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><X className="mr2"/>Imod</a>
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
-            {this.state.proposalInfo.vote && <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Træk stemme tilbage</a> }
+            {proposal.vote && <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Træk stemme tilbage</a> }
           </div>
           <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">

@@ -8,12 +8,13 @@ async function fetchOnePage (url) {
 }
 
 async function fetchOpenData (url) {
-  const openData = await fetch(url).then(function (data) {
-    return data.json();
-  }).catch( error =>{
-    return error
-  });
-  return openData
+  try {
+    const openDataResponse = await fetch(url);
+    const openData = await openDataResponse.json();
+    return openData;
+  } catch (error) {
+    return error;
+  }
 }
 
 async function fetchNextPage (nextPageUrl, page) {
