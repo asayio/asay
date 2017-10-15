@@ -1,4 +1,6 @@
 // Import
+const db = require('../../db.js')
+const pgp = require('pg-promise')();
 const R = require('ramda')
 const auth = require('../auth/auth.js')
 const openDataFetcher = require('./openDataFetcher.js')
@@ -14,7 +16,7 @@ async function openDataBatchFetcher () {
   const formattedProposalList = proposalList.map(proposal => {
     return {
       id: proposal.id,
-      info: {
+      data: {
         committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
         titel: proposal.titel,
         shortTitel: proposal.titelkort,
@@ -32,13 +34,17 @@ async function openDataBatchFetcher () {
         stage: proposal.Sagstrin
       }
     }
+  });
+  const updateDB = await db.cx.tx(t => {
+    const columnSet = new pgp.helpers.ColumnSet(['id', 'data'], {table: 'proposal'});
+    const query = pgp.helpers.insert(formattedProposalList, columnSet);
+    const q1 = t.none('delete from proposal');
+    const q2 =t.none(query)
+    return t.batch([q1, q2]);
   })
-  return formattedProposalList
-  // response.send(formattedProposalList)
-  // save formattedProposalList in db
 };
-// openDataBatchFetcher() // first time run
-// setInterval(openDataBatchFetcher, 24 * 60 * 60) // update every 24hrs
+openDataBatchFetcher() // first time run
+setInterval(openDataBatchFetcher, 24 * 60 * 60) // update every 24hrs
 
 // Export
 module.exports = openDataBatchFetcher
