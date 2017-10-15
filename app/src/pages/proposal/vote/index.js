@@ -62,7 +62,6 @@ class Vote extends Component {
   };
 
   render() {
-    console.log(this.props);
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
     const modalHeader = this.state.error ? "Der er sket en fejl" : this.state.voteConfirmed ? "Din valghandling er registreret" : "Er du sikker?"
     const modalParagraph = this.state.error ?
@@ -78,10 +77,10 @@ class Vote extends Component {
           <h1 className="f3 mt5 mb4">{proposal.number}: {proposal.shortTitel.replace('.', '')}</h1>
           <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til forslag</Link>
           <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
-            <h2 className="f4">{proposal.vote ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
+            <h2 className="f4">{proposal.hasVoted ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
             <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><X className="mr2"/>Imod</a>
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
-            {proposal.vote && <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Træk stemme tilbage</a> }
+            {proposal.hasVoted && <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Træk stemme tilbage</a> }
           </div>
           <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">

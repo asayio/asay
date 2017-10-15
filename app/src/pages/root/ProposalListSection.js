@@ -20,7 +20,7 @@ class ProposalListSection extends Component {
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
               <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
                 <div className="pr3 pr4-ns flex items-center">
-                  { proposal.vote ?
+                  { proposal.hasVoted ?
                   <CheckSquare className="f3 i-green pb1"/>:
                   <Square className="f3 i-green pb1"/>
                   }

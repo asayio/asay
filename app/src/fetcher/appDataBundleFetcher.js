@@ -1,3 +1,5 @@
+import R from 'ramda'
+
 export default async function appDataBundleFetcher () {
   const appDataBundleResponse = await fetch('/api/appDataBundle/', {
       method: 'GET',
@@ -8,12 +10,13 @@ export default async function appDataBundleFetcher () {
     }
   );
   const appDataBundle = await appDataBundleResponse.json();
+  const voteHistory = appDataBundle.voteHistory
+  const categories = appDataBundle.categories
+  console.log(categories);
   const proposalList = appDataBundle.proposals.map(proposal => {
-    return Object.assign({}, {id: proposal.id}, proposal.data)
+    const id = proposal.id
+    const hasVoted = R.find(R.propEq('proposal', id))(voteHistory)
+    return Object.assign({}, {id}, proposal.data, {hasVoted: !!hasVoted})
   })
-  return {
-    categories: appDataBundle.categories,
-    proposalList,
-    voteHistory: appDataBundle.voteHistory
-  }
+  return {categories, proposalList, voteHistory}
 }
