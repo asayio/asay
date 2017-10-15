@@ -36,13 +36,6 @@ async function openDataBatchFetcher () {
       }
     }
   });
-  const updateDB = await db.cx.tx(t => {
-    const columnSet = new pgp.helpers.ColumnSet(['id', 'data'], {table: 'proposal'});
-    const query = pgp.helpers.insert(formattedProposalList, columnSet);
-    const q1 = t.none('delete from proposal');
-    const q2 =t.none(query)
-    return t.batch([q1, q2]);
-  })
   let finishedProposalList = []
   for (const proposal of formattedProposalList) {
     const presentationUrl = `http://www.ft.dk/samling/${proposal.info.periodCode}/${proposal.info.type}/${proposal.info.numberPreFix + proposal.info.numberNumeric}/${proposal.info.periodCode}_${proposal.info.numberPreFix + proposal.info.numberNumeric}_fremsaettelsestale.htm`
