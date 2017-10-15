@@ -14,7 +14,7 @@ async function openDataBatchFetcher () {
   const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146'
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter
   const proposalList = await openDataFetcher.fetchAllPages(proposalUrl)
-  const formattedProposalList = proposalList.slice(10, 20).map(proposal => {
+  const formattedProposalList = proposalList.map(proposal => {
     return {
       id: proposal.id,
       data: {
@@ -38,10 +38,10 @@ async function openDataBatchFetcher () {
   });
   let finishedProposalList = []
   for (const proposal of formattedProposalList) {
-    const presentationUrl = `http://www.ft.dk/samling/${proposal.info.periodCode}/${proposal.info.type}/${proposal.info.numberPreFix + proposal.info.numberNumeric}/${proposal.info.periodCode}_${proposal.info.numberPreFix + proposal.info.numberNumeric}_fremsaettelsestale.htm`
-    const presentation = await scrapeIt(presentationUrl, {proposer: ".Fremsaetter", paragraphs: {listItem: ".TekstGenerel"}})
-    const infoWithPresentation = Object.assign({}, proposal.info, {presentation})
-    finishedProposalList.push(Object.assign({}, {id: proposal.id}, {info: infoWithPresentation}))
+    const presentationUrl = `http://www.ft.dk/samling/${proposal.data.periodCode}/${proposal.data.type}/${proposal.data.numberPreFix + proposal.data.numberNumeric}/${proposal.data.periodCode}_${proposal.data.numberPreFix + proposal.data.numberNumeric}_fremsaettelsestale.htm`
+    const presentation = await scrapeIt(presentationUrl, {paragraphs: {listItem: ".TekstGenerel"}})
+    const dataWithPresentation = Object.assign({}, proposal.data, {presentation})
+    finishedProposalList.push(Object.assign({}, {id: proposal.id}, {data: dataWithPresentation}))
   }
   const updateDB = await db.cx.tx(t => {
     const columnSet = new pgp.helpers.ColumnSet(['id', 'data'], {table: 'proposal'});
