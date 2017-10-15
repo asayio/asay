@@ -12,7 +12,9 @@ async function appDataBundleFetcher(request, response) {
   const proposals = await getProposals();
   const voteHistory = await vote.getVoteHistory(userId);
   const categories = await preferences.getCategoryPreferences(userId);
-  const bundle = { proposals, voteHistory , categories }
+  const committee = await preferences.getUserPreferredCommittees(userId);
+  const subscriptions = await subs.getProposalSubscriptions(userId);
+  const bundle = { proposals , voteHistory , categories , committee , subscriptions}
   response.send(bundle)
 };
 

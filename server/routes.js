@@ -1,5 +1,4 @@
 // Variables
-const ftScraper = require('./src/ftScraper')
 const proposalBatchFetcher = require('./src/openData/proposalBatchFetcher')
 const auth = require('./src/auth/auth')
 const vote = require('./src/vote/vote')
@@ -12,7 +11,6 @@ const appData = require('./src/appDataBundleFetcher')
 // Routes
 function map(app) {
   // GET
-  app.get("/api/ftScraper/", ftScraper.ftScraper)
   app.get("/api/openData/proposalFetcher/", proposalBatchFetcher)
   app.get("/api/auth/:authToken", auth.loginPostHandler)
   app.get("/api/preferences/categories", preferences.getCategoryPreferences)
