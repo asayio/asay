@@ -27,7 +27,11 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const proposalList = await proposalFetcher()
+    const packedProposalList = await proposalFetcher()
+    const proposalList = packedProposalList.map(proposal => {
+      return Object.assign({}, {id: proposal.id}, proposal.info)
+    })
+    console.log(proposalList);
     this.setState({proposalList})
   }
 
