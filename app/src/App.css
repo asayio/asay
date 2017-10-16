@@ -71,6 +71,21 @@ svg {
 
 /* TACHYONS CORRECTIONS / ADDITIONS */
 
+.blue {
+  color: #0954B7;
+}
+.bg-blue {
+  background-color: #0954B7;
+}
+.b--blue {
+  border-color: #0954B7;
+}
+.hover-blue:hover,.hover-blue:focus {
+  color: #0954B7;
+}
+.hover-bg-blue:hover,.hover-bg-blue:focus {
+  background-color: #0954B7;
+}
 .pointer {
   cursor: pointer;
 }
