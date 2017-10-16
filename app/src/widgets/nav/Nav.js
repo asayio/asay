@@ -3,7 +3,7 @@ import Login from '../auth/Login.js';
 import Logout from '../auth/Logout.js';
 import { Link } from 'react-router-dom';
 import { openBurgerMenu,closeBurgerMenu } from './burgerMenu';
-import { ChevronDown,Settings,Menu,X } from 'react-feather';
+import { ChevronDown,Menu,X } from 'react-feather';
 
 class Nav extends Component {
   render () {
