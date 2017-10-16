@@ -10,7 +10,7 @@ import Unauthorized from './pages/401';
 import Disclaimer from './pages/disclaimer';
 import Preferences from './pages/preferences';
 import Lost from './pages/404';
-import Nav from './widgets/Nav';
+import Nav from './widgets/nav/Nav';
 import Footer from './widgets/Footer'
 import {
   BrowserRouter as Router,
