@@ -18,7 +18,7 @@ class Root extends Component {
 class Welcome extends Component {
   render() {
     return (
-      <div className="mw7 center tc">
+      <div className="mw8 center tc">
         <h1 className="f3 mt5 mb3">
           Initiativets demokratiske platform til politik udvikling
         </h1>
