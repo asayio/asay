@@ -6,12 +6,12 @@ class Auth extends Component {
 
   async componentDidMount() {
     if (window.sessionStorage.authToken) {
-      window.sessionStorage.termsAccepted === "true" ?
+      window.sessionStorage.firstLogin ?
       this.props.history.replace({
-        pathname: './'
+        pathname: './onboarding'
       }) :
       this.props.history.replace({
-        pathname: './disclaimer'
+        pathname: './'
       })
     } else {
       const parsedHash = queryString.parse(window.location.hash);
@@ -24,8 +24,10 @@ class Auth extends Component {
       });
       if (response.ok)  {
         const user = await response.json();
-        window.sessionStorage.user = user.firstname + ' ' + user.lastname;
-        window.sessionStorage.termsAccepted = user.terms_accepted
+        window.sessionStorage.firstname = user.firstname;
+        window.sessionStorage.lastname = user.lastname;
+        window.sessionStorage.firstLogin = user.onboarded;
+        window.sessionStorage.termsAccepted = user.terms_accepted;
         window.sessionStorage.authToken = authToken;
         await window.location.reload();
       } else {

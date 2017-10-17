@@ -1,4 +1,5 @@
 // Import
+const onboarding = require('./api/onboarding')
 const auth = require('./api/auth')
 const vote = require('./api/vote')
 const preference = require('./api/preference')
@@ -15,6 +16,7 @@ function map(app) {
   app.post("/api/proposal/:id/vote", vote)
   app.post("/api/proposal/:id/subscription", subscription)
   app.post("/api/preference", preference);
+  app.post("/api/user/onboarding", onboarding)
 }
 
 // Export

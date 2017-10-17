@@ -12,6 +12,7 @@ import Preferences from './pages/preferences';
 import Lost from './pages/404';
 import Nav from './widgets/nav/Nav';
 import Footer from './widgets/Footer'
+import Onboarding from './pages/onboarding'
 import {
   BrowserRouter as Router,
   Route,
@@ -24,15 +25,13 @@ class App extends Component {
     this.state = {
       proposalList: [],
       preferenceList: [],
-      // voteList: []
+      vote: [],
     };
   }
 
   async componentDidMount() {
-    if (window.sessionStorage.authToken) {
-      const appDataBundle = await appDataBundleFetcher();
-      this.setState(appDataBundle)
-    }
+    const appDataBundle = await appDataBundleFetcher();
+    this.setState(appDataBundle)
   }
 
   render() {
@@ -47,6 +46,7 @@ class App extends Component {
               <Route exact path="/proposal/:id/vote" render={props => <Vote match={props.match} proposalList={this.state.proposalList}/>}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
               <Route exact path="/preferences" render={props => <Preferences preferenceList={this.state.preferenceList}/>}/>
+              <Route exact path="/onboarding" render={props => <Onboarding preferenceList={this.state.preferenceList}/>}/>
               <Route exact path="/auth" component={Auth}/>
               <Route path="*" component={Lost}/>
             </Switch>
@@ -62,6 +62,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/auth" component={Auth}/>
               <Route exact path="/401" component={Unauthorized}/>
+              <Route exact path="/disclaimer" component={Disclaimer}/>
               <Route path="*" component={Root}/>
             </Switch>
             <Footer/>
