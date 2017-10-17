@@ -1,10 +1,11 @@
 // Import
 const changeUserOnboarding = require('../db/user/changeUserOnboarding')
+const getUser =  require('../logic/getUser')
 
 // Function
 async function postUserOnboarding (request, response) {
   try {
-    const user = await auth.getUser(request);
+    const user = await getUser(request);
     if (user) {
       const userId = user.id;
       await changeUserOnboarding(userId)
@@ -14,6 +15,7 @@ async function postUserOnboarding (request, response) {
     }
   }
   catch(err) {
+    console.log(err);
     response.sendStatus(500)
   }
 }

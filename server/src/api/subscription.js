@@ -7,7 +7,7 @@ const getUser =  require('../logic/getUser')
 // Function
 async function postSubscription (request, response) {
   try {
-    const user = await auth.getUser(request);
+    const user = await getUser(request);
     if (user) {
       const userId = user.id;
       const subscription = request.body.subscription;
