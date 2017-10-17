@@ -68,9 +68,7 @@ class Vote extends Component {
       <p>Det er ikke dig, det er os. Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
     : this.state.voteConfirmed ?
       <p>Du sendes nu tilbage til dine forslag.</p>
-    : this.state.voteresult === null ?
-      <p>Du er ved et trække din stemme tilbage.</p>
-    : <p> Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : "IMOD"}</b> forslaget.</p>
+    : <p> Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : this.state.voteresult === false ? "IMOD" : "BLANKT"}</b> forslaget.</p>
   if (proposal) {
       return (
         <div className="mw8 center tc">
@@ -80,7 +78,7 @@ class Vote extends Component {
             <h2 className="f4">{proposal.hasVoted ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
             <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><X className="mr2"/>Imod</a>
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
-            {proposal.hasVoted && <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Træk stemme tilbage</a> }
+            <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Blankt</a>
           </div>
           <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-5">
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">

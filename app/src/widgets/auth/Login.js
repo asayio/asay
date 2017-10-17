@@ -7,7 +7,6 @@ class Login extends Component {
   render() {
     const login = this.props.type === 'login' ? true : false;
     const title = login ? "Log ind" : "Opret bruger";
-    const icon = this.props.icon
     return (
       <a onClick={this.login} className={this.props.className}>
         {this.props.icon && <FeatherIcon name={this.props.icon} className={this.props.iconClass}/> }
