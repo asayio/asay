@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
 import LoadingSpinner from '../../widgets/LoadingSpinner.js';
-import ProposalList from './ProposalList'
+import ProposalList from './ProposalList';
 
 class Root extends Component {
   render() {

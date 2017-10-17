@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import Lock from 'auth0-lock';
 import Da from './i18n_da.js';
-import FeatherIcon from '../FeatherIcon'
 
 class Login extends Component {
   render() {
     const login = this.props.type === 'login' ? true : false;
     const title = login ? "Log ind" : "Opret bruger";
-    const icon = login ? "LogIn" : "UserPlus";
     return (
-      <a onClick={this.login} className={this.props.className}><FeatherIcon name={icon} /> {title}</a>
+      <a onClick={this.login} className={this.props.className}>{title}</a>
     );
   }
   login = async() => {
