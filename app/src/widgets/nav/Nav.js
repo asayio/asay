@@ -8,7 +8,7 @@ import { ChevronDown,Menu,X } from 'react-feather';
 class Nav extends Component {
   render () {
     return (
-      <nav className="bg-white bb b--black-10 shadow-6 pa3 mb4">
+      <nav className="bg-white bb b--black-10 shadow-6 pa3">
         <div className="mw8 center lh-2 flex">
           <div className="flex-auto">
             <Link to="/" className="merriweather black-90 b ttl">Initiativet<span className="i-green">.</span></Link>

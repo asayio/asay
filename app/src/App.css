@@ -9,7 +9,6 @@ select {
   appearance: none;
   background: url(/assets/arrow-down.svg) 97% / 1rem no-repeat #eee;
 }
-
 svg {
   position: relative;
   margin-bottom: -0.2em;
@@ -30,6 +29,10 @@ svg {
   letter-spacing: .02rem;
 }
 
+.bg-f9 {
+  background-color: #F9F9F9;
+}
+
 .lh-2 {
   line-height: 2rem;
 }
@@ -47,7 +50,7 @@ svg {
 }
 
 .shadow-6 {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.025);
 }
 
 /* COLORS */
@@ -104,7 +107,11 @@ svg {
 /* NAV */
 
 nav {
-  margin: 0 -1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
 }
 nav a:focus {
   outline: none;
