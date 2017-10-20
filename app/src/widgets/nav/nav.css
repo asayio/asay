@@ -1,0 +1,39 @@
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+nav a:focus {
+  outline: none;
+}
+.regular-menu li ul {
+  display: none;
+  position: absolute;
+  width: 10rem;
+}
+.regular-menu li:hover > ul {
+  display: block;
+  animation: fadeIn 0.15s ease-out;
+}
+.burger-menu .f3 {
+  margin-bottom: -.25em;
+}
+@keyframes fadeIn {
+    0% {
+        display: none;
+        opacity: 0;
+        transform: translateY(-.5rem);
+    }
+    1% {
+        display: block;
+        opacity: 0;
+        transform: translateY(-.5rem);
+    }
+    100% {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
