@@ -1,3 +1,4 @@
+import R from 'ramda'
 import 'tachyons';
 import './App.css';
 import appDataBundleFetcher from './fetcher/appDataBundleFetcher';
@@ -25,13 +26,27 @@ class App extends Component {
     this.state = {
       proposalList: [],
       preferenceList: [],
-      vote: [],
+      voteList: [],
     };
+    this.updateState = this.updateState.bind(this)
   }
 
   async componentDidMount() {
     const appDataBundle = await appDataBundleFetcher();
     this.setState(appDataBundle)
+  }
+
+  updateState ({entityType, entity}) {
+    switch (entityType) {
+      case 'preferenceList':
+        const newPreference = Object.assign({}, entity, {preference: !entity.preference})
+        const newPreferenceList = R.reject(R.propEq('id', entity.id))(this.state.preferenceList).concat(newPreference)
+        const soretedPreferenceList = R.sort((a, b) => a.id - b.id, newPreferenceList)
+        this.setState({preferenceList: soretedPreferenceList})
+        break;
+      default:
+        break;
+    }
   }
 
   render() {
@@ -44,9 +59,9 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={props => <Root proposalList={this.state.proposalList}/>} />
               <Route exact path="/proposal/:id" render={props => <Proposal match={props.match} proposalList={this.state.proposalList}/>}/>
-              <Route exact path="/proposal/:id/vote" render={props => <Vote match={props.match} proposalList={this.state.proposalList}/>}/>
+              <Route exact path="/proposal/:id/vote" render={props => <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState}/>}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
-              <Route exact path="/preferences" render={props => <Preferences preferenceList={this.state.preferenceList}/>}/>
+              <Route exact path="/preferences" render={props => <Preferences preferenceList={this.state.preferenceList} updateState={this.updateState}/>}/>
               <Route exact path="/onboarding" render={props => <Onboarding preferenceList={this.state.preferenceList}/>}/>
               <Route exact path="/auth" component={Auth}/>
               <Route path="*" component={Lost}/>

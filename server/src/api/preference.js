@@ -9,8 +9,8 @@ async function postPreferenceHandler (request, response) {
     const user = await getUser(request);
     if (user) {
       const userId = user.id;
-      const preference = request.body.preference;
-      const categoryId = request.body.id;
+      const preference = !request.body.preference.preference;
+      const categoryId = request.body.preference.id;
       const currentPreference = await lookupPreference(userId, categoryId);
       const hasPreference = currentPreference.length > 0 ? true : false;
       const setPreference = hasPreference ?

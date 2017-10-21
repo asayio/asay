@@ -10,8 +10,9 @@ export default async function appDataBundleFetcher () {
     }
   );
   const appDataBundle = await appDataBundleResponse.json();
+  console.log(appDataBundle);
   const voteList = appDataBundle.voteList
-  const preferenceList = appDataBundle.preferenceList
+  const preferenceList = R.sort((a, b) => a.id - b.id, appDataBundle.preferenceList)
   const committeeList = appDataBundle.committeeList
   const subscriptionList = appDataBundle.subscriptionList
   const committeeCategoryList = appDataBundle.committeeCategoryList

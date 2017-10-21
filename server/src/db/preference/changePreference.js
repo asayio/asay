@@ -1,6 +1,6 @@
 // Import
 const db = require('../db')
-const updatePreference = db.sql('./preference/sql/pdatePreference.sql')
+const updatePreference = db.sql('./preference/sql/updatePreference.sql')
 
 // Functions
 async function changePreference (userId, categoryId, preference) {
