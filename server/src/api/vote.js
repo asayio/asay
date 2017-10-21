@@ -1,6 +1,6 @@
 // Import
 const lookupVote = require('../db/vote/lookupVote')
-const updateVote = require('../db/vote/changeVote')
+const changeVote = require('../db/vote/changeVote')
 const createVote = require('../db/vote/createVote')
 const getUser =  require('../logic/getUser')
 
@@ -24,6 +24,7 @@ async function postVote (request, response) {
   }
   catch(err) {
     response.sendStatus(500)
+    console.log(err);
   }
 }
 
