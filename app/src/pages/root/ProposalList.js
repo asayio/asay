@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalListSection.js';
-import PageControls from '../../widgets/PageControls.js';
 
 class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedSection: 'udvalgte forslag',
-      page: 1
     };
   this.changeSection = this.changeSection.bind(this);
-  this.changePage = this.changePage.bind(this);
   }
 
   changeSection(event) {
@@ -28,7 +25,6 @@ class Root extends Component {
 
   render() {
     const proposalList = this.props.proposalList
-    const page = Number(this.state.page); // for some reason it keeps turning into a string :/
     const selectedSection = this.state.selectedSection
     return (
       <div className="mw8 center">
@@ -38,9 +34,7 @@ class Root extends Component {
           <button value="afstemte forslag" onClick={this.changeSection}>afstemte forslag</button>
         </div>
         <h1 className="f3 tc mt5 mb4">{selectedSection}</h1>
-        <PageControls page={page} changePage={this.changePage}/>
         <ProposalListSection proposalList={proposalList} selectedSection={selectedSection}/>
-        <PageControls page={page} changePage={this.changePage}/>
       </div>
     )
   }

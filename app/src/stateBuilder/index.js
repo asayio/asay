@@ -35,10 +35,7 @@ function buildPreferenceList (rawPreferenceList, committeeCategoryList) {
   return sortPreferenceList(unsortedPreferenceList)
 }
 
-function sortPreferenceList (unsortedPreferenceList) {
-  const soretedPreferenceList = R.sort((a, b) => a.id - b.id, unsortedPreferenceList)
-  return soretedPreferenceList
-}
+const sortPreferenceList = R.sortWith([R.ascend(R.prop('title'))]);
 
 function buildProposalList ({proposalList, voteList, subscriptionList, committeeCategoryList, preferenceList}) {
   const newProposalList = proposalList.map(proposal => {
@@ -61,8 +58,10 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
       status
     })
   })
-  return newProposalList
+  return sortProposalList(newProposalList)
 }
+
+const sortProposalList = R.sortWith([R.ascend(R.prop('deadline'))]);
 
 function updatePreferences (state, entity) {
   const newPreference = Object.assign({}, entity, {preference: !entity.preference})
