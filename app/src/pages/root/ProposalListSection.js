@@ -2,6 +2,7 @@ import R from 'ramda'
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { CheckSquare, Square, Settings } from 'react-feather';
+import CountDown from '../../widgets/CountDown'
 
 class ProposalListSection extends Component {
   render() {
@@ -40,11 +41,11 @@ class ProposalListSection extends Component {
                   }
                 </div>
                 <div className="flex-auto">
-                  <h3 className="f5 f4-ns hyphen-text mv2">{proposal.number}: {proposal.shortTitel.replace('.','')}</h3>
-                  {/*<p className="f5 ttl small-caps black-70 mv2">
-                    <span className="mr2"><b>Session:</b> {proposal.Periode.titel}</span>
-                    <span className="mr2"><b>Status:</b> {proposal.Sagsstatus.status}</span>
-                  </p>*/}
+                  <h3 className="f5 f4-ns hyphen-text mv2">{proposal.shortTitel.replace('.','')}</h3>
+                  {<p className="f5 ttl small-caps black-70 mv2">
+                    <span className="mr2"><b>Deadline:</b> <CountDown dueDate = {R.path(['dato'], R.last(proposal.stage))} /></span>
+                    <span className="mr2"><b>Status:</b> {proposal.status}</span>
+                  </p>}
                 </div>
               </div>
             </Link>

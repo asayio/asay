@@ -72,7 +72,7 @@ class Vote extends Component {
   if (proposal) {
       return (
         <div className="mw8 center tc">
-          <h1 className="f3 mt5 mb4">{proposal.number}: {proposal.shortTitel.replace('.', '')}</h1>
+          <h1 className="f3 mt5 mb4">{proposal.shortTitel.replace('.', '')}</h1>
           <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til forslag</Link>
           <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
             <h2 className="f4">{proposal.hasVoted ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
