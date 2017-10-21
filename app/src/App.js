@@ -1,4 +1,3 @@
-import R from 'ramda'
 import 'tachyons';
 import './App.css';
 import stateBuilder from './stateBuilder/index';
@@ -27,6 +26,8 @@ class App extends Component {
       proposalList: [],
       preferenceList: [],
       voteList: [],
+      subscriptionList: [],
+      committeeCategoryList: []
     };
     this.updateState = this.updateState.bind(this)
   }
@@ -39,8 +40,8 @@ class App extends Component {
   updateState ({entityType, entity}) {
     switch (entityType) {
       case 'preferenceList':
-        const newPreferenceList = stateBuilder.updatePreferences(this.state, entity)
-        this.setState({preferenceList: newPreferenceList})
+        const state = stateBuilder.updatePreferences(this.state, entity)
+        this.setState(state)
         break;
       default:
         break;
