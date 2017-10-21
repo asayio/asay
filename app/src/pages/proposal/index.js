@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ProposalInfo from './ProposalInfo';
 import { Link } from 'react-router-dom';
 import { CheckSquare } from 'react-feather';
+import LoadingSpinner from '../../widgets/LoadingSpinner'
 
 class ProposalPage extends Component {
 
@@ -35,24 +36,31 @@ class ProposalPage extends Component {
 
   render() {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
-    return (
-      <div>
-        <div className="mw8 center">
-          <ProposalInfo
-            proposal = {proposal}
-          />
-          <div className="col12 col9-l tc">
-            <Link to={`${proposal.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
-              <CheckSquare className="mr2"/>
-              Gå til stemmeboks
-            </Link>
-            <a onClick={this.updateSubscription}>
-              {this.state.subscription ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
-            </a>
+    if (proposal) {
+      return (
+        <div>
+          <div className="mw8 center">
+            <ProposalInfo
+              proposal = {proposal}
+            />
+            <div className="col12 col9-l tc">
+              <Link to={`${proposal.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
+                <CheckSquare className="mr2"/>
+                Gå til stemmeboks
+              </Link>
+              <a onClick={this.updateSubscription}>
+                {this.state.subscription ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <LoadingSpinner/>
+      )
+    }
+
   }
 }
 

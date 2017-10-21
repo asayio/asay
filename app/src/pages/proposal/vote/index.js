@@ -92,7 +92,7 @@ class Vote extends Component {
             </div>
           </div>
         </div>
-    )} else {
+      )} else {
       return (
         <LoadingSpinner/>
       )
