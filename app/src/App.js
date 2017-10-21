@@ -1,7 +1,7 @@
 import R from 'ramda'
 import 'tachyons';
 import './App.css';
-import appDataBundleFetcher from './fetcher/appDataBundleFetcher';
+import stateBuilder from './stateBuilder/index';
 import React, { Component } from 'react';
 import Auth from './pages/auth'
 import Proposal from './pages/proposal';
@@ -32,8 +32,8 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const appDataBundle = await appDataBundleFetcher();
-    this.setState(appDataBundle)
+    const initialState = await stateBuilder.initialState();
+    this.setState(initialState)
   }
 
   updateState ({entityType, entity}) {
@@ -50,7 +50,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.proposalList);
     if (window.sessionStorage.authToken) {
       return (
         <Router>
