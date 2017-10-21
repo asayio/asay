@@ -19,7 +19,7 @@ export default function findStageInfo(stage) {
 
   // determine stage
   const hasFinal = bFinalVote || lFinalVote || bOnlyVote ? true : false
-  const hasPreliminary = bFirstVote || lFirstVote ? true : false
+  /*const hasPreliminary = bFirstVote || lFirstVote ? true : false*/
   if (!hasFinal /*&& !hasPreliminary*/) {
     return {deadline: "Ikke fastlagt", status: "Fremsat"}
   } else {
@@ -27,7 +27,6 @@ export default function findStageInfo(stage) {
     const deadline = new Date(current.dato);
     const distanceToDeadline = deadline - today
     const isOpen = distanceToDeadline > 0 ? true : false
-    console.log(distanceToDeadline);
 
     const countdown = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24)) + " dage";
 

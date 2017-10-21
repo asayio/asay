@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import R from 'ramda';
 import { Link } from 'react-router-dom';
 import { FileText,ArrowLeft,Download } from 'react-feather';
 

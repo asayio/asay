@@ -2,7 +2,6 @@ import R from 'ramda'
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { Settings } from 'react-feather';
-import CountDown from '../../widgets/CountDown'
 import FeatherIcon from '../../widgets/FeatherIcon'
 
 class ProposalListSection extends Component {
