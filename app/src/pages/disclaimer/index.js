@@ -4,6 +4,10 @@ import { Check } from 'react-feather';
 
 class Disclaimer extends Component {
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   async handleAccept(event) {
     const response = await fetch('/api/user/terms',
       {

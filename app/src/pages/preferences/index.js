@@ -11,6 +11,10 @@ class Preferences extends Component {
     this.updatePreference = this.updatePreference.bind(this);
   }
 
+  componentDidMount () {
+    window.scrollTo(0, 0)
+  }
+
   async updatingPreference (index) {
     await fetch('/api/preferences/categories',
       {

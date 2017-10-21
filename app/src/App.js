@@ -35,6 +35,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.proposalList);
     if (window.sessionStorage.authToken) {
       return (
         <Router>

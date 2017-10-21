@@ -4,6 +4,10 @@ import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import ProposalList from './ProposalList';
 
 class Root extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+  
   render() {
     if (window.sessionStorage.authToken && !this.props.proposalList.length) {
       return <LoadingSpinner/>

@@ -8,7 +8,8 @@ class Onboarding extends Component {
     }
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
+    window.scrollTo(0, 0)
     const response = await fetch('/api/user/onboarding',
       {
         method: 'POST',

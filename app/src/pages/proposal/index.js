@@ -6,7 +6,6 @@ import { CheckSquare } from 'react-feather';
 import LoadingSpinner from '../../widgets/LoadingSpinner'
 
 class ProposalPage extends Component {
-
   constructor() {
     super()
     this.state = {
@@ -15,6 +14,9 @@ class ProposalPage extends Component {
   this.updateSubscription = this.updateSubscription.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
 
   async updateSubscription() {
     const newsubscription = !this.state.subscription
