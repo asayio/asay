@@ -42,8 +42,8 @@ class ProposalListSection extends Component {
                   <h3 className="f5 f4-ns hyphen-text mv2">{proposal.shortTitel.replace('.','')}</h3>
                   <p className="f5 ttl small-caps black-70 mv2">
                     <span className="mr2"><b>Kategori:</b> {proposal.category.title}</span>
-                    <span className="mr2"><b>Deadline:</b> <CountDown dueDate = {R.path(['dato'], R.last(proposal.stage))} /></span>
                     <span className="mr2"><b>Status:</b> {proposal.status}</span>
+                    <span className="mr2"><b>Deadline:</b> {proposal.deadline}</span>
                   </p>
                 </div>
               </div>

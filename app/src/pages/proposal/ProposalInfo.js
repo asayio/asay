@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import R from 'ramda';
-import CountDown from '../../widgets/CountDown.js';
 import { Link } from 'react-router-dom';
 import { FileText,ArrowLeft,Download } from 'react-feather';
 
@@ -23,11 +22,9 @@ class ProposalInfo extends Component {
 
   render() {
     const proposal = this.props.proposal;
-    const ftProposalPassed = proposal.status === "2. beh/Vedtaget" || proposal.status === "Stadfæstet" ? true : false
-    const proposalURL = ftProposalPassed ?
+    const proposalURL = proposal.status === "Afsluttet" ?
       `http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}_som_vedtaget.pdf`
       :`http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric}_som_fremsat.pdf`
-    const deadline = R.path(['dato'], R.last(proposal.stage))
     const resume = proposal.resume.split(/\n/gm)
     return (
       <div>
@@ -71,7 +68,7 @@ class ProposalInfo extends Component {
           <div className="col12 col3-l tc pl3-l">
             <div className="bg-white lh-copy mv2 pv2 ph4 ba b--black-10 br1 shadow-6">
               <p>
-                Deadline: <CountDown dueDate = {deadline} />
+                Deadline: {proposal.deadline}
               </p>
               <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">folketingets hjemmeside.</a></p>
             </div>

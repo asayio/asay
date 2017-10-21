@@ -1,4 +1,5 @@
 import R from 'ramda'
+import findStageInfo from './findStageInfo'
 
 async function initialState () {
   const appDataBundleResponse = await fetch('/api/appDataBundle/', {
@@ -47,12 +48,17 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
     const hasSubscription = R.find(R.propEq('proposal', id))(subscriptionList)
     const matchesCategory = R.find(R.propEq('committee', committeeId))(committeeCategoryList)
     const category = R.find(R.propEq('id', matchesCategory.category))(preferenceList)
+    const stageInfo = findStageInfo(proposal.stage)
+    const deadline = stageInfo.deadline
+    const status = stageInfo.status
     const isSubscribing = (hasSubscription && hasSubscription.subscription) || category.preference
     return Object.assign({}, proposal, {
       hasVoted,
       id,
       isSubscribing,
-      category
+      category,
+      deadline,
+      status
     })
   })
   return newProposalList

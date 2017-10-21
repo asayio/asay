@@ -46,10 +46,10 @@ class ProposalPage extends Component {
               proposal = {proposal}
             />
             <div className="col12 col9-l tc">
-              <Link to={`${proposal.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
+              {proposal.status !== "Afsluttet" && <Link to={`${proposal.id}/vote`} className="db dib-l white bg-dark-blue hover-bg-blue mt3 pv2 ph4 ba b--black-10 br1 shadow-6">
                 <CheckSquare className="mr2"/>
                 Gå til stemmeboks
-              </Link>
+              </Link>}
               <a onClick={this.updateSubscription}>
                 {this.state.subscription ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
               </a>
