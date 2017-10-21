@@ -1,8 +1,9 @@
 import R from 'ramda'
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import { CheckSquare, Square, Settings } from 'react-feather';
+import { Settings } from 'react-feather';
 import CountDown from '../../widgets/CountDown'
+import FeatherIcon from '../../widgets/FeatherIcon'
 
 class ProposalListSection extends Component {
   render() {
@@ -35,17 +36,15 @@ class ProposalListSection extends Component {
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
               <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
                 <div className="pr3 pr4-ns flex items-center">
-                  { proposal.hasVoted ?
-                  <CheckSquare className="f3 i-green pb1"/>:
-                  <Square className="f3 i-green pb1"/>
-                  }
+                  <FeatherIcon name={proposal.category.feathericon} className="f3 i-green pb1"/>
                 </div>
                 <div className="flex-auto">
                   <h3 className="f5 f4-ns hyphen-text mv2">{proposal.shortTitel.replace('.','')}</h3>
-                  {<p className="f5 ttl small-caps black-70 mv2">
+                  <p className="f5 ttl small-caps black-70 mv2">
+                    <span className="mr2"><b>Kategori:</b> {proposal.category.title}</span>
                     <span className="mr2"><b>Deadline:</b> <CountDown dueDate = {R.path(['dato'], R.last(proposal.stage))} /></span>
                     <span className="mr2"><b>Status:</b> {proposal.status}</span>
-                  </p>}
+                  </p>
                 </div>
               </div>
             </Link>
