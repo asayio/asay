@@ -58,6 +58,14 @@ function buildProposalList ({rawProposalList, voteList, subscriptionList, commit
   return proposalList
 }
 
+function updatePreferences (state, entity) {
+  const newPreference = Object.assign({}, entity, {preference: !entity.preference})
+  const newPreferenceList = R.reject(R.propEq('id', entity.id))(state.preferenceList).concat(newPreference)
+  const soretedPreferenceList = sortPreferenceList(newPreferenceList)
+  return soretedPreferenceList
+}
+
 export default {
-  initialState
+  initialState,
+  updatePreferences
 }

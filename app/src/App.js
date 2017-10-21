@@ -39,10 +39,8 @@ class App extends Component {
   updateState ({entityType, entity}) {
     switch (entityType) {
       case 'preferenceList':
-        const newPreference = Object.assign({}, entity, {preference: !entity.preference})
-        const newPreferenceList = R.reject(R.propEq('id', entity.id))(this.state.preferenceList).concat(newPreference)
-        const soretedPreferenceList = R.sort((a, b) => a.id - b.id, newPreferenceList)
-        this.setState({preferenceList: soretedPreferenceList})
+        const newPreferenceList = stateBuilder.updatePreferences(this.state, entity)
+        this.setState({preferenceList: newPreferenceList})
         break;
       default:
         break;
