@@ -40,8 +40,13 @@ class App extends Component {
   updateState ({entityType, entity}) {
     switch (entityType) {
       case 'preferenceList':
-        const state = stateBuilder.updatePreferences(this.state, entity)
-        this.setState(state)
+        this.setState(stateBuilder.updatePreferences(this.state, entity))
+        break;
+      case 'voteList':
+        this.setState(stateBuilder.updateVoteList(this.state, entity))
+        break;
+      case 'subscriptionList':
+        this.setState(stateBuilder.updateSubscriptionList(this.state, entity))
         break;
       default:
         break;
@@ -56,7 +61,7 @@ class App extends Component {
             <Nav/>
             <Switch>
               <Route exact path="/" render={props => <Root proposalList={this.state.proposalList}/>} />
-              <Route exact path="/proposal/:id" render={props => <Proposal match={props.match} proposalList={this.state.proposalList}/>}/>
+              <Route exact path="/proposal/:id" render={props => <Proposal match={props.match} proposalList={this.state.proposalList} updateState={this.updateState}/>}/>
               <Route exact path="/proposal/:id/vote" render={props => <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState}/>}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>
               <Route exact path="/preferences" render={props => <Preferences preferenceList={this.state.preferenceList} updateState={this.updateState}/>}/>

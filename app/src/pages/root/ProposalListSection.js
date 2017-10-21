@@ -18,7 +18,9 @@ class ProposalListSection extends Component {
         return proposal.hasVoted
       }, proposalList)
     } else {
-      selectedSectionProposalList = proposalList
+      selectedSectionProposalList = R.filter(proposal => {
+        return !proposal.hasVoted
+      }, proposalList)
     }
     if (!selectedSectionProposalList.length) {
       return (

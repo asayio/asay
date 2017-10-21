@@ -8,10 +8,7 @@ import LoadingSpinner from '../../widgets/LoadingSpinner'
 class ProposalPage extends Component {
   constructor() {
     super()
-    this.state = {
-      subscription: false
-    };
-  this.updateSubscription = this.updateSubscription.bind(this);
+    this.updateSubscription = this.updateSubscription.bind(this);
   }
 
   componentDidMount() {
@@ -19,12 +16,13 @@ class ProposalPage extends Component {
   }
 
   async updateSubscription() {
-    const newsubscription = !this.state.subscription
-    const response = await fetch(`/api/subscription/proposal/${this.props.match.params.id}`,
+    const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
+    const newSubscription = {proposal: proposal.id, subscription: !proposal.isSubscribing}
+    const response = await fetch(`/api/proposal/${this.props.match.params.id}/subscription`,
       {
         method: 'POST',
         body: JSON.stringify({
-          subscription: newsubscription,
+          subscription: !proposal.isSubscribing,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +30,7 @@ class ProposalPage extends Component {
         }
       })
     if (response.ok) {
-      this.setState({subscription: newsubscription})
+      this.props.updateState({entityType: 'subscriptionList', entity: newSubscription})
     }
   }
 
@@ -51,7 +49,7 @@ class ProposalPage extends Component {
                 Gå til stemmeboks
               </Link>}
               <a onClick={this.updateSubscription}>
-                {this.state.subscription ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
+                {proposal.isSubscribing ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
               </a>
             </div>
           </div>
