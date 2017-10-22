@@ -1,3 +1,4 @@
+import R from 'ramda'
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalListSection.js';
 import { Home, RotateCcw, Search } from 'react-feather'
@@ -13,6 +14,7 @@ class Root extends Component {
     };
     this.changeFilter = this.changeFilter.bind(this);
     this.changeSection = this.changeSection.bind(this);
+    this.updateSearchString = this.updateSearchString.bind(this);
   }
 
   changeSection(event) {
@@ -25,6 +27,11 @@ class Root extends Component {
     this.setState({
       [target.name]: target.value
     });
+  }
+
+  updateSearchString(event) {
+    const searchString = R.path(['target', 'value'], event)
+    this.props.updateState({entityType: 'searchString', entity: {searchString}})
   }
 
   render() {
@@ -59,8 +66,9 @@ class Root extends Component {
                 <option>Afsluttet</option>
             </select>
           </div>
+          <input type="text" onChange={this.updateSearchString} placeholder="søg" value={this.props.searchString}></input>
         </div>
-        <ProposalListSection proposalList={proposalList} filterSelection={filterSelection}/>
+        <ProposalListSection searchString={this.props.searchString} proposalList={proposalList} filterSelection={filterSelection}/>
       </div>
     )
   }

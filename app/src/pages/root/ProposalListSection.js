@@ -1,4 +1,5 @@
 import R from 'ramda'
+import Fuse from 'fuse.js'
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { Settings } from 'react-feather';
@@ -8,6 +9,7 @@ class ProposalListSection extends Component {
   render() {
     const proposalList = this.props.proposalList
     const filterSelection = this.props.filterSelection
+    const searchString = this.props.searchString
     let filteredProposalList = proposalList
     if (filterSelection.section === "history") {
       filteredProposalList = R.filter(proposal => {
@@ -34,20 +36,27 @@ class ProposalListSection extends Component {
       }, filteredProposalList)
     }
 
-    if (!filteredProposalList.length && filterSelection.section === "personal") {
+    const options = {
+      keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
+      threshold: 0.5,
+    }
+    const fuse = new Fuse(filteredProposalList, options)
+    const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList
+
+    if (!searchedProposalList.length && filterSelection.section === "personal") {
       return (
         <div>
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
           <Link to="./preferences"><Settings/>Opdater præferencer</Link>
         </div>
       )
-    } else if (!filteredProposalList.length && filterSelection.section === "history") {
+    } else if (!searchedProposalList.length && filterSelection.section === "history") {
       return (
         <div>
           <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
         </div>
       )
-    } else if (!filteredProposalList.length && filterSelection.section === "all") {
+    } else if (!searchedProposalList.length && filterSelection.section === "all") {
       return (
         <div>
           <p>Her ser lidt tomt ud. Prøv at udvid din søgning.</p>
@@ -56,7 +65,7 @@ class ProposalListSection extends Component {
     } else {
       return (
         <div>
-        {filteredProposalList.map(function (proposal, index) {
+        {searchedProposalList.map(function (proposal, index) {
           const voteStatus = proposal.hasVoted ? 'Du har stemt' : 'Du har ikke stemt'
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
