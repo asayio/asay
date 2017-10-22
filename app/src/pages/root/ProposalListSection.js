@@ -8,33 +8,49 @@ class ProposalListSection extends Component {
   render() {
     const proposalList = this.props.proposalList
     const filterSelection = this.props.filterSelection
-    let filteredProposalList = []
-    filteredProposalList = R.filter(proposal => {
-      return (
-        proposal.isSubscribing === filterSelection.subscription
-        && proposal.hasVoted === filterSelection.history
-      )
-    }, proposalList)
+    let filteredProposalList = proposalList
+    if (filterSelection.section === "history") {
+      filteredProposalList = R.filter(proposal => {
+        return proposal.hasVoted
+      }, filteredProposalList)
+    } else {
+      filteredProposalList = R.filter(proposal => {
+        return !proposal.hasVoted
+      }, filteredProposalList)
+    }
+    if (filterSelection.section === "personal") {
+      filteredProposalList = R.filter(proposal => {
+        return proposal.isSubscribing
+      }, filteredProposalList)
+    }
     if (filterSelection.category !== "Alle") {
       filteredProposalList = R.filter(proposal => {
-        return (
-          proposal.category.title === filterSelection.category
-        )
+        return proposal.category.title === filterSelection.category
       }, filteredProposalList)
     }
     if (filterSelection.status !== "Alle") {
       filteredProposalList = R.filter(proposal => {
-        return (
-          proposal.status === filterSelection.status
-        )
+        return proposal.status === filterSelection.status
       }, filteredProposalList)
     }
 
-    if (!filteredProposalList.length) {
+    if (!filteredProposalList.length && filterSelection.section === "personal") {
       return (
         <div>
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
           <Link to="./preferences"><Settings/>Opdater præferencer</Link>
+        </div>
+      )
+    } else if (!filteredProposalList.length && filterSelection.section === "history") {
+      return (
+        <div>
+          <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
+        </div>
+      )
+    } else if (!filteredProposalList.length && filterSelection.section === "all") {
+      return (
+        <div>
+          <p>Her ser lidt tomt ud. Prøv at udvid din søgning.</p>
         </div>
       )
     } else {
