@@ -20,6 +20,9 @@ class ProposalListSection extends Component {
         return !proposal.hasVoted
       }, filteredProposalList)
     }
+    if (filterSelection.section === "all") {
+      filteredProposalList = R.sort((a, b) => b.participation - a.participation, filteredProposalList)
+    }
     if (filterSelection.section === "personal") {
       filteredProposalList = R.filter(proposal => {
         return proposal.isSubscribing
@@ -40,7 +43,6 @@ class ProposalListSection extends Component {
       keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
       threshold: 0.38, // sweet spot
     }
-    console.log(filteredProposalList);
     const fuse = new Fuse(filteredProposalList, options)
     const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList
 
