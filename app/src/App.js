@@ -30,7 +30,11 @@ class App extends Component {
       committeeCategoryList: [],
       participationList: [],
       selectedSection: 'personal',
-      searchString: ''
+      searchString: '',
+      filter: {
+        category: 'Alle',
+        status: 'Alle',
+      }
     };
     this.updateState = this.updateState.bind(this)
   }
@@ -57,6 +61,9 @@ class App extends Component {
       case 'searchString':
         this.setState(stateBuilder.updateSearchString(this.state, entity))
         break;
+      case 'filter':
+        this.setState(stateBuilder.updateFilter(this.state, entity))
+        break;
       default:
         break;
     }
@@ -74,6 +81,7 @@ class App extends Component {
                   updateState={this.updateState}
                   preferenceList={this.state.preferenceList}
                   searchString={this.state.searchString}
+                  filter={this.state.filter}
                   proposalList={this.state.proposalList}/>} />
               <Route exact path="/proposal/:id" render={props => <Proposal
                   match={props.match} proposalList={this.state.proposalList}

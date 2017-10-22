@@ -17,6 +17,7 @@ class Root extends Component {
         updateState={this.props.updateState}
         preferenceList={this.props.preferenceList}
         searchString={this.props.searchString}
+        filter={this.props.filter}
         proposalList={this.props.proposalList}/>
     } else {
       return <Welcome/>
