@@ -16,6 +16,7 @@ class Root extends Component {
         selectedSection={this.props.selectedSection}
         updateState={this.props.updateState}
         preferenceList={this.props.preferenceList}
+        searchString={this.props.searchString}
         proposalList={this.props.proposalList}/>
     } else {
       return <Welcome/>

@@ -29,7 +29,8 @@ class App extends Component {
       subscriptionList: [],
       committeeCategoryList: [],
       participationList: [],
-      selectedSection: 'personal'
+      selectedSection: 'personal',
+      searchString: ''
     };
     this.updateState = this.updateState.bind(this)
   }
@@ -53,6 +54,9 @@ class App extends Component {
       case 'selectedSection':
         this.setState(stateBuilder.updateSelectedSection(this.state, entity))
         break;
+      case 'searchString':
+        this.setState(stateBuilder.updateSearchString(this.state, entity))
+        break;
       default:
         break;
     }
@@ -69,6 +73,7 @@ class App extends Component {
                   selectedSection={this.state.selectedSection}
                   updateState={this.updateState}
                   preferenceList={this.state.preferenceList}
+                  searchString={this.state.searchString}
                   proposalList={this.state.proposalList}/>} />
               <Route exact path="/proposal/:id" render={props => <Proposal
                   match={props.match} proposalList={this.state.proposalList}

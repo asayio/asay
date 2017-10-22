@@ -15,7 +15,6 @@ async function initialState () {
   const voteList = appDataBundle.voteList
   const subscriptionList = appDataBundle.subscriptionList
   const participationList = appDataBundle.participationList
-  console.log(appDataBundle);
   const rawPreferenceList = appDataBundle.preferenceList
   const rawProposalList = appDataBundle.proposalList.map(proposal => Object.assign({}, {id: proposal.id}, proposal.data))
   const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList)
@@ -103,10 +102,16 @@ function updateSelectedSection (state, entity) {
   return newState
 }
 
+function updateSearchString (state, entity) {
+  const newState = Object.assign({}, state, {searchString: entity.searchString})
+  return newState
+}
+
 export default {
   initialState,
   updatePreferences,
   updateVoteList,
   updateSubscriptionList,
-  updateSelectedSection
+  updateSelectedSection,
+  updateSearchString
 }
