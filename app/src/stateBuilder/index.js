@@ -14,17 +14,27 @@ async function initialState () {
   const committeeCategoryList = appDataBundle.committeeCategoryList
   const voteList = appDataBundle.voteList
   const subscriptionList = appDataBundle.subscriptionList
+  const participationList = appDataBundle.participationList
+  console.log(appDataBundle);
   const rawPreferenceList = appDataBundle.preferenceList
   const rawProposalList = appDataBundle.proposalList.map(proposal => Object.assign({}, {id: proposal.id}, proposal.data))
   const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList)
   const proposalList = buildProposalList({
+    participationList,
     proposalList: rawProposalList,
     voteList,
     subscriptionList,
     committeeCategoryList,
     preferenceList
   })
-  return {preferenceList, proposalList, voteList, subscriptionList, committeeCategoryList}
+  return {
+    preferenceList,
+    proposalList,
+    voteList,
+    subscriptionList,
+    committeeCategoryList,
+    participationList
+  }
 }
 
 function buildPreferenceList (rawPreferenceList, committeeCategoryList) {
@@ -37,10 +47,11 @@ function buildPreferenceList (rawPreferenceList, committeeCategoryList) {
 
 const sortPreferenceList = R.sortWith([R.ascend(R.prop('title'))]);
 
-function buildProposalList ({proposalList, voteList, subscriptionList, committeeCategoryList, preferenceList}) {
+function buildProposalList ({proposalList, voteList, subscriptionList, committeeCategoryList, preferenceList, participationList}) {
   const newProposalList = proposalList.map(proposal => {
     const id = proposal.id
     const committeeId = proposal.committeeId
+    const participation = R.path(['participation'], R.find(R.propEq('proposal', id))(participationList)) || 0
     const hasVoted = !!R.find(R.propEq('proposal', id))(voteList)
     const hasSubscription = R.find(R.propEq('proposal', id))(subscriptionList)
     const matchesCategory = R.find(R.propEq('committee', committeeId))(committeeCategoryList)
@@ -55,7 +66,8 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
       isSubscribing,
       category,
       deadline,
-      status
+      status,
+      participation
     })
   })
   return sortProposalList(newProposalList)
