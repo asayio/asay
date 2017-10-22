@@ -25,6 +25,7 @@ class ProposalInfo extends Component {
       `http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}_som_vedtaget.pdf`
       :`http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric}_som_fremsat.pdf`
     const resume = proposal.resume.split(/\n/gm)
+    const voteStatus = proposal.hasVoted ? 'Du har stemt' : 'Du har ikke stemt'
     return (
       <div>
         <h1 className="f3 tc mt5 mb3">
@@ -68,6 +69,9 @@ class ProposalInfo extends Component {
             <div className="bg-white lh-copy mv2 pv2 ph4 ba b--black-10 br1 shadow-6">
               <p>
                 Deadline: {proposal.deadline}
+              </p>
+              <p>
+                Handling: {voteStatus}
               </p>
               <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">folketingets hjemmeside.</a></p>
             </div>
