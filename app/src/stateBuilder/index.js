@@ -48,7 +48,7 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
     const stageInfo = findStageInfo(proposal.stage)
     const deadline = stageInfo.deadline
     const status = stageInfo.status
-    const isSubscribing = (hasSubscription && hasSubscription.subscription) || category.preference
+    const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference
     return Object.assign({}, proposal, {
       hasVoted,
       id,
@@ -72,7 +72,23 @@ function updatePreferences (state, entity) {
   return newState
 }
 
+function updateVoteList (state, entity) {
+  const newVoteList = R.append(entity, state.voteList)
+  const newProposalList = buildProposalList(Object.assign({}, state, {voteList: newVoteList}))
+  const newState = Object.assign({}, state, {proposalList: newProposalList, voteList: newVoteList})
+  return newState
+}
+
+function updateSubscriptionList (state, entity) {
+  const newSubscriptionList = R.reject(R.propEq('proposal', entity.proposal))(state.subscriptionList).concat(entity)
+  const newProposalList = buildProposalList(Object.assign({}, state, {subscriptionList: newSubscriptionList}))
+  const newState = Object.assign({}, state, {proposalList: newProposalList, subscriptionList: newSubscriptionList})
+  return newState
+}
+
 export default {
   initialState,
-  updatePreferences
+  updatePreferences,
+  updateVoteList,
+  updateSubscriptionList
 }

@@ -1,13 +1,13 @@
 // Import
 const lookupVote = require('../db/vote/lookupVote')
-const updateVote = require('../db/vote/changeVote')
+const changeVote = require('../db/vote/changeVote')
 const createVote = require('../db/vote/createVote')
 const getUser =  require('../logic/getUser')
 
 // Function
 async function postVote (request, response) {
   try {
-    const user = await auth.getUser(request);
+    const user = await getUser(request);
     if (user) {
       const userId = user.id;
       const voteResult = request.body.voteresult;
@@ -24,6 +24,7 @@ async function postVote (request, response) {
   }
   catch(err) {
     response.sendStatus(500)
+    console.log(err);
   }
 }
 

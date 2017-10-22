@@ -53,6 +53,10 @@ class Vote extends Component {
       })
     if (response.ok) {
       this.setState({voteConfirmed: true})
+      this.props.updateState({
+        entityType: 'voteList',
+        entity: {proposal: this.props.match.params.id}
+      })
       setTimeout(function() {
         window.location.href = '../../'
       }, 1500)

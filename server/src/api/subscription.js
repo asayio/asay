@@ -14,9 +14,11 @@ async function postSubscription (request, response) {
       const proposalId = request.params.id;
       const currentSubscription = await lookupSubscription(userId, proposalId);
       const hasSubscription = currentSubscription.length > 0 ? true : false;
-      const subscription = hasSubscription ?
-        changeSubscription(userId, proposalId, subscription)
-        : createSubscription(userId, proposalId, subscription)
+      if (hasSubscription) {
+        await changeSubscription(userId, proposalId, subscription)
+      } else {
+        await createSubscription(userId, proposalId, subscription)
+      }
       response.sendStatus(200)
     } else {
       response.sendStatus(401)
@@ -24,6 +26,7 @@ async function postSubscription (request, response) {
   }
   catch(err) {
     response.sendStatus(500)
+    console.log(err);
   }
 }
 
