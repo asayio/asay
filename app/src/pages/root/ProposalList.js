@@ -6,12 +6,6 @@ import { Home, RotateCcw, Search } from 'react-feather'
 class Root extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      category: 'Alle',
-      status: 'Alle',
-      history: false,
-      subscription: true
-    };
     this.changeFilter = this.changeFilter.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.updateSearchString = this.updateSearchString.bind(this);
@@ -24,9 +18,7 @@ class Root extends Component {
 
   changeFilter(event) {
     const target = event.target;
-    this.setState({
-      [target.name]: target.value
-    });
+    this.props.updateState({entityType: 'filter', entity: {[target.name]: target.value}})
   }
 
   updateSearchString(event) {
@@ -38,8 +30,8 @@ class Root extends Component {
     const proposalList = this.props.proposalList
     const preferenceList = this.props.preferenceList
     const filterSelection = {
-      category: this.state.category,
-      status: this.state.status,
+      category: this.props.filter.category,
+      status: this.props.filter.status,
       section: this.props.selectedSection
     }
     return (
@@ -51,7 +43,7 @@ class Root extends Component {
         </div>
         <div>
           <div>
-            Kategori: <select name="category" value={this.state.category} onChange={this.changeFilter} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+            Kategori: <select name="category" value={this.props.filter.category} onChange={this.changeFilter} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 <option>Alle</option>
                 {preferenceList.map((item) =>
                     <option key={item.id}>{item.title}</option>
@@ -59,7 +51,7 @@ class Root extends Component {
             </select>
           </div>
           <div>
-            Status: <select name="status" value={this.state.status} onChange={this.changeFilter} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+            Status: <select name="status" value={this.props.filter.status} onChange={this.changeFilter} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 <option>Alle</option>
                 <option>Fremsat</option>
                 <option>Til endelig afstemning</option>

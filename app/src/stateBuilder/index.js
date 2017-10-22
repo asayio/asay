@@ -107,11 +107,18 @@ function updateSearchString (state, entity) {
   return newState
 }
 
+function updateFilter (state, entity) {
+  const newFilter = Object.assign({}, state.filter, entity)
+  const newState = Object.assign({}, state, {filter: newFilter})
+  return newState
+}
+
 export default {
   initialState,
   updatePreferences,
   updateVoteList,
   updateSubscriptionList,
   updateSelectedSection,
-  updateSearchString
+  updateSearchString,
+  updateFilter
 }
