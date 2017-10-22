@@ -23,6 +23,7 @@ async function postPreferenceHandler (request, response) {
   }
   catch(err) {
     response.sendStatus(500)
+    console.log(error);
   }
 }
 
