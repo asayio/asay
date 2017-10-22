@@ -79,14 +79,13 @@ class Vote extends Component {
       <p>Du sendes nu tilbage til dine forslag.</p>
     : <p> Du er ved at stemme <b>{this.state.voteresult === true ? "FOR" : this.state.voteresult === false ? "IMOD" : "BLANKT"}</b> forslaget.</p>
     if (proposal) {
-      const voteStatus = proposal.hasVoted ? 'Du har stemt' : 'Du har ikke stemt'
       return (
         <div className="mw8 center tc">
           <h1 className="f3 mt5 mb4">{proposal.shortTitel.replace('.', '')}</h1>
           <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til forslag</Link>
           <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
-            <span><b>{voteStatus}</b></span>
             <h2 className="f4">{proposal.hasVoted ? "Ændr din stemme" : "Afgiv din stemme" }</h2>
+            {proposal.hasVoted && <p>Du har allerede stemt. Ved at ændre din stemme overskrives din gamle stemme.</p>}
             <a onClick={() => this.handleVote(false)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><X className="mr2"/>Imod</a>
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
             <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Blankt</a>
