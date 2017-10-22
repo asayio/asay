@@ -55,6 +55,7 @@ class ProposalListSection extends Component {
                     <span className="mr2"><b>Status:</b> {proposal.status}</span>
                     <span className="mr2"><b>Deadline:</b> {proposal.deadline}</span>
                     <span className="mr2"><b>Handling:</b> {voteStatus}</span>
+                    <span className="mr2"><b>Deltagelse:</b> {proposal.participation} stemmer</span>
                   </p>
                 </div>
               </div>

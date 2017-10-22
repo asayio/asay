@@ -73,6 +73,9 @@ class ProposalInfo extends Component {
               <p>
                 Handling: {voteStatus}
               </p>
+              <p>
+                Deltagelse: {proposal.participation} stemmer
+              </p>
               <p>Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">folketingets hjemmeside.</a></p>
             </div>
             <a href={proposalURL} target={`_${proposal.id}`} className="dib w-100 pv2 mv2 dark-blue ba b--dark-blue br1 link">
