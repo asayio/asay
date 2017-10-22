@@ -2,6 +2,17 @@
 const environment = process.env.NODE_ENV || 'development';
 require('dotenv').config({path: `./.env.${environment}`});
 
+// Load error logging
+const Rollbar = require('rollbar');
+const rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR,
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
+
+// log a generic message and send to rollbar
+rollbar.log('Hello world!');
+
 // Import
 const routes = require('./src/routes.js');
 

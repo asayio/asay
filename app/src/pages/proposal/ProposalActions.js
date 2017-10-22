@@ -1,4 +1,3 @@
-import R from 'ramda'
 import React, { Component } from 'react';
 import { Download, CheckSquare, AlertCircle, Radio } from 'react-feather';
 import { Link } from 'react-router-dom';
