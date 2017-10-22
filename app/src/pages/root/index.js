@@ -7,12 +7,12 @@ class Root extends Component {
   componentDidMount() {
     window.scrollTo(0, 0)
   }
-  
+
   render() {
     if (window.sessionStorage.authToken && !this.props.proposalList.length) {
       return <LoadingSpinner/>
     } else if (window.sessionStorage.authToken) {
-      return <ProposalList proposalList={this.props.proposalList}/>
+      return <ProposalList proposalList={this.props.proposalList} preferenceList={this.props.preferenceList}/>
     } else {
       return <Welcome/>
     }

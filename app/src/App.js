@@ -55,7 +55,7 @@ class App extends Component {
           <div>
             <Nav/>
             <Switch>
-              <Route exact path="/" render={props => <Root proposalList={this.state.proposalList}/>} />
+              <Route exact path="/" render={props => <Root proposalList={this.state.proposalList} preferenceList={this.state.preferenceList} />} />
               <Route exact path="/proposal/:id" render={props => <Proposal match={props.match} proposalList={this.state.proposalList}/>}/>
               <Route exact path="/proposal/:id/vote" render={props => <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState}/>}/>
               <Route exact path="/disclaimer" component={Disclaimer}/>

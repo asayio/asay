@@ -7,20 +7,30 @@ import FeatherIcon from '../../widgets/FeatherIcon'
 class ProposalListSection extends Component {
   render() {
     const proposalList = this.props.proposalList
-    const selectedSection = this.props.selectedSection
-    let selectedSectionProposalList = []
-    if (selectedSection === 'udvalgte forslag') {
-      selectedSectionProposalList = R.filter(proposal => {
-        return proposal.isSubscribing && !proposal.hasVoted
-      }, proposalList)
-    } else if (selectedSection === 'afstemte forslag') {
-      selectedSectionProposalList = R.filter(proposal => {
-        return proposal.hasVoted
-      }, proposalList)
-    } else {
-      selectedSectionProposalList = proposalList
+    const filterSelection = this.props.filterSelection
+    let filteredProposalList = []
+    filteredProposalList = R.filter(proposal => {
+      return (
+        proposal.isSubscribing === filterSelection.subscription
+        && proposal.hasVoted === filterSelection.history
+      )
+    }, proposalList)
+    if (filterSelection.category !== "Alle") {
+      filteredProposalList = R.filter(proposal => {
+        return (
+          proposal.category.title === filterSelection.category
+        )
+      }, filteredProposalList)
     }
-    if (!selectedSectionProposalList.length) {
+    if (filterSelection.status !== "Alle") {
+      filteredProposalList = R.filter(proposal => {
+        return (
+          proposal.status === filterSelection.status
+        )
+      }, filteredProposalList)
+    }
+
+    if (!filteredProposalList.length) {
       return (
         <div>
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
@@ -30,7 +40,7 @@ class ProposalListSection extends Component {
     } else {
       return (
         <div>
-        {selectedSectionProposalList.map(function (proposal, index) {
+        {filteredProposalList.map(function (proposal, index) {
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
               <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
