@@ -5,10 +5,14 @@ import './style.css';
 import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
 import { Link } from 'react-router-dom';
 import { Check, X, Minus, ArrowLeft } from 'react-feather';
+import PropTypes from "prop-types";
 
 class Vote extends Component {
-  constructor(props) {
-    super(props);
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       voteresult: undefined,
       error: false,
@@ -57,8 +61,9 @@ class Vote extends Component {
         entityType: 'voteList',
         entity: {proposal: this.props.match.params.id}
       })
+      const history = this.context.router.history
       setTimeout(function() {
-        window.location.href = '../../'
+        history.push('../../')
       }, 1500)
     } else {
       this.setState({error: true})
