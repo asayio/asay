@@ -84,7 +84,7 @@ function updatePreferences (state, entity) {
 }
 
 function updateVoteList (state, entity) {
-  const newVoteList = R.append(entity, state.voteList)
+  const newVoteList = R.reject(R.propEq('proposal', entity.proposal))(state.voteList).concat(entity)
   const newProposalList = buildProposalList(Object.assign({}, state, {voteList: newVoteList}))
   const newState = Object.assign({}, state, {proposalList: newProposalList, voteList: newVoteList})
   return newState

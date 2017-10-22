@@ -59,7 +59,7 @@ class Vote extends Component {
       this.setState({voteConfirmed: true})
       this.props.updateState({
         entityType: 'voteList',
-        entity: {proposal: this.props.match.params.id}
+        entity: {proposal: Number(this.props.match.params.id)}
       })
       const history = this.context.router.history
       setTimeout(function() {
