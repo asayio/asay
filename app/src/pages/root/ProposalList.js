@@ -1,7 +1,7 @@
 import R from 'ramda'
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalListSection.js';
-import { Home, RotateCcw, Search } from 'react-feather'
+import { Heart, RotateCcw, Search } from 'react-feather'
 
 class Root extends Component {
   constructor(props) {
@@ -35,30 +35,41 @@ class Root extends Component {
       section: this.props.selectedSection
     }
     return (
-      <div className="mw8 center">
-        <div>
-          <a name="all" onClick={this.changeSection} className={(this.props.selectedSection === 'all' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }><Search className="mr1"/>Opdag</a>
-          <a name="personal" onClick={this.changeSection} className={(this.props.selectedSection === 'personal' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }><Home className="mr1"/>Mine forslag</a>
-          <a name="history" onClick={this.changeSection} className={(this.props.selectedSection === 'history' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 shadow-6 br1" }><RotateCcw className="mr1"/>Historik</a>
+      <div className="mw8 center mt3 mt4-ns">
+        <div className="flex flex-wrap">
+          <div className="w-100 w-third-ns mv2 pr2-ns">
+            <a name="all" onClick={this.changeSection} className={(this.props.selectedSection === 'all' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib w-100 b pa2 ba b--black-10 br1 shadow-6" }><Search className="mr1"/>Opdag</a>
+          </div>
+          <div className="w-100 w-third-ns mv2 ph1-ns">
+            <a name="personal" onClick={this.changeSection} className={(this.props.selectedSection === 'personal' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib w-100 b pa2 ba b--black-10 br1 shadow-6" }><Heart className="mr1"/>Mine forslag</a>
+          </div>
+          <div className="w-100 w-third-ns mv2 pl2-ns">
+            <a name="history" onClick={this.changeSection} className={(this.props.selectedSection === 'history' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib w-100 b pa2 ba b--black-10 shadow-6 br1" }><RotateCcw className="mr1"/>Historik</a>
+          </div>
         </div>
-        <div>
-          <div>
-            Kategori: <select name="category" value={this.props.filter.category} onChange={this.changeFilter} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                <option>Alle</option>
-                {preferenceList.map((item) =>
-                    <option key={item.id}>{item.title}</option>
-                )}
+        <div className="row mb3">
+          <div className="col12 col4-ns pr2-ns">
+            <span className="dib mv2">Søg:</span>
+            <input className="clear-sans w-100 pv1 ph2 bg-white ba b--light-gray br2" type="text" onChange={this.updateSearchString} placeholder="Søgeord" value={this.props.searchString}></input>
+          </div>
+          <div className="col6 col4-ns pr2 ph1-ns">
+            <span className="dib mv2">Kategori:</span>
+            <select name="category" value={this.props.filter.category} onChange={this.changeFilter} className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+              <option>Alle</option>
+              {preferenceList.map((item) =>
+                <option key={item.id}>{item.title}</option>
+              )}
             </select>
           </div>
-          <div>
-            Status: <select name="status" value={this.props.filter.status} onChange={this.changeFilter} className="w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                <option>Alle</option>
-                <option>Fremsat</option>
-                <option>Til endelig afstemning</option>
-                <option>Afsluttet</option>
+          <div className="col6 col4-ns pl2">
+            <span className="dib mv2">Status:</span>
+            <select name="status" value={this.props.filter.status} onChange={this.changeFilter} className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+              <option>Alle</option>
+              <option>Fremsat</option>
+              <option>Til endelig afstemning</option>
+              <option>Afsluttet</option>
             </select>
           </div>
-          <input type="text" onChange={this.updateSearchString} placeholder="søg" value={this.props.searchString}></input>
         </div>
         <ProposalListSection searchString={this.props.searchString} proposalList={proposalList} filterSelection={filterSelection}/>
       </div>

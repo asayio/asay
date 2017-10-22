@@ -7,7 +7,7 @@ a {
 }
 select {
   appearance: none;
-  background: url(/assets/arrow-down.svg) 97% / 1rem no-repeat #eee;
+  background: url(/assets/arrow-down.svg) 97% / 1rem no-repeat;
 }
 svg {
   position: relative;

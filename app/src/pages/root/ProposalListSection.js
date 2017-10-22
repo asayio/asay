@@ -72,10 +72,13 @@ class ProposalListSection extends Component {
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
               <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
-                <div className="pr3 pr4-ns flex items-center">
-                  <FeatherIcon name={proposal.category.feathericon} className="f3 i-green pb1"/>
+                <div className="w-20 pr4 tc flex flex-column">
+                  <div className="flex-auto pa3 flex items-center justify-center">
+                    <FeatherIcon name={proposal.category.feathericon} className="f3 i-green pb1"/>
+                  </div>
+                  <span>{proposal.category.title}</span>
                 </div>
-                <div className="flex-auto">
+                <div className="w-80">
                   <h3 className="f5 f4-ns hyphen-text mv2">{proposal.shortTitel.replace('.','')}</h3>
                   <p className="f5 ttl small-caps black-70 mv2">
                     <span className="mr2"><b>Kategori:</b> {proposal.category.title}</span>
