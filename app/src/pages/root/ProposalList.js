@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalListSection.js';
+import { Home, RotateCcw, Search } from 'react-feather'
 
 class Root extends Component {
   constructor(props) {
@@ -37,9 +38,9 @@ class Root extends Component {
     return (
       <div className="mw8 center">
         <div>
-          <a name="all" onClick={this.changeSection}>Opdag</a>
-          <a name="personal" onClick={this.changeSection}>Mine forslag</a>
-          <a name="history" onClick={this.changeSection}>Historik</a>
+          <a name="all" onClick={this.changeSection} className={(this.props.selectedSection === 'all' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }><Search className="mr1"/>Opdag</a>
+          <a name="personal" onClick={this.changeSection} className={(this.props.selectedSection === 'personal' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }><Home className="mr1"/>Mine forslag</a>
+          <a name="history" onClick={this.changeSection} className={(this.props.selectedSection === 'history' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 shadow-6 br1" }><RotateCcw className="mr1"/>Historik</a>
         </div>
         <div>
           <div>

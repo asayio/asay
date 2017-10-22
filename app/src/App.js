@@ -29,7 +29,7 @@ class App extends Component {
       subscriptionList: [],
       committeeCategoryList: [],
       participationList: [],
-      selectedSection: 'udvalgte forslag'
+      selectedSection: 'personal'
     };
     this.updateState = this.updateState.bind(this)
   }
