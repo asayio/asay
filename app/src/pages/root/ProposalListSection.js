@@ -38,8 +38,9 @@ class ProposalListSection extends Component {
 
     const options = {
       keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
-      threshold: 0.5,
+      threshold: 0.38, // sweet spot
     }
+    console.log(filteredProposalList);
     const fuse = new Fuse(filteredProposalList, options)
     const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList
 
@@ -66,7 +67,6 @@ class ProposalListSection extends Component {
       return (
         <div>
         {searchedProposalList.map(function (proposal, index) {
-          const voteStatus = proposal.hasVoted ? 'Du har stemt' : 'Du har ikke stemt'
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
               <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
@@ -79,8 +79,7 @@ class ProposalListSection extends Component {
                     <span className="mr2"><b>Kategori:</b> {proposal.category.title}</span>
                     <span className="mr2"><b>Status:</b> {proposal.status}</span>
                     <span className="mr2"><b>Deadline:</b> {proposal.deadline}</span>
-                    <span className="mr2"><b>Handling:</b> {voteStatus}</span>
-                    <span className="mr2"><b>Deltagelse:</b> {proposal.participation} stemmer</span>
+                    <span className="mr2"><b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? "stemme" : "stemmer"}</span>
                   </p>
                 </div>
               </div>
