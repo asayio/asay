@@ -12,7 +12,11 @@ class Root extends Component {
     if (window.sessionStorage.authToken && !this.props.proposalList.length) {
       return <LoadingSpinner/>
     } else if (window.sessionStorage.authToken) {
-      return <ProposalList proposalList={this.props.proposalList} preferenceList={this.props.preferenceList}/>
+      return <ProposalList
+        selectedSection={this.props.selectedSection}
+        updateState={this.props.updateState}
+        preferenceList={this.props.preferenceList}
+        proposalList={this.props.proposalList}/>
     } else {
       return <Welcome/>
     }

@@ -86,9 +86,15 @@ function updateSubscriptionList (state, entity) {
   return newState
 }
 
+function updateSelectedSection (state, entity) {
+  const newState = Object.assign({}, state, {selectedSection: entity.selectedSection})
+  return newState
+}
+
 export default {
   initialState,
   updatePreferences,
   updateVoteList,
-  updateSubscriptionList
+  updateSubscriptionList,
+  updateSelectedSection
 }

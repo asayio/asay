@@ -10,7 +10,13 @@ class Root extends Component {
       history: false,
       subscription: true
     };
-  this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.changeSection = this.changeSection.bind(this);
+  }
+
+  changeSection(event) {
+    const selectedSection = event.target.value
+    this.props.updateState({entityType: 'selectedSection', entity: {selectedSection}})
   }
 
   handleChange(event) {
@@ -23,6 +29,7 @@ class Root extends Component {
   render() {
     const proposalList = this.props.proposalList
     const preferenceList = this.props.preferenceList
+    const selectedSection = this.props.selectedSection
     const filterSelection = {
       category: this.state.category,
       status: this.state.status,
