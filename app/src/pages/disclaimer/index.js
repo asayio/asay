@@ -27,7 +27,7 @@ class Disclaimer extends Component {
 
   render() {
     return (
-      <div className="mw8 center tc">
+      <div className="mw8 center tc w-100 flex-auto">
         <h1 className="f3 mt5 mb4">Inden vi går i gang</h1>
         <div className="tl bg-white pa4 mb2 ba b--black-10 br1 shadow-6 lh-copy">
           <h2 className="f4">Platformen er under udvikling</h2>
