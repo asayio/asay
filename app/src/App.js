@@ -73,7 +73,7 @@ class App extends Component {
     if (window.sessionStorage.authToken) {
       return (
         <Router>
-          <div>
+          <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav/>
             <Switch>
               <Route exact path="/" render={props => <Root

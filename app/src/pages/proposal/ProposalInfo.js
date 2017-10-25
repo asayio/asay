@@ -22,40 +22,44 @@ class ProposalInfo extends Component {
     const proposal = this.props.proposal;
     const resume = proposal.resume.split(/\n/gm)
     return (
-      <div>
-        <a onClick={() => this.setState({view: 'resume'})} className={(this.state.view === 'resume' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }><FileText className="mr1"/>Resume</a>
-        <a onClick={() => this.setState({view: 'purpose'})} className={(this.state.view === 'purpose' ? "bg-white cursor-default" : "bg-near-white pointer")  + " dib b ph3 pv2 ba b--black-10 shadow-6 br1" }><FileText className="mr1"/>Formål</a>
-        <div className="row">
-          <div className="col12 col9-l bg-white mv2 pa4 ba b--black-10 br1 shadow-6">
-            {this.state.view === 'resume' ?
-              resume.map(function (paragraph, index) {
-                if (!paragraph && !index) {
-                  return (
-                    <p key={index} className="lh-copy mt0 mb3">
-                      Der findes desværre ikke et resume for dette forslag.
-                    </p>
-                  )
-                } else {
-                  return (
-                    <p key={index} className="lh-copy mt0 mb3">
-                      {paragraph}
-                    </p>
-                  )
-                }
-              })
-              : proposal.presentation.paragraphs.length > 0 ?
-                proposal.presentation.paragraphs.map(function (paragraph, index) {
-                  return (
-                    <p key={index} className="lh-copy mt0 mb3">
-                      {paragraph}
-                    </p>
-                  )
-                }) :
-                  <p className="lh-copy mt0 mb3">
-                    Der findes desværre ikke en beskrivelse af formålet for dette forslag.
-                  </p>
-              }
+      <div className="col12 col9-l flex flex-column">
+        <div className="flex tc">
+          <div className="w-50 w-auto-l">
+            <a onClick={() => this.setState({view: 'resume'})} className={(this.state.view === 'resume' ? "bg-white cursor-default" : "bg-near-white pointer")  + " db b ph3 pv2 ba b--black-10 br1 shadow-6 mr2" }><FileText className="mr2"/>Resume</a>
           </div>
+          <div className="w-50 w-auto-l">
+            <a onClick={() => this.setState({view: 'purpose'})} className={(this.state.view === 'purpose' ? "bg-white cursor-default" : "bg-near-white pointer")  + " db b ph3 pv2 ba b--black-10 br1 shadow-6" }><FileText className="mr2"/>Baggrund</a>
+          </div>
+        </div>
+        <div className="flex-auto bg-white pa4 ba b--black-10 br1 shadow-6 mt2">
+          {this.state.view === 'resume' ?
+            resume.map(function (paragraph, index) {
+              if (!paragraph && !index) {
+                return (
+                  <p key={index} className="lh-copy mt0 mb3">
+                    Der findes desværre ikke et resumé for dette forslag endnu.
+                  </p>
+                )
+              } else {
+                return (
+                  <p key={index} className="lh-copy mt0 mb3">
+                    {paragraph}
+                  </p>
+                )
+              }
+            })
+            : proposal.presentation.paragraphs.length > 0 ?
+              proposal.presentation.paragraphs.map(function (paragraph, index) {
+                return (
+                  <p key={index} className="lh-copy mt0 mb3">
+                    {paragraph}
+                  </p>
+                )
+              }) :
+                <p className="lh-copy mt0 mb3">
+                  Der findes desværre ikke en fremlæggelse af baggrunden for dette forslag endnu.
+                </p>
+            }
         </div>
       </div>
     );

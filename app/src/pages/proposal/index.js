@@ -16,27 +16,28 @@ class ProposalPage extends Component {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
     if (proposal) {
       return (
-        <div>
-          <h1 className="f3 tc mt5 mb3">
-            {proposal.shortTitel.replace('.', '')}
-          </h1>
-          <p className="f5 ttl small-caps black-70 mv2">
-            <span className="mr2"><b>Kategori:</b> {proposal.category.title}</span>
-            <span className="mr2"><b>Status:</b> {proposal.status}</span>
-            <span className="mr2"><b>Deadline:</b> {proposal.deadline}</span>
-            <span className="mr2"><b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? "stemme" : "stemmer"}</span>
-            <span className="mr2">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">folketingets hjemmeside.</a></span>
-          </p>
-          <Link to="/" className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til listen</Link>
-          <div className="mw8 center">
+        <div className="mw8 center w-100 flex-auto">
+          <div className="tc mt5 mb3">
+            <h1 className="f3 mv0">
+              {proposal.shortTitel.replace('.', '')}
+            </h1>
+            <span className="dib black-70 lh-copy mv3">
+              <span className="dib mr2"><b>Kategori:</b> {proposal.category.title}</span>
+              <span className="dib mr2"><b>Status:</b> {proposal.status}</span>
+              <span className="dib mr2"><b>Deadline:</b> {proposal.deadline}</span>
+              <span className="dib mr2"><b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? "stemme" : "stemmer"}</span>
+              <span className="db mt1">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">Folketingets hjemmeside</a>.</span>
+            </span>
+          </div>
+          <div className="row">
             <ProposalInfo
               proposal = {proposal}
             />
+            <ProposalActions
+              proposal = {proposal}
+              updateState = {this.props.updateState}
+            />
           </div>
-          <ProposalActions
-            proposal = {proposal}
-            updateState = {this.props.updateState}
-          />
         </div>
       )
     } else {
@@ -49,3 +50,5 @@ class ProposalPage extends Component {
 }
 
 export default ProposalPage;
+
+{/* <Link to="/" className="db tc dark-blue hover-blue mb4"><ArrowLeft className="mr1"/>Tilbage til listen</Link> */}
