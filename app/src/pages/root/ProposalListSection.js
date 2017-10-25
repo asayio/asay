@@ -69,7 +69,7 @@ class ProposalListSection extends Component {
         {searchedProposalList.map(function (proposal, index) {
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
-              <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 card br1 shadow-6 flex flex-wrap">
+              <div className="bg-white pv4 ph3 ph4-ns mv2 ba b--black-10 card br1 shadow-6 flex flex-wrap">
                 <div className="w-100 w-30-m w-20-l tc flex flex-column items-center justify-center pb3 pb0-ns pr4-ns">
                   <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mb2"/>
                   <span className="black-50">{proposal.category.title}</span>

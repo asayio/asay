@@ -89,7 +89,7 @@ class Vote extends Component {
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
             <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Blankt</a>
           </div>
-          <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="db tc dark-blue hover-blue mv4"><ArrowLeft className="mr1"/>Tilbage til forslaget</Link>
+          <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="db tc dark-blue hover-blue mv4"><ArrowLeft className="mr2"/>Tilbage til forslaget</Link>
           <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-9999">
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">
               <h2 className="f4">{modalHeader}</h2>

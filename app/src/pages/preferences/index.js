@@ -2,7 +2,7 @@ import R from 'ramda'
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PreferenceList from './PreferenceList'
-import { CheckSquare } from 'react-feather';
+import { ArrowLeft } from 'react-feather';
 
 class Preferences extends Component {
   componentDidMount () {
@@ -22,7 +22,7 @@ class Preferences extends Component {
           <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList}/>
         </div>
         <div className="tc mt3">
-          <Link to="/" className="db dib-ns b white bg-dark-blue hover-bg-blue pv2 ph4 ba b--black-10 br1 shadow-6"><CheckSquare className="mr2"/>Gå til lovforslag</Link>
+          <Link to="/" className="db dib-ns b white bg-dark-blue hover-bg-blue pv2 ph4 ba b--black-10 br1 shadow-6"><ArrowLeft className="mr2"/>Tilbage til lovforslagene</Link>
         </div>
       </div>
     );

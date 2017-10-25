@@ -1,7 +1,7 @@
 import R from 'ramda'
 import React, { Component } from 'react';
 import ProposalListSection from './ProposalListSection.js';
-import { Heart, RotateCcw, Search } from 'react-feather'
+import { Heart, Layers, RotateCcw } from 'react-feather'
 
 class Root extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Root extends Component {
               <a name="personal" onClick={this.changeSection} className={(this.props.selectedSection === 'personal' ? "bg-i-green white cursor-default" : "bg-white pointer")  + " dib w-100 b pa2 ba b--black-10 br1 shadow-6" }><Heart className="mr2"/>Mine forslag</a>
             </div>
             <div className="w-100 w-third-ns mv1 ph1-ns">
-              <a name="all" onClick={this.changeSection} className={(this.props.selectedSection === 'all' ? "bg-i-green white cursor-default" : "bg-white pointer")  + " dib w-100 b pa2 ba b--black-10 br1 shadow-6" }><Search className="mr2"/>Opdag</a>
+              <a name="all" onClick={this.changeSection} className={(this.props.selectedSection === 'all' ? "bg-i-green white cursor-default" : "bg-white pointer")  + " dib w-100 b pa2 ba b--black-10 br1 shadow-6" }><Layers className="mr2"/>Alle forslag</a>
             </div>
             <div className="w-100 w-third-ns mv1 pl2-ns">
               <a name="history" onClick={this.changeSection} className={(this.props.selectedSection === 'history' ? "bg-i-green white cursor-default" : "bg-white pointer")  + " dib w-100 b pa2 ba b--black-10 shadow-6 br1" }><RotateCcw className="mr2"/>Historik</a>
