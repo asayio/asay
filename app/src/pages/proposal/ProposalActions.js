@@ -38,19 +38,19 @@ class ProposalActions extends Component {
           <File className="mr2"/>
           Læs forslaget
         </a>
-        <a onClick={this.updateSubscription} className={proposal.isSubscribing ? "pointer db dark-blue bg-white pv2 mv3 ba b--dark-blue br1 shadow-6" : "pointer db white bg-dark-blue hover-bg-blue pv2 mv3 ba b--black-10 br1 shadow-6" }>
+        <a onClick={this.updateSubscription} className={proposal.isSubscribing ? "pointer db dark-blue pv2 mv3 ba b--dark-blue br1" : "pointer db white bg-dark-blue hover-bg-blue pv2 mv3 ba b--black-10 br1 shadow-6" }>
           <Radio className="mr2"/>
-          {proposal.isSubscribing ? "Fjern fra egne forslag" : "Tilføj til egne forslag" }
+          {proposal.isSubscribing ? "Fjern fra mine forslag" : "Tilføj til mine forslag" }
         </a>
         {proposal.status !== "Afsluttet" ?
-        <Link to={`${proposal.id}/vote`} className={proposal.hasVoted ? "db i-green bg-white pv2 mt3 ba b---i-green br1 shadow-6" : "db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6" }>
+        <Link to={`${proposal.id}/vote`} className={proposal.hasVoted ? "db i-green pv2 mt3 ba b--i-green br1" : "db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6" }>
           <CheckSquare className="mr2"/>
           {proposal.hasVoted ? "Du har stemt" : "Gå til stemmeboks" }
         </Link>:
-        <a className="">
+        <span className="db i-green pv2 mv3 ba b--i-green br1 shadow-6">
           <AlertCircle className="mr2"/>
           Afstemning lukket
-        </a>}
+        </span>}
       </div>
     );
   }
