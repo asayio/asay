@@ -19,7 +19,7 @@ class Nav extends Component {
             <ul className="regular-menu dn db-ns list ma0 pa0">
               <li className="dib pr3 br b--black-10"><Link to="/" className="black-90">Lovforslag</Link></li>
               <li className="dib pl3 cursor-default">
-                {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}<ChevronDown className="i-green"/>
+                {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}<ChevronDown className="ml1 i-green"/>
                 <ul className="list ma0 ph0 pv2 bg-white ba b--black-10 br1 shadow-6">
                   <li className="lh-solid ph3 pv2"><Link to="/preferences" className="black-90">Præferencer</Link></li>
                   <li className="lh-solid ph3 pv2"><Logout history={this.props.history} className="pointer black-90"/></li>
@@ -36,7 +36,7 @@ class Nav extends Component {
               </ul>
             </div>
           </div>
-          : <div className="flex-auto tr"><Login className="db di-ns pointer dark-blue hover-blue" type="login"/></div>
+          : <div className="flex-auto tr"><Login icon="LogIn" iconClass="mr2" className="db di-ns pointer dark-blue hover-blue" type="login"/></div>
           }
         </div>
       </nav>

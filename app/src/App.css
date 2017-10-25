@@ -1,7 +1,11 @@
 @import url('https://assets.initiativet.net/fonts/clear-sans/css/clear-sans.css');
 @import url('https://fonts.googleapis.com/css?family=Merriweather:700');
 
+html {
+  -webkit-font-smoothing: antialiased;
+}
 a {
+  color: inherit;
   text-decoration: none;
   transition: all .1s ease-in;
 }
@@ -13,6 +17,7 @@ svg {
   position: relative;
   margin-bottom: -0.2em;
   height: 1em;
+  width: auto;
 }
 .auth0-lock svg {
   bottom: 0;
@@ -29,20 +34,26 @@ svg {
   letter-spacing: .02rem;
 }
 
-.bg-f9 {
-  background-color: #F9F9F9;
-}
-
-.lh-2 {
-  line-height: 2rem;
-}
-
 .card {
   transition: all 0.25s ease-out;
 }
 .card:hover,
 .card:focus {
   transform: translateY(-1px);
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bg-f9 {
+  background-color: #F9F9F9;
+}
+
+.lh-2 {
+  line-height: 2rem;
 }
 
 .h10 {
@@ -91,11 +102,6 @@ svg {
 }
 .pointer {
   cursor: pointer;
-}
-.hyphen-text {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
 }
 
 /* KÆMPE HØKERE */
