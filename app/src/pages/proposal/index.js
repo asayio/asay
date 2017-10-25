@@ -38,9 +38,6 @@ class ProposalPage extends Component {
               updateState = {this.props.updateState}
             />
           </div>
-          <div className="w-100 w-75-l mv4 tc">
-            <Link to="/" className="dark-blue hover-blue mb4"><ArrowLeft className="mr2"/>Tilbage til listen</Link>
-          </div>
         </div>
       )
     } else {
