@@ -20,9 +20,6 @@ class ProposalListSection extends Component {
         return !proposal.hasVoted
       }, filteredProposalList)
     }
-    if (filterSelection.section === "all") {
-      filteredProposalList = R.sort((a, b) => b.participation - a.participation, filteredProposalList)
-    }
     if (filterSelection.section === "personal") {
       filteredProposalList = R.filter(proposal => {
         return proposal.isSubscribing
@@ -43,26 +40,27 @@ class ProposalListSection extends Component {
       keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
       threshold: 0.38, // sweet spot
     }
+    console.log(filteredProposalList);
     const fuse = new Fuse(filteredProposalList, options)
     const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList
 
     if (!searchedProposalList.length && filterSelection.section === "personal") {
       return (
-        <div>
+        <div className="mw8 center mv5 mv5 tc">
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
-          <Link to="./preferences"><Settings/>Opdater præferencer</Link>
+          <Link to="./preferences" className="pointer dib b white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"><Settings className="mr2"/>Opdater præferencer</Link>
         </div>
       )
     } else if (!searchedProposalList.length && filterSelection.section === "history") {
       return (
-        <div>
+        <div className="mw8 center mv5 tc">
           <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
         </div>
       )
     } else if (!searchedProposalList.length && filterSelection.section === "all") {
       return (
-        <div>
-          <p>Her ser lidt tomt ud. Prøv at udvid din søgning.</p>
+        <div className="mw8 center mv5 tc">
+          <p>Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
         </div>
       )
     } else {
@@ -70,22 +68,19 @@ class ProposalListSection extends Component {
         <div>
         {searchedProposalList.map(function (proposal, index) {
           return (
-            <Link key={proposal.id} to={`/proposal/${proposal.id}`} className="link black-90">
-              <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 br2 card shadow-6 flex">
-                <div className="w-20 pr4 tc flex flex-column">
-                  <div className="flex-auto pa3 flex items-center justify-center">
-                    <FeatherIcon name={proposal.category.feathericon} className="f3 i-green pb1"/>
-                  </div>
-                  <span>{proposal.category.title}</span>
+            <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
+              <div className="bg-white pa3 pa4-ns mv2 ba b--black-10 card br1 shadow-6 flex flex-wrap">
+                <div className="w-100 w-30-m w-20-l tc flex flex-column items-center justify-center pb3 pb0-ns pr4-ns">
+                  <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mb2"/>
+                  <span className="black-50">{proposal.category.title}</span>
                 </div>
-                <div className="w-80">
-                  <h3 className="f5 f4-ns hyphen-text mv2">{proposal.shortTitel.replace('.','')}</h3>
-                  <p className="f5 ttl small-caps black-70 mv2">
-                    <span className="mr2"><b>Kategori:</b> {proposal.category.title}</span>
+                <div className="w-100 w-70-m w-80-l tc tl-ns flex flex-column justify-center">
+                  <h3 className="f5 ellipsis mt0 mb2">{proposal.shortTitel.replace('.','')}</h3>
+                  <span className="black-70">
                     <span className="mr2"><b>Status:</b> {proposal.status}</span>
                     <span className="mr2"><b>Deadline:</b> {proposal.deadline}</span>
                     <span className="mr2"><b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? "stemme" : "stemmer"}</span>
-                  </p>
+                  </span>
                 </div>
               </div>
             </Link>
