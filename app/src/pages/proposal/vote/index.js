@@ -4,7 +4,7 @@ import R from 'ramda'
 import './style.css';
 import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
 import { Link } from 'react-router-dom';
-import { Check, X, Minus, ArrowLeft } from 'react-feather';
+import { Check,X,Minus,ArrowLeft } from 'react-feather';
 import PropTypes from "prop-types";
 
 class Vote extends Component {
@@ -86,12 +86,12 @@ class Vote extends Component {
             <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Blankt</a>
           </div>
           <Link to={`../${this.props.match.params.id}`} className="pointer dark-blue hover-blue dib mt3"><ArrowLeft className="mr2"/>Tilbage til forslaget</Link>
-          <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-9999">
+          <div id="modal" className="items-center justify-center overflow-auto w-100 h-100 pa2 z-9999">
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">
               <h2 className="f4">{modalHeader}</h2>
               {modalParagraph}
               {this.state.voteConfirmed ?
-              <Link to="../../" className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Tilbage til forslagslisten</Link> :
+              <Link to="../../" className="pointer dib white bg-dark-blue hover-bg-blue ph3 pv2 ma2 ba b--black-10 br1 shadow-6"><ArrowLeft className="mr2"/>Tilbage til mine forslag</Link> :
               this.state.error ?
               <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">OK</a>:
               <div>
