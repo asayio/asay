@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import openModal from '../../widgets/openModal'
 import { File, CheckSquare, AlertCircle, Radio } from 'react-feather';
 import { Link } from 'react-router-dom';
 
@@ -24,6 +25,8 @@ class ProposalActions extends Component {
       })
     if (response.ok) {
       this.props.updateState({entityType: 'subscriptionList', entity: newSubscription})
+    } else {
+      openModal('error-modal')
     }
   }
 

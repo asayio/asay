@@ -13,6 +13,7 @@ import Lost from './pages/404';
 import Nav from './widgets/nav/Nav';
 import Footer from './widgets/Footer'
 import Onboarding from './pages/onboarding'
+import ErrorModal from './widgets/error/ErrorModal'
 import {
   BrowserRouter as Router,
   Route,
@@ -75,6 +76,7 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav/>
+            <ErrorModal/>
             <Switch>
               <Route exact path="/" render={props => <Root
                   selectedSection={this.state.selectedSection}

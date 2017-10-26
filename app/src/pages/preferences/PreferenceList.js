@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FeatherIcon from '../../widgets/FeatherIcon'
+import openModal from '../../widgets/openModal'
 import {Radio} from 'react-feather'
 
 class PreferenceList extends Component {
@@ -21,6 +22,8 @@ class PreferenceList extends Component {
     )
     if (response.ok) {
       this.props.updateState({entityType: 'preferenceList', entity: preference})
+    } else {
+      openModal('error-modal')
     }
   };
 
