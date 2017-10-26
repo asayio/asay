@@ -76,7 +76,7 @@ class Vote extends Component {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
     const modalHeader = this.state.error ? "Der er sket en fejl" : this.state.voteConfirmed ? "Din valghandling er registreret" : "Er du sikker?"
     const modalParagraph = this.state.error ?
-      <p>Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
+      <p>Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så <a href="mailto:dinevenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
     : this.state.voteConfirmed ?
       <p>Du sendes nu tilbage til dine forslag.</p>
     : <p> Du er ved at stemme {this.state.voteresult === true ? "FOR" : this.state.voteresult === false ? "IMOD" : "BLANKT på"} forslaget.</p>
