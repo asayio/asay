@@ -1,4 +1,6 @@
 export default function openModal(modalid) {
     const modal = document.getElementById(modalid);
-    modal.style.display = "flex";
+    modal.classList.remove('dn');
+    const body = document.body;
+    body.classList.add('overflow-hidden');
   }
