@@ -29,15 +29,17 @@ class PreferenceList extends Component {
 
   render () {
     return(
-      <div className="row">
+      <div className="flex flex-wrap">
         {this.props.preferenceList.map((preference, index) =>
-          <div key={preference.id} className="col12 col6-ns pv3 pr3">
-            <h3 className="mv2"><FeatherIcon name={preference.feathericon} className="mr2"/>{preference.title}</h3>
-            <p className="black-70 lh-copy mt0">{preference.description}</p>
-            <a onClick={() => this.updatingPreference(preference)} className={preference.preference ? "pointer db dark-blue pv2 mv3 ba b--dark-blue br1" : "pointer db white bg-dark-blue hover-bg-blue pv2 mv3 ba b--black-10 br1 shadow-6" }>
-              <Radio className="mr2"/>
-              {preference.preference ? "Fjern fra mine forslag" : "Tilføj til mine forslag" }
-            </a>
+          <div key={preference.id} className="w-100 w-50-ns pv4 pr3 bt b--black-10 flex flex-column">
+            <h3 className="mt0 mb2"><FeatherIcon name={preference.feathericon} className="mr2"/>{preference.title}</h3>
+            <p className="black-70 lh-copy mt0 flex-auto">{preference.description}</p>
+            <div>
+              <a onClick={() => this.updatingPreference(preference)} className={(preference.preference ? "dark-blue b--dark-blue" : "white bg-dark-blue hover-bg-blue b--black-10 shadow-6") + " pointer dib pv2 ph3 mt2 ba br1 flex-none" }>
+                <Radio className="mr2"/>
+                {preference.preference ? "Fjern fra mine forslag" : "Tilføj til mine forslag" }
+              </a>
+            </div>
           </div>
         )}
       </div>

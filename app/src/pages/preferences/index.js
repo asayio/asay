@@ -13,7 +13,7 @@ class Preferences extends Component {
     const workload = R.sum(R.pluck('workload')(R.filter(preferenceList => preferenceList.preference === true)(this.props.preferenceList)));
     return(
       <div className="mw8 center w-100 flex-auto">
-        <h1 className="f3 tc mt5 mb3">Dine præferencer</h1>
+        <h1 className="f3 tc mt5 mb3">Præferencer</h1>
         <div  className="bg-white pa4 ba b--black-10 br1 shadow-6">
           <div className="lh-copy mb4">
             <p>Nedenfor kan du vælge, hvilke emner du vil følge med i.</p>
