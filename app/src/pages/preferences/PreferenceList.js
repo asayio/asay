@@ -8,8 +8,7 @@ class PreferenceList extends Component {
   }
 
   async updatingPreference (preference) {
-    this.props.updateState({entityType: 'preferenceList', entity: preference})
-    await fetch('/api/preference',
+    const response = await fetch('/api/preference',
       {
         method: 'POST',
         body: JSON.stringify({preference}),
@@ -19,6 +18,9 @@ class PreferenceList extends Component {
         }
       }
     )
+    if (response.ok) {
+      this.props.updateState({entityType: 'preferenceList', entity: preference})
+    }
   };
 
   render () {
