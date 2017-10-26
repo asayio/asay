@@ -4,8 +4,8 @@ Chat with us on [Slack](https://join.slack.com/t/asay/shared_invite/enQtMjUyNjQx
 ## Stack
 - Version control: GitHub
 - Database: PostgreSQL
-- Back-end: Node.js, Express.js, TypeScript
-- Front-end: React, TypeScript
+- Back-end: Node.js, Express.js
+- Front-end: React
 - Deployment: Zeit Now
 
 ## Install local dev environment
