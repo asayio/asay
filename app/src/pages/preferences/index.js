@@ -17,7 +17,7 @@ class Preferences extends Component {
         <div  className="bg-white pa4 ba b--black-10 br1 shadow-6">
           <div className="lh-copy mb4">
             <p>Nedenfor kan du vælge, hvilke emner du vil følge med i.</p>
-            <p>Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{workload}</b> forslag om året. Det svarer til <b>{Math.ceil(workload / 52, 0) }</b> om ugen.</p>
+            <p>Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{workload}</b> forslag om året. Det svarer til <b>{Math.ceil(workload / 34, 0) }</b> om ugen.</p>
           </div>
           <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList}/>
         </div>
