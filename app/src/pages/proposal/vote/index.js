@@ -70,7 +70,7 @@ class Vote extends Component {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
     const modalHeader = this.state.error ? "Der er sket en fejl" : this.state.voteConfirmed ? "Din valghandling er registreret" : "Er du sikker?"
     const modalParagraph = this.state.error ?
-      <p>Det er ikke dig, det er os. Hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
+      <p>Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail.</a></p>
     : this.state.voteConfirmed ?
       <p>Du sendes nu tilbage til dine forslag.</p>
     : <p> Du er ved at stemme {this.state.voteresult === true ? "FOR" : this.state.voteresult === false ? "IMOD" : "BLANKT på"} forslaget.</p>
@@ -91,7 +91,9 @@ class Vote extends Component {
               <h2 className="f4">{modalHeader}</h2>
               {modalParagraph}
               {this.state.voteConfirmed ?
-                <Link to="../../" className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Tilbage til forslagslisten</Link> :
+              <Link to="../../" className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Tilbage til forslagslisten</Link> :
+              this.state.error ?
+              <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">OK</a>:
               <div>
                 <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">Annuller</a>
                 <a onClick={this.handleSubmit} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Bekræft</a>

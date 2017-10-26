@@ -2,8 +2,6 @@ import R from 'ramda'
 import React, { Component } from 'react';
 import ProposalInfo from './ProposalInfo';
 import ProposalActions from './ProposalActions';
-import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'react-feather';
 import LoadingSpinner from '../../widgets/LoadingSpinner'
 
 class ProposalPage extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Circle, Github, Edit3, CreditCard } from 'react-feather'
+import { Github, Edit3, CreditCard } from 'react-feather'
 
 class Footer extends Component {
   render () {
