@@ -17,7 +17,7 @@ class Onboarding extends Component {
         <div className="bg-white pa4 ba b--black-10 br1 shadow-6">
           <div className="lh-copy mb4">
             <p>Vi vil gerne hjælpe dig med at navigere i alle de forslag, der bliver fremsat i Folketinget. Vælg de politiske emner der interesserer dig, så samler vi et overblik til dig. Du kan altid opdatere dine præferencer samt gennemsøge alle forslag.</p>
-            <p>Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{workload}</b> forslag om året. Det svarer til <b>{Math.ceil(workload / 52, 0) }</b> om ugen.</p>
+            <p>Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{workload}</b> forslag om året. Det svarer til <b>{Math.ceil(workload / 34, 0) }</b> om ugen.</p>
           </div>
           <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList}/>
         </div>
