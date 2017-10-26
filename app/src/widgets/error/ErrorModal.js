@@ -11,7 +11,7 @@ class ErrorModal extends Component {
 
   render () {
     return(
-      <div id="error-modal" className="items-center justify-center overflow-auto w-100 h-100 pa2 z-9999 flex dn">
+      <div id="error-modal" className="items-center justify-center overflow-auto w-100 h-100 pa2 z-9999 dn">
         <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">
           <h2 className="f4">Der er sket en fejl</h2>
           <p>Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så <a href="mailto:dinvenner@initiativet.net" target="_mailto" rel="noopener noreferrer" className="dark-blue hover-blue">send os en mail</a>.</p>

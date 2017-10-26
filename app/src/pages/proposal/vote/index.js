@@ -27,6 +27,7 @@ class Vote extends Component {
   closeModal(event) {
     this.setState({voteresult: undefined, error: false})
     const modal = document.getElementById('modal');
+    modal.classList.remove('flex');
     modal.classList.add('dn');
     const body = document.body;
     body.classList.remove('overflow-hidden');
@@ -35,6 +36,7 @@ class Vote extends Component {
   openModal(event) {
     const modal = document.getElementById('modal');
     modal.classList.remove('dn');
+    modal.classList.add('flex');
     const body = document.body;
     body.classList.add('overflow-hidden');
   }
@@ -90,7 +92,7 @@ class Vote extends Component {
             <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Blankt</a>
           </div>
           <Link to={`../${this.props.match.params.id}`} className="pointer dark-blue hover-blue dib mt3"><ArrowLeft className="mr2"/>Tilbage til forslaget</Link>
-          <div id="modal" className="items-center justify-center overflow-auto w-100 h-100 pa2 z-9999 flex dn">
+          <div id="modal" className="items-center justify-center overflow-auto w-100 h-100 pa2 z-9999 dn">
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">
               <h2 className="f4">{modalHeader}</h2>
               {modalParagraph}
