@@ -4,6 +4,7 @@ import './style.css';
 class ErrorModal extends Component {
   closeModal(event) {
     const modal = document.getElementById('error-modal');
+    modal.classList.remove('flex');
     modal.classList.add('dn');
     const body = document.body;
     body.classList.remove('overflow-hidden');
