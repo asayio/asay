@@ -36,7 +36,6 @@ class Root extends Component {
     }
     return (
       <div className="mw8 center w-100 flex-auto">
-        <h1 className="f3 tc mt5 mb3">Lovforslag</h1>
         <div className="mv3 mv4-ns">
           <div className="tc flex flex-wrap">
             <div className="w-100 w-third-ns mv1 pr2-ns">

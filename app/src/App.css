@@ -15,7 +15,7 @@ select {
 }
 svg {
   position: relative;
-  margin-bottom: -0.2em;
+  margin-bottom: -0.15em;
   height: 1em;
   width: auto;
 }
@@ -108,6 +108,9 @@ svg {
 
 .cursor-default {
   cursor: default;
+}
+.chevron {
+  margin-bottom: -0.25em;
 }
 
 /* LOADING SPINNER */
