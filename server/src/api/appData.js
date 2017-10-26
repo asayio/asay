@@ -11,25 +11,34 @@ const getParticipationList = require('../db/vote/getParticipationList');
 
 // Functions
 async function appDataBundleFetcher(request, response) {
-  const user = await getUser(request);
-  const userId = user.id
-  const voteList = await getVoteList(userId);
-  const subscriptionList = await getSubscriptionList(userId)
-  const preferenceList = await getPreferenceList(userId);
-  const committeeList = await getCommitteeList(userId);
-  const committeeCategoryList = await getCommitteeCategoryList();
-  const proposalList = await getProposalList();
-  const participationList = await getParticipationList();
-  const bundle = {
-    voteList,
-    subscriptionList,
-    preferenceList,
-    committeeList,
-    committeeCategoryList,
-    proposalList,
-    participationList
+  try {
+    const user = await getUser(request);
+    if (user) {
+      const userId = user.id
+      const voteList = await getVoteList(userId);
+      const subscriptionList = await getSubscriptionList(userId)
+      const preferenceList = await getPreferenceList(userId);
+      const committeeList = await getCommitteeList(userId);
+      const committeeCategoryList = await getCommitteeCategoryList();
+      const proposalList = await getProposalList();
+      const participationList = await getParticipationList();
+      const bundle = {
+        voteList,
+        subscriptionList,
+        preferenceList,
+        committeeList,
+        committeeCategoryList,
+        proposalList,
+        participationList
+      }
+      response.send(bundle)
+    } else {
+      response.sendStatus(401)
+    }
+  } catch(err) {
+    console.log(err);
+    response.sendStatus(500)
   }
-  response.send(bundle)
 };
 
 // Export
