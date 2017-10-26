@@ -4,7 +4,7 @@ import Logout from '../auth/Logout.js';
 import { Link } from 'react-router-dom';
 import './nav.css';
 import { openBurgerMenu,closeBurgerMenu } from './burgerMenu';
-import { Home,ChevronDown,Menu,X } from 'react-feather';
+import { Home,User,ChevronDown,Menu,X } from 'react-feather';
 
 class Nav extends Component {
   render () {
@@ -19,7 +19,7 @@ class Nav extends Component {
             <ul className="regular-menu dn db-ns list ma0 pa0">
               <li className="dib pr3 br b--black-10"><Link to="/" className="black-90"><Home className="mr2"/>Hjem</Link></li>
               <li className="dib pl3 cursor-default">
-                {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}<ChevronDown className="chevron i-green ml1"/>
+                <User className="mr2"/>{window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}<ChevronDown className="chevron i-green ml1"/>
                 <ul className="list ma0 ph0 pv2 bg-white ba b--black-10 br1 shadow-6">
                   <li className="lh-solid ph3 pv2"><Link to="/preferences" className="black-90">Præferencer</Link></li>
                   <li className="lh-solid ph3 pv2"><Logout history={this.props.history} className="pointer black-90"/></li>
