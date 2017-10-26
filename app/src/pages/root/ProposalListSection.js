@@ -40,7 +40,6 @@ class ProposalListSection extends Component {
       keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
       threshold: 0.38, // sweet spot
     }
-    console.log(filteredProposalList);
     const fuse = new Fuse(filteredProposalList, options)
     const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList
 
