@@ -52,6 +52,7 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
     const committeeId = proposal.committeeId
     const participation = R.path(['participation'], R.find(R.propEq('proposal', id))(participationList)) || 0
     const hasVoted = !!R.find(R.propEq('proposal', id))(voteList)
+    const hasInfo = proposal.resume !== "" || proposal.presentation.paragraphs.length > 0
     const hasSubscription = R.find(R.propEq('proposal', id))(subscriptionList)
     const matchesCategory = R.find(R.propEq('committee', committeeId))(committeeCategoryList)
     const category = R.find(R.propEq('id', matchesCategory.category))(preferenceList)
@@ -61,6 +62,7 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference
     return Object.assign({}, proposal, {
       hasVoted,
+      hasInfo,
       id,
       isSubscribing,
       category,
@@ -72,7 +74,7 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
   return sortProposalList(newProposalList)
 }
 
-const sortProposalList = R.sortWith([R.ascend(R.prop('deadline'))]);
+const sortProposalList = R.sortWith([R.ascend(R.prop('deadline')),R.descend(R.prop('hasInfo')),R.descend(R.prop('participation')),]);
 
 function updatePreferences (state, entity) {
   const newPreference = Object.assign({}, entity, {preference: !entity.preference})
