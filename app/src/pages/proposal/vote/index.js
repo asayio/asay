@@ -61,10 +61,6 @@ class Vote extends Component {
         entityType: 'voteList',
         entity: {proposal: Number(this.props.match.params.id)}
       })
-      const history = this.context.router.history
-      setTimeout(function() {
-        history.push('../../')
-      }, 1500)
     } else {
       this.setState({error: true})
     }
@@ -89,12 +85,13 @@ class Vote extends Component {
             <a onClick={() => this.handleVote(true)} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6"><Check className="mr2"/>For</a>
             <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy"><Minus className="mr2"/>Blankt</a>
           </div>
-          <Link id="BackBtn" to={`../${this.props.match.params.id}`} className="pointer dark-blue hover-blue dib mt3"><ArrowLeft className="mr2"/>Tilbage til forslaget</Link>
+          <Link to={`../${this.props.match.params.id}`} className="pointer dark-blue hover-blue dib mt3"><ArrowLeft className="mr2"/>Tilbage til forslaget</Link>
           <div id="modal" className="modal dn items-center justify-center overflow-auto w-100 h-100 pa2 z-9999">
             <div className="pa3 pv4-ns ph5-ns tc bg-white ba b--black-10 br1">
               <h2 className="f4">{modalHeader}</h2>
               {modalParagraph}
-              {this.state.voteConfirmed ? <LoadingSpinner/> :
+              {this.state.voteConfirmed ?
+                <Link to="../../" className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Tilbage til forslagslisten</Link> :
               <div>
                 <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">Annuller</a>
                 <a onClick={this.handleSubmit} className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">Bekræft</a>
