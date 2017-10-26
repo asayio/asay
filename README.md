@@ -1,5 +1,5 @@
 # Asay
- Democratic citizen involvement in the 21st century
+Chat with us on [Slack](https://join.slack.com/t/asay/shared_invite/enQtMjUyNjQxODYxNjM0LTgzNWFkZTc5ZjZlNTdiNTlkMjhjMzdkOTUyMTg0NzRkNTRjNzhhZjVmMjQwMzJjYWUwYThmYWVkYTY1MzZlMzk)
 
 ## Stack
 - Version control: GitHub
