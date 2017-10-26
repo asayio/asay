@@ -36,9 +36,14 @@ class ProposalInfo extends Component {
             resume.map(function (paragraph, index) {
               if (!paragraph && !index) {
                 return (
-                  <p key={index} className="lh-copy mt0 mb3">
-                    Der findes desværre ikke et resumé for dette forslag endnu.
-                  </p>
+                  <div>
+                    <p key={index} className="lh-copy mt0 mb3">
+                      Der findes desværre ikke et resumé for dette forslag endnu.
+                    </p>
+                    <p className="lh-copy mt0 mb3">
+                      Selvom der ikke er blevet skrevet et resumé, kan du stadig læse selve forslaget i PDF-form ved at klikke på 'Læs forslag'-knappen.
+                    </p>
+                  </div>
                 )
               } else {
                 return (
@@ -56,9 +61,14 @@ class ProposalInfo extends Component {
                   </p>
                 )
               }) :
-                <p className="lh-copy mt0 mb3">
-                  Der findes desværre ikke en fremlæggelse af baggrunden for dette forslag endnu.
-                </p>
+                <div>
+                  <p className="lh-copy mt0 mb3">
+                    Der findes desværre ikke en fremlæggelse af baggrunden for dette forslag endnu.
+                  </p>
+                  <p className="lh-copy mt0 mb3">
+                    Selvom der ikke er blevet skrevet en baggrund for forslaget, kan du stadig læse selve forslaget i PDF-form ved at klikke på 'Læs forslag'-knappen.
+                  </p>
+                </div>
             }
         </div>
       </div>
