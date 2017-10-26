@@ -1,8 +1,10 @@
 import R from 'ramda'
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ProposalInfo from './ProposalInfo';
 import ProposalActions from './ProposalActions';
-import LoadingSpinner from '../../widgets/LoadingSpinner'
+import LoadingSpinner from '../../widgets/LoadingSpinner';
+import { ArrowLeft } from 'react-feather';
 
 class ProposalPage extends Component {
 
@@ -15,17 +17,18 @@ class ProposalPage extends Component {
     if (proposal) {
       return (
         <div className="mw8 center w-100 flex-auto">
-          <div className="tc mt5 mb3">
-            <h1 className="f3 mv0">
+          <Link to="/" className="db dib-ns tc dark-blue pv2 ph3 mt4 ba b--dark-blue br1"><ArrowLeft className="mr2"/>Tilbage til listen</Link>
+          <div className="tc tl-ns mv4">
+            <h1 className="f3 mt0 mb3">
               {proposal.shortTitel.replace('.', '')}
             </h1>
-            <span className="dib black-70 lh-copy mv3">
-              <span className="dib mr2"><b>Kategori:</b> {proposal.category.title}</span>
-              <span className="dib mr2"><b>Status:</b> {proposal.status}</span>
-              <span className="dib mr2"><b>Deadline:</b> {proposal.deadline}</span>
-              <span className="dib mr2"><b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? "stemme" : "stemmer"}</span>
-              <span className="db mt1">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">Folketingets hjemmeside</a>.</span>
-            </span>
+            <div className="black-70 lh-copy">
+              <span className="db mt1 dib-ns mr3-ns"><b>Kategori:</b> {proposal.category.title}</span>
+              <span className="db mt1 dib-ns mr3-ns"><b>Status:</b> {proposal.status}</span>
+              <span className="db mt1 dib-ns mr3-ns"><b>Deadline:</b> {proposal.deadline}</span>
+              <span className="db mt1 dib-ns mr3-ns"><b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? "stemme" : "stemmer"}</span>
+            </div>
+            <span className="black-70 lh-copy db mt1">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">Folketingets hjemmeside</a>.</span>
           </div>
           <div className="row">
             <ProposalInfo
@@ -48,3 +51,5 @@ class ProposalPage extends Component {
 }
 
 export default ProposalPage;
+
+{/* <span className="db mt1">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">Folketingets hjemmeside</a>.</span> */}

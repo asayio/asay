@@ -22,7 +22,7 @@ class Preferences extends Component {
           <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList}/>
         </div>
         <div className="tc mt3">
-          <Link to="/" className="db dib-ns b white bg-dark-blue hover-bg-blue pv2 ph4 ba b--black-10 br1 shadow-6"><ArrowLeft className="mr2"/>Tilbage til lovforslagene</Link>
+          <Link to="/" className="db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 ba b--black-10 br1 shadow-6"><ArrowLeft className="mr2"/>Tilbage til lovforslagene</Link>
         </div>
       </div>
     );
