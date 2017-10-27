@@ -5,8 +5,17 @@ import PreferenceList from '../preferences/PreferenceList'
 import { ArrowRight } from 'react-feather';
 
 class Onboarding extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0)
+    await fetch('/api/user/onboarding',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        }
+      }
+    )
   };
 
   render () {
