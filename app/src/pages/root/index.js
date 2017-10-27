@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Login from '../../widgets/auth/Login'
-import LoadingSpinner from '../../widgets/LoadingSpinner.js';
 import ProposalList from './ProposalList';
 import { Mail } from 'react-feather';
 
@@ -10,9 +9,7 @@ class Root extends Component {
   }
 
   render() {
-    if (window.sessionStorage.authToken && !this.props.proposalList.length) {
-      return <LoadingSpinner/>
-    } else if (window.sessionStorage.authToken) {
+    if (window.sessionStorage.authToken) {
       return <ProposalList
         selectedSection={this.props.selectedSection}
         updateState={this.props.updateState}

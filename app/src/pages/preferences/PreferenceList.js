@@ -10,6 +10,7 @@ class PreferenceList extends Component {
   }
 
   async updatingPreference (preference) {
+    this.props.updateState({entityType: 'preferenceList', entity: preference})
     const response = await fetch('/api/preference',
       {
         method: 'POST',
@@ -20,9 +21,7 @@ class PreferenceList extends Component {
         }
       }
     )
-    if (response.ok) {
-      this.props.updateState({entityType: 'preferenceList', entity: preference})
-    } else {
+    if (!response.ok) {
       openModal('error-modal')
     }
   };

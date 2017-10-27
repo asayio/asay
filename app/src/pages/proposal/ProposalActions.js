@@ -12,6 +12,7 @@ class ProposalActions extends Component {
   async updateSubscription() {
     const proposal = this.props.proposal
     const newSubscription = {proposal: proposal.id, subscription: !proposal.isSubscribing}
+    this.props.updateState({entityType: 'subscriptionList', entity: newSubscription})
     const response = await fetch(`/api/proposal/${proposal.id}/subscription`,
       {
         method: 'POST',
@@ -23,9 +24,7 @@ class ProposalActions extends Component {
           'Authorization': 'Bearer ' + window.sessionStorage.authToken
         }
       })
-    if (response.ok) {
-      this.props.updateState({entityType: 'subscriptionList', entity: newSubscription})
-    } else {
+    if (!response.ok) {
       openModal('error-modal')
     }
   }

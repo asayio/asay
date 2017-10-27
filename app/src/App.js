@@ -14,6 +14,7 @@ import Nav from './widgets/nav/Nav';
 import Footer from './widgets/Footer'
 import Onboarding from './pages/onboarding'
 import ErrorModal from './widgets/error/ErrorModal'
+import LoadingSpinner from './widgets/LoadingSpinner'
 import {
   BrowserRouter as Router,
   Route,
@@ -30,6 +31,7 @@ class App extends Component {
       subscriptionList: [],
       committeeCategoryList: [],
       participationList: [],
+      appReady: false,
       selectedSection: 'personal',
       searchString: '',
       filter: {
@@ -43,6 +45,7 @@ class App extends Component {
   async componentDidMount() {
     const initialState = await stateBuilder.initialState();
     this.setState(initialState)
+    this.setState({appReady: true})
   }
 
   updateState ({entityType, entity}) {
@@ -77,31 +80,34 @@ class App extends Component {
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav/>
             <ErrorModal/>
-            <Switch>
-              <Route exact path="/" render={props => <Root
-                  selectedSection={this.state.selectedSection}
-                  updateState={this.updateState}
-                  preferenceList={this.state.preferenceList}
-                  searchString={this.state.searchString}
-                  filter={this.state.filter}
-                  proposalList={this.state.proposalList}/>} />
-              <Route exact path="/proposal/:id" render={props => <Proposal
-                  match={props.match} proposalList={this.state.proposalList}
-                  updateState={this.updateState}/>}/>
-              <Route exact path="/proposal/:id/vote" render={props => <Vote
-                  match={props.match}
-                  proposalList={this.state.proposalList}
-                  updateState={this.updateState}/>}/>
-              <Route exact path="/disclaimer" component={Disclaimer}/>
-              <Route exact path="/preferences" render={props => <Preferences
-                  preferenceList={this.state.preferenceList}
-                  updateState={this.updateState}/>}/>
-              <Route exact path="/onboarding" render={props => <Onboarding
-                  preferenceList={this.state.preferenceList}
-                  updateState={this.updateState}/>}/>
-              <Route exact path="/auth" component={Auth}/>
-              <Route path="*" component={Lost}/>
-            </Switch>
+            {this.state.appReady ?
+              <Switch>
+                <Route exact path="/" render={props => <Root
+                    selectedSection={this.state.selectedSection}
+                    updateState={this.updateState}
+                    preferenceList={this.state.preferenceList}
+                    searchString={this.state.searchString}
+                    filter={this.state.filter}
+                    proposalList={this.state.proposalList}/>} />
+                <Route exact path="/proposal/:id" render={props => <Proposal
+                    match={props.match} proposalList={this.state.proposalList}
+                    updateState={this.updateState}/>}/>
+                <Route exact path="/proposal/:id/vote" render={props => <Vote
+                    match={props.match}
+                    proposalList={this.state.proposalList}
+                    updateState={this.updateState}/>}/>
+                <Route exact path="/disclaimer" component={Disclaimer}/>
+                <Route exact path="/preferences" render={props => <Preferences
+                    preferenceList={this.state.preferenceList}
+                    updateState={this.updateState}/>}/>
+                <Route exact path="/onboarding" render={props => <Onboarding
+                    preferenceList={this.state.preferenceList}
+                    updateState={this.updateState}/>}/>
+                <Route exact path="/auth" component={Auth}/>
+                <Route path="*" component={Lost}/>
+              </Switch>:
+              <LoadingSpinner/>
+            }
             <Footer/>
           </div>
         </Router>
