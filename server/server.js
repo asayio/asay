@@ -33,7 +33,7 @@ app.get('*', function (request, response) {
 function listeningHandler () {
   console.log(`Server is listening on port ${port}. Environment set to ${environment}.`);
   const ftBatchFetcher = require('./src/integrations/ft/ftBatchFetcher')
-  ftBatchFetcher() // initial load
-  setInterval(ftBatchFetcher, 1000 * 60 * 60 * 24)
+  // ftBatchFetcher() // initial load
+  // setInterval(ftBatchFetcher, 1000 * 60 * 60 * 24)
 }
 app.listen(port, listeningHandler);
