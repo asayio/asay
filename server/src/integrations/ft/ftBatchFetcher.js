@@ -2,14 +2,16 @@
 const R = require('ramda')
 const odaFetcher = require('./odaFetcher')
 const scrapeIt = require('scrape-it')
-const updateProposalList = require('./db/proposal/updateProposalList')
+const updateProposalList = require('../../db/proposal/updateProposalList')
 
 // Functions
 async function ftBatchFetcher () {
+  console.log("ftBatchFetcher started");
   const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin'
   const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146'
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter
   const proposalList = await odaFetcher.fetchAllPages(proposalUrl)
+  console.log("oda.ft.dk responded with proposalList");
   const formattedProposalList = proposalList.map(proposal => {
     return {
       id: proposal.id,
@@ -32,6 +34,7 @@ async function ftBatchFetcher () {
       }
     }
   });
+  console.log("started scraping ft.dk");
   let finishedProposalList = []
   for (const proposal of formattedProposalList) {
     const presentationUrl = `http://www.ft.dk/samling/${proposal.data.periodCode}/${proposal.data.type}/${proposal.data.numberPreFix + proposal.data.numberNumeric}/${proposal.data.periodCode}_${proposal.data.numberPreFix + proposal.data.numberNumeric}_fremsaettelsestale.htm`
@@ -39,10 +42,10 @@ async function ftBatchFetcher () {
     const dataWithPresentation = Object.assign({}, proposal.data, {presentation})
     finishedProposalList.push(Object.assign({}, {id: proposal.id}, {data: dataWithPresentation}))
   }
-  updateProposalList(finishedProposalList);
+  console.log("scraping oft ft.dk finished");
+  const batch = await updateProposalList(finishedProposalList);
+  batch && console.log("ftBatchFetcher finished");
 };
-ftBatchFetcher() // first time run
-setInterval(openDataBatchFetcher, 24 * 60 * 60) // update every 24hrs
 
 // Export
 module.exports = ftBatchFetcher

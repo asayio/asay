@@ -28,7 +28,7 @@ class ProposalInfo extends Component {
             <a onClick={() => this.setState({view: 'resume'})} className={(this.state.view === 'resume' ? "bg-white cursor-default" : "bg-near-white pointer")  + " db b ph4 pv2 ba b--black-10 br1 shadow-6 mr2" }><FileText className="mr2"/>Resume</a>
           </div>
           <div className="w-50 w-auto-l">
-            <a onClick={() => this.setState({view: 'purpose'})} className={(this.state.view === 'purpose' ? "bg-white cursor-default" : "bg-near-white pointer")  + " db b ph4 pv2 ba b--black-10 br1 shadow-6" }><FileText className="mr2"/>Baggrund</a>
+            <a onClick={() => this.setState({view: 'purpose'})} className={(this.state.view === 'purpose' ? "bg-white cursor-default" : "bg-near-white pointer")  + " db b ph4 pv2 ba b--black-10 br1 shadow-6" }><FileText className="mr2"/>Formål</a>
           </div>
         </div>
         <div className="flex-auto bg-white pa4 ba b--black-10 br1 shadow-6 mt2">

@@ -10,29 +10,31 @@ async function initialState () {
       }
     }
   );
-  const appDataBundle = await appDataBundleResponse.json();
-  const committeeCategoryList = appDataBundle.committeeCategoryList
-  const voteList = appDataBundle.voteList
-  const subscriptionList = appDataBundle.subscriptionList
-  const participationList = appDataBundle.participationList
-  const rawPreferenceList = appDataBundle.preferenceList
-  const rawProposalList = appDataBundle.proposalList.map(proposal => Object.assign({}, {id: proposal.id}, proposal.data))
-  const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList)
-  const proposalList = buildProposalList({
-    participationList,
-    proposalList: rawProposalList,
-    voteList,
-    subscriptionList,
-    committeeCategoryList,
-    preferenceList
-  })
-  return {
-    preferenceList,
-    proposalList,
-    voteList,
-    subscriptionList,
-    committeeCategoryList,
-    participationList
+  if (appDataBundleResponse.ok) {
+    const appDataBundle = await appDataBundleResponse.json();
+    const committeeCategoryList = appDataBundle.committeeCategoryList
+    const voteList = appDataBundle.voteList
+    const subscriptionList = appDataBundle.subscriptionList
+    const participationList = appDataBundle.participationList
+    const rawPreferenceList = appDataBundle.preferenceList
+    const rawProposalList = appDataBundle.proposalList.map(proposal => Object.assign({}, {id: proposal.id}, proposal.data))
+    const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList)
+    const proposalList = buildProposalList({
+      participationList,
+      proposalList: rawProposalList,
+      voteList,
+      subscriptionList,
+      committeeCategoryList,
+      preferenceList
+    })
+    return {
+      preferenceList,
+      proposalList,
+      voteList,
+      subscriptionList,
+      committeeCategoryList,
+      participationList
+    }
   }
 }
 

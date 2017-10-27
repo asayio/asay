@@ -18,7 +18,6 @@ async function loginPostHandler (request, response) {
     }
   } else {
     response.sendStatus(401);
-    console.log(err);
   }
 }
 

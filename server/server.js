@@ -10,9 +10,6 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true
 });
 
-// log a generic message and send to rollbar
-rollbar.log('Hello world!');
-
 // Import
 const routes = require('./src/routes.js');
 
@@ -35,5 +32,8 @@ app.get('*', function (request, response) {
 // Initate webserver
 function listeningHandler () {
   console.log(`Server is listening on port ${port}. Environment set to ${environment}.`);
+  const ftBatchFetcher = require('./src/integrations/ft/ftBatchFetcher')
+  ftBatchFetcher() // initial load
+  setInterval(ftBatchFetcher, 1000 * 60 * 60 * 24)
 }
 app.listen(port, listeningHandler);
