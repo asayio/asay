@@ -98,7 +98,7 @@ class Vote extends Component {
             <h2 className="f4">{modalHeader}</h2>
             {modalParagraph}
             {this.state.voteConfirmed ?
-            <Link to="../../" className="pointer dib white bg-dark-blue hover-bg-blue ph3 pv2 ma2 ba b--black-10 br1 shadow-6"><ArrowLeft className="mr2"/>Tilbage til mine forslag</Link> :
+            <Link to="../../" onClick={this.closeModal} className="pointer dib white bg-dark-blue hover-bg-blue ph3 pv2 ma2 ba b--black-10 br1 shadow-6"><ArrowLeft className="mr2"/>Tilbage til mine forslag</Link> :
             this.state.error ?
             <a onClick={this.closeModal} className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">OK</a>:
             this.state.voteSubmitted ? <LoadingSpinner/> :
