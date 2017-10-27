@@ -28,7 +28,10 @@ class Root extends Component {
 
   render() {
     const proposalList = this.props.proposalList
-    const preferenceList = this.props.preferenceList
+    const preferenceList = this.props.selectedSection !== 'personal' ? this.props.preferenceList :
+      R.filter(preference => {
+        return preference.preference
+      }, this.props.preferenceList)
     const filterSelection = {
       category: this.props.filter.category,
       status: this.props.filter.status,
