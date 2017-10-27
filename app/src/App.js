@@ -106,7 +106,9 @@ class App extends Component {
                 <Route exact path="/auth" component={Auth}/>
                 <Route path="*" component={Lost}/>
               </Switch>:
-              <LoadingSpinner/>
+              <div className="flex-auto flex justify-center items-center">
+                <LoadingSpinner/>
+              </div>
             }
             <Footer/>
           </div>
