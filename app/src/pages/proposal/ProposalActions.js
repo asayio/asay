@@ -35,7 +35,7 @@ class ProposalActions extends Component {
       `http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}_som_vedtaget.pdf`
       :`http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric}_som_fremsat.pdf`
     return (
-      <div className="col12 col3-l tc mt1-l pt4-l pl3-l">
+      <div className="w-100 w-25-l tc mt1-l pt4-l pl3-l">
         <a href={proposalURL} target={`_${proposal.id}`} className="db white bg-dark-blue hover-bg-blue pv2 mv3 mt2-l ba b--black-10 br1 shadow-6">
           <File className="mr2"/>
           Læs forslaget

@@ -22,7 +22,7 @@ class ProposalInfo extends Component {
     const proposal = this.props.proposal;
     const resume = proposal.resume.split(/\n/gm)
     return (
-      <div className="col12 col9-l flex flex-column">
+      <div className="w-100 w-75-l flex flex-column">
         <div className="flex tc">
           <div className="w-50 w-auto-l">
             <a onClick={() => this.setState({view: 'resume'})} className={(this.state.view === 'resume' ? "bg-white cursor-default" : "bg-near-white pointer")  + " db b ph4 pv2 ba b--black-10 br1 shadow-6 mr2" }><FileText className="mr2"/>Resume</a>

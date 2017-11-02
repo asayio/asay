@@ -28,7 +28,7 @@ class ProposalPage extends Component {
           </div>
           <span className="black-70 lh-copy db mt1">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">Folketingets hjemmeside</a>.</span>
         </div>
-        <div className="row">
+        <div className="flex flex-wrap">
           <ProposalInfo
             proposal = {proposal}
           />
