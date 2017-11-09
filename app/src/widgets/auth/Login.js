@@ -22,7 +22,7 @@ class Login extends Component {
         redirectUrl: window.location.origin + '/auth',
         responseType: 'token',
         params: {
-          scope: 'openid email user_metadata'
+          scope: 'openid email user_metadata profile'
         }
       },
       theme: {
@@ -42,7 +42,8 @@ class Login extends Component {
       rememberLastLogin: false,
       initialScreen: this.props.type,
       allowedConnections: [
-        'Username-Password-Authentication'
+        'Username-Password-Authentication',
+        'facebook',
       ]
     }
     const lock = new Lock (clientId, domain, options)

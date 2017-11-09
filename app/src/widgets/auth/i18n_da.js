@@ -16,5 +16,9 @@ export default {
   showPassword: 'Vis kodeord',
   loginLabel: 'Log ind',
   signUpLabel: 'Opret bruger',
-  signUpSubmitLabel: "Opret bruger"
+  signUpSubmitLabel: 'Opret bruger',
+  databaseAlternativeSignUpInstructions: 'eller',
+  databaseEnterpriseAlternativeLoginInstructions: 'eller',
+  loginWithLabel: 'Log ind med %s',
+  signUpWithLabel: 'Opret bruger med %s',
 };
