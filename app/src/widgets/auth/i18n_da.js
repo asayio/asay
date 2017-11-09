@@ -7,6 +7,9 @@ export default {
       'lock.unauthorized': 'Denne bruger har ikke adgang.',
     },
   },
+  success: {
+    forgotPassword: 'Vi har sendt dig en e-mail med et link til at nulstille dit kodeord.',
+  },
   blankErrorHint: 'Du mangler at skrive noget',
   emailInputPlaceholder: 'email@email.com',
   loginSubmitLabel: 'Log ind',
@@ -21,4 +24,6 @@ export default {
   databaseEnterpriseAlternativeLoginInstructions: 'eller',
   loginWithLabel: 'Log ind med %s',
   signUpWithLabel: 'Opret bruger med %s',
+  forgotPasswordAction: 'Glemt kodeord?',
+  forgotPasswordInstructions: 'Indtast din e-email. Vi sender dig en e-mail med et link til at nulstille dit kodeord.',
 };

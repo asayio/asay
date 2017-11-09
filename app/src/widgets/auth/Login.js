@@ -37,9 +37,9 @@ class Login extends Component {
         placeholder: "Efternavn"
       }],
       languageDictionary: Da,
-      allowForgotPassword: false,
+      allowForgotPassword: true,
       allowShowPassword: true,
-      rememberLastLogin: false,
+      rememberLastLogin: true,
       initialScreen: this.props.type,
       allowedConnections: [
         'Username-Password-Authentication',
