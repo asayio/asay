@@ -40,7 +40,10 @@ class Login extends Component {
       allowForgotPassword: false,
       allowShowPassword: true,
       rememberLastLogin: false,
-      initialScreen: this.props.type
+      initialScreen: this.props.type,
+      allowedConnections: [
+        'Username-Password-Authentication'
+      ]
     }
     const lock = new Lock (clientId, domain, options)
     lock.show() //show password dialog from Auth0
