@@ -60,6 +60,7 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
     const category = R.find(R.propEq('id', matchesCategory.category))(preferenceList)
     const stageInfo = findStageInfo(proposal.stage)
     const deadline = stageInfo.deadline
+    const distanceToDeadline = stageInfo.distanceToDeadline
     const status = stageInfo.status
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference
     return Object.assign({}, proposal, {
@@ -69,6 +70,7 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
       isSubscribing,
       category,
       deadline,
+      distanceToDeadline,
       status,
       participation
     })

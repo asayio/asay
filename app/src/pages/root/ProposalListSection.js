@@ -66,9 +66,17 @@ class ProposalListSection extends Component {
       return (
         <div>
         {searchedProposalList.map(function (proposal, index) {
+          const daysLeftBeforeShowingDeadlineNotification = 1;
+          const showDeadlineNotification = proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 2) // "+1" we need the results one day in advance;
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
               <div className="bg-white pv4 ph3 ph4-ns mv2 ba b--black-10 card br1 shadow-6 flex flex-wrap">
+                {showDeadlineNotification &&
+                  <div>
+                    <FeatherIcon name='PieChart' className="f3 i-green mb2"/>
+                    deadline snart
+                  </div>
+                }
                 <div className="w-100 w-30-m w-20-l tc flex flex-column items-center justify-center pb3 pb0-ns pr4-ns">
                   <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mb2"/>
                   <span className="black-50">{proposal.category.title}</span>
