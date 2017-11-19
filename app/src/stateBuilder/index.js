@@ -103,8 +103,11 @@ function updatePreferences(state, entity) {
 
 function updateVoteList(state, entity) {
   const newVoteList = R.reject(R.propEq("proposal", entity.proposal))(state.voteList).concat(entity);
-  const newProposalList = buildProposalList(Object.assign({}, state, { voteList: newVoteList }));
-  const newState = Object.assign({}, state, { proposalList: newProposalList, voteList: newVoteList });
+  const newParticipationCount = (R.path(["participation"], R.find(R.propEq("proposal", entity.proposal))(state.participationList)) || 0) + 1;
+  const newParticipation = {proposal: entity.proposal, participation: newParticipationCount}
+  const newParticipationList = R.reject(R.propEq("proposal", entity.proposal))(state.participationList).concat(newParticipation);
+  const newProposalList = buildProposalList(Object.assign({}, state, { voteList: newVoteList, participationList: newParticipationList }));
+  const newState = Object.assign({}, state, { proposalList: newProposalList, voteList: newVoteList, participationList: newParticipationList });
   return newState;
 }
 
