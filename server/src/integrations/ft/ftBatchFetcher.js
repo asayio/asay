@@ -12,7 +12,11 @@ async function ftBatchFetcher () {
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter
   const proposalList = await odaFetcher.fetchAllPages(proposalUrl)
   console.log("oda.ft.dk responded with proposalList");
-  const formattedProposalList = proposalList.map(proposal => {
+  const filteredProposalList = R.filter(function (proposal) {
+    return !R.isNil(proposal)
+  }, proposalList);
+  console.log('proposal list was filtered for bad apples');
+  const formattedProposalList = filteredProposalList.map(proposal => {
     return {
       id: proposal.id,
       data: {
@@ -34,6 +38,7 @@ async function ftBatchFetcher () {
       }
     }
   });
+  console.log('proposals was formatted');
   console.log("started scraping ft.dk");
   let finishedProposalList = []
   for (const proposal of formattedProposalList) {
