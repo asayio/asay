@@ -13,6 +13,7 @@ async function initialState () {
   if (appDataBundleResponse.ok) {
     const appDataBundle = await appDataBundleResponse.json();
     const committeeCategoryList = appDataBundle.committeeCategoryList
+    const notificationList = appDataBundle.notificationList || []
     const voteList = appDataBundle.voteList
     const subscriptionList = appDataBundle.subscriptionList
     const participationList = appDataBundle.participationList
@@ -25,6 +26,7 @@ async function initialState () {
       voteList,
       subscriptionList,
       committeeCategoryList,
+      notificationList,
       preferenceList
     })
     return {
@@ -33,7 +35,8 @@ async function initialState () {
       voteList,
       subscriptionList,
       committeeCategoryList,
-      participationList
+      participationList,
+      notificationList
     }
   }
 }
@@ -48,7 +51,7 @@ function buildPreferenceList (rawPreferenceList, committeeCategoryList) {
 
 const sortPreferenceList = R.sortWith([R.ascend(R.prop('title'))]);
 
-function buildProposalList ({proposalList, voteList, subscriptionList, committeeCategoryList, preferenceList, participationList}) {
+function buildProposalList ({proposalList, voteList, subscriptionList, committeeCategoryList, notificationList, preferenceList, participationList}) {
   const newProposalList = proposalList.map(proposal => {
     const id = proposal.id
     const committeeId = proposal.committeeId
@@ -62,10 +65,19 @@ function buildProposalList ({proposalList, voteList, subscriptionList, committee
     const deadline = stageInfo.deadline
     const distanceToDeadline = stageInfo.distanceToDeadline
     const status = stageInfo.status
+    const results = {}; // Put results here when we get them
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference
+    const seeNotification = isSubscribing && !R.find((notification) => {
+      return notification.proposal_id === id && notification.type === 'seen'
+    }, notificationList)
+    const seeResultsNotification = hasVoted && results && !R.find((notification) => {
+      return notification.proposal_id === id && notification.type === 'seenResults'
+    }, notificationList)
     return Object.assign({}, proposal, {
       hasVoted,
       hasInfo,
+      seeNotification,
+      seeResultsNotification,
       id,
       isSubscribing,
       category,
@@ -103,6 +115,13 @@ function updateSubscriptionList (state, entity) {
   return newState
 }
 
+function updateNotificationList (state, entity) {
+  const newNotificationList = R.append(entity, state.notificationList)
+  const newProposalList = buildProposalList(Object.assign({}, state, {notificationList: newNotificationList}))
+  const newState = Object.assign({}, state, {proposalList: newProposalList, notificationList: newNotificationList})
+  return newState
+}
+
 function updateSelectedSection (state, entity) {
   const newState = Object.assign({}, state, {selectedSection: entity.selectedSection})
   return newState
@@ -126,5 +145,6 @@ export default {
   updateSubscriptionList,
   updateSelectedSection,
   updateSearchString,
+  updateNotificationList,
   updateFilter
 }

@@ -5,6 +5,7 @@ const vote = require('./api/vote')
 const preference = require('./api/preference')
 const subscription = require('./api/subscription')
 const appData = require('./api/appData')
+const seen = require('./api/notification')
 
 // Routes
 function map(app) {
@@ -17,6 +18,7 @@ function map(app) {
   app.post("/api/proposal/:id/subscription", subscription)
   app.post("/api/preference", preference);
   app.post("/api/user/onboarding", onboarding)
+  app.post("/api/seen/", seen)
 }
 
 // Export

@@ -11,8 +11,36 @@ class ProposalPage extends Component {
     window.scrollTo(0, 0)
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      proposal: R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList),
+    };
+  }
+
+  componentWillMount() {
+    this.seen(this.state.proposal);
+  }
+
+  async seen(proposal) {
+    proposal.seeNotification && this.props.updateState({entityType: 'notificationList', entity: {proposal_id: proposal.id, type: 'seen'}})
+    proposal.seeResultsNotification && this.props.updateState({entityType: 'notificationList', entity: {proposal_id: proposal.id, type: 'seenResults'}})
+    await fetch('/api/seen/', {
+        method: 'POST',
+        body: JSON.stringify({
+          proposalId: proposal.id,
+          hasResults: !!proposal.results
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.sessionStorage.authToken
+        }
+      }
+    );
+  }
+
   render() {
-    const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
+    const proposal = this.state.proposal
     return (
       <div className="mw8 center w-100 flex-auto">
         <Link to="/" className="db dib-ns tc dark-blue pv2 ph3 mt4 ba b--dark-blue br1"><ArrowLeft className="mr2"/>Tilbage til listen</Link>

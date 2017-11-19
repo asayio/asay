@@ -77,6 +77,16 @@ class ProposalListSection extends Component {
                     deadline snart
                   </div>
                 }
+                {proposal.seeNotification &&
+                  <div>
+                    nyt
+                  </div>
+                }
+                {proposal.seeResultsNotification &&
+                  <div>
+                    nye resultater
+                  </div>
+                }
                 <div className="w-100 w-30-m w-20-l tc flex flex-column items-center justify-center pb3 pb0-ns pr4-ns">
                   <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mb2"/>
                   <span className="black-50">{proposal.category.title}</span>
