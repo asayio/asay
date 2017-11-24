@@ -70,23 +70,27 @@ class ProposalListSection extends Component {
           const showDeadlineNotification = proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 2) // "+1" we need the results one day in advance;
           return (
             <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
-              <div className="bg-white pv4 ph3 ph4-ns mv2 ba b--black-10 card br1 shadow-6 flex flex-wrap">
+              <div className="relative flex flex-wrap bg-white pv4 ph3 ph4-ns mv2 ba b--black-10 card br1 shadow-6">
+                <div className="absolute flex top-0 right-0 pa1">
                 {showDeadlineNotification &&
-                  <div>
-                    <FeatherIcon name='PieChart' className="f3 i-green mb2"/>
-                    deadline snart
+                  <div className="white bg-black-80 pv1 ph2 ml2 br1">
+                    <FeatherIcon name="AlertCircle" className="mr0 mr1-ns"/>
+                    <span className="dn di-ns">Deadline snart</span>
                   </div>
                 }
                 {proposal.seeNotification &&
-                  <div>
-                    nyt
+                  <div className="white bg-black-80 pv1 ph2 ml2 br1">
+                    <FeatherIcon name="Zap" className="mr0 mr1-ns"/>
+                    <span className="dn di-ns">Nyt forslag</span>
                   </div>
                 }
                 {proposal.seeResultsNotification &&
-                  <div>
-                    nye resultater
+                  <div className="white bg-black-80 pv1 ph2 ml2 br1">
+                    <FeatherIcon name="BarChart2" className="mr0 mr1-ns"/>
+                    <span className="dn di-ns">Nye resultater</span>
                   </div>
                 }
+                </div>
                 <div className="w-100 w-30-m w-20-l tc flex flex-column items-center justify-center pb3 pb0-ns pr4-ns">
                   <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mb2"/>
                   <span className="black-50">{proposal.category.title}</span>
