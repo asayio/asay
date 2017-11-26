@@ -40,9 +40,9 @@ class Login extends Component {
         }
       ],
       languageDictionary: Da,
-      allowForgotPassword: false,
+      allowForgotPassword: true,
       allowShowPassword: true,
-      rememberLastLogin: false,
+      rememberLastLogin: true,
       initialScreen: this.props.type,
       allowedConnections: ["Username-Password-Authentication", "facebook"]
     };
