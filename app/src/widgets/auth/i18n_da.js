@@ -25,7 +25,7 @@ export default {
   loginWithLabel: "Log ind med %s",
   signUpWithLabel: "Opret bruger med %s",
   forgotPasswordAction: "Glemt kodeord?",
-  forgotPasswordInstructions: "Indtast din e-email. Vi sender dig en e-mail med et link til at nulstille dit kodeord.",
+  forgotPasswordInstructions: "Indtast din e-mail. Vi sender dig en e-mail med et link til at nulstille dit kodeord.",
   lastLoginInstructions: "Sidste gang loggede du ind som",
   notYourAccountAction: "Er det ikke din konto?"
 };
