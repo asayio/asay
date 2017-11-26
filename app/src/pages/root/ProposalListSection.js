@@ -73,7 +73,7 @@ class ProposalListSection extends Component {
           {searchedProposalList.map(function(proposal, index) {
             const daysLeftBeforeShowingDeadlineNotification = 1;
             const showDeadlineNotification =
-              proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 2); // "+1" we need the results one day in advance;
+              proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 7); // "+1" we need the results one day in advance;
             return (
               <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
                 <div className="relative flex flex-wrap bg-white pv4 ph3 ph4-ns mv2 ba b--black-10 card br1 shadow-6">

@@ -74,7 +74,7 @@ function buildProposalList ({
     const status = stageInfo.status
     const results = {}; // Put results here when we get them
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference
-    const seeNotification = isSubscribing && !R.find((notification) => {
+    const seeNotification = !R.find((notification) => {
       return notification.proposal_id === id && notification.type === 'seen'
     }, notificationList)
     const seeResultsNotification = hasVoted && results && !R.find((notification) => {

@@ -31,11 +31,12 @@ export default function findStageInfo(stage) {
     const distanceToDeadline = deadline - today;
     const isOpen = distanceToDeadline > 0 ? true : false;
 
-    const countdown = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24)) - 1 + " dage"; // "-1" because we need the results the day before
+    const countdown = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24)) - 1; // "-1" because we need the results the day before
+    const deadlineLabel = countdown === 0 ? "I dag" : countdown === 1 ? "I morgen" : countdown + " dage";
 
     if (hasFinal && isOpen) {
       return {
-        deadline: countdown,
+        deadline: deadlineLabel,
         distanceToDeadline: distanceToDeadline,
         status: "Til endelig afstemning"
       };
