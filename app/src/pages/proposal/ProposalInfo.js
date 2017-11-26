@@ -1,4 +1,4 @@
-import R from 'ramda'
+  import R from 'ramda'
 import React, { Component } from 'react';
 import { FileText } from 'react-feather';
 
@@ -35,7 +35,7 @@ class ProposalInfo extends Component {
         </div>
         <div className="flex-auto bg-white pa4 ba b--black-10 br1 shadow-6 mt2">
           {R.path(['presentation', 'proposer'], proposal) && this.state.view === 'purpose' &&
-            <span>
+            <span className="db b mb3">
               Forslaget blev præsenteret for folketinget af {R.path(['presentation', 'proposer'], proposal)}
             </span>
           }
