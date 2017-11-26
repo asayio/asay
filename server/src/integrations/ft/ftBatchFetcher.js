@@ -13,7 +13,11 @@ async function ftBatchFetcher () {
   const proposalList = await odaFetcher.fetchAllPages(proposalUrl)
   console.log("oda.ft.dk responded with proposalList");
   const filteredProposalList = R.filter(function (proposal) {
-    return !R.isNil(proposal)
+    const doesExist = !R.isNil(proposal)
+    !doesExist && console.log('Filterd out empty proposal')
+    const hasCommittee = R.path(['SagAktør'], proposal).length
+    !hasCommittee && console.log('Filtered out proposal (' + proposal.nummer + ') because of missing committee')
+    return doesExist && hasCommittee
   }, proposalList);
   console.log('proposal list was filtered for bad apples');
   const formattedProposalList = filteredProposalList.map(proposal => {
