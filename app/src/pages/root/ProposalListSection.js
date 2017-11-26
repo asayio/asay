@@ -36,9 +36,14 @@ class ProposalListSection extends Component {
         return proposal.status === filterSelection.status;
       }, filteredProposalList);
     }
+    if (this.props.limitList) {
+      filteredProposalList = R.filter(proposal => {
+        return proposal.distanceToDeadline < 99999999998;
+      }, filteredProposalList);
+    }
 
     const options = {
-      keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
+      keys: ["shortTitel", "titel", "resume", "presentation.paragraphs"],
       threshold: 0.38 // sweet spot
     };
     const fuse = new Fuse(filteredProposalList, options);
@@ -50,18 +55,19 @@ class ProposalListSection extends Component {
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
           <Link
             to="./preferences"
-            className="pointer dib b white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6">
+            className="pointer dib b white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"
+          >
             <Settings className="mr2" />Opdater præferencer
           </Link>
         </div>
       );
-    } else if (!searchedProposalList.length && filterSelection.section === 'history') {
+    } else if (!searchedProposalList.length && filterSelection.section === "history") {
       return (
         <div className="mw8 center mv5 tc">
           <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
         </div>
       );
-    } else if (!searchedProposalList.length && filterSelection.section === 'all') {
+    } else if (!searchedProposalList.length && filterSelection.section === "all") {
       return (
         <div className="mw8 center mv5 tc">
           <p>Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
@@ -102,8 +108,8 @@ class ProposalListSection extends Component {
                         <b>Deadline:</b> {proposal.deadline}
                       </span>
                       <span className="mr2">
-                        <b>Deltagelse:</b> {proposal.participation}{' '}
-                        {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+                        <b>Deltagelse:</b> {proposal.participation}{" "}
+                        {proposal.participation === 1 ? "stemme" : "stemmer"}
                       </span>
                     </span>
                   </div>
