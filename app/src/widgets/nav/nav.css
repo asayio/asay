@@ -20,12 +20,12 @@ nav a:focus {
 }
 .regular-menu li:hover > ul {
   display: block;
-  animation: fadeIn 0.15s ease-out;
+  animation: menuFadeIn 0.15s ease-out;
 }
 .burger-menu .f3 {
   margin-bottom: -0.25em;
 }
-@keyframes fadeIn {
+@keyframes menuFadeIn {
   0% {
     display: none;
     opacity: 0;

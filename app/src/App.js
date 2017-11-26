@@ -25,6 +25,7 @@ class App extends Component {
       preferenceList: [],
       voteList: [],
       subscriptionList: [],
+      notificationList: [],
       committeeCategoryList: [],
       participationList: [],
       appReady: false,
@@ -63,6 +64,9 @@ class App extends Component {
         break;
       case "filter":
         this.setState(stateBuilder.updateFilter(this.state, entity));
+        break;
+      case 'notificationList':
+        this.setState(stateBuilder.updateNotificationList(this.state, entity))
         break;
       default:
         break;
