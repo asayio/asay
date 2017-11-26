@@ -21,7 +21,6 @@ class ProposalInfo extends Component {
 
   render() {
     const proposal = this.props.proposal;
-    console.log(proposal.presentation);
     const resume = proposal.resume.split(/\n/gm)
     return (
       <div className="w-100 w-75-l flex flex-column">

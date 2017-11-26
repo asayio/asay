@@ -33,11 +33,19 @@ app.get("*", function(request, response) {
 
 // Initate webserver
 function listeningHandler() {
-  console.log(`Server is listening on port ${port}. Environment set to ${environment}.`);
-  const ftBatchFetcher = require("./src/integrations/ft/ftBatchFetcher");
+  console.log(`Server is listening on port ${port}. Environment set to ${environment}.`)
+  const ftBatchFetcher = require("./src/integrations/ft/ftBatchFetcher")
+  const mailBatcher = require("./src/mail/mailBatch")
+  const schedule = require('node-schedule')
   if (environment === "production") {
-    ftBatchFetcher(); // initial load
-    setInterval(ftBatchFetcher, 1000 * 60 * 60 * 24);
+    ftBatchFetcher() // initial load
+    // schedule.scheduleJob('0 0 0 * * 1', () => {
+    //   console.log('running weekly batch job');
+    //   mailBatcher()
+    // })
+    schedule.scheduleJob('0 0 0 * * *', () => {
+      ftBatchFetcher()
+    })
   }
 }
 app.listen(port, listeningHandler);
