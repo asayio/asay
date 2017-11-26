@@ -83,7 +83,7 @@ class ProposalListSection extends Component {
             return (
               <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
                 <div className="relative flex flex-wrap bg-white pv4 ph3 ph4-ns mv2 ba b--black-10 card br1 shadow-6">
-                  <div className="absolute flex top-0 right-0">
+                  <div className="absolute flex pa1 top-0 right-0">
                     {showDeadlineNotification && (
                       <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />
                     )}
