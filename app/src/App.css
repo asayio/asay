@@ -64,6 +64,15 @@ svg {
   box-shadow: 0 2px 4px rgba(0,0,0,0.025);
 }
 
+@media screen and (min-width: 60rem) {
+  .sticky-l {
+    position: sticky;
+  }
+  .top-5-l {
+    top: 5rem;
+  }
+}
+
 /* COLORS */
 
 .i-green {

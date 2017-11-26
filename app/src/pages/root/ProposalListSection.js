@@ -1,9 +1,10 @@
-import R from "ramda";
-import Fuse from "fuse.js";
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Settings } from "react-feather";
-import FeatherIcon from "../../widgets/FeatherIcon";
+import R from 'ramda';
+import Fuse from 'fuse.js';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Settings } from 'react-feather';
+import FeatherIcon from '../../widgets/FeatherIcon';
+import ProposalListItemNotification from '../../components/ProposalListItemNotification';
 
 class ProposalListSection extends Component {
   render() {
@@ -11,7 +12,7 @@ class ProposalListSection extends Component {
     const filterSelection = this.props.filterSelection;
     const searchString = this.props.searchString;
     let filteredProposalList = proposalList;
-    if (filterSelection.section === "history") {
+    if (filterSelection.section === 'history') {
       filteredProposalList = R.filter(proposal => {
         return proposal.hasVoted;
       }, filteredProposalList);
@@ -20,17 +21,17 @@ class ProposalListSection extends Component {
         return !proposal.hasVoted;
       }, filteredProposalList);
     }
-    if (filterSelection.section === "personal") {
+    if (filterSelection.section === 'personal') {
       filteredProposalList = R.filter(proposal => {
         return proposal.isSubscribing;
       }, filteredProposalList);
     }
-    if (filterSelection.category !== "Alle") {
+    if (filterSelection.category !== 'Alle') {
       filteredProposalList = R.filter(proposal => {
         return proposal.category.title === filterSelection.category;
       }, filteredProposalList);
     }
-    if (filterSelection.status !== "Alle") {
+    if (filterSelection.status !== 'Alle') {
       filteredProposalList = R.filter(proposal => {
         return proposal.status === filterSelection.status;
       }, filteredProposalList);
@@ -48,7 +49,7 @@ class ProposalListSection extends Component {
     const fuse = new Fuse(filteredProposalList, options);
     const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList;
 
-    if (!searchedProposalList.length && filterSelection.section === "personal") {
+    if (!searchedProposalList.length && filterSelection.section === 'personal') {
       return (
         <div className="mw8 center mv5 mv5 tc">
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
@@ -78,24 +79,27 @@ class ProposalListSection extends Component {
           {searchedProposalList.map(function(proposal, index) {
             const daysLeftBeforeShowingDeadlineNotification = 1;
             const showDeadlineNotification =
-              proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 2); // "+1" we need the results one day in advance;
+              proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 7); // "+1" we need the results one day in advance;
             return (
               <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
                 <div className="relative flex flex-wrap bg-white pv4 ph3 ph4-ns mv2 ba b--black-10 card br1 shadow-6">
-                  {showDeadlineNotification && (
-                    <div className="absolute top-0 right-0 pa1">
-                      <div className="white bg-black-80 pv1 ph2 br1">
-                        <FeatherIcon name="Clock" className="mr0 mr1-ns" />
-                        <span className="dn di-ns">Deadline snart!</span>
-                      </div>
-                    </div>
-                  )}
+                  <div className="absolute flex top-0 right-0">
+                    {showDeadlineNotification && (
+                      <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />
+                    )}
+                    {proposal.seeNotification && (
+                      <ProposalListItemNotification iconName="Circle" labelName="Nyt forslag" />
+                    )}
+                    {proposal.seeResultsNotification && (
+                      <ProposalListItemNotification iconName="PieChart" labelName="Nyt resultater" />
+                    )}
+                  </div>
                   <div className="w-100 w-30-m w-20-l tc flex flex-column items-center justify-center pb3 pb0-ns pr4-ns">
                     <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mb2" />
                     <span className="black-50">{proposal.category.title}</span>
                   </div>
                   <div className="w-100 w-70-m w-80-l tc tl-ns flex flex-column justify-center">
-                    <h3 className="f5 ellipsis mt0 mb2">{proposal.shortTitel.replace(".", "")}</h3>
+                    <h3 className="f5 ellipsis mt0 mb2">{proposal.shortTitel.replace('.', '')}</h3>
                     <span className="black-70">
                       <span className="mr2">
                         <b>Status:</b> {proposal.status}
