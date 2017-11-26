@@ -48,6 +48,10 @@ svg {
   text-overflow: ellipsis;
 }
 
+.min-w12 {
+  min-width: 12rem;
+}
+
 .bg-f9 {
   background-color: #F9F9F9;
 }

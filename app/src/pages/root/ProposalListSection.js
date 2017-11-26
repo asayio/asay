@@ -55,7 +55,7 @@ class ProposalListSection extends Component {
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
           <Link
             to="./preferences"
-            className="pointer dib b white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"
+            className="pointer dib white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"
           >
             <Settings className="mr2" />Opdater præferencer
           </Link>
