@@ -1,7 +1,7 @@
 import R from "ramda";
 import React, { Component } from "react";
 import ProposalListSection from "./ProposalListSection.js";
-import { Bookmark, Layers, RotateCcw } from "react-feather";
+import { Bookmark, Layers, RotateCcw,ArrowDown,ArrowUp } from "react-feather";
 
 class Root extends Component {
   constructor(props) {
@@ -129,9 +129,12 @@ class Root extends Component {
           filterSelection={filterSelection}
           limitList={this.state.limitList}
         />
-        <a onClick={() => this.setState({ limitList: !this.state.limitList })}>
-          {this.state.limitList ? "Vis" : "Skjul"} forslag uden fastlagt deadline...
-        </a>
+        <div className="tc">
+          <a onClick={() => this.setState({ limitList: !this.state.limitList })} className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
+            {this.state.limitList ? <ArrowDown className="mr2"/> : <ArrowUp className="mr2"/>}
+            {this.state.limitList ? "Vis" : "Skjul"} forslag uden fastlagt deadline
+          </a>
+        </div>
       </div>
     );
   }
