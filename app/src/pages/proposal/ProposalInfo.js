@@ -1,3 +1,4 @@
+import R from 'ramda'
 import React, { Component } from 'react';
 import { FileText } from 'react-feather';
 
@@ -20,6 +21,7 @@ class ProposalInfo extends Component {
 
   render() {
     const proposal = this.props.proposal;
+    console.log(proposal.presentation);
     const resume = proposal.resume.split(/\n/gm)
     return (
       <div className="w-100 w-75-l flex flex-column">
@@ -32,6 +34,11 @@ class ProposalInfo extends Component {
           </div>
         </div>
         <div className="flex-auto bg-white pa4 ba b--black-10 br1 shadow-6 mt2">
+          {R.path(['presentation', 'proposer'], proposal) && this.state.view === 'purpose' &&
+            <span>
+              Forslaget blev præsenteret for folketinget af {R.path(['presentation', 'proposer'], proposal)}
+            </span>
+          }
           {this.state.view === 'resume' ?
             resume.map(function (paragraph, index) {
               if (!paragraph && !index) {

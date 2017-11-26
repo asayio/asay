@@ -3,12 +3,14 @@ const environment = process.env.NODE_ENV || "development";
 require("dotenv").config({ path: `./.env.${environment}` });
 
 // Load error logging
-const Rollbar = require("rollbar");
-const rollbar = new Rollbar({
-  accessToken: process.env.ROLLBAR,
-  captureUncaught: true,
-  captureUnhandledRejections: true
-});
+if (environment === "production") {
+  const Rollbar = require("rollbar");
+  const rollbar = new Rollbar({
+    accessToken: process.env.ROLLBAR,
+    captureUncaught: true,
+    captureUnhandledRejections: true
+  });
+}
 
 // Import
 const routes = require("./src/routes.js");

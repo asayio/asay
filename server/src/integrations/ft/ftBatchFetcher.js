@@ -47,7 +47,7 @@ async function ftBatchFetcher () {
   let finishedProposalList = []
   for (const proposal of formattedProposalList) {
     const presentationUrl = `http://www.ft.dk/samling/${proposal.data.periodCode}/${proposal.data.type}/${proposal.data.numberPreFix + proposal.data.numberNumeric}/${proposal.data.periodCode}_${proposal.data.numberPreFix + proposal.data.numberNumeric}_fremsaettelsestale.htm`
-    const presentation = await scrapeIt(presentationUrl, {paragraphs: {listItem: ".TekstGenerel"}})
+    const presentation = await scrapeIt(presentationUrl, {paragraphs: {listItem: ".TekstGenerel"}, proposer: ".Fremsaetter"})
     const dataWithPresentation = Object.assign({}, proposal.data, {presentation})
     finishedProposalList.push(Object.assign({}, {id: proposal.id}, {data: dataWithPresentation}))
   }
