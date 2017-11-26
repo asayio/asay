@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FeatherIcon from '../../widgets/FeatherIcon';
 import openModal from '../../widgets/openModal';
-import { Radio } from 'react-feather';
+import { Bookmark } from 'react-feather';
 
 class PreferenceList extends Component {
   constructor() {
@@ -39,11 +39,11 @@ class PreferenceList extends Component {
                 onClick={() => this.updatingPreference(preference)}
                 className={
                   (preference.preference
-                    ? 'dark-blue b--dark-blue'
+                    ? 'dark-blue bg-white b--dark-blue'
                     : 'white bg-dark-blue hover-bg-blue b--black-10 shadow-6') +
                   ' pointer dib pv2 ph3 mt2 ba br1 flex-none'
                 }>
-                <Radio className="mr2" />
+                <Bookmark className="mr2" />
                 {preference.preference ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
               </a>
             </div>

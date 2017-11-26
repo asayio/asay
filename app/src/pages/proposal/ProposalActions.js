@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import openModal from '../../widgets/openModal'
-import { File, CheckSquare, AlertCircle, Radio } from 'react-feather';
+import { File, CheckSquare, AlertCircle,Bookmark } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 class ProposalActions extends Component {
@@ -35,24 +35,26 @@ class ProposalActions extends Component {
       `http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}_som_vedtaget.pdf`
       :`http://www.ft.dk/ripdf/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix + proposal.numberNumeric}_som_fremsat.pdf`
     return (
-      <div className="w-100 w-25-l tc mt1-l pt4-l pl3-l">
-        <a href={proposalURL} target={`_${proposal.id}`} className="db white bg-dark-blue hover-bg-blue pv2 mv3 mt2-l ba b--black-10 br1 shadow-6">
-          <File className="mr2"/>
-          Læs forslaget
-        </a>
-        <a onClick={this.updateSubscription} className={proposal.isSubscribing ? "pointer db dark-blue pv2 mv3 ba b--dark-blue br1" : "pointer db white bg-dark-blue hover-bg-blue pv2 mv3 ba b--black-10 br1 shadow-6" }>
-          <Radio className="mr2"/>
-          {proposal.isSubscribing ? "Fjern fra mine forslag" : "Tilføj til mine forslag" }
-        </a>
-        {proposal.status !== "Afsluttet" ?
-        <Link to={`${proposal.id}/vote`} className={proposal.hasVoted ? "db i-green pv2 mt3 ba b--i-green br1" : "db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6" }>
-          <CheckSquare className="mr2"/>
-          {proposal.hasVoted ? "Du har stemt" : "Gå til stemmeboks" }
-        </Link>:
-        <span className="db i-green pv2 mv3 ba b--i-green br1 shadow-6">
-          <AlertCircle className="mr2"/>
-          Afstemning lukket
-        </span>}
+      <div className="w-100 w-25-l mt1-l pt4-l pl3-l">
+        <div className="sticky-l top-5-l tc">
+          <a href={proposalURL} target={`_${proposal.id}`} className="db white bg-dark-blue hover-bg-blue pv2 mv3 mt2-l ba b--black-10 br1 shadow-6">
+            <File className="mr2"/>
+            Læs forslaget
+          </a>
+          <a onClick={this.updateSubscription} className={proposal.isSubscribing ? "pointer db dark-blue bg-white pv2 mv3 ba b--dark-blue br1" : "pointer db white bg-dark-blue hover-bg-blue pv2 mv3 ba b--black-10 br1 shadow-6" }>
+            <Bookmark className="mr2"/>
+            {proposal.isSubscribing ? "Fjern fra mine forslag" : "Tilføj til mine forslag" }
+          </a>
+          {proposal.status !== "Afsluttet" ?
+          <Link to={`${proposal.id}/vote`} className={proposal.hasVoted ? "db i-green bg-white pv2 mt3 ba b--i-green br1" : "db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6" }>
+            <CheckSquare className="mr2"/>
+            {proposal.hasVoted ? "Du har stemt" : "Gå til stemmeboks" }
+          </Link>:
+          <span className="db i-green pv2 mv3 ba b--i-green br1 shadow-6">
+            <AlertCircle className="mr2"/>
+            Afstemning lukket
+          </span>}
+        </div>
       </div>
     );
   }

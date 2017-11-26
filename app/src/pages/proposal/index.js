@@ -49,7 +49,7 @@ class ProposalPage extends Component {
     const proposal = this.state.proposal;
     return (
       <div className="mw8 center w-100 flex-auto">
-        <Link to="/" className="db dib-ns tc dark-blue pv2 ph3 mt4 ba b--dark-blue br1">
+        <Link to="/" className="db dib-ns tc white bg-dark-blue hover-bg-blue ba b--black-10 br1 ph3 pv2 mt4">
           <ArrowLeft className="mr2" />Tilbage til listen
         </Link>
         <div className="tc tl-ns mv4">
