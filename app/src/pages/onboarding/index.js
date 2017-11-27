@@ -22,7 +22,7 @@ class Onboarding extends Component {
     const workload = R.sum(R.pluck('workload')(R.filter(preferenceList => preferenceList.preference === true)(this.props.preferenceList)));
     return(
       <div className="mw8 center w-100 flex-auto">
-        <h1 className="f3 tc mt5 mb3">Velkommen</h1>
+        <h1 className="f3 tc mt4 mt5-l mb3">Velkommen</h1>
         <div className="bg-white pa4 ba b--black-10 br1 shadow-6">
           <div className="lh-copy mb4">
             <p>Vi vil gerne hjælpe dig med at navigere i alle de forslag, der bliver fremsat i Folketinget. Vælg de politiske emner der interesserer dig, så samler vi et overblik til dig. Du kan altid opdatere dine præferencer samt gennemsøge alle forslag.</p>

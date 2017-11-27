@@ -28,7 +28,7 @@ class Disclaimer extends Component {
   render() {
     return (
       <div className="mw8 center tc w-100 flex-auto">
-        <h1 className="f3 mt5 mb4">Inden vi går i gang</h1>
+        <h1 className="f3 mt4 mt5-l mb3">Inden vi går i gang</h1>
         <div className="tl bg-white pa4 mb2 ba b--black-10 br1 shadow-6 lh-copy">
           <h2 className="f4">Platformen er under udvikling</h2>
           <p>Vi vil så gerne have feedback så vi kan lære af vores fejl og gøre det bedre næste gang. Derfor har vi valgt at give dig adgang til platformen mens vi stadig udvikler. Det betyder at funktionaliteten er begrænset og du risikrer at opleve fejl. Det betyder, at loading hastigheden ikke er så hurtig, fordi al den information du læser er hentet live fra ft.dk. Men det betyder også, at du kan være med til at forme platformen, så det opfylder dine behov. Tak fordi du vil være med.</p>

@@ -62,7 +62,7 @@ class Nav extends Component {
             </div>
           ) : (
             <div className="flex-auto tr">
-              <Login icon="LogIn" iconClass="mr2" className="db di-ns pointer dark-blue hover-blue" type="login" />
+              <Login icon="LogIn" iconClass="mr2" className="dib pointer white bg-dark-blue hover-bg-blue ba b--black-90 br1 ph3" type="login" />
             </div>
           )}
         </div>

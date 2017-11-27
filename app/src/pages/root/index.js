@@ -27,7 +27,7 @@ class Welcome extends Component {
   render() {
     return (
       <div className="mw8 center tc w-100 flex-auto">
-        <h1 className="f3 mt5 mb3">Velkommen til Demokratifabrikken.</h1>
+        <h1 className="f3 mt4 mt5-l mb3">Velkommen til Demokratifabrikken.</h1>
         <p className="black-70">Det er dig der bestemmer. Hver gang.</p>
         <Login icon="LogIn" iconClass="mr2" type="login" className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"/>
         <Login icon="UserPlus" iconClass="mr2" type="signUp" className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"/>
@@ -50,7 +50,7 @@ class Welcome extends Component {
             </ul>
           </div>
         </div>
-        <p className="black-70 ma4">Problemer? <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue"><Mail className="mr2"/>Send os en mail</a></p>
+        <p className="black-70 mt3 mt4-l">Problemer? <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue"><Mail className="mr2"/>Send os en mail</a></p>
       </div>
     );
   }

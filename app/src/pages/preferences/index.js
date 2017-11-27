@@ -15,7 +15,7 @@ class Preferences extends Component {
     );
     return (
       <div className="mw8 center w-100 flex-auto">
-        <h1 className="w-100 w-75-l f3 tc mt5 mb3">Præferencer</h1>
+        <h1 className="w-100 w-75-l f3 tc mt4 mt5-l mb3">Præferencer</h1>
         <div className="flex flex-wrap">
           <div className="w-100 w-75-l order-last order-0-l">
             <div className="bg-white pv3 pl4 ba b--black-10 br1 shadow-6">
