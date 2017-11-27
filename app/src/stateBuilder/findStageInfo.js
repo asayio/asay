@@ -29,9 +29,9 @@ export default function findStageInfo(stage) {
     const today = new Date().getTime(); // for comparing w deadlines
     const deadline = new Date(current.dato);
     const distanceToDeadline = deadline - today;
-    const isOpen = distanceToDeadline > 0 ? true : false;
-
     const countdown = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24)) - 1; // "-1" because we need the results the day before
+    const isOpen = countdown > 0 ? true : false;
+
     const deadlineLabel = countdown === 0 ? "I dag" : countdown === 1 ? "I morgen" : countdown + " dage";
 
     if (hasFinal && isOpen) {
