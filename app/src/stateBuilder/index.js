@@ -11,14 +11,16 @@ async function initialState() {
   });
   if (appDataBundleResponse.ok) {
     const appDataBundle = await appDataBundleResponse.json();
-    const committeeCategoryList = appDataBundle.committeeCategoryList
-    const notificationList = appDataBundle.notificationList || []
-    const voteList = appDataBundle.voteList
-    const subscriptionList = appDataBundle.subscriptionList
-    const participationList = appDataBundle.participationList
-    const rawPreferenceList = appDataBundle.preferenceList
-    const rawProposalList = appDataBundle.proposalList.map(proposal => Object.assign({}, {id: proposal.id}, proposal.data))
-    const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList)
+    const committeeCategoryList = appDataBundle.committeeCategoryList;
+    const notificationList = appDataBundle.notificationList || [];
+    const voteList = appDataBundle.voteList;
+    const subscriptionList = appDataBundle.subscriptionList;
+    const participationList = appDataBundle.participationList;
+    const rawPreferenceList = appDataBundle.preferenceList;
+    const rawProposalList = appDataBundle.proposalList.map(proposal =>
+      Object.assign({}, { id: proposal.id }, proposal.data)
+    );
+    const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList);
     const proposalList = buildProposalList({
       participationList,
       proposalList: rawProposalList,
@@ -36,7 +38,7 @@ async function initialState() {
       committeeCategoryList,
       participationList,
       notificationList
-    }
+    };
   }
 }
 
@@ -50,7 +52,7 @@ function buildPreferenceList(rawPreferenceList, committeeCategoryList) {
 
 const sortPreferenceList = R.sortWith([R.ascend(R.prop("title"))]);
 
-function buildProposalList ({
+function buildProposalList({
   proposalList,
   voteList,
   subscriptionList,
@@ -60,26 +62,28 @@ function buildProposalList ({
   participationList
 }) {
   const newProposalList = proposalList.map(proposal => {
-    const id = proposal.id
-    const committeeId = proposal.committeeId
-    const participation = R.path(['participation'], R.find(R.propEq('proposal', id))(participationList)) || 0
-    const hasVoted = !!R.find(R.propEq('proposal', id))(voteList)
-    const hasInfo = proposal.resume !== "" || proposal.presentation.paragraphs.length > 0
-    const hasSubscription = R.find(R.propEq('proposal', id))(subscriptionList)
-    const matchesCategory = R.find(R.propEq('committee', committeeId))(committeeCategoryList)
-    const category = R.find(R.propEq('id', matchesCategory.category))(preferenceList)
-    const stageInfo = findStageInfo(proposal.stage)
-    const deadline = stageInfo.deadline
-    const distanceToDeadline = stageInfo.distanceToDeadline
-    const status = stageInfo.status
-    const results = {}; // Put results here when we get them
-    const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference
-    const seeNotification = !R.find((notification) => {
-      return notification.proposal_id === id && notification.type === 'seen'
-    }, notificationList)
-    const seeResultsNotification = hasVoted && results && !R.find((notification) => {
-      return notification.proposal_id === id && notification.type === 'seenResults'
-    }, notificationList)
+    const id = proposal.id;
+    const committeeId = proposal.committeeId;
+    const participation = R.path(["participation"], R.find(R.propEq("proposal", id))(participationList)) || 0;
+    const hasVoted = !!R.find(R.propEq("proposal", id))(voteList);
+    const hasInfo = proposal.resume !== "" || proposal.presentation.paragraphs.length > 0;
+    const hasSubscription = R.find(R.propEq("proposal", id))(subscriptionList);
+    const matchesCategory = R.find(R.propEq("committee", committeeId))(committeeCategoryList);
+    const category = R.find(R.propEq("id", matchesCategory.category))(preferenceList);
+    const stageInfo = findStageInfo(proposal.stage);
+    const deadline = stageInfo.deadline;
+    const distanceToDeadline = stageInfo.distanceToDeadline;
+    const status = stageInfo.status; // Put results here when we get them
+    /* const results = {};*/
+    const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference;
+    const seeNotification = !R.find(notification => {
+      return notification.proposal_id === id && notification.type === "seen";
+    }, notificationList);
+    const seeResultsNotification =
+      deadline === "Afsluttet" /* replace w. results */ &&
+      !R.find(notification => {
+        return notification.proposal_id === id && notification.type === "seenResults";
+      }, notificationList);
     return Object.assign({}, proposal, {
       hasVoted,
       hasInfo,
@@ -114,11 +118,20 @@ function updatePreferences(state, entity) {
 
 function updateVoteList(state, entity) {
   const newVoteList = R.reject(R.propEq("proposal", entity.proposal))(state.voteList).concat(entity);
-  const newParticipationCount = (R.path(["participation"], R.find(R.propEq("proposal", entity.proposal))(state.participationList)) || 0) + 1;
-  const newParticipation = {proposal: entity.proposal, participation: newParticipationCount}
-  const newParticipationList = R.reject(R.propEq("proposal", entity.proposal))(state.participationList).concat(newParticipation);
-  const newProposalList = buildProposalList(Object.assign({}, state, { voteList: newVoteList, participationList: newParticipationList }));
-  const newState = Object.assign({}, state, { proposalList: newProposalList, voteList: newVoteList, participationList: newParticipationList });
+  const newParticipationCount =
+    (R.path(["participation"], R.find(R.propEq("proposal", entity.proposal))(state.participationList)) || 0) + 1;
+  const newParticipation = { proposal: entity.proposal, participation: newParticipationCount };
+  const newParticipationList = R.reject(R.propEq("proposal", entity.proposal))(state.participationList).concat(
+    newParticipation
+  );
+  const newProposalList = buildProposalList(
+    Object.assign({}, state, { voteList: newVoteList, participationList: newParticipationList })
+  );
+  const newState = Object.assign({}, state, {
+    proposalList: newProposalList,
+    voteList: newVoteList,
+    participationList: newParticipationList
+  });
   return newState;
 }
 
@@ -129,16 +142,16 @@ function updateSubscriptionList(state, entity) {
   return newState;
 }
 
-function updateNotificationList (state, entity) {
-  const newNotificationList = R.append(entity, state.notificationList)
-  const newProposalList = buildProposalList(Object.assign({}, state, {notificationList: newNotificationList}))
-  const newState = Object.assign({}, state, {proposalList: newProposalList, notificationList: newNotificationList})
-  return newState
+function updateNotificationList(state, entity) {
+  const newNotificationList = R.append(entity, state.notificationList);
+  const newProposalList = buildProposalList(Object.assign({}, state, { notificationList: newNotificationList }));
+  const newState = Object.assign({}, state, { proposalList: newProposalList, notificationList: newNotificationList });
+  return newState;
 }
 
-function updateSelectedSection (state, entity) {
-  const newState = Object.assign({}, state, {selectedSection: entity.selectedSection})
-  return newState
+function updateSelectedSection(state, entity) {
+  const newState = Object.assign({}, state, { selectedSection: entity.selectedSection });
+  return newState;
 }
 
 function updateSearchString(state, entity) {
