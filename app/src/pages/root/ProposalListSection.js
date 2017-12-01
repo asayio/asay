@@ -37,9 +37,10 @@ class ProposalListSection extends Component {
       }, filteredProposalList);
     }
     if (this.props.limitList) {
-      filteredProposalList = R.filter(proposal => {
+      const limitedList = R.filter(proposal => {
         return proposal.distanceToDeadline < 99999999998;
       }, filteredProposalList);
+      filteredProposalList = limitedList.length > 0 ? limitedList : filteredProposalList
     }
 
     const options = {
@@ -47,8 +48,7 @@ class ProposalListSection extends Component {
       threshold: 0.38 // sweet spot
     };
     const fuse = new Fuse(filteredProposalList, options);
-    const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList;
-
+    var searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList;
     if (!searchedProposalList.length && filterSelection.section === 'personal') {
       return (
         <div className="mw8 center mv5 mv5 tc">
