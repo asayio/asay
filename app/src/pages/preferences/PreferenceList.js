@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FeatherIcon from '../../widgets/FeatherIcon';
-import openModal from '../../widgets/openModal';
 import { Bookmark } from 'react-feather';
 
 class PreferenceList extends Component {
@@ -20,7 +19,7 @@ class PreferenceList extends Component {
       }
     });
     if (!response.ok) {
-      openModal('error-modal');
+      this.props.updateState({ entityType: 'error', entity: true });
     }
   }
 

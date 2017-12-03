@@ -14,7 +14,6 @@ import Nav from './widgets/nav/Nav';
 import Footer from './widgets/Footer';
 import Onboarding from './pages/onboarding';
 import LoadingSpinner from './widgets/LoadingSpinner';
-import ErrorModal from './widgets/error/ErrorModal';
 import Modal from './components/modal';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -23,6 +22,7 @@ class App extends Component {
     super(props);
     this.state = {
       showAddToHomeScreenModal: false,
+      showErrorModal: false,
       proposalList: [],
       preferenceList: [],
       voteList: [],
@@ -76,18 +76,47 @@ class App extends Component {
       case 'notificationList':
         this.setState(stateBuilder.updateNotificationList(this.state, entity));
         break;
+      case 'error':
+        this.setState({ showErrorModal: entity });
+        break;
       default:
         break;
     }
   }
 
   render() {
+    console.log(this.state.showErrorModal);
     if (window.sessionStorage.authToken) {
       return (
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav />
-            <ErrorModal />
+            {this.state.showErrorModal && (
+              <Modal
+                content={
+                  <div>
+                    <h2 className="f4">Der er sket en fejl</h2>
+                    <p>
+                      Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så{' '}
+                      <a
+                        href="mailto:dinevenner@initiativet.net"
+                        target="_mailto"
+                        rel="noopener noreferrer"
+                        className="dark-blue hover-blue">
+                        send os en mail
+                      </a>.
+                    </p>
+                    <div>
+                      <a
+                        onClick={() => this.setState({ showErrorModal: false })}
+                        className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">
+                        OK
+                      </a>
+                    </div>
+                  </div>
+                }
+              />
+            )}
             {this.state.appReady ? (
               <Switch>
                 <Route
@@ -156,17 +185,26 @@ class App extends Component {
             <Nav />
             {this.state.showAddToHomeScreenModal && (
               <Modal
-                header={this.state.showAddToHomeScreenModal === 'apple' ? 'Prøv et æble' : 'Prøv android'}
-                parapgraph={
-                  this.state.showAddToHomeScreenModal === 'apple'
-                    ? 'beskrivelse af et æble'
-                    : 'beskrivelse af noget andet'
+                content={
+                  <div>
+                    <h2 className="f4">
+                      {this.state.showAddToHomeScreenModal === 'apple' ? 'Prøv et æble' : 'Prøv android'}
+                    </h2>
+                    <p>
+                      {this.state.showAddToHomeScreenModal === 'apple'
+                        ? 'beskrivelse af et æble'
+                        : 'beskrivelse af noget andet'}
+                    </p>
+                    <a
+                      onClick={() => {
+                        this.setState({ showAddToHomeScreenModal: false });
+                        window.localStorage.promptAddToHomeScreen = false;
+                      }}
+                      className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">
+                      OK
+                    </a>
+                  </div>
                 }
-                btn1="OK"
-                btn1onClick={() => {
-                  this.setState({ showAddToHomeScreenModal: false });
-                  window.localStorage.promptAddToHomeScreen = false;
-                }}
               />
             )}
             <Switch>
