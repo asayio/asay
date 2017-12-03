@@ -1,44 +1,36 @@
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
+#person {
+  transition: all 0.2s ease-out;
 }
-nav a:focus {
-  outline: none;
+#personal-menu {
+  width: calc(100vw - 2rem);
 }
-.nav-container {
-  position: relative;
+#personal-menu,
+#personal-menu-ns {
+  transform: translateY(2px);
+  animation: menuFadeIn 0.2s ease-out;
 }
-.regular-menu li ul {
+#personal-menu-ns {
   display: none;
-  position: absolute;
-  top: 2rem;
-  right: 0;
-  width: 10rem;
 }
-.regular-menu li:hover > ul {
+#personal-menu-ns:hover,
+#person-ns:hover ~ #personal-menu-ns {
   display: block;
-  animation: menuFadeIn 0.15s ease-out;
 }
-.burger-menu .f3 {
-  margin-bottom: -0.25em;
-}
+
 @keyframes menuFadeIn {
   0% {
     display: none;
     opacity: 0;
-    transform: translateY(-0.5rem);
+    transform: translateY(0);
   }
   1% {
     display: block;
     opacity: 0;
-    transform: translateY(-0.5rem);
+    transform: translateY(0);
   }
   100% {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(2px);
   }
 }

@@ -2,70 +2,85 @@ import React, { Component } from 'react';
 import Login from '../auth/Login.js';
 import Logout from '../auth/Logout.js';
 import { Link } from 'react-router-dom';
+import { openDropDown } from './dropdown.js';
 import './nav.css';
-import { openBurgerMenu, closeBurgerMenu } from './burgerMenu';
-import { Home, User, ChevronDown, Menu, X } from 'react-feather';
 
 class Nav extends Component {
   render() {
     return (
-      <nav className="bg-white bb b--black-10 shadow-6 pa3">
-        <div className="nav-container mw8 center lh-2 flex">
-          <div className="flex-auto">
-            <Link to="/" className="merriweather black-90 b ttl">
-              Initiativet<span className="i-green">.</span>
-            </Link>
-          </div>
-          {window.sessionStorage.authToken ? (
-            <div>
-              <ul className="regular-menu dn db-ns list ma0 pa0">
-                <li className="dib pr3 br b--black-10">
-                  <Link to="/" className="black-90">
-                    <Home className="mr2" />Hjem
-                  </Link>
-                </li>
-                <li className="dib pl3 cursor-default">
-                  <User className="mr2" />
-                  {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}
-                  <ChevronDown className="chevron i-green ml1" />
-                  <ul className="list ma0 ph0 pv2 bg-white ba b--black-10 br1 shadow-6">
-                    <li className="lh-solid ph3 pv2">
-                      <Link to="/preferences" className="black-90">
-                        Præferencer
-                      </Link>
-                    </li>
-                    <li className="lh-solid ph3 pv2">
-                      <Logout history={this.props.history} className="pointer black-90" />
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-              <div className="burger-menu dn-ns tr">
-                <Menu className="pointer f3" id="menu-icon" onClick={openBurgerMenu} />
-                <X className="pointer f3 dn" id="close-icon" onClick={closeBurgerMenu} />
-                <ul className="list ma0 pa0 pt2 dn" id="burger-list">
-                  <li className="lh-copy pv2">
-                    <Link to="/" className="black-90" onClick={closeBurgerMenu}>
-                      Hjem
-                    </Link>
+      <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pv2 ph3">
+        {window.sessionStorage.authToken ? (
+          <div className="relative mw8 center flex">
+            <div className="absolute top-0 bottom-0 left--2 flex items-center">
+              <div className="h1 w1 bg-i-green br-100" />
+            </div>
+            <div className="flex-auto flex items-center">
+              <Link to="/" className="b hover-bg-near-white br1 pa2" onMouseDown={e => e.preventDefault()}>
+                Forslag
+              </Link>
+            </div>
+            <div className="items-center relative dn flex-ns">
+              <span id="person-ns" className="b bg-near-white br1 pa2">
+                {window.sessionStorage.firstname.charAt(0) + window.sessionStorage.lastname.charAt(0)}
+              </span>
+              <div id="personal-menu-ns" className="absolute top-2 right-0 pt2">
+                <ul className="list white bg-black-80 br1 pv1 ph2 ma0">
+                  <li className="db cursor-default nowrap bb b--white-10 pt1 pb2 ph2 mv1">
+                    {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}
                   </li>
-                  <li className="lh-copy pv2">
-                    <Link to="/preferences" className="black-90" onClick={closeBurgerMenu}>
+                  <li>
+                    <Link
+                      to="/preferences"
+                      className="db hover-bg-black br1 nowrap pv1 ph2 mv1"
+                      onMouseDown={e => e.preventDefault()}>
                       Præferencer
                     </Link>
                   </li>
-                  <li className="lh-copy pv2">
-                    <Logout history={this.props.history} className="pointer black-90" onClick={closeBurgerMenu} />
+                  <li>
+                    <Logout history={this.props.history} className="db hover-bg-black br1 nowrap pv1 ph2 mv1" />
                   </li>
                 </ul>
               </div>
             </div>
-          ) : (
-            <div className="flex-auto tr">
-              <Login icon="LogIn" iconClass="mr2" className="dib pointer white bg-dark-blue hover-bg-blue ba b--black-90 br1 ph3" type="login" />
+            <div className="items-center relative flex dn-ns">
+              <span id="person" className="b bg-near-white br1 pa2" onClick={openDropDown}>
+                {window.sessionStorage.firstname.charAt(0) + window.sessionStorage.lastname.charAt(0)}
+              </span>
+              <div id="personal-menu" className="absolute top-2 right-0 pt2 dn">
+                <ul className="list white bg-black-80 br1 pv1 ph2 ma0">
+                  <li className="db cursor-default nowrap bb b--white-10 pt2 pb3 ph2 mv2">
+                    {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}
+                  </li>
+                  <li>
+                    <Link
+                      to="/preferences"
+                      className="db hover-bg-black br1 nowrap pa2 mv2"
+                      onMouseDown={e => e.preventDefault()}>
+                      Præferencer
+                    </Link>
+                  </li>
+                  <li>
+                    <Logout history={this.props.history} className="db hover-bg-black br1 nowrap pa2 mv2" />
+                  </li>
+                </ul>
+              </div>
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="relative mw8 center flex">
+            <div className="absolute top-0 bottom-0 left--2 flex items-center">
+              <div className="h1 w1 bg-i-green br-100" />
+            </div>
+            <div className="flex-auto flex items-center">
+              <span to="/" className="b ttl">
+                Initiativet<span className="i-green">.</span>
+              </span>
+            </div>
+            <div className="flex items-center">
+              <Login className="pointer white bg-dark-blue hover-bg-blue br1 pv2 ph3" type="login" />
+            </div>
+          </div>
+        )}
       </nav>
     );
   }

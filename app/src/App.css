@@ -1,13 +1,13 @@
 @import url('https://assets.initiativet.net/fonts/clear-sans/css/clear-sans.css');
-@import url('https://fonts.googleapis.com/css?family=Merriweather:700');
 
 html {
   -webkit-font-smoothing: antialiased;
 }
 a {
+  cursor: pointer;
   color: inherit;
   text-decoration: none;
-  transition: all .1s ease-in;
+  transition: all 0.1s ease-in;
 }
 select {
   appearance: none;
@@ -25,14 +25,74 @@ svg {
   width: auto;
 }
 
+/* COLORS */
+
+.i-green {
+  color: #42bfb4;
+}
+.bg-i-green {
+  background-color: #42bfb4;
+}
+.b--i-green {
+  border-color: #42bfb4;
+}
+
+.hover-i-green:hover {
+  color: #47ccc0;
+}
+.hover-bg-i-green:hover {
+  background-color: #47ccc0;
+}
+
+/* TACHYONS CORRECTIONS / ADDITIONS */
+
 .clear-sans {
-  font-family: 'Clear Sans','Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Ubuntu, Noto, 'Segoe UI', Arial, sans-serif;
-  letter-spacing: .02rem;
+  font-family: 'Clear Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Ubuntu, Noto,
+    'Segoe UI', Arial, sans-serif;
+  letter-spacing: 0.02rem;
 }
-.merriweather {
-  font-family: 'Merriweather', serif;
-  letter-spacing: .02rem;
+.blue {
+  color: #0954b7;
 }
+.bg-blue {
+  background-color: #0954b7;
+}
+.b--blue {
+  border-color: #0954b7;
+}
+.hover-blue:hover,
+.hover-blue:focus {
+  color: #0954b7;
+}
+.hover-bg-blue:hover,
+.hover-bg-blue:focus {
+  background-color: #0954b7;
+}
+.pointer {
+  cursor: pointer;
+}
+.cursor-default {
+  cursor: default;
+}
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.no-select {
+  user-select: none;
+}
+.min-w12 {
+  min-width: 12rem;
+}
+.bg-f9 {
+  background-color: #f9f9f9;
+}
+.shadow-6 {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.025);
+}
+
+/* KÆMPE HØKERE */
 
 .card {
   transition: all 0.25s ease-out;
@@ -41,33 +101,6 @@ svg {
 .card:focus {
   transform: translateY(-1px);
 }
-
-.ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.min-w12 {
-  min-width: 12rem;
-}
-
-.bg-f9 {
-  background-color: #F9F9F9;
-}
-
-.lh-2 {
-  line-height: 2rem;
-}
-
-.h10 {
-  height: 10rem;
-}
-
-.shadow-6 {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.025);
-}
-
 @media screen and (min-width: 60rem) {
   .sticky-l {
     position: sticky;
@@ -75,55 +108,6 @@ svg {
   .top-5-l {
     top: 5rem;
   }
-}
-
-/* COLORS */
-
-.i-green {
-  color: #42BFB4;
-}
-.bg-i-green {
-  background-color: #42BFB4;
-}
-.b--i-green {
-  border-color: #42BFB4;
-}
-
-.hover-i-green:hover {
-  color: #47CCC0;
-}
-.hover-bg-i-green:hover {
-  background-color: #47CCC0;
-}
-
-/* TACHYONS CORRECTIONS / ADDITIONS */
-
-.blue {
-  color: #0954B7;
-}
-.bg-blue {
-  background-color: #0954B7;
-}
-.b--blue {
-  border-color: #0954B7;
-}
-.hover-blue:hover,.hover-blue:focus {
-  color: #0954B7;
-}
-.hover-bg-blue:hover,.hover-bg-blue:focus {
-  background-color: #0954B7;
-}
-.pointer {
-  cursor: pointer;
-}
-
-/* KÆMPE HØKERE */
-
-.cursor-default {
-  cursor: default;
-}
-.chevron {
-  margin-bottom: -0.25em;
 }
 
 /* LOADING SPINNER */
@@ -154,14 +138,12 @@ svg {
     width: 10%;
     height: 10%;
   }
-
   50% {
     transform: rotate(0deg);
     padding: 0;
     width: 100%;
     height: 100%;
   }
-
   100% {
     transform: rotate(180deg);
     padding: 45%;
