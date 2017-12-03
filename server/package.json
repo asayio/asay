@@ -38,6 +38,7 @@
     "pg-promise": "^6.3.5",
     "ramda": "^0.24.1",
     "rollbar": "^2.2.10",
-    "scrape-it": "^3.3.3"
+    "scrape-it": "^3.3.3",
+    "sendinblue-api": "^1.0.8"
   }
 }
