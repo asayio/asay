@@ -18,8 +18,8 @@ async function mailBatch(request, response) {
   const proposalList = await getProposalList()
   const committeeCategoryList = await getCommitteeCategoryList();
   const currentDate = new Date()
-  const dateFilteredProposalList = R.filter(proposal => { // we need proper creation dates for each proposal
-    const proposedDate = Date.parse(R.head(proposal.data.stage).dato)
+  const dateFilteredProposalList = R.filter(proposal => {
+    const proposedDate = Date.parse(proposal.createdon)
     const oneWeek = 1000 * 60 * 60 * 24 * 7
     return (currentDate - proposedDate) < oneWeek
   }, proposalList)
@@ -29,31 +29,29 @@ async function mailBatch(request, response) {
   }
   const formattedProposalList = dateFilteredProposalList.map(proposal => {
     const proposalId = proposal.id
-    const categoryId = R.find(R.propEq('committee', proposal.committee))(committeeCategoryList)
+    const categoryId = R.find(R.propEq('committee', proposal.data.committeeId))(committeeCategoryList).category
     return {proposalId, categoryId}
   })
-  console.log('created relevant and formatted proposal list. Length:' + formattedProposalList.length);
-  const emailList = userList.map(async user => {
-    const subscriptionList = await getSubscriptionList(user.id) // todo flatten
-    const preferenceList = await getPreferenceList(user.id); // todo flatten
-    const notificationList = await getNotificationList(user.id) // todo flatten
+  console.log('created relevant and formatted proposal list. Length: ' + formattedProposalList.length);
+  let emailList = []
+  for (const user of userList) {
+    const subscriptionList = R.pluck('proposal')(await getSubscriptionList(user.id))
+    const preferenceList = R.pluck('id')(R.filter(o => o.preference, await getPreferenceList(user.id)));
+    const notificationList = R.pluck('proposal_id')(await getNotificationList(user.id))
     console.log('building proposalIdList for user: ' + user.id);
-    const proposalIdList = R.pluck('id')(R.filter(proposal => {
-      const isSubscribing = subscriptionList.includes(proposal.id)
-      const isPreference = preferenceList.includes(proposal.category)
-      const hasNotSeen = !notificationList.includes(proposal.id)
+    const proposalIdList = R.pluck('proposalId')(R.filter(proposal => {
+      const isSubscribing = subscriptionList.includes(proposal.proposalId)
+      const isPreference = preferenceList.includes(proposal.categoryId)
+      const hasNotSeen = !notificationList.includes(proposal.proposalId)
       return (isSubscribing || isPreference) && hasNotSeen
     }, formattedProposalList))
-    return {userId: user.id, email: user.email, proposalIdList}
-  })
-  const filteredEmailList = R.filter(user => {
-    return user.proposalIdList.length
-  }, emailList)
-  if (!filteredEmailList.length) {
-    console.log('It seems there are no users to notify about the new proposals!');
+    proposalIdList.length && emailList.push({userId: user.id, email: user.email, proposalIdList})
+  }
+  if (!emailList.length) {
+    console.log('It seems there are no users to notify about new proposals!');
     return null
   }
-  console.log('finished email list. Length: ' + filteredEmailList.length);
+  console.log('finished email list. Length: ' + emailList.length);
 }
 
 // Export
