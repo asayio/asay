@@ -34,15 +34,17 @@ class Vote extends Component {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + 1 //window.sessionStorage.authToken
+        Authorization: 'Bearer ' + window.sessionStorage.authToken
       }
     });
     if (response.ok) {
       this.setState({ voteConfirmed: true });
-      this.props.updateState({
-        entityType: 'voteList',
-        entity: { proposal: Number(this.props.match.params.id) }
-      });
+      const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList);
+      !proposal.hasVoted &&
+        this.props.updateState({
+          entityType: 'voteList',
+          entity: { proposal: Number(this.props.match.params.id) }
+        });
     } else {
       this.setState({ showModal: false });
       this.props.updateState({ entityType: 'error', entity: true });

@@ -85,7 +85,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.showErrorModal);
     if (window.sessionStorage.authToken) {
       return (
         <Router>
