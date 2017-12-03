@@ -66,7 +66,7 @@ function buildProposalList({
     const committeeId = proposal.committeeId;
     const participation = R.path(["participation"], R.find(R.propEq("proposal", id))(participationList)) || 0;
     const hasVoted = !!R.find(R.propEq("proposal", id))(voteList);
-    const hasInfo = proposal.resume !== "" || proposal.presentation.paragraphs.length > 0;
+    const hasInfo = proposal.resume !== "" || R.path(['presentation', 'paragraphs', 'length'], proposal) > 0;
     const hasSubscription = R.find(R.propEq("proposal", id))(subscriptionList);
     const matchesCategory = R.find(R.propEq("committee", committeeId))(committeeCategoryList);
     const category = R.find(R.propEq("id", matchesCategory.category))(preferenceList);
