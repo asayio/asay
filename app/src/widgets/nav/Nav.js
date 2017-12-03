@@ -15,7 +15,7 @@ class Nav extends Component {
               <div className="h1 w1 bg-i-green br-100" />
             </div>
             <div className="flex-auto flex items-center">
-              <Link to="/" className="b hover-bg-near-white br1 pa2" onMouseDown={e => e.preventDefault()}>
+              <Link to="/" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
                 Hjem
               </Link>
             </div>
