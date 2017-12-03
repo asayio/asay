@@ -1,26 +1,28 @@
-import "tachyons";
-import "./App.css";
-import stateBuilder from "./stateBuilder/index";
-import React, { Component } from "react";
-import Auth from "./pages/auth";
-import Proposal from "./pages/proposal";
-import Vote from "./pages/proposal/vote";
-import Root from "./pages/root";
-import Unauthorized from "./pages/401";
-import Disclaimer from "./pages/disclaimer";
-import Preferences from "./pages/preferences";
-import Lost from "./pages/404";
-import Nav from "./widgets/nav/Nav";
-import Footer from "./widgets/Footer";
-import Onboarding from "./pages/onboarding";
-import ErrorModal from "./widgets/error/ErrorModal";
-import LoadingSpinner from "./widgets/LoadingSpinner";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import 'tachyons';
+import './App.css';
+import stateBuilder from './stateBuilder/index';
+import React, { Component } from 'react';
+import Auth from './pages/auth';
+import Proposal from './pages/proposal';
+import Vote from './pages/proposal/vote';
+import Root from './pages/root';
+import Unauthorized from './pages/401';
+import Disclaimer from './pages/disclaimer';
+import Preferences from './pages/preferences';
+import Lost from './pages/404';
+import Nav from './widgets/nav/Nav';
+import Footer from './widgets/Footer';
+import Onboarding from './pages/onboarding';
+import LoadingSpinner from './widgets/LoadingSpinner';
+import ErrorModal from './widgets/error/ErrorModal';
+import Modal from './components/modal';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showAddToHomeScreenModal: false,
       proposalList: [],
       preferenceList: [],
       voteList: [],
@@ -29,11 +31,11 @@ class App extends Component {
       committeeCategoryList: [],
       participationList: [],
       appReady: false,
-      selectedSection: "personal",
-      searchString: "",
+      selectedSection: 'personal',
+      searchString: '',
       filter: {
-        category: "Alle",
-        status: "Alle"
+        category: 'Alle',
+        status: 'Alle'
       }
     };
     this.updateState = this.updateState.bind(this);
@@ -43,30 +45,36 @@ class App extends Component {
     const initialState = await stateBuilder.initialState();
     this.setState(initialState);
     this.setState({ appReady: true });
+    window.localStorage.promptAddToHomeScreen === undefined &&
+      navigator.userAgent.match(/iPhone|iPad|iPod/i) &&
+      this.setState({ showAddToHomeScreenModal: 'apple' });
+    window.localStorage.promptAddToHomeScreen === undefined &&
+      navigator.userAgent.match(/Android/i) &&
+      this.setState({ showAddToHomeScreenModal: 'android' });
   }
 
   updateState({ entityType, entity }) {
     switch (entityType) {
-      case "preferenceList":
+      case 'preferenceList':
         this.setState(stateBuilder.updatePreferences(this.state, entity));
         break;
-      case "voteList":
+      case 'voteList':
         this.setState(stateBuilder.updateVoteList(this.state, entity));
         break;
-      case "subscriptionList":
+      case 'subscriptionList':
         this.setState(stateBuilder.updateSubscriptionList(this.state, entity));
         break;
-      case "selectedSection":
+      case 'selectedSection':
         this.setState(stateBuilder.updateSelectedSection(this.state, entity));
         break;
-      case "searchString":
+      case 'searchString':
         this.setState(stateBuilder.updateSearchString(this.state, entity));
         break;
-      case "filter":
+      case 'filter':
         this.setState(stateBuilder.updateFilter(this.state, entity));
         break;
       case 'notificationList':
-        this.setState(stateBuilder.updateNotificationList(this.state, entity))
+        this.setState(stateBuilder.updateNotificationList(this.state, entity));
         break;
       default:
         break;
@@ -146,6 +154,21 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav />
+            {this.state.showAddToHomeScreenModal && (
+              <Modal
+                header={this.state.showAddToHomeScreenModal === 'apple' ? 'Prøv et æble' : 'Prøv android'}
+                parapgraph={
+                  this.state.showAddToHomeScreenModal === 'apple'
+                    ? 'beskrivelse af et æble'
+                    : 'beskrivelse af noget andet'
+                }
+                btn1="OK"
+                btn1onClick={() => {
+                  this.setState({ showAddToHomeScreenModal: false });
+                  window.localStorage.promptAddToHomeScreen = false;
+                }}
+              />
+            )}
             <Switch>
               <Route exact path="/auth" component={Auth} />
               <Route exact path="/401" component={Unauthorized} />
