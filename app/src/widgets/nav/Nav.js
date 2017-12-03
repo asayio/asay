@@ -16,7 +16,7 @@ class Nav extends Component {
             </div>
             <div className="flex-auto flex items-center">
               <Link to="/" className="b hover-bg-near-white br1 pa2" onMouseDown={e => e.preventDefault()}>
-                Forslag
+                Hjem
               </Link>
             </div>
             <div className="items-center relative dn flex-ns">
@@ -24,45 +24,49 @@ class Nav extends Component {
                 {window.sessionStorage.firstname.charAt(0) + window.sessionStorage.lastname.charAt(0)}
               </span>
               <div id="personal-menu-ns" className="absolute top-2 right-0 pt2">
-                <ul className="list white bg-black-80 br1 pv1 ph2 ma0">
-                  <li className="db cursor-default nowrap bb b--white-10 pt1 pb2 ph2 mv1">
+                <div className="white bg-dark-gray br1">
+                  <span className="db cursor-default nowrap bb b--white-10 pa3">
                     {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}
-                  </li>
-                  <li>
-                    <Link
-                      to="/preferences"
-                      className="db hover-bg-black br1 nowrap pv1 ph2 mv1"
-                      onMouseDown={e => e.preventDefault()}>
-                      Præferencer
-                    </Link>
-                  </li>
-                  <li>
-                    <Logout history={this.props.history} className="db hover-bg-black br1 nowrap pv1 ph2 mv1" />
-                  </li>
-                </ul>
+                  </span>
+                  <ul className="list pa1 ma0">
+                    <li className="pa1">
+                      <Link
+                        to="/preferences"
+                        className="db hover-bg-near-black br1 nowrap pv1 ph2"
+                        onMouseDown={e => e.preventDefault()}>
+                        Præferencer
+                      </Link>
+                    </li>
+                    <li className="pa1">
+                      <Logout history={this.props.history} className="db hover-bg-near-black br1 nowrap pv1 ph2" />
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="items-center relative flex dn-ns">
               <span id="person" className="b bg-near-white br1 pa2" onClick={openDropDown}>
                 {window.sessionStorage.firstname.charAt(0) + window.sessionStorage.lastname.charAt(0)}
               </span>
-              <div id="personal-menu" className="absolute top-2 right-0 pt2 dn">
-                <ul className="list white bg-black-80 br1 pv1 ph2 ma0">
-                  <li className="db cursor-default nowrap bb b--white-10 pt2 pb3 ph2 mv2">
+              <div id="personal-menu" className="absolute top-2 right-0 pt2 dn" onClick={openDropDown}>
+                <div className="white bg-dark-gray br1">
+                  <span className="db cursor-default nowrap bb b--white-10 pa3">
                     {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}
-                  </li>
-                  <li>
-                    <Link
-                      to="/preferences"
-                      className="db hover-bg-black br1 nowrap pa2 mv2"
-                      onMouseDown={e => e.preventDefault()}>
-                      Præferencer
-                    </Link>
-                  </li>
-                  <li>
-                    <Logout history={this.props.history} className="db hover-bg-black br1 nowrap pa2 mv2" />
-                  </li>
-                </ul>
+                  </span>
+                  <ul className="list pa1 ma0">
+                    <li className="pa1">
+                      <Link
+                        to="/preferences"
+                        className="db hover-bg-near-black br1 nowrap pa2"
+                        onMouseDown={e => e.preventDefault()}>
+                        Præferencer
+                      </Link>
+                    </li>
+                    <li className="pa1">
+                      <Logout history={this.props.history} className="db hover-bg-near-black br1 nowrap pa2" />
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
