@@ -32,13 +32,13 @@ class Nav extends Component {
                     <li className="pa1">
                       <Link
                         to="/preferences"
-                        className="db hover-bg-near-black br1 nowrap pv1 ph2"
+                        className="db hover-bg-near-black br1 nowrap pa2"
                         onMouseDown={e => e.preventDefault()}>
                         Præferencer
                       </Link>
                     </li>
                     <li className="pa1">
-                      <Logout history={this.props.history} className="db hover-bg-near-black br1 nowrap pv1 ph2" />
+                      <Logout history={this.props.history} className="db hover-bg-near-black br1 nowrap pa2" />
                     </li>
                   </ul>
                 </div>
