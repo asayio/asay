@@ -1,7 +1,7 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PreferenceList from './PreferenceList';
+import PreferenceList from '../../components/preferenceList';
 import { ArrowLeft } from 'react-feather';
 
 class Preferences extends Component {

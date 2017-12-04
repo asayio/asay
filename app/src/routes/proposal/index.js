@@ -1,9 +1,9 @@
-import R from "ramda";
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import ProposalInfo from "./ProposalInfo";
-import ProposalActions from "./ProposalActions";
-import { ArrowLeft } from "react-feather";
+import R from 'ramda';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import ProposalInfo from '../../components/proposalInfo';
+import ProposalActions from '../../components/proposalActions';
+import { ArrowLeft } from 'react-feather';
 
 class ProposalPage extends Component {
   componentDidMount() {
@@ -13,7 +13,7 @@ class ProposalPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      proposal: R.find(R.propEq("id", Number(this.props.match.params.id)), this.props.proposalList)
+      proposal: R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
     };
   }
 
@@ -24,16 +24,16 @@ class ProposalPage extends Component {
   async seen(proposal) {
     proposal.seeNotification &&
       this.props.updateState(
-        { entityType: "notificationList", entity: { proposal_id: proposal.id, type: "seen" } },
-        await fetch("/api/seen/", {
-          method: "POST",
+        { entityType: 'notificationList', entity: { proposal_id: proposal.id, type: 'seen' } },
+        await fetch('/api/seen/', {
+          method: 'POST',
           body: JSON.stringify({
             proposalId: proposal.id,
             hasResults: !!proposal.results
           }),
           headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + window.sessionStorage.authToken
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + window.sessionStorage.authToken
           }
         })
       );
@@ -53,7 +53,7 @@ class ProposalPage extends Component {
           <ArrowLeft className="mr2" />Tilbage til listen
         </Link>
         <div className="tc tl-ns mv4">
-          <h1 className="f3 mt0 mb3">{proposal.shortTitel.replace(".", "")}</h1>
+          <h1 className="f3 mt0 mb3">{proposal.shortTitel.replace('.', '')}</h1>
           <div className="black-70 lh-copy">
             <span className="db mt1 dib-ns mr3-ns">
               <b>Kategori:</b> {proposal.category.title}
@@ -65,18 +65,17 @@ class ProposalPage extends Component {
               <b>Deadline:</b> {proposal.deadline}
             </span>
             <span className="db mt1 dib-ns mr3-ns">
-              <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? "stemme" : "stemmer"}
+              <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
             </span>
           </div>
           <span className="black-70 lh-copy db mt1">
-            Se alle detaljer på{" "}
+            Se alle detaljer på{' '}
             <a
               href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
                 proposal.numberNumeric +
                 proposal.numberPostFix}/index.htm`}
               target={`_${proposal.id}_ft`}
-              className="dark-blue hover-blue"
-            >
+              className="dark-blue hover-blue">
               Folketingets hjemmeside
             </a>.
           </span>

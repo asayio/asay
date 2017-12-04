@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import Login from '../../widgets/auth/Login'
-import ProposalList from './ProposalList';
+import Login from '../widgets/auth/Login';
+import ProposalList from '../components/proposalList';
 import { Mail } from 'react-feather';
 
 class Root extends Component {
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }
 
   render() {
     if (window.sessionStorage.authToken) {
-      return <ProposalList
-        selectedSection={this.props.selectedSection}
-        updateState={this.props.updateState}
-        preferenceList={this.props.preferenceList}
-        searchString={this.props.searchString}
-        filter={this.props.filter}
-        proposalList={this.props.proposalList}/>
+      return (
+        <ProposalList
+          selectedSection={this.props.selectedSection}
+          updateState={this.props.updateState}
+          preferenceList={this.props.preferenceList}
+          searchString={this.props.searchString}
+          filter={this.props.filter}
+          proposalList={this.props.proposalList}
+        />
+      );
     } else {
-      return <Welcome/>
+      return <Welcome />;
     }
   }
 }
@@ -29,8 +32,18 @@ class Welcome extends Component {
       <div className="mw8 center tc w-100 flex-auto">
         <h1 className="f3 mt4 mt5-l mb3">Velkommen til Demokratifabrikken.</h1>
         <p className="black-70">Det er dig der bestemmer. Hver gang.</p>
-        <Login icon="LogIn" iconClass="mr2" type="login" className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"/>
-        <Login icon="UserPlus" iconClass="mr2" type="signUp" className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"/>
+        <Login
+          icon="LogIn"
+          iconClass="mr2"
+          type="login"
+          className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"
+        />
+        <Login
+          icon="UserPlus"
+          iconClass="mr2"
+          type="signUp"
+          className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"
+        />
         <div className="tl bg-white pv4 mv3 ba b--black-10 br1 shadow-6 lh-copy flex flex-wrap">
           <div className="w-100 w-50-l ph4 br-l b--black-10">
             <h2 className="mt2 mb0">Denne release</h2>
@@ -50,7 +63,12 @@ class Welcome extends Component {
             </ul>
           </div>
         </div>
-        <p className="black-70 mt3 mt4-l">Problemer? <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue"><Mail className="mr2"/>Send os en mail</a></p>
+        <p className="black-70 mt3 mt4-l">
+          Problemer?{' '}
+          <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue">
+            <Mail className="mr2" />Send os en mail
+          </a>
+        </p>
       </div>
     );
   }

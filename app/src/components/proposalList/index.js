@@ -1,7 +1,7 @@
-import R from "ramda";
-import React, { Component } from "react";
-import ProposalListSection from "./ProposalListSection.js";
-import { Bookmark, Layers, RotateCcw, ArrowDown, ArrowUp } from "react-feather";
+import R from 'ramda';
+import React, { Component } from 'react';
+import ProposalListSection from '../proposalListSection';
+import { Bookmark, Layers, RotateCcw, ArrowDown, ArrowUp } from 'react-feather';
 
 class Root extends Component {
   constructor(props) {
@@ -16,23 +16,23 @@ class Root extends Component {
 
   changeSection(event) {
     const selectedSection = event.target.name;
-    this.props.updateState({ entityType: "selectedSection", entity: { selectedSection } });
+    this.props.updateState({ entityType: 'selectedSection', entity: { selectedSection } });
   }
 
   changeFilter(event) {
     const target = event.target;
-    this.props.updateState({ entityType: "filter", entity: { [target.name]: target.value } });
+    this.props.updateState({ entityType: 'filter', entity: { [target.name]: target.value } });
   }
 
   updateSearchString(event) {
-    const searchString = R.path(["target", "value"], event);
-    this.props.updateState({ entityType: "searchString", entity: { searchString } });
+    const searchString = R.path(['target', 'value'], event);
+    this.props.updateState({ entityType: 'searchString', entity: { searchString } });
   }
 
   render() {
     const proposalList = this.props.proposalList;
     const preferenceList =
-      this.props.selectedSection !== "personal"
+      this.props.selectedSection !== 'personal'
         ? this.props.preferenceList
         : R.filter(preference => {
             return preference.preference;
@@ -51,10 +51,9 @@ class Root extends Component {
                 name="personal"
                 onClick={this.changeSection}
                 className={
-                  (this.props.selectedSection === "personal" ? "bg-white cursor-default" : "bg-near-white pointer") +
-                  " dib w-100 b pa2 ba b--black-10 br1 shadow-6"
-                }
-              >
+                  (this.props.selectedSection === 'personal' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
+                  ' dib w-100 b pa2 ba b--black-10 br1 shadow-6'
+                }>
                 <Bookmark className="mr2" />Mine forslag
               </a>
             </div>
@@ -63,10 +62,9 @@ class Root extends Component {
                 name="all"
                 onClick={this.changeSection}
                 className={
-                  (this.props.selectedSection === "all" ? "bg-white cursor-default" : "bg-near-white pointer") +
-                  " dib w-100 b pa2 ba b--black-10 br1 shadow-6"
-                }
-              >
+                  (this.props.selectedSection === 'all' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
+                  ' dib w-100 b pa2 ba b--black-10 br1 shadow-6'
+                }>
                 <Layers className="mr2" />Alle forslag
               </a>
             </div>
@@ -75,10 +73,9 @@ class Root extends Component {
                 name="history"
                 onClick={this.changeSection}
                 className={
-                  (this.props.selectedSection === "history" ? "bg-white cursor-default" : "bg-near-white pointer") +
-                  " dib w-100 b pa2 ba b--black-10 shadow-6 br1"
-                }
-              >
+                  (this.props.selectedSection === 'history' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
+                  ' dib w-100 b pa2 ba b--black-10 shadow-6 br1'
+                }>
                 <RotateCcw className="mr2" />Historik
               </a>
             </div>
@@ -100,8 +97,7 @@ class Root extends Component {
                 name="category"
                 value={this.props.filter.category}
                 onChange={this.changeFilter}
-                className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2"
-              >
+                className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 <option>Alle</option>
                 {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
               </select>
@@ -112,8 +108,7 @@ class Root extends Component {
                 name="status"
                 value={this.props.filter.status}
                 onChange={this.changeFilter}
-                className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2"
-              >
+                className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 <option>Alle</option>
                 <option>Fremsat</option>
                 <option>Til endelig afstemning</option>
@@ -131,10 +126,9 @@ class Root extends Component {
         <div className="tc">
           <a
             onClick={() => this.setState({ limitList: !this.state.limitList })}
-            className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6"
-          >
+            className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
             {this.state.limitList ? <ArrowDown className="mr2" /> : <ArrowUp className="mr2" />}
-            {this.state.limitList ? "Vis" : "Skjul"} forslag uden fastlagt deadline
+            {this.state.limitList ? 'Vis' : 'Skjul'} forslag uden fastlagt deadline
           </a>
         </div>
       </div>
