@@ -25,7 +25,7 @@ class Nav extends Component {
               </span>
               <div id="personal-menu-ns" className="absolute top-2 right-0 pt2">
                 <div className="white bg-dark-gray br1">
-                  <span className="db cursor-default nowrap bb b--white-10 pa3">
+                  <span className="db nowrap bb b--white-10 pa3">
                     {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}
                   </span>
                   <ul className="list pa1 ma0">
@@ -50,7 +50,7 @@ class Nav extends Component {
               </span>
               <div id="personal-menu" className="absolute top-2 right-0 pt2 dn" onClick={openDropDown}>
                 <div className="white bg-dark-gray br1">
-                  <span className="db cursor-default nowrap bb b--white-10 pa3">
+                  <span className="db nowrap bb b--white-10 pa3">
                     {window.sessionStorage.firstname + ' ' + window.sessionStorage.lastname}
                   </span>
                   <ul className="list pa1 ma0">
