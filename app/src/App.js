@@ -8,14 +8,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import stateBuilder from './stateBuilder/index';
 
 // routes
-import Root from './routes';
-import Auth from './routes/auth';
-import Proposal from './routes/proposal';
-import Vote from './routes/proposal/vote';
-import Disclaimer from './routes/disclaimer';
-import Preferences from './routes/preferences';
 import Unauthorized from './routes/401';
 import Lost from './routes/404';
+import Auth from './routes/auth';
+import Disclaimer from './routes/disclaimer';
+import Insights from './routes/insights';
+import Preferences from './routes/preferences';
+import Proposal from './routes/proposal';
+import Vote from './routes/proposal/vote';
+import Root from './routes';
 
 // components
 import Nav from './components/nav';
@@ -173,6 +174,20 @@ class App extends Component {
                   )}
                 />
                 <Route exact path="/auth" component={Auth} />
+                <Route
+                  exact
+                  path="/insights"
+                  render={props => (
+                    <Insights
+                      selectedSection={this.state.selectedSection}
+                      updateState={this.updateState}
+                      preferenceList={this.state.preferenceList}
+                      searchString={this.state.searchString}
+                      filter={this.state.filter}
+                      proposalList={this.state.proposalList}
+                    />
+                  )}
+                />
                 <Route path="*" component={Lost} />
               </Switch>
             ) : (
