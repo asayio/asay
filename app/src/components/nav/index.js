@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Login from '../auth/Login.js';
-import Logout from '../auth/Logout.js';
+import Login from '../loginBtn';
+import Logout from '../loginBtn';
 import { Link } from 'react-router-dom';
-import { openDropDown } from './dropdown.js';
-import './nav.css';
+import { openDropDown } from './dropdown';
+import './index.css';
 
 class Nav extends Component {
   render() {

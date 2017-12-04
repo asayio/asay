@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import openModal from '../../widgets/openModal';
 import { File, CheckSquare, AlertCircle, Bookmark } from 'react-feather';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +23,7 @@ class ProposalActions extends Component {
       }
     });
     if (!response.ok) {
-      openModal('error-modal');
+      // openModal('error-modal'); migrate from master
     }
   }
 

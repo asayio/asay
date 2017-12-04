@@ -3,7 +3,7 @@ import Fuse from 'fuse.js';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Settings } from 'react-feather';
-import FeatherIcon from '../../widgets/FeatherIcon';
+import FeatherIcon from '../featherIcon';
 import ProposalListItemNotification from '../proposalListItemNotification';
 
 class ProposalListSection extends Component {

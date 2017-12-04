@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import queryString from "query-string";
-import LoadingSpinner from "../../widgets/LoadingSpinner.js";
+import React, { Component } from 'react';
+import queryString from 'query-string';
+import LoadingSpinner from '../../components/loadingSpinner';
 
 class Auth extends Component {
   constructor(props) {
@@ -14,9 +14,9 @@ class Auth extends Component {
     const parsedHash = queryString.parse(window.location.hash);
     const authToken = parsedHash.id_token;
     const response = await fetch(`/api/auth/${authToken}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     });
     if (response.ok) {
@@ -26,15 +26,15 @@ class Auth extends Component {
       window.sessionStorage.onboarded = user.onboarded;
       window.sessionStorage.authToken = authToken;
       this.setState({ authorized: true }, function() {
-        if (window.sessionStorage.onboarded === "true") {
+        if (window.sessionStorage.onboarded === 'true') {
           window.location.href = window.sessionStorage.redirectUrl;
         } else {
-          window.location.href = "./onboarding";
+          window.location.href = './onboarding';
         }
       });
     } else {
       this.props.history.replace({
-        pathname: "./401"
+        pathname: './401'
       });
     }
   }

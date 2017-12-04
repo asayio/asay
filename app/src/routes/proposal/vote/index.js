@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 import './style.css';
-import LoadingSpinner from '../../../widgets/LoadingSpinner.js';
+import LoadingSpinner from '../../../components/loadingSpinner';
 import { Link } from 'react-router-dom';
 import { Check, X, Minus, ArrowLeft } from 'react-feather';
 import PropTypes from 'prop-types';

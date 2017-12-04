@@ -1,21 +1,27 @@
+// packages
 import 'tachyons';
 import './App.css';
-import stateBuilder from './stateBuilder/index';
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// data
+import stateBuilder from './stateBuilder/index';
+
+// routes
+import Root from './routes';
 import Auth from './routes/auth';
 import Proposal from './routes/proposal';
 import Vote from './routes/proposal/vote';
-import Root from './routes';
-import Unauthorized from './routes/401';
 import Disclaimer from './routes/disclaimer';
 import Preferences from './routes/preferences';
+import Unauthorized from './routes/401';
 import Lost from './routes/404';
-import Nav from './widgets/nav/Nav';
-import Footer from './widgets/Footer';
+
+// components
+import Nav from './components/nav';
+import Footer from './components/footer';
 import Onboarding from './routes/onboarding';
-import ErrorModal from './widgets/error/ErrorModal';
-import LoadingSpinner from './widgets/LoadingSpinner';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import LoadingSpinner from './components/loadingSpinner';
 
 class App extends Component {
   constructor(props) {
@@ -79,7 +85,6 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav />
-            <ErrorModal />
             {this.state.appReady ? (
               <Switch>
                 <Route

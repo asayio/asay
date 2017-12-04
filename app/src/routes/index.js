@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Login from '../widgets/auth/Login';
+import Login from '../components/loginBtn';
 import ProposalList from '../components/proposalList';
 import { Mail } from 'react-feather';
 
