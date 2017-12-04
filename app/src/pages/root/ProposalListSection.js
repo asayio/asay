@@ -82,12 +82,12 @@ class ProposalListSection extends Component {
             return (
               <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
                 <div className="relative flex flex-wrap bg-white mv2 ba b--black-10 br1 card shadow-6">
-                  <div className="w-100 w-30-m w-20-l tc flex flex-column items-center justify-center br-ns b--black-10 pa4 pb2 pb4-ns">
-                    <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mb2" />
-                    <span className="black-50">{proposal.category.title}</span>
+                  <div className="w-100 w-30-m w-20-l tc flex flex-column-ns items-center justify-center br-ns b--black-10 pa3 pa4-ns">
+                    <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mr2 mr0-ns" />
+                    <span className="dib black-50 mt1 mt2-ns">{proposal.category.title}</span>
                   </div>
-                  <div className="w-100 w-70-m w-80-l tc tl-ns flex flex-column justify-center pa4 pt2 pt4-ns">
-                    <h3 className="f5 lh-title mt0 mb2">{proposal.shortTitel.replace('.', '')}</h3>
+                  <div className="w-100 w-70-m w-80-l tc tl-ns lh-title flex flex-column justify-center bt bn-ns b--black-10 pa3 pa4-ns">
+                    <h3 className="f5 mt0 mb2">{proposal.shortTitel.replace('.', '')}</h3>
                     <span className="f6 black-70">
                       <span className="mr3">
                         <b>Deadline:</b> {proposal.deadline}
