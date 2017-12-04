@@ -22,11 +22,14 @@ import Nav from './components/nav';
 import Footer from './components/footer';
 import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
+import Modal from './components/modal';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showAddToHomeScreenModal: false,
+      showErrorModal: false,
       proposalList: [],
       preferenceList: [],
       voteList: [],
@@ -49,6 +52,12 @@ class App extends Component {
     const initialState = await stateBuilder.initialState();
     this.setState(initialState);
     this.setState({ appReady: true });
+    window.localStorage.promptAddToHomeScreen === undefined &&
+      navigator.userAgent.match(/iPhone|iPad|iPod/i) &&
+      this.setState({ showAddToHomeScreenModal: 'apple' });
+    window.localStorage.promptAddToHomeScreen === undefined &&
+      navigator.userAgent.match(/Android/i) &&
+      this.setState({ showAddToHomeScreenModal: 'android' });
   }
 
   updateState({ entityType, entity }) {
@@ -74,6 +83,9 @@ class App extends Component {
       case 'notificationList':
         this.setState(stateBuilder.updateNotificationList(this.state, entity));
         break;
+      case 'error':
+        this.setState({ showErrorModal: entity });
+        break;
       default:
         break;
     }
@@ -85,6 +97,32 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav />
+            {this.state.showErrorModal && (
+              <Modal
+                content={
+                  <div>
+                    <h2 className="f4">Der er sket en fejl</h2>
+                    <p>
+                      Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så{' '}
+                      <a
+                        href="mailto:dinevenner@initiativet.net"
+                        target="_mailto"
+                        rel="noopener noreferrer"
+                        className="dark-blue hover-blue">
+                        send os en mail
+                      </a>.
+                    </p>
+                    <div>
+                      <a
+                        onClick={() => this.setState({ showErrorModal: false })}
+                        className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">
+                        OK
+                      </a>
+                    </div>
+                  </div>
+                }
+              />
+            )}
             {this.state.appReady ? (
               <Switch>
                 <Route
@@ -151,6 +189,30 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav />
+            {this.state.showAddToHomeScreenModal && (
+              <Modal
+                content={
+                  <div>
+                    <h2 className="f4">
+                      {this.state.showAddToHomeScreenModal === 'apple' ? 'Prøv et æble' : 'Prøv android'}
+                    </h2>
+                    <p>
+                      {this.state.showAddToHomeScreenModal === 'apple'
+                        ? 'beskrivelse af et æble'
+                        : 'beskrivelse af noget andet'}
+                    </p>
+                    <a
+                      onClick={() => {
+                        this.setState({ showAddToHomeScreenModal: false });
+                        window.localStorage.promptAddToHomeScreen = false;
+                      }}
+                      className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">
+                      OK
+                    </a>
+                  </div>
+                }
+              />
+            )}
             <Switch>
               <Route exact path="/auth" component={Auth} />
               <Route exact path="/401" component={Unauthorized} />

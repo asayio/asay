@@ -23,7 +23,7 @@ class ProposalActions extends Component {
       }
     });
     if (!response.ok) {
-      // openModal('error-modal'); migrate from master
+      this.props.updateState({ entityType: 'error', entity: true });
     }
   }
 
@@ -41,7 +41,7 @@ class ProposalActions extends Component {
             proposal.numberNumeric}_som_fremsat.pdf`;
     return (
       <div className="w-100 w-25-l mt1-l pt4-l pl3-l">
-        <div className="sticky-l top-4-l tc">
+        <div className="sticky-l top-5-l tc">
           <a
             href={proposalURL}
             target={`_${proposal.id}`}

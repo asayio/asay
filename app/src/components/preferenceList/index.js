@@ -19,7 +19,7 @@ class PreferenceList extends Component {
       }
     });
     if (!response.ok) {
-      // openModal('error-modal'); migrate from master
+      this.props.updateState({ entityType: 'error', entity: true });
     }
   }
 
