@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Settings } from 'react-feather';
 import FeatherIcon from '../../widgets/FeatherIcon';
-import ProposalListItemNotification from '../../components/ProposalListItemNotification';
+import ProposalListItemNotification from '../../components/proposalListItemNotification';
 
 class ProposalListSection extends Component {
   render() {
