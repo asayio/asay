@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from '../loginBtn';
-import Logout from '../loginBtn';
+import Logout from '../logoutBtn';
 import { Link } from 'react-router-dom';
 import { openDropDown } from './dropdown';
 import './index.css';
