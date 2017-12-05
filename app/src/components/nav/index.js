@@ -8,7 +8,7 @@ import './index.css';
 class Nav extends Component {
   render() {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pv2 ph3">
+      <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pa2">
         {window.sessionStorage.authToken ? (
           <div className="relative mw8 center flex">
             <div className="absolute top-0 bottom-0 left--2 flex items-center">

@@ -24,6 +24,7 @@ import Footer from './components/footer';
 import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
 import Modal from './components/modal';
+import FeatherIcon from './components/featherIcon';
 
 class App extends Component {
   constructor(props) {
@@ -96,7 +97,7 @@ class App extends Component {
     if (window.sessionStorage.authToken) {
       return (
         <Router>
-          <div className="min-vh-100 flex flex-column ph3 pt5">
+          <div className="min-vh-100 flex flex-column ph2 pt5">
             <Nav />
             {this.state.showErrorModal && (
               <Modal
@@ -209,20 +210,34 @@ class App extends Component {
                 content={
                   <div>
                     <h2 className="f4">
-                      {this.state.showAddToHomeScreenModal === 'apple' ? 'Prøv et æble' : 'Prøv android'}
-                    </h2>
-                    <p>
                       {this.state.showAddToHomeScreenModal === 'apple'
-                        ? 'beskrivelse af et æble'
-                        : 'beskrivelse af noget andet'}
-                    </p>
+                        ? 'Føj til hjemmeskærm'
+                        : 'Tilføj til startskærm'}
+                    </h2>
+                    {this.state.showAddToHomeScreenModal === 'apple' ? (
+                      <div className="black-70 lh-copy">
+                        <p>Vil du prøve Initiativets platform som app?</p>
+                        <p>
+                          Klik på <FeatherIcon name="Share" />-ikonet nederst i din browser, og tryk på 'Føj til
+                          hjemmeskærm'.
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="black-70 lh-copy">
+                        <p>Vil du prøve Initiativets platform som app?</p>
+                        <p>
+                          Klik på <FeatherIcon name="MoreVertical" />-ikonet i din browser, og tryk på 'Føj til
+                          hjemmeskærm'.
+                        </p>
+                      </div>
+                    )}
                     <a
                       onClick={() => {
                         this.setState({ showAddToHomeScreenModal: false });
                         window.localStorage.promptAddToHomeScreen = false;
                       }}
-                      className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">
-                      OK
+                      className="dib white bg-dark-blue hover-bg-dark-blue w4 ba b--black10 br1 pa2 ma2">
+                      Forstået
                     </a>
                   </div>
                 }
