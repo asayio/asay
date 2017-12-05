@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FeatherIcon from '../../widgets/FeatherIcon';
+import FeatherIcon from '../featherIcon';
 import './style.css';
 class ProposalListItemNotification extends Component {
   render() {
