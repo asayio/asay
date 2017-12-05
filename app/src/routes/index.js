@@ -30,7 +30,7 @@ class Welcome extends Component {
   render() {
     return (
       <div className="mw8 center tc w-100 flex-auto">
-        <h1 className="f3 mt4 mt5-l mb3">Velkommen til Demokratifabrikken.</h1>
+        <h1 className="f3 mt4 mb3">Velkommen til Demokratifabrikken.</h1>
         <p className="black-70">Det er dig der bestemmer. Hver gang.</p>
         <Login
           icon="LogIn"
