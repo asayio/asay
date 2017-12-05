@@ -2,7 +2,7 @@
   transition: all 0.2s ease-out;
 }
 #personal-menu {
-  width: calc(100vw - 2rem);
+  width: calc(100vw - 1rem);
 }
 #personal-menu,
 #personal-menu-ns {
