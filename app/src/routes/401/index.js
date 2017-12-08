@@ -13,7 +13,7 @@ class Curious extends Component {
         />
         <p>
           Virker det stadig ikke?{' '}
-          <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue">
+          <a href="mailto:dinevenner@initiativet.dk" className="pointer dark-blue hover-blue">
             Send os en mail
           </a>.
         </p>

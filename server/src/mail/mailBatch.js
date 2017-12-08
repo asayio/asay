@@ -60,13 +60,13 @@ async function mailBatch(request, response) {
     for (const proposal of user.filteredProposalList) {
       proposalListHTML.push("<p>" + proposal.shortTitel + "</p>")
     }
-    const html = "<h1>Der er kommet nye lovforslag til dig!</h1>" + proposalListHTML.join('') + "<a href='https://app.initiativet.net/'>Klik her for at logge ind og se dem!</a>"
+    const html = "<h1>Der er kommet nye lovforslag til dig!</h1>" + proposalListHTML.join('') + "<a href='https://app.initiativet.dk/'>Klik her for at logge ind og se dem!</a>"
     const data = {
       "to": {
         [user.email]: user.firstname
       },
   		"from": [
-        "dinevenner@initiativet.net",
+        "dinevenner@initiativet.dk",
         "Initiativet"
       ],
   		"subject": "Der er kommet nye lovforslag til dig!",

@@ -107,7 +107,7 @@ class App extends Component {
                     <p>
                       Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så{' '}
                       <a
-                        href="mailto:dinevenner@initiativet.net"
+                        href="mailto:dinevenner@initiativet.dk"
                         target="_mailto"
                         rel="noopener noreferrer"
                         className="dark-blue hover-blue">

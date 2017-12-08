@@ -65,7 +65,7 @@ class Welcome extends Component {
         </div>
         <p className="black-70 mt3 mt4-l">
           Problemer?{' '}
-          <a href="mailto:dinevenner@initiativet.net" className="pointer dark-blue hover-blue">
+          <a href="mailto:dinevenner@initiativet.dk" className="pointer dark-blue hover-blue">
             <Mail className="mr2" />Send os en mail
           </a>
         </p>
