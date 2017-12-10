@@ -22,7 +22,7 @@ class Onboarding extends Component {
     );
     return (
       <div className="mw8 center w-100 flex-auto">
-        <h1 className="w-100 w-75-l f3 tc mt4 mb3">Velkommen</h1>
+        <h1 className="f3 tc mt4 mb3">Velkommen</h1>
         <div className="flex flex-wrap">
           <div className="w-100 w-75-l order-last order-0-l">
             <div className="bg-white pv3 pl4 ba b--black-10 br1 shadow-6">
@@ -51,7 +51,7 @@ class Onboarding extends Component {
             </div>
           </div>
         </div>
-        <div className="w-100 w-75-l tc mt3">
+        <div className="tc mt3">
           <Link to="/" className="db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 ba b--black-10 br1 shadow-6">
             <ArrowRight className="mr2" />Videre til lovforslagene
           </Link>
