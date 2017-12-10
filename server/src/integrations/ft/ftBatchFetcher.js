@@ -35,7 +35,8 @@ async function ftBatchFetcher () {
         return presentation
       }
     }
-    const doNotLookForPresentation = !!R.path(['data', 'presentation', 'paragraphs', 'length'], existingProposal) || proposal.nummerprefix === 'B' // beslutningforslag will never get a presentation
+    const existingPresentation = R.path(['data', 'presentation'], existingProposal)
+    const doNotLookForPresentation = !!R.path(['paragraphs', 'length'], existingPresentation) || proposal.nummerprefix === 'B' // beslutningforslag will never get a presentation
     const upsertedProposal = {
       id: proposal.id,
       data: {
@@ -54,7 +55,7 @@ async function ftBatchFetcher () {
         periodCode: proposal.Periode.kode,
         period: proposal.Periode.titel,
         stage: proposal.Sagstrin,
-        presentation: doNotLookForPresentation ? existingProposal.data.presentation : await presentation()
+        presentation: doNotLookForPresentation ? existingPresentation : await presentation()
       }
     }
     if (existingProposal) {
