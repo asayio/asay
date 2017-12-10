@@ -12,7 +12,7 @@ class Root extends Component {
   render() {
     if (window.sessionStorage.authToken) {
       return (
-        <div>
+        <div className="mw8 center tc w-100 flex-auto">
           <ProposalListFilter
             selectedSection={this.props.selectedSection}
             updateState={this.props.updateState}
