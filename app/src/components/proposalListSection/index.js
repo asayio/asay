@@ -81,7 +81,7 @@ class ProposalListSection extends Component {
               proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 7); // "+1" we need the results one day in advance;
             return (
               <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
-                <div className="relative flex flex-wrap bg-white mv2 ba b--black-10 br1 card shadow-6">
+                <div className="relative flex flex-wrap bg-white mv2 ba b--black-10 br1 shadow-6 shadow-7-hover">
                   <div className="w-100 w-30-m w-20-l tc flex flex-column-ns items-center justify-center br-ns b--black-10 pa3 pa4-ns">
                     <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mr2 mr0-ns" />
                     <span className="dib black-50 mt1 mt2-ns">{proposal.category.title}</span>
