@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import FeatherIcon from '../../components/featherIcon';
-import { Bookmark } from 'react-feather';
 
 class PreferenceList extends Component {
   constructor() {
