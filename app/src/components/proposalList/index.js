@@ -84,31 +84,31 @@ class Root extends Component {
             <div className="w-100 w-third-ns pv1 pr2-ns">
               <span className="dib b mv2">Søg:</span>
               <input
-                className="clear-sans w-100 pv1 ph2 bg-white ba b--light-gray br2"
+                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-white ba b--light-gray br2"
                 type="text"
                 onChange={this.updateSearchString}
                 placeholder="Søgeord"
                 value={this.props.searchString}
               />
             </div>
-            <div className="w-50 w-third-ns pv1 pr2 ph1-ns">
-              <span className="dib b mv2">Kategori:</span>
+            <div className="w-100 w-third-ns pv1 pl1-ns pr1-ns">
+              <span className="dib b mt0 mt2-ns mb2">Kategori:</span>
               <select
                 name="category"
                 value={this.props.filter.category}
                 onChange={this.changeFilter}
-                className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 <option>Alle</option>
                 {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
               </select>
             </div>
-            <div className="w-50 w-third-ns pv1 pl2">
-              <span className="dib b mv2">Status:</span>
+            <div className="w-100 w-third-ns pv1 pl2-ns">
+              <span className="dib b mt0 mt2-ns mb2">Status:</span>
               <select
                 name="status"
                 value={this.props.filter.status}
                 onChange={this.changeFilter}
-                className="clear-sans w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
                 <option>Alle</option>
                 <option>Fremsat</option>
                 <option>Til endelig afstemning</option>
