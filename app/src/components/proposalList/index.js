@@ -75,7 +75,7 @@ class Root extends Component {
       threshold: 0.38 // sweet spot
     };
     const fuse = new Fuse(filteredProposalList, options);
-    var searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList;
+    const searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList;
     if (!searchedProposalList.length && filterSelection.section === 'personal') {
       return (
         <div className="mw8 center mv5 mv5 tc">
@@ -102,12 +102,9 @@ class Root extends Component {
     } else {
       return (
         <div className="mw8 center w-100 flex-auto">
-          <ProposalListItem
-            searchString={this.props.searchString}
-            proposalList={searchedProposalList}
-            filterSelection={filterSelection}
-            limitList={this.state.limitList}
-          />
+          {searchedProposalList.map(function(proposal, index) {
+            return <ProposalListItem proposal={proposal} />;
+          })}
           <div className="tc">
             {this.state.limitList && !showExpandListBtn ? (
               <a
