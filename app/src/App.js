@@ -105,10 +105,10 @@ class App extends Component {
     if (window.sessionStorage.authToken) {
       return (
         <Router>
-          <div className="min-vh-100 flex flex-column ph2 pt5">
-            {this.state.appReady ? (
-              <div>
-                <Nav user={this.state.user} />
+          {this.state.appReady ? (
+            <div>
+              <Nav user={this.state.user} />
+              <div className="min-vh-100 flex flex-column ph2 pt5">
                 {this.state.showErrorModal && <ErrorModal updateState={this.updateState} />}
                 <Switch>
                   <Route
@@ -182,12 +182,14 @@ class App extends Component {
                 </Switch>
                 <Footer />
               </div>
-            ) : (
+            </div>
+          ) : (
+            <div className="min-vh-100 flex flex-column ph2 pt5">
               <div className="flex-auto flex justify-center items-center">
                 <LoadingSpinner />
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </Router>
       );
     } else {

@@ -92,16 +92,15 @@ svg {
 .shadow-6 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.025);
 }
+.shadow-7-hover {
+  transition: box-shadow 0.25s ease-out;
+}
+.shadow-7-hover:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.075);
+}
 
 /* KÆMPE HØKERE */
 
-.card {
-  transition: all 0.25s ease-out;
-}
-.card:hover,
-.card:focus {
-  transform: translateY(-1px);
-}
 @media screen and (min-width: 60rem) {
   .sticky-l {
     position: sticky;
