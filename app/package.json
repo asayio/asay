@@ -9,6 +9,7 @@
     "immutability-helper": "^2.4.0",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
+    "react-document-meta": "^2.1.2",
     "react-dom": "^15.6.1",
     "react-feather": "^1.0.4",
     "react-router": "^4.1.2",

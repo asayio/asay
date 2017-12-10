@@ -17,19 +17,21 @@ import Preferences from './routes/preferences';
 import Proposal from './routes/proposal';
 import Vote from './routes/proposal/vote';
 import Root from './routes';
+import Settings from './routes/settings';
 
 // components
 import Nav from './components/nav';
 import Footer from './components/footer';
 import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
-import Modal from './components/modal';
-import FeatherIcon from './components/featherIcon';
+import ErrorModal from './components/modal/error';
+import AddToHomeScreenModal from './components/modal/addToHomeScreen';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {},
       showAddToHomeScreenModal: false,
       showErrorModal: false,
       proposalList: [],
@@ -52,6 +54,7 @@ class App extends Component {
 
   async componentDidMount() {
     const initialState = await stateBuilder.initialState();
+    console.log(initialState);
     this.setState(initialState);
     this.setState({ appReady: true });
     window.localStorage.promptAddToHomeScreen === undefined &&
@@ -64,6 +67,9 @@ class App extends Component {
 
   updateState({ entityType, entity }) {
     switch (entityType) {
+      case 'user':
+        this.setState(stateBuilder.updateUser(this.state, entity));
+        break;
       case 'preferenceList':
         this.setState(stateBuilder.updatePreferences(this.state, entity));
         break;
@@ -88,6 +94,9 @@ class App extends Component {
       case 'error':
         this.setState({ showErrorModal: entity });
         break;
+      case 'mobile':
+        this.setState({ showAddToHomeScreenModal: entity });
+        break;
       default:
         break;
     }
@@ -98,105 +107,87 @@ class App extends Component {
       return (
         <Router>
           <div className="min-vh-100 flex flex-column ph2 pt5">
-            <Nav />
-            {this.state.showErrorModal && (
-              <Modal
-                content={
-                  <div>
-                    <h2 className="f4">Der er sket en fejl</h2>
-                    <p>
-                      Det er ikke dig, det er os. Prøv igen, og hvis det stadig ikke virker så{' '}
-                      <a
-                        href="mailto:dinevenner@initiativet.dk"
-                        target="_mailto"
-                        rel="noopener noreferrer"
-                        className="dark-blue hover-blue">
-                        send os en mail
-                      </a>.
-                    </p>
-                    <div>
-                      <a
-                        onClick={() => this.setState({ showErrorModal: false })}
-                        className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">
-                        OK
-                      </a>
-                    </div>
-                  </div>
-                }
-              />
-            )}
             {this.state.appReady ? (
-              <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={props => (
-                    <Root
-                      selectedSection={this.state.selectedSection}
-                      updateState={this.updateState}
-                      preferenceList={this.state.preferenceList}
-                      searchString={this.state.searchString}
-                      filter={this.state.filter}
-                      proposalList={this.state.proposalList}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/proposal/:id"
-                  render={props => (
-                    <Proposal
-                      match={props.match}
-                      proposalList={this.state.proposalList}
-                      updateState={this.updateState}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/proposal/:id/vote"
-                  render={props => (
-                    <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
-                  )}
-                />
-                <Route exact path="/disclaimer" component={Disclaimer} />
-                <Route
-                  exact
-                  path="/preferences"
-                  render={props => (
-                    <Preferences preferenceList={this.state.preferenceList} updateState={this.updateState} />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/onboarding"
-                  render={props => (
-                    <Onboarding preferenceList={this.state.preferenceList} updateState={this.updateState} />
-                  )}
-                />
-                <Route exact path="/auth" component={Auth} />
-                <Route
-                  exact
-                  path="/insights"
-                  render={props => (
-                    <Insights
-                      selectedSection={this.state.selectedSection}
-                      updateState={this.updateState}
-                      preferenceList={this.state.preferenceList}
-                      searchString={this.state.searchString}
-                      filter={this.state.filter}
-                      proposalList={this.state.proposalList}
-                    />
-                  )}
-                />
-                <Route path="*" component={Lost} />
-              </Switch>
+              <div>
+                <Nav user={this.state.user} />
+                {this.state.showErrorModal && <ErrorModal updateState={this.updateState} />}
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={props => (
+                      <Root
+                        selectedSection={this.state.selectedSection}
+                        updateState={this.updateState}
+                        preferenceList={this.state.preferenceList}
+                        searchString={this.state.searchString}
+                        filter={this.state.filter}
+                        proposalList={this.state.proposalList}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/proposal/:id"
+                    render={props => (
+                      <Proposal
+                        match={props.match}
+                        proposalList={this.state.proposalList}
+                        updateState={this.updateState}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/proposal/:id/vote"
+                    render={props => (
+                      <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
+                    )}
+                  />
+                  <Route exact path="/disclaimer" component={Disclaimer} />
+                  <Route
+                    exact
+                    path="/preferences"
+                    render={props => (
+                      <Preferences preferenceList={this.state.preferenceList} updateState={this.updateState} />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/settings"
+                    render={props => <Settings user={this.state.user} updateState={this.updateState} />}
+                  />
+                  <Route
+                    exact
+                    path="/onboarding"
+                    render={props => (
+                      <Onboarding preferenceList={this.state.preferenceList} updateState={this.updateState} />
+                    )}
+                  />
+                  <Route exact path="/auth" component={Auth} />
+                  <Route
+                    exact
+                    path="/insights"
+                    render={props => (
+                      <Insights
+                        selectedSection={this.state.selectedSection}
+                        updateState={this.updateState}
+                        preferenceList={this.state.preferenceList}
+                        searchString={this.state.searchString}
+                        filter={this.state.filter}
+                        proposalList={this.state.proposalList}
+                      />
+                    )}
+                  />
+                  <Route path="*" component={Lost} />
+                </Switch>
+                <Footer />
+              </div>
             ) : (
               <div className="flex-auto flex justify-center items-center">
                 <LoadingSpinner />
               </div>
             )}
-            <Footer />
           </div>
         </Router>
       );
@@ -205,44 +196,7 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Nav />
-            {this.state.showAddToHomeScreenModal && (
-              <Modal
-                content={
-                  <div>
-                    <h2 className="f4">
-                      {this.state.showAddToHomeScreenModal === 'apple'
-                        ? 'Føj til hjemmeskærm'
-                        : 'Tilføj til startskærm'}
-                    </h2>
-                    {this.state.showAddToHomeScreenModal === 'apple' ? (
-                      <div className="black-70 lh-copy">
-                        <p>Vil du prøve Initiativets platform som app?</p>
-                        <p>
-                          Klik på <FeatherIcon name="Share" />-ikonet nederst i din browser, og tryk på 'Føj til
-                          hjemmeskærm'.
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="black-70 lh-copy">
-                        <p>Vil du prøve Initiativets platform som app?</p>
-                        <p>
-                          Klik på <FeatherIcon name="MoreVertical" />-ikonet i din browser, og tryk på 'Føj til
-                          hjemmeskærm'.
-                        </p>
-                      </div>
-                    )}
-                    <a
-                      onClick={() => {
-                        this.setState({ showAddToHomeScreenModal: false });
-                        window.localStorage.promptAddToHomeScreen = false;
-                      }}
-                      className="dib white bg-dark-blue hover-bg-dark-blue w4 ba b--black10 br1 pa2 ma2">
-                      Forstået
-                    </a>
-                  </div>
-                }
-              />
-            )}
+            {this.state.showAddToHomeScreenModal && <AddToHomeScreenModal updateState={this.updateState} />}
             <Switch>
               <Route exact path="/auth" component={Auth} />
               <Route exact path="/401" component={Unauthorized} />

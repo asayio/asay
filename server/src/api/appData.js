@@ -4,27 +4,27 @@ const getVoteList = require('../db/vote/getVoteList');
 const getSubscriptionList = require('../db/subscription/getSubscriptionList.js');
 const getPreferenceList = require('../db/preference/getPreferenceList');
 const getCommitteeList = require('../db/preference/getCommitteeList');
-const getCommitteeCategoryList = require('../db/preference/getCommitteeCategoryList')
+const getCommitteeCategoryList = require('../db/preference/getCommitteeCategoryList');
 const getProposalList = require('../db/proposal/getProposalList');
 const getParticipationList = require('../db/vote/getParticipationList');
 const getNotificationList = require('../db/notification/getNotificationList');
-
 
 // Functions
 async function appDataBundleFetcher(request, response) {
   try {
     const user = await getUser(request);
     if (user) {
-      const userId = user.id
+      const userId = user.id;
       const voteList = await getVoteList(userId);
-      const subscriptionList = await getSubscriptionList(userId)
+      const subscriptionList = await getSubscriptionList(userId);
       const preferenceList = await getPreferenceList(userId);
       const committeeList = await getCommitteeList(userId);
       const committeeCategoryList = await getCommitteeCategoryList();
       const proposalList = await getProposalList();
       const participationList = await getParticipationList();
-      const notificationList = await getNotificationList(userId)
+      const notificationList = await getNotificationList(userId);
       const bundle = {
+        user,
         voteList,
         subscriptionList,
         preferenceList,
@@ -33,16 +33,16 @@ async function appDataBundleFetcher(request, response) {
         proposalList,
         participationList,
         notificationList
-      }
-      response.send(bundle)
+      };
+      response.send(bundle);
     } else {
-      response.sendStatus(401)
+      response.sendStatus(401);
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err);
-    response.sendStatus(500)
+    response.sendStatus(500);
   }
-};
+}
 
 // Export
-module.exports = appDataBundleFetcher
+module.exports = appDataBundleFetcher;
