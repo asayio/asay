@@ -10,7 +10,7 @@ class Settings extends Component {
     return (
       <div className="">
         <h1 className="">Indstillinger</h1>
-        <SettingsList user={this.props.user} />
+        <SettingsList user={this.props.user} updateState={this.props.updateState} />
       </div>
     );
   }

@@ -4,13 +4,19 @@ class SettingsList extends Component {
   constructor() {
     super();
     this.updatingUser = this.updatingUser.bind(this);
+    this.updatingEmailPreference = this.updatingEmailPreference.bind(this);
   }
 
-  async updatingUser(user) {
+  updatingUser(user) {
     this.props.updateState({ entityType: 'user', entity: user });
+  }
+
+  async updatingEmailPreference() {
+    const newUser = Object.assign(this.props.user, { emailnotification: !this.props.user.emailnotification });
+    this.updatingUser(newUser);
     const response = await fetch('/api/user/emailnotification', {
       method: 'POST',
-      body: JSON.stringify({ user }),
+      body: JSON.stringify({ emailnotification: newUser.emailnotification }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + window.sessionStorage.authToken
@@ -22,16 +28,16 @@ class SettingsList extends Component {
   }
 
   render() {
-    console.log(this.props.user);
     return (
       <div>
         <div>
           <h2>E-mail notifkationer </h2>
-          <p>Vi sender dig en ugentlig opdateringer med forslag.</p>
+          <p>Vi sender dig en ugentlig opdatering med nye forslag relevante for dig.</p>
         </div>
-        <div>
-          <a onClick={() => this.updatingUser(true)}>Til</a>
+        <div onClick={() => this.updatingEmailPreference()}>
+          <a>Til</a>
           <a>Fra</a>
+          <p>Du har valg {this.props.emailnotification ? 'Til' : 'Fra'}</p>
         </div>
       </div>
     );

@@ -1,13 +1,13 @@
 // Import
-const db = require('../db')
-const updateUserOnboarding = db.sql('./user/sql/updateUserOnboarding.sql')
+const db = require('../db');
+const updateUserOnboarding = db.sql('./user/sql/updateUserOnboarding.sql');
 
 // Functions
-async function createUser (userId) {
+async function changeUserOnboarding(userId) {
   await db.cx.query(updateUserOnboarding, {
     user: userId
   });
 }
 
 // Export
-module.exports = createUser
+module.exports = changeUserOnboarding;

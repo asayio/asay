@@ -156,6 +156,11 @@ function updateSelectedSection(state, entity) {
   return newState;
 }
 
+function updateUser(state, entity) {
+  const newState = Object.assign({}, state, { user: entity });
+  return newState;
+}
+
 function updateSearchString(state, entity) {
   const newState = Object.assign({}, state, { searchString: entity.searchString });
   return newState;
@@ -175,5 +180,6 @@ export default {
   updateSelectedSection,
   updateSearchString,
   updateNotificationList,
-  updateFilter
+  updateFilter,
+  updateUser
 };

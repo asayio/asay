@@ -54,7 +54,6 @@ class App extends Component {
 
   async componentDidMount() {
     const initialState = await stateBuilder.initialState();
-    console.log(initialState);
     this.setState(initialState);
     this.setState({ appReady: true });
     window.localStorage.promptAddToHomeScreen === undefined &&
@@ -103,6 +102,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.user);
     if (window.sessionStorage.authToken) {
       return (
         <Router>
