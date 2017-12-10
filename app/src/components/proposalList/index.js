@@ -1,7 +1,9 @@
 import R from 'ramda';
+import Fuse from 'fuse.js';
 import React, { Component } from 'react';
-import ProposalListSection from '../proposalListSection';
-import { Bookmark, Layers, RotateCcw, ArrowDown, ArrowUp } from 'react-feather';
+import { Link } from 'react-router-dom';
+import ProposalListItem from '../proposalListItem';
+import { ArrowDown, Settings } from 'react-feather';
 
 class Root extends Component {
   constructor(props) {
@@ -31,108 +33,95 @@ class Root extends Component {
 
   render() {
     const proposalList = this.props.proposalList;
-    const preferenceList =
-      this.props.selectedSection !== 'personal'
-        ? this.props.preferenceList
-        : R.filter(preference => {
-            return preference.preference;
-          }, this.props.preferenceList);
     const filterSelection = {
       category: this.props.filter.category,
       status: this.props.filter.status,
       section: this.props.selectedSection
     };
-    return (
-      <div className="mw8 center w-100 flex-auto">
-        <div className="mv3 mv4-ns">
-          <div className="tc flex flex-wrap">
-            <div className="w-100 w-third-ns mv1 pr2-ns">
+    const searchString = this.props.searchString;
+    let filteredProposalList = proposalList;
+    if (filterSelection.section === 'history') {
+      filteredProposalList = R.filter(proposal => {
+        return proposal.hasVoted;
+      }, filteredProposalList);
+    } else {
+      filteredProposalList = R.filter(proposal => {
+        return !proposal.hasVoted;
+      }, filteredProposalList);
+    }
+    if (filterSelection.section === 'personal') {
+      filteredProposalList = R.filter(proposal => {
+        return proposal.isSubscribing;
+      }, filteredProposalList);
+    }
+    if (filterSelection.category !== 'Alle') {
+      filteredProposalList = R.filter(proposal => {
+        return proposal.category.title === filterSelection.category;
+      }, filteredProposalList);
+    }
+    if (filterSelection.status !== 'Alle') {
+      filteredProposalList = R.filter(proposal => {
+        return proposal.status === filterSelection.status;
+      }, filteredProposalList);
+    }
+    let limitedList = filteredProposalList;
+    limitedList = R.filter(proposal => {
+      return proposal.distanceToDeadline < 99999999998;
+    }, filteredProposalList);
+    const showExpandListBtn = limitedList.length === filteredProposalList.length;
+    filteredProposalList = this.state.limitList ? limitedList : filteredProposalList;
+    const options = {
+      keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
+      threshold: 0.38 // sweet spot
+    };
+    const fuse = new Fuse(filteredProposalList, options);
+    var searchedProposalList = searchString ? fuse.search(searchString) : filteredProposalList;
+    if (!searchedProposalList.length && filterSelection.section === 'personal') {
+      return (
+        <div className="mw8 center mv5 mv5 tc">
+          <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
+          <Link
+            to="./preferences"
+            className="pointer dib white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6">
+            <Settings className="mr2" />Opdater præferencer
+          </Link>
+        </div>
+      );
+    } else if (!searchedProposalList.length && filterSelection.section === 'history') {
+      return (
+        <div className="mw8 center mv5 tc">
+          <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
+        </div>
+      );
+    } else if (!searchedProposalList.length && filterSelection.section === 'all') {
+      return (
+        <div className="mw8 center mv5 tc">
+          <p>Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="mw8 center w-100 flex-auto">
+          <ProposalListItem
+            searchString={this.props.searchString}
+            proposalList={searchedProposalList}
+            filterSelection={filterSelection}
+            limitList={this.state.limitList}
+          />
+          <div className="tc">
+            {this.state.limitList && !showExpandListBtn ? (
               <a
-                name="personal"
-                onClick={this.changeSection}
-                className={
-                  (this.props.selectedSection === 'personal' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
-                  ' dib w-100 b pa2 ba b--black-10 br1 shadow-6'
-                }>
-                <Bookmark className="mr2" />Mine forslag
+                onClick={() => this.setState({ limitList: false })}
+                className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
+                <ArrowDown className="mr2" /> Vis forslag uden fastlagt deadline
               </a>
-            </div>
-            <div className="w-100 w-third-ns mv1 ph1-ns">
-              <a
-                name="all"
-                onClick={this.changeSection}
-                className={
-                  (this.props.selectedSection === 'all' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
-                  ' dib w-100 b pa2 ba b--black-10 br1 shadow-6'
-                }>
-                <Layers className="mr2" />Alle forslag
-              </a>
-            </div>
-            <div className="w-100 w-third-ns mv1 pl2-ns">
-              <a
-                name="history"
-                onClick={this.changeSection}
-                className={
-                  (this.props.selectedSection === 'history' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
-                  ' dib w-100 b pa2 ba b--black-10 shadow-6 br1'
-                }>
-                <RotateCcw className="mr2" />Historik
-              </a>
-            </div>
-          </div>
-          <div className="flex flex-wrap mb3">
-            <div className="w-100 w-third-ns pv1 pr2-ns">
-              <span className="dib b mv2">Søg:</span>
-              <input
-                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-white ba b--light-gray br2"
-                type="text"
-                onChange={this.updateSearchString}
-                placeholder="Søgeord"
-                value={this.props.searchString}
-              />
-            </div>
-            <div className="w-100 w-third-ns pv1 pl1-ns pr1-ns">
-              <span className="dib b mt0 mt2-ns mb2">Kategori:</span>
-              <select
-                name="category"
-                value={this.props.filter.category}
-                onChange={this.changeFilter}
-                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                <option>Alle</option>
-                {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
-              </select>
-            </div>
-            <div className="w-100 w-third-ns pv1 pl2-ns">
-              <span className="dib b mt0 mt2-ns mb2">Status:</span>
-              <select
-                name="status"
-                value={this.props.filter.status}
-                onChange={this.changeFilter}
-                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                <option>Alle</option>
-                <option>Fremsat</option>
-                <option>Til endelig afstemning</option>
-                <option>Afsluttet</option>
-              </select>
-            </div>
+            ) : (
+              <p className="db dib-ns black-50 ma2">Der er desværre ikke flere forslag at vise...</p>
+            )}
           </div>
         </div>
-        <ProposalListSection
-          searchString={this.props.searchString}
-          proposalList={proposalList}
-          filterSelection={filterSelection}
-          limitList={this.state.limitList}
-        />
-        <div className="tc">
-          <a
-            onClick={() => this.setState({ limitList: !this.state.limitList })}
-            className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
-            {this.state.limitList ? <ArrowDown className="mr2" /> : <ArrowUp className="mr2" />}
-            {this.state.limitList ? 'Vis' : 'Skjul'} forslag uden fastlagt deadline
-          </a>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

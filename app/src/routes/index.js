@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from '../components/loginBtn';
 import ProposalList from '../components/proposalList';
+import ProposalListFilter from '../components/proposalListFilter';
 import { Mail } from 'react-feather';
 
 class Root extends Component {
@@ -11,14 +12,22 @@ class Root extends Component {
   render() {
     if (window.sessionStorage.authToken) {
       return (
-        <ProposalList
-          selectedSection={this.props.selectedSection}
-          updateState={this.props.updateState}
-          preferenceList={this.props.preferenceList}
-          searchString={this.props.searchString}
-          filter={this.props.filter}
-          proposalList={this.props.proposalList}
-        />
+        <div>
+          <ProposalListFilter
+            selectedSection={this.props.selectedSection}
+            updateState={this.props.updateState}
+            preferenceList={this.props.preferenceList}
+            filter={this.props.filter}
+          />
+          <ProposalList
+            selectedSection={this.props.selectedSection}
+            updateState={this.props.updateState}
+            preferenceList={this.props.preferenceList}
+            searchString={this.props.searchString}
+            filter={this.props.filter}
+            proposalList={this.props.proposalList}
+          />
+        </div>
       );
     } else {
       return <Welcome />;
