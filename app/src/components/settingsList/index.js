@@ -37,7 +37,7 @@ class SettingsList extends Component {
         <div onClick={() => this.updatingEmailPreference()}>
           <a>Til</a>
           <a>Fra</a>
-          <p>Du har valg {this.props.emailnotification ? 'Til' : 'Fra'}</p>
+          <p>Du har valg {this.props.user.emailnotification === true ? 'Til' : 'Fra'}</p>
         </div>
       </div>
     );

@@ -102,7 +102,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.user);
     if (window.sessionStorage.authToken) {
       return (
         <Router>
