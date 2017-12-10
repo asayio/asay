@@ -22,7 +22,7 @@ class Preferences extends Component {
               <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList} />
             </div>
           </div>
-          <div className="w-100 w-25-l pl3-l pb3">
+          <div className="w-100 w-25-l pl3-l pb3 pb0-l">
             <div className="bg-white pa3 ph4 ph3-l ba b--black-10 br1 shadow-6 sticky-l top-4-l">
               <div className="tc-l lh-copy">
                 <p>Her kan du vælge, hvilke emner du vil følge med i.</p>
