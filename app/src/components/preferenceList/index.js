@@ -25,26 +25,35 @@ class PreferenceList extends Component {
 
   render() {
     return (
-      <div className="flex flex-wrap">
+      <div>
         {this.props.preferenceList.map((preference, index) => (
-          <div key={preference.id} className="w-100 w-50-ns pv4 pr4 flex flex-column">
-            <h3 className="mt0 mb2">
-              <FeatherIcon name={preference.feathericon} className="mr2" />
-              {preference.title}
-            </h3>
-            <p className="black-70 lh-copy mt0 flex-auto">{preference.description}</p>
-            <div>
-              <a
-                onClick={() => this.updatingPreference(preference)}
-                className={
-                  (preference.preference
-                    ? 'dark-blue bg-white b--dark-blue'
-                    : 'white bg-dark-blue hover-bg-blue b--black-10 shadow-6') +
-                  ' pointer dib pv2 ph3 mt2 ba br1 flex-none'
-                }>
-                <Bookmark className="mr2" />
-                {preference.preference ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
-              </a>
+          <div key={preference.id} className="flex flex-column flex-row-ns items-center-ns mv4 mv5-ns">
+            <div className="flex-auto">
+              <h3 className="mw6 mv1">
+                <FeatherIcon name={preference.feathericon} className="mr2" />
+                {preference.title}
+              </h3>
+              <p className="black-70 lh-copy mw6 mv1">{preference.description}</p>
+            </div>
+            <div className="flex-none pv2 pl4-ns">
+              <div className="no-select" onClick={() => this.updatingPreference(preference)}>
+                <a
+                  className={
+                    preference.preference
+                      ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
+                      : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
+                  }>
+                  Følg
+                </a>
+                <a
+                  className={
+                    preference.preference
+                      ? 'dib black-50 bg-near-white ba b--black-10 br1 br--right pv2 ph3'
+                      : 'dib white bg-dark-blue ba b--black-10 br1 br--right pv2 ph3'
+                  }>
+                  Ikke
+                </a>
+              </div>
             </div>
           </div>
         ))}
