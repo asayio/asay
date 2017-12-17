@@ -11,8 +11,8 @@ class SettingsList extends Component {
     this.props.updateState({ entityType: 'user', entity: user });
   }
 
-  async updatingEmailPreference() {
-    const newUser = Object.assign(this.props.user, { emailnotification: !this.props.user.emailnotification });
+  async updatingEmailPreference(preference) {
+    const newUser = Object.assign(this.props.user, { emailnotification: preference });
     this.updatingUser(newUser);
     const response = await fetch('/api/user/emailnotification', {
       method: 'POST',
@@ -37,22 +37,33 @@ class SettingsList extends Component {
           </p>
         </div>
         <div className="flex-none pv2 pl4-ns">
-          <div className="no-select" onClick={() => this.updatingEmailPreference()}>
+          <div className="no-select">
             <a
+              onClick={() => this.updatingEmailPreference('never')}
               className={
-                this.props.user.emailnotification
+                this.props.user.emailnotification === 'never'
                   ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
                   : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
               }>
-              Til
+              Aldrig
             </a>
             <a
+              onClick={() => this.updatingEmailPreference('weekly')}
               className={
-                this.props.user.emailnotification
-                  ? 'dib black-50 bg-near-white ba b--black-10 br1 br--right pv2 ph3'
-                  : 'dib white bg-dark-blue ba b--black-10 br1 br--right pv2 ph3'
+                this.props.user.emailnotification === 'weekly'
+                  ? 'dib white bg-dark-blue ba b--black-10 br1 br--right br--left pv2 ph3'
+                  : 'dib black-50 bg-near-white ba b--black-10 br1 br--right br--left pv2 ph3'
               }>
-              Fra
+              Ugentlig
+            </a>
+            <a
+              onClick={() => this.updatingEmailPreference('monthly')}
+              className={
+                this.props.user.emailnotification === 'monthly'
+                  ? 'dib white bg-dark-blue ba b--black-10 br1 br--right pv2 ph3'
+                  : 'dib black-50 bg-near-white ba b--black-10 br1 br--right pv2 ph3'
+              }>
+              Månedlig
             </a>
           </div>
         </div>

@@ -12,7 +12,6 @@ class ProposalInfo extends Component {
 
   async componentDidMount() {
     const proposal = this.props.proposal;
-    console.log(proposal.presentation);
     if (proposal.presentation) {
       proposal.presentation.paragraphs && proposal.presentation.paragraphs.splice(-1, 1); // we remove the last annoying paragraph
       proposal.presentation.paragraphs && proposal.presentation.paragraphs.splice(0, 1); // we remove the first annoying paragraph
