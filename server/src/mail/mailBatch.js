@@ -61,14 +61,14 @@ async function mailBatch(request, response) {
     fs.readFile(__dirname + '/template.html', 'utf8', function (err, html) {
       if (err) { throw err; }
       var client = new sendinblue({apiKey, timeout: 5000})
-      let proposalListHTML = []
-      for (const proposal of user.filteredProposalList) {
-        proposalListHTML.push("<p>" + proposal.shortTitel + "</p>")
-      }
       const htmlNode = cheerio.load(html)
-      htmlNode('#proposal-list').html(proposalListHTML.join(''))
+
       htmlNode('#name').html(user.firstname)
       htmlNode('#number-of-proposals').html(user.filteredProposalList.length)
+      for (const proposal of user.filteredProposalList) {
+        htmlNode('#proposal-titel-field').after("<a href=https://app.initiativet.net/proposal/" + proposal.proposalId + "><strong style='line-height:24px; font-size:16px; color:#222222;'>" + proposal.shortTitel + "</strong></a><br><br><br>")
+      }
+      htmlNode('#proposal-button').remove()
       const data = {
         "to": {
           [user.email]: user.firstname

@@ -41,7 +41,11 @@ function listeningHandler() {
     ftBatchFetcher() // initial load
     // schedule.scheduleJob('0 0 0 * * 1', () => {
     //   console.log('running weekly batch job');
-    //   mailBatcher()
+    //   mailBatcher('monthly')
+    // })
+    // schedule.scheduleJob('0 0 0 * * 1', () => {
+    //   console.log('running weekly batch job');
+    //   mailBatcher('weekly')
     // })
     schedule.scheduleJob('0 0 0 * * *', () => {
       ftBatchFetcher()

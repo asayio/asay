@@ -422,8 +422,7 @@
     </tr>
 
     <!-- LOOP NEDENSTÅENDE FOR HVERT FORSLAG -->
-
-    <tr>
+    <tr id="proposal-titel">
 
         <td style="background-color:#f5f5f5;" valign="top" bgcolor="#f5f5f5" align="center">
 
@@ -454,10 +453,9 @@
                                                             <table valign="top" class="rnb-col-1" width="100%" cellspacing="0" cellpadding="0" border="0" align="left">
 
                                                                 <tbody><tr>
-                                                                    <td id="proposal-list" style="font-size:14px; font-family:'Clear Sans','Arial',Helvetica,sans-serif, sans-serif; color:#3c4858; line-height: 21px;"><div style="line-height:24px;"><strong><span style="color:#222222;"><span style="background-color: transparent; font-size: 16px;">Forslagets titel</span></span></strong></div>
+                                                                    <td  id="proposal-titel-field" style="font-size:14px; font-family:'Clear Sans','Arial',Helvetica,sans-serif, sans-serif; color:#3c4858; line-height: 21px;">
 
-<div style="line-height:24px;"><span style="color:#888888;"><span style="font-size: 16px;"><span style="background-color: transparent;">Kategori</span></span></span></div>
-</td>
+                                                                    </td>
                                                                 </tr>
                                                                 </tbody></table>
 
@@ -480,7 +478,7 @@
                 <![endif]-->
 
             </div></td>
-    </tr><tr>
+    </tr><tr id="proposal-button">
 
         <td style="background-color:#f5f5f5;" valign="top" bgcolor="#f5f5f5" align="center">
 
@@ -515,7 +513,7 @@
                                                                 <tbody><tr>
                                                                     <td style="font-size:16px; font-family:'Clear Sans','Arial',Helvetica,sans-serif; color:#ffffff; font-weight:normal; padding-left:20px; padding-right:20px; vertical-align: middle; background-color:#42bfb4;border-radius:2px;border-top:0px None #000;border-right:0px None #000;border-bottom:0px None #000;border-left:0px None #000;" height="36" width="auto" valign="middle" bgcolor="#42bfb4" align="center">
                                                                         <span style="color:#ffffff; font-weight:normal;">
-                                                                                <a style="text-decoration:none; color:#ffffff; font-weight:normal;" target="_blank" href="https://app.initiativet.dk/link-to-proposal"><strong>Gå til forslag</strong></a>
+                                                                                <a id="proposal-button-link" style="text-decoration:none; color:#ffffff; font-weight:normal;" target="_blank" href="https://app.initiativet.dk/link-to-proposal"><strong>Gå til forslag</strong></a>
                                                                             </span>
                                                                     </td>
                                                                 </tr></tbody></table>
@@ -544,7 +542,6 @@
                 <![endif]-->
             </div></td>
     </tr>
-
     <!-- STOP LOOP -->
 
     <tr>
