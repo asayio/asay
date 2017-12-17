@@ -15,16 +15,17 @@ const fs = require('fs')
 const cheerio = require('cheerio')
 
 // Functions
-async function mailBatch(request, response) {
+async function mailBatch(schedule) {
   console.log('starting mail batch');
+  const daysSinceLastJob = (schedule === 'weekly') ? 7 : 31
   const userList = await getUserList()
   const proposalList = await getProposalList()
   const committeeCategoryList = await getCommitteeCategoryList();
   const currentDate = new Date()
   const dateFilteredProposalList = R.filter(proposal => {
     const proposedDate = Date.parse(proposal.createdon)
-    const oneWeek = 1000 * 60 * 60 * 24 * 7
-    return (currentDate - proposedDate) < oneWeek
+    const timeSinceLastJob = 1000 * 60 * 60 * 24 * daysSinceLastJob
+    return (currentDate - proposedDate) < timeSinceLastJob
   }, proposalList)
   if (!dateFilteredProposalList.length) {
     console.log('It seems there are no new proposals to notify users about!');
@@ -38,8 +39,7 @@ async function mailBatch(request, response) {
   console.log('created relevant and formatted proposal list. Length: ' + formattedProposalList.length);
   let emailList = []
   for (const user of userList) {
-    if (user.email_notification) {
-      console.log(user);
+    if (user.email_notification === schedule) {
       const subscriptionList = R.pluck('proposal')(await getSubscriptionList(user.id))
       const preferenceList = R.pluck('id')(R.filter(o => o.preference, await getPreferenceList(user.id)));
       const notificationList = R.pluck('proposal_id')(await getNotificationList(user.id))
@@ -66,7 +66,7 @@ async function mailBatch(request, response) {
       htmlNode('#name').html(user.firstname)
       htmlNode('#number-of-proposals').html(user.filteredProposalList.length)
       for (const proposal of user.filteredProposalList) {
-        htmlNode('#proposal-titel-field').after("<a href=https://app.initiativet.net/proposal/" + proposal.proposalId + "><strong style='line-height:24px; font-size:16px; color:#222222;'>" + proposal.shortTitel + "</strong></a><br><br><br>")
+        htmlNode('#proposal-titel-field').after("<a href=https://app.initiativet.dk/proposal/" + proposal.proposalId + "><strong style='line-height:24px; font-size:16px; color:#222222;'>" + proposal.shortTitel + "</strong></a><br><br><br>")
       }
       htmlNode('#proposal-button').remove()
       const data = {
