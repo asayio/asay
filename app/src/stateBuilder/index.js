@@ -6,7 +6,7 @@ async function initialState() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + window.sessionStorage.authToken
+      Authorization: 'Bearer ' + window.localStorage.authToken
     }
   });
   if (appDataBundleResponse.ok) {

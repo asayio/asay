@@ -8,8 +8,8 @@ import './index.css';
 class Nav extends Component {
   render() {
     if (this.props.user) {
-      const firstname = this.props.user.firstname;
-      const lastname = this.props.user.lastname;
+      const user = this.props.user;
+      const initials = user.firstname.charAt(0) + user.lastname.charAt(0);
       return (
         <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pa2">
           <div className="relative mw8 center flex">
@@ -23,11 +23,11 @@ class Nav extends Component {
             </div>
             <div className="items-center relative dn flex-ns">
               <span id="person-ns" className="b bg-near-white br1 pa2">
-                {firstname.charAt(0) + lastname.charAt(0)}
+                {initials}
               </span>
               <div id="personal-menu-ns" className="absolute top-2 right-0 pt2">
                 <div className="white bg-dark-gray br1">
-                  <span className="db nowrap bb b--white-10 pa3">{firstname + ' ' + lastname}</span>
+                  <span className="db nowrap bb b--white-10 pa3">{user.firstname + ' ' + user.lastname}</span>
                   <ul className="list pa1 ma0">
                     <li className="pa1">
                       <Link
@@ -54,11 +54,11 @@ class Nav extends Component {
             </div>
             <div className="items-center relative flex dn-ns">
               <span id="person" className="b bg-near-white br1 pa2" onClick={openDropDown}>
-                {firstname.charAt(0) + lastname.charAt(0)}
+                {initials}
               </span>
               <div id="personal-menu" className="absolute top-2 right-0 pt2 dn" onClick={openDropDown}>
                 <div className="white bg-dark-gray br1">
-                  <span className="db nowrap bb b--white-10 pa3">{firstname + ' ' + lastname}</span>
+                  <span className="db nowrap bb b--white-10 pa3">{user.firstname + ' ' + user.lastname}</span>
                   <ul className="list pa1 ma0">
                     <li className="pa1">
                       <Link

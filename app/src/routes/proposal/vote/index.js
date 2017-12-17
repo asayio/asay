@@ -35,7 +35,7 @@ class Vote extends Component {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + window.sessionStorage.authToken
+        Authorization: 'Bearer ' + window.localStorage.authToken
       }
     });
     if (response.ok) {

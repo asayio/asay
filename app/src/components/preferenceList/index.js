@@ -14,7 +14,7 @@ class PreferenceList extends Component {
       body: JSON.stringify({ preference }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + window.sessionStorage.authToken
+        Authorization: 'Bearer ' + window.localStorage.authToken
       }
     });
     if (!response.ok) {

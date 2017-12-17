@@ -27,6 +27,7 @@ import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
 import ErrorModal from './components/modal/error';
 import AddToHomeScreenModal from './components/modal/addToHomeScreen';
+import LandingPage from './components/landingPage';
 
 class App extends Component {
   constructor(props) {
@@ -53,16 +54,19 @@ class App extends Component {
     this.updateState = this.updateState.bind(this);
   }
 
-  async componentDidMount() {
-    const initialState = await stateBuilder.initialState();
-    this.setState(initialState);
-    this.setState({ appReady: true });
+  componentWillMount() {
     window.localStorage.promptAddToHomeScreen === undefined &&
       navigator.userAgent.match(/iPhone|iPad|iPod/i) &&
       this.setState({ showAddToHomeScreenModal: 'apple' });
     window.localStorage.promptAddToHomeScreen === undefined &&
       navigator.userAgent.match(/Android/i) &&
       this.setState({ showAddToHomeScreenModal: 'android' });
+  }
+
+  async componentDidMount() {
+    const initialState = await stateBuilder.initialState();
+    this.setState(initialState);
+    this.setState({ appReady: true });
   }
 
   updateState({ entityType, entity }) {
@@ -109,7 +113,11 @@ class App extends Component {
       ReactGA.pageview(window.location.pathname);
       return null;
     };
-    if (window.sessionStorage.authToken) {
+    const mountTimestamp = new Date();
+    const mountTime = Date.parse(mountTimestamp);
+    const expTime = Number(window.localStorage.exp) * 1000;
+    const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
+    if (window.localStorage.authToken && !loginExpired) {
       return (
         <Router>
           {this.state.appReady ? (
@@ -205,13 +213,12 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Route path="/" component={logPageView} />
-            <Nav />
             {this.state.showAddToHomeScreenModal && <AddToHomeScreenModal updateState={this.updateState} />}
             <Switch>
               <Route exact path="/auth" component={Auth} />
               <Route exact path="/401" component={Unauthorized} />
               <Route exact path="/disclaimer" component={Disclaimer} />
-              <Route path="*" component={Root} />
+              <Route path="*" component={LandingPage} />
             </Switch>
             <Footer />
           </div>

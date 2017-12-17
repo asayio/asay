@@ -22,7 +22,7 @@ class ProposalPage extends Component {
           }),
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + window.sessionStorage.authToken
+            Authorization: 'Bearer ' + window.localStorage.authToken
           }
         })
       );
@@ -35,7 +35,7 @@ class ProposalPage extends Component {
   }
 
   render() {
-    const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
+    const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList);
     this.seen(proposal);
     return (
       <div className="mw8 center w-100 flex-auto">

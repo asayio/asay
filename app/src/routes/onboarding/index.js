@@ -11,7 +11,7 @@ class Onboarding extends Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + window.sessionStorage.authToken
+        Authorization: 'Bearer ' + window.localStorage.authToken
       }
     });
   }
@@ -23,16 +23,13 @@ class Onboarding extends Component {
     return (
       <div className="mw8 center w-100 flex-auto">
         <h1 className="f3 tc mt4 mb3">Velkommen</h1>
+        <div className="lh-copy tc">
+          <p>Vi vil gerne hjælpe dig med at navigere i alle de forslag, der bliver fremsat i Folketinget.</p>
+          <p>Vælg de politiske emner der interesserer dig, så samler vi et overblik til dig. </p>
+        </div>
         <div className="flex flex-wrap">
           <div className="w-100 w-75-l order-last order-0-l">
-            <div className="bg-white pv3 pl4 ba b--black-10 br1 shadow-6">
-              <div className="lh-copy pr4">
-                <p>Vi vil gerne hjælpe dig med at navigere i alle de forslag, der bliver fremsat i Folketinget.</p>
-                <p>
-                  Vælg de politiske emner der interesserer dig, så samler vi et overblik til dig. Du kan altid opdatere
-                  dine præferencer samt gennemsøge alle forslag.
-                </p>
-              </div>
+            <div className="bg-white ph4 ba b--black-10 br1 shadow-6">
               <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList} />
             </div>
           </div>

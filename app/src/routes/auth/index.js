@@ -20,13 +20,12 @@ class Auth extends Component {
       }
     });
     if (response.ok) {
-      const user = await response.json();
-      window.sessionStorage.firstname = user.firstname;
-      window.sessionStorage.lastname = user.lastname;
-      window.sessionStorage.onboarded = user.onboarded;
-      window.sessionStorage.authToken = authToken;
+      const authInfo = await response.json();
+      window.localStorage.authToken = authToken;
+      window.localStorage.exp = authInfo.exp;
+      console.log(authInfo.user);
       this.setState({ authorized: true }, function() {
-        if (window.sessionStorage.onboarded === 'true') {
+        if (authInfo.user.onboarded) {
           window.location.href = window.sessionStorage.redirectUrl;
         } else {
           window.location.href = './onboarding';
