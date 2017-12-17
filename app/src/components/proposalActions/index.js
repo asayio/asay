@@ -23,7 +23,7 @@ class ProposalActions extends Component {
       }
     });
     if (!response.ok) {
-      this.props.updateState({ entityType: 'error', entity: true });
+      this.props.updateState({ entityType: 'error', entity: response.status });
     }
   }
 

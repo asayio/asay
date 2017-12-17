@@ -26,6 +26,7 @@ import Footer from './components/footer';
 import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
 import ErrorModal from './components/modal/error';
+import UnauthorizedModal from './components/modal/unauthorized';
 import AddToHomeScreenModal from './components/modal/addToHomeScreen';
 import LandingPage from './components/landingPage';
 
@@ -65,8 +66,10 @@ class App extends Component {
 
   async componentDidMount() {
     const initialState = await stateBuilder.initialState();
-    this.setState(initialState);
-    this.setState({ appReady: true });
+    if (initialState) {
+      this.setState(initialState);
+      this.setState({ appReady: true });
+    }
   }
 
   updateState({ entityType, entity }) {
@@ -107,6 +110,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.showErrorModal);
     ReactGA.initialize('UA-98356224-1');
     const logPageView = () => {
       ReactGA.set({ page: window.location.pathname });
@@ -125,7 +129,9 @@ class App extends Component {
               <Route path="/" component={logPageView} />
               <Nav user={this.state.user} />
               <div className="min-vh-100 flex flex-column ph2 pt5">
-                {this.state.showErrorModal && <ErrorModal updateState={this.updateState} />}
+                {this.state.showErrorModal &&
+                  this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
+                {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
                 <Switch>
                   <Route
                     exact

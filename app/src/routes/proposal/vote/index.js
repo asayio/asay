@@ -48,7 +48,7 @@ class Vote extends Component {
         });
     } else {
       this.setState({ showModal: false });
-      this.props.updateState({ entityType: 'error', entity: true });
+      this.props.updateState({ entityType: 'error', entity: response.status });
     }
   }
 

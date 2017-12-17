@@ -12,7 +12,8 @@ class SettingsList extends Component {
   }
 
   async updatingEmailPreference(preference) {
-    const newUser = Object.assign(this.props.user, { emailnotification: preference });
+    const oldUser = this.props.user;
+    const newUser = Object.assign(oldUser, { emailnotification: preference });
     this.updatingUser(newUser);
     const response = await fetch('/api/user/emailnotification', {
       method: 'POST',
@@ -23,7 +24,7 @@ class SettingsList extends Component {
       }
     });
     if (!response.ok) {
-      this.props.updateState({ entityType: 'error', entity: true });
+      this.props.updateState({ entityType: 'error', entity: response.status });
     }
   }
 

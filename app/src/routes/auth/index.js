@@ -3,13 +3,6 @@ import queryString from 'query-string';
 import LoadingSpinner from '../../components/loadingSpinner';
 
 class Auth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authorized: false
-    };
-  }
-
   async componentDidMount() {
     const parsedHash = queryString.parse(window.location.hash);
     const authToken = parsedHash.id_token;
