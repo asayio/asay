@@ -10,17 +10,6 @@ class ProposalPage extends Component {
     window.scrollTo(0, 0);
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      proposal: R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
-    };
-  }
-
-  componentWillMount() {
-    this.seen(this.state.proposal);
-  }
-
   async seen(proposal) {
     proposal.seeNotification &&
       this.props.updateState(
@@ -46,7 +35,8 @@ class ProposalPage extends Component {
   }
 
   render() {
-    const proposal = this.state.proposal;
+    const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList)
+    this.seen(proposal);
     return (
       <div className="mw8 center w-100 flex-auto">
         <Link to="/" className="db dib-ns tc white bg-dark-blue hover-bg-blue ba b--black-10 br1 ph3 pv2 mt4">
