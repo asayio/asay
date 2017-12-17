@@ -44,14 +44,16 @@ class Root extends Component {
       filteredProposalList = R.filter(proposal => {
         return proposal.hasVoted;
       }, filteredProposalList);
-    } else {
-      filteredProposalList = R.filter(proposal => {
-        return !proposal.hasVoted;
-      }, filteredProposalList);
     }
     if (filterSelection.section === 'personal') {
       filteredProposalList = R.filter(proposal => {
         return proposal.isSubscribing;
+      }, filteredProposalList);
+      filteredProposalList = R.filter(proposal => {
+        return !proposal.hasVoted;
+      }, filteredProposalList);
+      filteredProposalList = R.filter(proposal => {
+        return proposal.status !== 'Afsluttet';
       }, filteredProposalList);
     }
     if (filterSelection.category !== 'Alle') {
@@ -65,11 +67,13 @@ class Root extends Component {
       }, filteredProposalList);
     }
     let limitedList = filteredProposalList;
-    limitedList = R.filter(proposal => {
-      return proposal.distanceToDeadline < 99999999998;
-    }, filteredProposalList);
-    const showExpandListBtn = limitedList.length === filteredProposalList.length;
-    filteredProposalList = this.state.limitList ? limitedList : filteredProposalList;
+    if (filterSelection.section !== 'history') {
+      limitedList = R.filter(proposal => {
+        return proposal.distanceToDeadline < 99999999998;
+      }, filteredProposalList);
+    }
+    const showExpandListBtn = limitedList.length === filteredProposalList.length || filterSelection.status !== 'Alle';
+    filteredProposalList = this.state.limitList && filterSelection.status === 'Alle' ? limitedList : filteredProposalList;
     const options = {
       keys: ['shortTitel', 'titel', 'resume', 'presentation.paragraphs'],
       threshold: 0.38 // sweet spot
@@ -103,7 +107,7 @@ class Root extends Component {
       return (
         <div className="mw8 center w-100 flex-auto">
           {searchedProposalList.map(function(proposal, index) {
-            return <ProposalListItem proposal={proposal} />;
+            return <ProposalListItem key={index} proposal={proposal} />;
           })}
           <div className="tc">
             {this.state.limitList && !showExpandListBtn ? (
