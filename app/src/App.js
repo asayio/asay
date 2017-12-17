@@ -3,6 +3,7 @@ import 'tachyons';
 import './App.css';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 // data
 import stateBuilder from './stateBuilder/index';
@@ -102,11 +103,18 @@ class App extends Component {
   }
 
   render() {
+    ReactGA.initialize('UA-98356224-1');
+    const logPageView = () => {
+      ReactGA.set({ page: window.location.pathname });
+      ReactGA.pageview(window.location.pathname);
+      return null;
+    };
     if (window.sessionStorage.authToken) {
       return (
         <Router>
           {this.state.appReady ? (
             <div>
+              <Route path="/" component={logPageView} />
               <Nav user={this.state.user} />
               <div className="min-vh-100 flex flex-column ph2 pt5">
                 {this.state.showErrorModal && <ErrorModal updateState={this.updateState} />}
@@ -196,6 +204,7 @@ class App extends Component {
       return (
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
+            <Route path="/" component={logPageView} />
             <Nav />
             {this.state.showAddToHomeScreenModal && <AddToHomeScreenModal updateState={this.updateState} />}
             <Switch>
