@@ -37,6 +37,7 @@ function listeningHandler() {
   const ftBatchFetcher = require("./src/integrations/ft/ftBatchFetcher")
   const mailBatcher = require("./src/mail/mailBatch")
   const schedule = require('node-schedule')
+  mailBatcher()
   if (environment === "production") {
     ftBatchFetcher() // initial load
     // schedule.scheduleJob('0 0 0 * * 1', () => {

@@ -11,7 +11,8 @@ const getCommitteeCategoryList = require('../db/preference/getCommitteeCategoryL
 const getProposalList = require('../db/proposal/getProposalList');
 const getParticipationList = require('../db/vote/getParticipationList');
 const getNotificationList = require('../db/notification/getNotificationList');
-
+const fs = require('fs')
+const cheerio = require('cheerio')
 
 // Functions
 async function mailBatch(request, response) {
@@ -37,43 +38,51 @@ async function mailBatch(request, response) {
   console.log('created relevant and formatted proposal list. Length: ' + formattedProposalList.length);
   let emailList = []
   for (const user of userList) {
-    const subscriptionList = R.pluck('proposal')(await getSubscriptionList(user.id))
-    const preferenceList = R.pluck('id')(R.filter(o => o.preference, await getPreferenceList(user.id)));
-    const notificationList = R.pluck('proposal_id')(await getNotificationList(user.id))
-    console.log('building filteredProposalList for user: ' + user.id);
-    const filteredProposalList = R.filter(proposal => {
-      const isSubscribing = subscriptionList.includes(proposal.proposalId)
-      const isPreference = preferenceList.includes(proposal.categoryId)
-      const hasNotSeen = !notificationList.includes(proposal.proposalId)
-      return (isSubscribing || isPreference) && hasNotSeen
-    }, formattedProposalList)
-    filteredProposalList.length && emailList.push({userId: user.id, email: user.email, filteredProposalList, firstname: user.firstname})
-  }
+    if (user.email_notification) {
+      console.log(user);
+      const subscriptionList = R.pluck('proposal')(await getSubscriptionList(user.id))
+      const preferenceList = R.pluck('id')(R.filter(o => o.preference, await getPreferenceList(user.id)));
+      const notificationList = R.pluck('proposal_id')(await getNotificationList(user.id))
+      console.log('building filteredProposalList for user: ' + user.id);
+      const filteredProposalList = R.filter(proposal => {
+        const isSubscribing = subscriptionList.includes(proposal.proposalId)
+        const isPreference = preferenceList.includes(proposal.categoryId)
+        const hasNotSeen = !notificationList.includes(proposal.proposalId)
+        return (isSubscribing || isPreference) && hasNotSeen
+      }, formattedProposalList)
+      filteredProposalList.length && emailList.push({userId: user.id, email: user.email, filteredProposalList, firstname: user.firstname})
+  }}
   if (!emailList.length) {
     console.log('It seems there are no users to notify about new proposals!');
     return null
   }
   console.log('finished email list. Length: ' + emailList.length);
   for (const user of emailList) {
-    var client = new sendinblue({apiKey, timeout: 5000})
-    let proposalListHTML = []
-    for (const proposal of user.filteredProposalList) {
-      proposalListHTML.push("<p>" + proposal.shortTitel + "</p>")
-    }
-    const html = "<h1>Der er kommet nye lovforslag til dig!</h1>" + proposalListHTML.join('') + "<a href='https://app.initiativet.dk/'>Klik her for at logge ind og se dem!</a>"
-    const data = {
-      "to": {
-        [user.email]: user.firstname
-      },
-  		"from": [
-        "dinevenner@initiativet.dk",
-        "Initiativet"
-      ],
-  		"subject": "Der er kommet nye lovforslag til dig!",
-  		"html": html
-  	}
-    client.send_email(data, function(err, response) {
-      console.log(response);
+    fs.readFile(__dirname + '/template.html', 'utf8', function (err, html) {
+      if (err) { throw err; }
+      var client = new sendinblue({apiKey, timeout: 5000})
+      let proposalListHTML = []
+      for (const proposal of user.filteredProposalList) {
+        proposalListHTML.push("<p>" + proposal.shortTitel + "</p>")
+      }
+      const htmlNode = cheerio.load(html)
+      htmlNode('#proposal-list').html(proposalListHTML.join(''))
+      htmlNode('#name').html(user.firstname)
+      htmlNode('#number-of-proposals').html(user.filteredProposalList.length)
+      const data = {
+        "to": {
+          [user.email]: user.firstname
+        },
+    		"from": [
+          "dinevenner@initiativet.dk",
+          "Initiativet"
+        ],
+    		"subject": "Der er kommet nye lovforslag til dig!",
+    		"html": htmlNode.html()
+    	}
+      client.send_email(data, function(err, response) {
+        console.log(response);
+      })
     })
   }
 }
