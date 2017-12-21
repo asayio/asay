@@ -4,19 +4,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "auth0-lock": "^10.18.0",
+    "auth0-lock": "^10.24.1",
     "fuse.js": "^3.2.0",
-    "immutability-helper": "^2.4.0",
+    "immutability-helper": "^2.6.2",
     "ramda": "^0.24.1",
-    "react": "^15.6.1",
+    "react": "^15.6.2",
     "react-document-meta": "^2.1.2",
-    "react-dom": "^15.6.1",
-    "react-feather": "^1.0.4",
+    "react-dom": "^15.6.2",
+    "react-feather": "^1.0.8",
     "react-ga": "^2.3.5",
-    "react-router": "^4.1.2",
-    "react-router-dom": "^4.1.2",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.10",
-    "tachyons": "^4.7.4"
+    "tachyons": "^4.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
