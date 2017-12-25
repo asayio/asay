@@ -46,7 +46,6 @@ class App extends Component {
       committeeCategoryList: [],
       participationList: [],
       appReady: false,
-      selectedSection: 'personal',
       searchString: '',
       filter: {
         category: 'Alle',
@@ -86,9 +85,6 @@ class App extends Component {
         break;
       case 'subscriptionList':
         this.setState(stateBuilder.updateSubscriptionList(this.state, entity));
-        break;
-      case 'selectedSection':
-        this.setState(stateBuilder.updateSelectedSection(this.state, entity));
         break;
       case 'searchString':
         this.setState(stateBuilder.updateSearchString(this.state, entity));
@@ -136,25 +132,15 @@ class App extends Component {
                   <Route
                     exact
                     path="/proposals"
-                    render={props => (
-                      <Proposals
-                        selectedSection={this.state.selectedSection}
-                        updateState={this.updateState}
-                        preferenceList={this.state.preferenceList}
-                        searchString={this.state.searchString}
-                        filter={this.state.filter}
-                        proposalList={this.state.proposalList}
-                      />
-                    )}
+                    render={props => <Proposals proposalList={this.state.proposalList} />}
                   />
+                  <Route exact path="/insights" render={props => <Insights proposalList={this.state.proposalList} />} />
                   <Route
                     exact
                     path="/search"
                     render={props => (
                       <Search
-                        selectedSection={this.state.selectedSection}
                         updateState={this.updateState}
-                        preferenceList={this.state.preferenceList}
                         searchString={this.state.searchString}
                         filter={this.state.filter}
                         proposalList={this.state.proposalList}
@@ -200,20 +186,6 @@ class App extends Component {
                     )}
                   />
                   <Route exact path="/auth" component={Auth} />
-                  <Route
-                    exact
-                    path="/insights"
-                    render={props => (
-                      <Insights
-                        selectedSection={this.state.selectedSection}
-                        updateState={this.updateState}
-                        preferenceList={this.state.preferenceList}
-                        searchString={this.state.searchString}
-                        filter={this.state.filter}
-                        proposalList={this.state.proposalList}
-                      />
-                    )}
-                  />
                   <Route path="*" component={Lost} />
                 </Switch>
                 <Footer />

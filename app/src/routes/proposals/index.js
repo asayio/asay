@@ -4,7 +4,7 @@ import ProposalList from '../../components/proposalList';
 import { ArrowDown, Settings } from 'react-feather';
 import { Link } from 'react-router-dom';
 
-class Root extends Component {
+class Proposals extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +33,7 @@ class Root extends Component {
     const limitList = this.state.limitList && limitedProposalList.length !== proposalList.length;
     if (!proposalList.length) {
       return (
-        <div className="mw8 center mv5 mv5 tc">
+        <div className="mw8 flex-auto center mv5 mv5 tc">
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
           <Link
             to="./preferences"
@@ -61,4 +61,4 @@ class Root extends Component {
   }
 }
 
-export default Root;
+export default Proposals;

@@ -151,11 +151,6 @@ function updateNotificationList(state, entity) {
   return newState;
 }
 
-function updateSelectedSection(state, entity) {
-  const newState = Object.assign({}, state, { selectedSection: entity.selectedSection });
-  return newState;
-}
-
 function updateUser(state, entity) {
   const newState = Object.assign({}, state, { user: entity });
   return newState;
@@ -177,7 +172,6 @@ export default {
   updatePreferences,
   updateVoteList,
   updateSubscriptionList,
-  updateSelectedSection,
   updateSearchString,
   updateNotificationList,
   updateFilter,

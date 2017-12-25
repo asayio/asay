@@ -9,13 +9,7 @@ class Root extends Component {
       limitList: true
     };
     this.changeFilter = this.changeFilter.bind(this);
-    this.changeSection = this.changeSection.bind(this);
     this.updateSearchString = this.updateSearchString.bind(this);
-  }
-
-  changeSection(event) {
-    const selectedSection = event.target.name;
-    this.props.updateState({ entityType: 'selectedSection', entity: { selectedSection } });
   }
 
   changeFilter(event) {
