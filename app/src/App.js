@@ -13,11 +13,12 @@ import Unauthorized from './routes/401';
 import Lost from './routes/404';
 import Auth from './routes/auth';
 import Disclaimer from './routes/disclaimer';
-import Insights from './routes/insights';
 import Preferences from './routes/preferences';
+import Insights from './routes/insights';
+import Search from './routes/search';
+import Proposals from './routes/proposals';
 import Proposal from './routes/proposal';
 import Vote from './routes/proposal/vote';
-import Root from './routes';
 import Settings from './routes/settings';
 
 // components
@@ -110,7 +111,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.showErrorModal);
     ReactGA.initialize('UA-98356224-1');
     const logPageView = () => {
       ReactGA.set({ page: window.location.pathname });
@@ -135,9 +135,23 @@ class App extends Component {
                 <Switch>
                   <Route
                     exact
-                    path="/"
+                    path="/proposals"
                     render={props => (
-                      <Root
+                      <Proposals
+                        selectedSection={this.state.selectedSection}
+                        updateState={this.updateState}
+                        preferenceList={this.state.preferenceList}
+                        searchString={this.state.searchString}
+                        filter={this.state.filter}
+                        proposalList={this.state.proposalList}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path="/search"
+                    render={props => (
+                      <Search
                         selectedSection={this.state.selectedSection}
                         updateState={this.updateState}
                         preferenceList={this.state.preferenceList}
