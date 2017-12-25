@@ -30,7 +30,8 @@ class Proposals extends Component {
     limitedProposalList = R.filter(proposal => {
       return proposal.distanceToDeadline < 99999999998;
     }, proposalList);
-    const limitList = this.state.limitList && limitedProposalList.length !== proposalList.length;
+    const limitList =
+      this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     if (!proposalList.length) {
       return (
         <div className="mw8 flex-auto center mv5 mv5 tc">

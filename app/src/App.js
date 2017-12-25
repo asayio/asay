@@ -123,7 +123,7 @@ class App extends Component {
           {this.state.appReady ? (
             <div>
               <Route path="/" component={logPageView} />
-              <Nav user={this.state.user} />
+              <Nav user={this.state.user} updateState={this.updateState} />
               <div className="min-vh-100 flex flex-column ph2 pt5">
                 {this.state.showErrorModal &&
                   this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
@@ -141,6 +141,7 @@ class App extends Component {
                     render={props => (
                       <Search
                         updateState={this.updateState}
+                        preferenceList={this.state.preferenceList}
                         searchString={this.state.searchString}
                         filter={this.state.filter}
                         proposalList={this.state.proposalList}

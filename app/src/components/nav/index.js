@@ -3,6 +3,7 @@ import Login from '../loginBtn';
 import Logout from '../logoutBtn';
 import { Link } from 'react-router-dom';
 import { openDropDown } from './dropdown';
+import SearchBar from '../searchBar';
 import './index.css';
 
 class Nav extends Component {
@@ -20,6 +21,9 @@ class Nav extends Component {
               <Link to="/" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
                 Hjem
               </Link>
+            </div>
+            <div className="flex-auto flex items-center">
+              <SearchBar updateState={this.props.updateState} />
             </div>
             <div className="items-center relative dn flex-ns">
               <span id="person-ns" className="b bg-near-white br1 pa2">
