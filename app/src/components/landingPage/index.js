@@ -3,6 +3,12 @@ import { Mail } from 'react-feather';
 import Login from '../loginBtn';
 
 class landingPage extends Component {
+  componentDidMount() {
+    window.localStorage.authToken &&
+      this.props.history.replace({
+        pathname: './proposals'
+      });
+  }
   render() {
     return (
       <div className="mw8 center tc w-100 flex-auto">

@@ -49,7 +49,9 @@ class Onboarding extends Component {
           </div>
         </div>
         <div className="tc mt3">
-          <Link to="/" className="db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 ba b--black-10 br1 shadow-6">
+          <Link
+            to="/proposals"
+            className="db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 ba b--black-10 br1 shadow-6">
             <ArrowRight className="mr2" />Videre til lovforslagene
           </Link>
         </div>

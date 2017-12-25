@@ -129,6 +129,7 @@ class App extends Component {
                   this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
                 {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
                 <Switch>
+                  <Route exact path="/" component={LandingPage} />
                   <Route
                     exact
                     path="/proposals"
