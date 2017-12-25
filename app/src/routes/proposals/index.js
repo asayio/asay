@@ -46,6 +46,8 @@ class Proposals extends Component {
     } else {
       return (
         <div className="mw8 center tc w-100 flex-auto">
+          <h1 className="f3 tc mt4 mb3">Forslag</h1>
+
           <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
           <div className="tc">
             {limitList && (
