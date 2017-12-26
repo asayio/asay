@@ -207,6 +207,7 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Route path="/" component={logPageView} />
+            <Nav user={this.state.user} updateState={this.updateState} />
             {this.state.showAddToHomeScreenModal && <AddToHomeScreenModal updateState={this.updateState} />}
             <Switch>
               <Route exact path="/auth" component={Auth} />
