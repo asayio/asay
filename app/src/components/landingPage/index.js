@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Heart, Target, Users, UserCheck, CheckSquare, Feather, Zap, PieChart } from 'react-feather';
 import Login from '../loginBtn';
 import FeatherIcon from '../featherIcon';
 
@@ -80,7 +79,7 @@ class landingPage extends Component {
         <div>
           <div className="cf pv4-l row">
             {cards1.map((card, index) => (
-              <div className="fl w-100 w-50-ns w-25-l pv2 pv4-l ph2 h5-m h5-l">
+              <div key={index} className="fl w-100 w-50-ns w-25-l pv2 pv4-l ph2 h5-m h5-l">
                 <div className="pl3-l">
                   <FeatherIcon name={card.iconName} />
                 </div>
@@ -91,7 +90,7 @@ class landingPage extends Component {
           </div>
           <div className="cf row lh-prose">
             {cards2.map((card, index) => (
-              <div className="fl w-100 w-50-ns w-25-l pv2 pv4-l ph2 h5-m h5-l">
+              <div key={index} className="fl w-100 w-50-ns w-25-l pv2 pv4-l ph2 h5-m h5-l">
                 <div className="pl3-l">
                   <FeatherIcon name={card.iconName} />
                 </div>
