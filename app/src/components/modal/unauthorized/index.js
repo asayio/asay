@@ -13,16 +13,12 @@ class UnauthorizedModal extends Component {
       <Modal
         content={
           <div>
-            <h2 className="f4">Handlingen lykkes ikke</h2>
-            <p>Din session er udløbet. Log ind igen.</p>
+            <h2 className="f4">Ooops...</h2>
+            <p>Der er problemer. Vi kan ikke genkende dig. Prøv at logge ind (igen).</p>
             <p>
-              Hvis det stadig ikke virker så{' '}
-              <a
-                href="mailto:dinevenner@initiativet.dk"
-                target="_mailto"
-                rel="noopener noreferrer"
-                className="dark-blue hover-blue">
-                send os en mail
+              Virker det stadig ikke?{' '}
+              <a href="mailto:dinevenner@initiativet.dk" className="pointer dark-blue hover-blue">
+                Send os en mail
               </a>.
             </p>
             <div>

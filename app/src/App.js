@@ -221,10 +221,13 @@ class App extends Component {
           <div className="min-vh-100 flex flex-column ph2 pt5">
             <Route path="/" component={logPageView} />
             <Nav user={this.state.user} updateState={this.updateState} />
+            {this.state.showErrorModal &&
+              this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
+            {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
             {this.state.showAddToHomeScreenModal && (
               <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
             )}
-            {this.state.appReady && (
+            {this.state.appReady ? (
               <Switch>
                 <Route
                   exact
@@ -263,11 +266,16 @@ class App extends Component {
                     />
                   )}
                 />
+                <Route exact path="/proposal/:id/vote" component={Unauthorized} />
                 <Route exact path="/auth" component={Auth} />
                 <Route exact path="/401" component={Unauthorized} />
                 <Route exact path="/disclaimer" component={Disclaimer} />
                 <Route path="*" component={LandingPage} />
               </Switch>
+            ) : (
+              <div className="flex-auto flex justify-center items-center">
+                <LoadingSpinner />
+              </div>
             )}
             <Footer />
           </div>
