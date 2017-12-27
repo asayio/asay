@@ -8,10 +8,8 @@ class AddToHomeScreenModal extends Component {
       <Modal
         content={
           <div>
-            <h2 className="f4">
-              {this.state.showAddToHomeScreenModal === 'apple' ? 'Føj til hjemmeskærm' : 'Tilføj til startskærm'}
-            </h2>
-            {this.state.showAddToHomeScreenModal === 'apple' ? (
+            <h2 className="f4">{this.props.type === 'apple' ? 'Føj til hjemmeskærm' : 'Tilføj til startskærm'}</h2>
+            {this.props.type === 'apple' ? (
               <div className="black-70 lh-copy">
                 <p>Vil du prøve Initiativets platform som app?</p>
                 <p>
