@@ -36,7 +36,17 @@ async function appDataBundleFetcher(request, response) {
       };
       response.send(bundle);
     } else {
-      response.sendStatus(401);
+      const preferenceList = await getPreferenceList();
+      const committeeCategoryList = await getCommitteeCategoryList();
+      const proposalList = await getProposalList();
+      const participationList = await getParticipationList();
+      const bundle = {
+        preferenceList,
+        committeeCategoryList,
+        proposalList,
+        participationList
+      };
+      response.send(bundle);
     }
   } catch (err) {
     console.log(err);

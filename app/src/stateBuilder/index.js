@@ -14,10 +14,10 @@ async function initialState() {
     const user = appDataBundle.user;
     const committeeCategoryList = appDataBundle.committeeCategoryList;
     const notificationList = appDataBundle.notificationList || [];
-    const voteList = appDataBundle.voteList;
-    const subscriptionList = appDataBundle.subscriptionList;
+    const voteList = appDataBundle.voteList || [];
+    const subscriptionList = appDataBundle.subscriptionList || [];
     const participationList = appDataBundle.participationList;
-    const rawPreferenceList = appDataBundle.preferenceList;
+    const rawPreferenceList = appDataBundle.preferenceList || [];
     const rawProposalList = appDataBundle.proposalList.map(proposal =>
       Object.assign({}, { id: proposal.id }, proposal.data)
     );
@@ -77,7 +77,7 @@ function buildProposalList({
     const distanceToDeadline = stageInfo.distanceToDeadline;
     const status = stageInfo.status; // Put results here when we get them
     /* const results = {};*/
-    const isSubscribing = hasSubscription ? hasSubscription.subscription : category.preference;
+    const isSubscribing = hasSubscription ? hasSubscription.subscription : category ? category.preference : false;
     const seeNotification = !R.find(notification => {
       return notification.proposal_id === id && notification.type === 'seen';
     }, notificationList);

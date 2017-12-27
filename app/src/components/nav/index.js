@@ -9,7 +9,7 @@ import './index.css';
 class Nav extends Component {
   render() {
     const user = this.props.user;
-    if (user.firstname) {
+    if (user && user.firstname) {
       const initials = user.firstname.charAt(0) + user.lastname.charAt(0);
       return (
         <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pa2">
@@ -99,13 +99,20 @@ class Nav extends Component {
       return (
         <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pa2">
           <div className="relative mw8 center flex">
-            <div className="absolute top-0 bottom-0 left--2 flex items-center">
+            <Link to="/" className="absolute top-0 bottom-0 left--2 flex items-center">
               <div className="h1 w1 bg-i-green br-100" />
-            </div>
+            </Link>
             <div className="flex-auto flex items-center">
-              <span className="b ttl mr2" onMouseDown={e => e.preventDefault()}>
-                Initiativet<span className="i-green">.</span>
-              </span>
+              <Link to="/proposals" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
+                Forslag
+              </Link>
+            </div>
+            <div className="items-center relative dn flex-ns">
+              <SearchBar
+                updateState={this.props.updateState}
+                inputClass="clear-sans w5 pa2 bn br--left br2 search-input"
+                btnClass="dib bg-near-white br--right br2 pa2 mr2"
+              />
             </div>
             <div className="flex items-center">
               <Login className="pointer white bg-dark-blue hover-bg-blue br1 pv2 ph3" type="login" />

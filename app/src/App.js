@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 // data
-import stateBuilder from './stateBuilder/index';
+import stateBuilder from './stateBuilder';
 
 // routes
 import Unauthorized from './routes/401';
@@ -72,7 +72,7 @@ class App extends Component {
     const expTime = Number(window.localStorage.exp) * 1000;
     const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
     this.setState({ loginExpired: loginExpired });
-    if (cacheState && window.localStorage.authToken && !loginExpired) {
+    if (cacheState) {
       const initialState = JSON.parse(cacheState);
       this.setState(initialState);
       this.setState({ appReady: true });
@@ -82,6 +82,7 @@ class App extends Component {
       this.setState(initialState);
       this.setState({ appReady: true });
       window.localStorage.cacheState = JSON.stringify(initialState);
+      console.log(initialState);
     }
   }
 
@@ -215,12 +216,51 @@ class App extends Component {
             {this.state.showAddToHomeScreenModal && (
               <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
             )}
-            <Switch>
-              <Route exact path="/auth" component={Auth} />
-              <Route exact path="/401" component={Unauthorized} />
-              <Route exact path="/disclaimer" component={Disclaimer} />
-              <Route path="*" component={LandingPage} />
-            </Switch>
+            {this.state.appReady && (
+              <Switch>
+                <Route
+                  exact
+                  path="/proposals"
+                  render={props => (
+                    <Search
+                      updateState={this.updateState}
+                      preferenceList={this.state.preferenceList}
+                      searchString={this.state.searchString}
+                      filter={this.state.filter}
+                      proposalList={this.state.proposalList}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/search"
+                  render={props => (
+                    <Search
+                      updateState={this.updateState}
+                      preferenceList={this.state.preferenceList}
+                      searchString={this.state.searchString}
+                      filter={this.state.filter}
+                      proposalList={this.state.proposalList}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/proposal/:id"
+                  render={props => (
+                    <Proposal
+                      match={props.match}
+                      proposalList={this.state.proposalList}
+                      updateState={this.updateState}
+                    />
+                  )}
+                />
+                <Route exact path="/auth" component={Auth} />
+                <Route exact path="/401" component={Unauthorized} />
+                <Route exact path="/disclaimer" component={Disclaimer} />
+                <Route path="*" component={LandingPage} />
+              </Switch>
+            )}
             <Footer />
           </div>
         </Router>
