@@ -66,7 +66,6 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const initialState = await stateBuilder.initialState();
     const mountTimestamp = new Date();
     const mountTime = Date.parse(mountTimestamp);
     const expTime = Number(window.localStorage.exp) * 1000 || 0;
@@ -82,6 +81,7 @@ class App extends Component {
       this.setState(cacheState);
       this.setState({ appReady: true });
     }
+    const initialState = await stateBuilder.initialState();
     if (initialState) {
       this.setState(initialState);
       this.setState({ appReady: true });

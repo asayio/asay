@@ -78,9 +78,11 @@ function buildProposalList({
     const status = stageInfo.status; // Put results here when we get them
     /* const results = {};*/
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category ? category.preference : false;
-    const seeNotification = !R.find(notification => {
-      return notification.proposal_id === id && notification.type === 'seen';
-    }, notificationList);
+    const seeNotification =
+      isSubscribing &&
+      !R.find(notification => {
+        return notification.proposal_id === id && notification.type === 'seen';
+      }, notificationList);
     const seeResultsNotification =
       deadline === 'Afsluttet' /* replace w. results */ &&
       !R.find(notification => {
