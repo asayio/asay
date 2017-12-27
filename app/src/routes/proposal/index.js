@@ -1,6 +1,5 @@
 import R from 'ramda';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import ProposalInfo from '../../components/proposalInfo';
 import ProposalActions from '../../components/proposalActions';
 import { ArrowLeft } from 'react-feather';
@@ -39,9 +38,11 @@ class ProposalPage extends Component {
     this.seen(proposal);
     return (
       <div className="mw8 center w-100 flex-auto">
-        <Link to="/" className="db dib-ns tc white bg-dark-blue hover-bg-blue ba b--black-10 br1 ph3 pv2 mt4">
+        <a
+          onClick={() => window.history.back()}
+          className="db dib-ns tc white bg-dark-blue hover-bg-blue ba b--black-10 br1 ph3 pv2 mt4">
           <ArrowLeft className="mr2" />Tilbage til listen
-        </Link>
+        </a>
         <div className="tc tl-ns mv4">
           <h1 className="f3 mt0 mb3">{proposal.shortTitel.replace('.', '')}</h1>
           <div className="black-70 lh-copy">
