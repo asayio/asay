@@ -21,19 +21,25 @@ class SearchBar extends Component {
     const searchString = this.state.searchString;
     const inputClass = this.props.inputClass;
     const btnClass = this.props.btnClass;
+    const searchURL = searchString ? `./search?v=${this.state.searchString}` : './search';
     return (
-      <div>
+      <form
+        onSubmit={function(e) {
+          e.preventDefault();
+          const submitBtn = document.getElementById('searchSubmitBtn');
+          submitBtn.click();
+        }}>
         <input
           className={inputClass}
           type="text"
           onChange={this.updateSearchString}
           placeholder="Søg"
-          value={this.state.searchString}
+          value={searchString}
         />
-        <Link className={btnClass} to={searchString ? `./search?v=${this.state.searchString}` : './search'}>
+        <Link id="searchSubmitBtn" className={btnClass} to={searchURL}>
           <Search />
         </Link>
-      </div>
+      </form>
     );
   }
 }
