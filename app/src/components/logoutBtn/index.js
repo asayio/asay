@@ -17,6 +17,7 @@ class Logout extends Component {
     window.sessionStorage.clear();
     window.localStorage.removeItem('authToken');
     window.localStorage.removeItem('exp');
+    window.localStorage.removeItem('cacheStateUser');
     window.location.reload();
   };
 }

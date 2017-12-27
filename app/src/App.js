@@ -66,23 +66,31 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const cacheState = window.localStorage.cacheState;
+    const initialState = await stateBuilder.initialState();
     const mountTimestamp = new Date();
     const mountTime = Date.parse(mountTimestamp);
-    const expTime = Number(window.localStorage.exp) * 1000;
+    const expTime = Number(window.localStorage.exp) * 1000 || 0;
     const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
     this.setState({ loginExpired: loginExpired });
-    if (cacheState) {
-      const initialState = JSON.parse(cacheState);
-      this.setState(initialState);
+    if (loginExpired && window.localStorage.cacheStateAnonymous) {
+      const cacheState = JSON.parse(window.localStorage.cacheStateAnonymous);
+      this.setState(cacheState);
       this.setState({ appReady: true });
     }
-    const initialState = await stateBuilder.initialState();
+    if (!loginExpired && window.localStorage.cacheStateUser) {
+      const cacheState = JSON.parse(window.localStorage.cacheStateUser);
+      this.setState(cacheState);
+      this.setState({ appReady: true });
+    }
     if (initialState) {
       this.setState(initialState);
       this.setState({ appReady: true });
-      window.localStorage.cacheState = JSON.stringify(initialState);
-      console.log(initialState);
+    }
+    if (initialState && loginExpired) {
+      window.localStorage.cacheStateAnonymous = JSON.stringify(initialState);
+    }
+    if (initialState && !loginExpired) {
+      window.localStorage.cacheStateUser = JSON.stringify(initialState);
     }
   }
 
