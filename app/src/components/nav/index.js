@@ -100,10 +100,11 @@ class Nav extends Component {
             <div className="absolute top-0 bottom-0 left--2 flex items-center">
               <div className="h1 w1 bg-i-green br-100" />
             </div>
-            <span className="b br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
-              Initiativet
-            </span>
-            <div className="flex-auto flex items-center" />
+            <div className="flex-auto flex items-center">
+              <span className="b ttl mr2" onMouseDown={e => e.preventDefault()}>
+                Initiativet<span className="i-green">.</span>
+              </span>
+            </div>
             <div className="flex items-center">
               <Login className="pointer white bg-dark-blue hover-bg-blue br1 pv2 ph3" type="login" />
             </div>

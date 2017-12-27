@@ -10,7 +10,7 @@ class landingPage extends Component {
       });
   }
   render() {
-    const cards1 = [
+    const cards = [
       {
         iconName: 'Feather',
         title: 'Tag initiativet',
@@ -29,10 +29,8 @@ class landingPage extends Component {
       {
         iconName: 'PieChart',
         title: 'Se nuancerne',
-        subtitle: 'Datavisualisering giver indsigt i skjulte nueancer i den offentlige debat.'
-      }
-    ];
-    const cards2 = [
+        subtitle: 'Datavisualisering giver indsigt i skjulte nuancer i den offentlige debat.'
+      },
       {
         iconName: 'Zap',
         title: 'Politisk handling',
@@ -55,50 +53,37 @@ class landingPage extends Component {
       }
     ];
     return (
-      <div className="near-black lh-copy mw8 center ph3">
-        <div className="pt4 pb5 pv5-l">
-          <h1 className="fw5 f3 f2-l">Medbestemmelse. Simpelt.</h1>
-          <h2 className="f4 normal gray">
-            Politik gjort tilgængeligt, forståeligt og attraktivt at deltage i. Så alle kan være med.
-          </h2>{' '}
-        </div>
-        <div className="mw8 center tc w-100 flex-auto">
+      <div className="mw8 center">
+        <div className="tc pt4-ns pb3 pb4-ns">
+          <h1 className="f3">
+            Medbestemmelse. Simpelt.
+            <span className="db lh-copy f5 f4-ns fw4 black-70 mt3 mb4">
+              Politik gjort tilgængeligt, forståeligt og attraktivt at deltage i. Så alle kan være med.
+            </span>
+          </h1>
           <Login
             icon="LogIn"
             iconClass="mr2"
             type="login"
-            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mr0 mr3-ns pv2 ph4 ba b--black-10 br1 shadow-6"
+            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue ma2 pv2 ph4 ba b--black-10 br1 shadow-6"
           />
           <Login
             icon="UserPlus"
             iconClass="mr2"
             type="signUp"
-            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6"
+            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue ma2 pv2 ph4 ba b--black-10 br1 shadow-6"
           />
         </div>
-        <div>
-          <div className="cf pv4-l row">
-            {cards1.map((card, index) => (
-              <div key={index} className="fl w-100 w-50-ns w-25-l pv2 pv4-l ph2 h5-m h5-l">
-                <div className="pl3-l">
-                  <FeatherIcon name={card.iconName} />
-                </div>
-                <h3 className="mv1">{card.title}</h3>
-                <p className="gray mt1">{card.subtitle}</p>
-              </div>
-            ))}
-          </div>
-          <div className="cf row lh-prose">
-            {cards2.map((card, index) => (
-              <div key={index} className="fl w-100 w-50-ns w-25-l pv2 pv4-l ph2 h5-m h5-l">
-                <div className="pl3-l">
-                  <FeatherIcon name={card.iconName} />
-                </div>
-                <h3 className="mv1">{card.title}</h3>
-                <p className="gray mt1">{card.subtitle}</p>
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-wrap tc tl-ns pb3 nl2 nr2">
+          {cards.map((card, index) => (
+            <div key={index} className="w-100 w-50-ns w-25-l pv2 pv4-ns ph2">
+              <h3 className="mv2">
+                <FeatherIcon className="mr2" name={card.iconName} />
+                {card.title}
+              </h3>
+              <p className="lh-copy black-70 mv0">{card.subtitle}</p>
+            </div>
+          ))}
         </div>
       </div>
     );
