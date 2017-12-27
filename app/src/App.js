@@ -107,10 +107,13 @@ class App extends Component {
   }
 
   render() {
-    ReactGA.initialize('UA-98356224-1');
     const logPageView = () => {
-      ReactGA.set({ page: window.location.pathname });
-      ReactGA.pageview(window.location.pathname);
+      if (process.env.NODE_ENV === 'production') {
+        ReactGA.initialize('UA-107447977-1');
+        const page = window.location.pathname;
+        ReactGA.set({ page: page });
+        ReactGA.pageview(page);
+      }
       return null;
     };
     const mountTimestamp = new Date();
@@ -207,6 +210,7 @@ class App extends Component {
         <Router>
           <div className="min-vh-100 flex flex-column ph3 pt5">
             <Route path="/" component={logPageView} />
+            <Nav user={this.state.user} updateState={this.updateState} />
             {this.state.showAddToHomeScreenModal && <AddToHomeScreenModal updateState={this.updateState} />}
             <Switch>
               <Route exact path="/auth" component={Auth} />
