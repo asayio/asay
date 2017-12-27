@@ -123,86 +123,78 @@ class App extends Component {
     if (window.localStorage.authToken && !loginExpired) {
       return (
         <Router>
-          {this.state.appReady ? (
-            <div>
-              <Route path="/" component={logPageView} />
-              <Nav user={this.state.user} updateState={this.updateState} />
-              <div className="min-vh-100 flex flex-column ph2 pt5">
-                {this.state.showErrorModal &&
-                  this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
-                {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
-                <Switch>
-                  <Route exact path="/" component={LandingPage} />
-                  <Route
-                    exact
-                    path="/proposals"
-                    render={props => <Proposals proposalList={this.state.proposalList} />}
-                  />
-                  <Route exact path="/insights" render={props => <Insights proposalList={this.state.proposalList} />} />
-                  <Route
-                    exact
-                    path="/search"
-                    render={props => (
-                      <Search
-                        updateState={this.updateState}
-                        preferenceList={this.state.preferenceList}
-                        searchString={this.state.searchString}
-                        filter={this.state.filter}
-                        proposalList={this.state.proposalList}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/proposal/:id"
-                    render={props => (
-                      <Proposal
-                        match={props.match}
-                        proposalList={this.state.proposalList}
-                        updateState={this.updateState}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/proposal/:id/vote"
-                    render={props => (
-                      <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
-                    )}
-                  />
-                  <Route exact path="/disclaimer" component={Disclaimer} />
-                  <Route
-                    exact
-                    path="/preferences"
-                    render={props => (
-                      <Preferences preferenceList={this.state.preferenceList} updateState={this.updateState} />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/settings"
-                    render={props => <Settings user={this.state.user} updateState={this.updateState} />}
-                  />
-                  <Route
-                    exact
-                    path="/onboarding"
-                    render={props => (
-                      <Onboarding preferenceList={this.state.preferenceList} updateState={this.updateState} />
-                    )}
-                  />
-                  <Route exact path="/auth" component={Auth} />
-                  <Route path="*" component={Lost} />
-                </Switch>
-                <Footer />
-              </div>
-            </div>
-          ) : (
-            <div className="min-vh-100 flex flex-column ph2 pt5">
+          <div className="min-vh-100 flex flex-column ph2 pt5">
+            <Route path="/" component={logPageView} />
+            <Nav user={this.state.user} updateState={this.updateState} />
+            {this.state.showErrorModal &&
+              this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
+            {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
+            {this.state.appReady ? (
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route exact path="/proposals" render={props => <Proposals proposalList={this.state.proposalList} />} />
+                <Route exact path="/insights" render={props => <Insights proposalList={this.state.proposalList} />} />
+                <Route
+                  exact
+                  path="/search"
+                  render={props => (
+                    <Search
+                      updateState={this.updateState}
+                      preferenceList={this.state.preferenceList}
+                      searchString={this.state.searchString}
+                      filter={this.state.filter}
+                      proposalList={this.state.proposalList}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/proposal/:id"
+                  render={props => (
+                    <Proposal
+                      match={props.match}
+                      proposalList={this.state.proposalList}
+                      updateState={this.updateState}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/proposal/:id/vote"
+                  render={props => (
+                    <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
+                  )}
+                />
+                <Route exact path="/disclaimer" component={Disclaimer} />
+                <Route
+                  exact
+                  path="/preferences"
+                  render={props => (
+                    <Preferences preferenceList={this.state.preferenceList} updateState={this.updateState} />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/settings"
+                  render={props => <Settings user={this.state.user} updateState={this.updateState} />}
+                />
+                <Route
+                  exact
+                  path="/onboarding"
+                  render={props => (
+                    <Onboarding preferenceList={this.state.preferenceList} updateState={this.updateState} />
+                  )}
+                />
+                <Route exact path="/auth" component={Auth} />
+                <Route path="*" component={Lost} />
+              </Switch>
+            ) : (
               <div className="flex-auto flex justify-center items-center">
                 <LoadingSpinner />
               </div>
-            </div>
-          )}
+            )}
+            <Footer />
+          </div>
         </Router>
       );
     } else {
