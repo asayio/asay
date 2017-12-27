@@ -65,13 +65,13 @@ class landingPage extends Component {
             icon="LogIn"
             iconClass="mr2"
             type="login"
-            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue ma2 pv2 ph4 ba b--black-10 br1 shadow-6"
+            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mh2-ns pv2 ph4 ba b--black-10 br1 shadow-6"
           />
           <Login
             icon="UserPlus"
             iconClass="mr2"
             type="signUp"
-            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue ma2 pv2 ph4 ba b--black-10 br1 shadow-6"
+            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mh2-ns pv2 ph4 ba b--black-10 br1 shadow-6"
           />
         </div>
         <div className="flex flex-wrap tc tl-ns pb3 nl2 nr2">
