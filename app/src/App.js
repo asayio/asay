@@ -13,11 +13,12 @@ import Unauthorized from './routes/401';
 import Lost from './routes/404';
 import Auth from './routes/auth';
 import Disclaimer from './routes/disclaimer';
-import Insights from './routes/insights';
 import Preferences from './routes/preferences';
+import Insights from './routes/insights';
+import Search from './routes/search';
+import Proposals from './routes/proposals';
 import Proposal from './routes/proposal';
 import Vote from './routes/proposal/vote';
-import Root from './routes';
 import Settings from './routes/settings';
 
 // components
@@ -45,7 +46,6 @@ class App extends Component {
       committeeCategoryList: [],
       participationList: [],
       appReady: false,
-      selectedSection: 'personal',
       searchString: '',
       filter: {
         category: 'Alle',
@@ -86,9 +86,6 @@ class App extends Component {
       case 'subscriptionList':
         this.setState(stateBuilder.updateSubscriptionList(this.state, entity));
         break;
-      case 'selectedSection':
-        this.setState(stateBuilder.updateSelectedSection(this.state, entity));
-        break;
       case 'searchString':
         this.setState(stateBuilder.updateSearchString(this.state, entity));
         break;
@@ -110,7 +107,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.showErrorModal);
     ReactGA.initialize('UA-98356224-1');
     const logPageView = () => {
       ReactGA.set({ page: window.location.pathname });
@@ -127,18 +123,24 @@ class App extends Component {
           {this.state.appReady ? (
             <div>
               <Route path="/" component={logPageView} />
-              <Nav user={this.state.user} />
+              <Nav user={this.state.user} updateState={this.updateState} />
               <div className="min-vh-100 flex flex-column ph2 pt5">
                 {this.state.showErrorModal &&
                   this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
                 {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
                 <Switch>
+                  <Route exact path="/" component={LandingPage} />
                   <Route
                     exact
-                    path="/"
+                    path="/proposals"
+                    render={props => <Proposals proposalList={this.state.proposalList} />}
+                  />
+                  <Route exact path="/insights" render={props => <Insights proposalList={this.state.proposalList} />} />
+                  <Route
+                    exact
+                    path="/search"
                     render={props => (
-                      <Root
-                        selectedSection={this.state.selectedSection}
+                      <Search
                         updateState={this.updateState}
                         preferenceList={this.state.preferenceList}
                         searchString={this.state.searchString}
@@ -186,20 +188,6 @@ class App extends Component {
                     )}
                   />
                   <Route exact path="/auth" component={Auth} />
-                  <Route
-                    exact
-                    path="/insights"
-                    render={props => (
-                      <Insights
-                        selectedSection={this.state.selectedSection}
-                        updateState={this.updateState}
-                        preferenceList={this.state.preferenceList}
-                        searchString={this.state.searchString}
-                        filter={this.state.filter}
-                        proposalList={this.state.proposalList}
-                      />
-                    )}
-                  />
                   <Route path="*" component={Lost} />
                 </Switch>
                 <Footer />

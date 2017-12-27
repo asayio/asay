@@ -51,7 +51,7 @@ class ProposalInfo extends Component {
         <div className="flex-auto bg-white pa4 ba b--black-10 br1 shadow-6 mt2">
           {R.path(['presentation', 'proposer'], proposal) &&
             this.state.view === 'purpose' && (
-              <span className="db b mb3">
+              <span className="lh-copy db b mb3">
                 Forslaget blev præsenteret for folketinget af {R.path(['presentation', 'proposer'], proposal)}
               </span>
             )}
