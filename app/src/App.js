@@ -107,10 +107,13 @@ class App extends Component {
   }
 
   render() {
-    ReactGA.initialize('UA-98356224-1');
     const logPageView = () => {
-      ReactGA.set({ page: window.location.pathname });
-      ReactGA.pageview(window.location.pathname);
+      if (process.env.NODE_ENV === 'production') {
+        ReactGA.initialize('UA-107447977-1');
+        const page = window.location.pathname;
+        ReactGA.set({ page: page });
+        ReactGA.pageview(page);
+      }
       return null;
     };
     const mountTimestamp = new Date();
