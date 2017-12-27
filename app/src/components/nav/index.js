@@ -25,10 +25,12 @@ class Nav extends Component {
                 Historik
               </Link>
             </div>
-            <div className="flex-auto flex items-center">
-              <SearchBar updateState={this.props.updateState} />
-            </div>
             <div className="items-center relative dn flex-ns">
+              <SearchBar
+                updateState={this.props.updateState}
+                inputClass="clear-sans w5 pa2 bn br--left br2 search-input"
+                btnClass="dib bg-near-white br--right br2 pa2 mr2"
+              />
               <span id="person-ns" className="b bg-near-white br1 pa2">
                 {initials}
               </span>

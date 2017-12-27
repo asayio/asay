@@ -23,34 +23,30 @@ class Root extends Component {
             return preference.preference;
           }, this.props.preferenceList);
     return (
-      <div className="mw8 center w-100 flex-auto">
-        <div className="mv3 mv4-ns">
-          <div className="flex flex-wrap mb3">
-            <div className="w-100 w-third-ns pv1 pl1-ns pr1-ns">
-              <span className="dib b mt0 mt2-ns mb2">Kategori:</span>
-              <select
-                name="category"
-                value={this.props.filter.category}
-                onChange={this.changeFilter}
-                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                <option>Alle</option>
-                {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
-              </select>
-            </div>
-            <div className="w-100 w-third-ns pv1 pl2-ns">
-              <span className="dib b mt0 mt2-ns mb2">Status:</span>
-              <select
-                name="status"
-                value={this.props.filter.status}
-                onChange={this.changeFilter}
-                className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
-                <option>Alle</option>
-                <option>Fremsat</option>
-                <option>Til endelig afstemning</option>
-                <option>Afsluttet</option>
-              </select>
-            </div>
-          </div>
+      <div className="flex flex-wrap mb3">
+        <div className="w-50 pv1 pl1-ns pr1-ns">
+          <span className="dib b mt0 mt2-ns mb2">Kategori:</span>
+          <select
+            name="category"
+            value={this.props.filter.category}
+            onChange={this.changeFilter}
+            className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+            <option>Alle</option>
+            {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
+          </select>
+        </div>
+        <div className="w-50 pv1 pl2-ns">
+          <span className="dib b mt0 mt2-ns mb2">Status:</span>
+          <select
+            name="status"
+            value={this.props.filter.status}
+            onChange={this.changeFilter}
+            className="clear-sans lh-copy dib w-100 pv1 ph2 bg-near-white ba b--light-gray br2">
+            <option>Alle</option>
+            <option>Fremsat</option>
+            <option>Til endelig afstemning</option>
+            <option>Afsluttet</option>
+          </select>
         </div>
       </div>
     );

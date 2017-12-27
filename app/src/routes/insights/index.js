@@ -29,14 +29,16 @@ class Insights extends Component {
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     if (!proposalList.length) {
       return (
-        <div className="mw8 center mv5 tc flex-auto ">
-          <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
+        <div className="mw8 center tc flex-auto flex items-center pb4">
+          <p className="black-70 lh-copy">
+            Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.
+          </p>
         </div>
       );
     } else {
       return (
         <div className="mw8 center tc w-100 flex-auto">
-          <h1 className="f3 tc mt4 mb3">Historik</h1>
+          <h1 className="f3 tc mb3">Historik</h1>
           <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
           <div className="tc">
             {limitList && (

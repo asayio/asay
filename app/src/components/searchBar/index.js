@@ -19,10 +19,18 @@ class SearchBar extends Component {
 
   render() {
     const searchString = this.state.searchString;
+    const inputClass = this.props.inputClass;
+    const btnClass = this.props.btnClass;
     return (
       <div>
-        <input type="text" onChange={this.updateSearchString} placeholder="Søg" value={this.state.searchString} />
-        <Link to={searchString ? `./search?v=${this.state.searchString}` : './search'}>
+        <input
+          className={inputClass}
+          type="text"
+          onChange={this.updateSearchString}
+          placeholder="Søg"
+          value={this.state.searchString}
+        />
+        <Link className={btnClass} to={searchString ? `./search?v=${this.state.searchString}` : './search'}>
           <Search />
         </Link>
       </div>
