@@ -41,7 +41,11 @@ class Search extends Component {
           preferenceList={this.props.preferenceList}
           filter={this.props.filter}
         />
-        <ProposalList proposalList={searchedProposalList} />
+        {searchedProposalList.length ? (
+          <ProposalList proposalList={searchedProposalList} />
+        ) : (
+          <p className="black-70 lh-copy">Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+        )}
       </div>
     );
   }
