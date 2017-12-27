@@ -15,7 +15,8 @@ class Logout extends Component {
   }
   logout = async () => {
     window.sessionStorage.clear();
-    window.localStorage.clear();
+    window.localStorage.removeItem('authToken');
+    window.localStorage.removeItem('exp');
     window.location.reload();
   };
 }

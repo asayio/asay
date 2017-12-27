@@ -36,6 +36,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
+      loginExpired: true,
       showAddToHomeScreenModal: false,
       showErrorModal: false,
       proposalList: [],
@@ -65,10 +66,22 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    const cacheState = window.localStorage.cacheState;
+    const mountTimestamp = new Date();
+    const mountTime = Date.parse(mountTimestamp);
+    const expTime = Number(window.localStorage.exp) * 1000;
+    const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
+    this.setState({ loginExpired: loginExpired });
+    if (cacheState && window.localStorage.authToken && !loginExpired) {
+      const initialState = JSON.parse(cacheState);
+      this.setState(initialState);
+      this.setState({ appReady: true });
+    }
     const initialState = await stateBuilder.initialState();
     if (initialState) {
       this.setState(initialState);
       this.setState({ appReady: true });
+      window.localStorage.cacheState = JSON.stringify(initialState);
     }
   }
 
@@ -116,11 +129,7 @@ class App extends Component {
       }
       return null;
     };
-    const mountTimestamp = new Date();
-    const mountTime = Date.parse(mountTimestamp);
-    const expTime = Number(window.localStorage.exp) * 1000;
-    const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
-    if (window.localStorage.authToken && !loginExpired) {
+    if (window.localStorage.authToken && !this.state.loginExpired) {
       return (
         <Router>
           <div className="min-vh-100 flex flex-column ph2 pt5">
