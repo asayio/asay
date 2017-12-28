@@ -186,7 +186,12 @@ class App extends Component {
                 exact
                 path="/proposal/:id"
                 render={props => (
-                  <Proposal match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
+                  <Proposal
+                    match={props.match}
+                    anonymousUser={this.state.anonymousUser}
+                    proposalList={this.state.proposalList}
+                    updateState={this.updateState}
+                  />
                 )}
               />
               {/* ONLY VISIBLE WHEN SIGNED IN*/}

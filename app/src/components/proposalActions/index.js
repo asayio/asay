@@ -9,21 +9,25 @@ class ProposalActions extends Component {
   }
 
   async updateSubscription() {
-    const proposal = this.props.proposal;
-    const newSubscription = { proposal: proposal.id, subscription: !proposal.isSubscribing };
-    this.props.updateState({ entityType: 'subscriptionList', entity: newSubscription });
-    const response = await fetch(`/api/proposal/${proposal.id}/subscription`, {
-      method: 'POST',
-      body: JSON.stringify({
-        subscription: !proposal.isSubscribing
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + window.localStorage.authToken
+    if (this.props.anonymousUser) {
+      this.props.updateState({ entityType: 'error', entity: 401 });
+    } else {
+      const proposal = this.props.proposal;
+      const newSubscription = { proposal: proposal.id, subscription: !proposal.isSubscribing };
+      this.props.updateState({ entityType: 'subscriptionList', entity: newSubscription });
+      const response = await fetch(`/api/proposal/${proposal.id}/subscription`, {
+        method: 'POST',
+        body: JSON.stringify({
+          subscription: !proposal.isSubscribing
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + window.localStorage.authToken
+        }
+      });
+      if (!response.ok) {
+        this.props.updateState({ entityType: 'error', entity: response.status });
       }
-    });
-    if (!response.ok) {
-      this.props.updateState({ entityType: 'error', entity: response.status });
     }
   }
 
@@ -60,16 +64,25 @@ class ProposalActions extends Component {
             {proposal.isSubscribing ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
           </a>
           {proposal.status !== 'Afsluttet' ? (
-            <Link
-              to={`${proposal.id}/vote`}
-              className={
-                proposal.hasVoted
-                  ? 'db i-green bg-white pv2 mt3 ba b--i-green br1'
-                  : 'db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6'
-              }>
-              <CheckSquare className="mr2" />
-              {proposal.hasVoted ? 'Du har stemt' : 'Gå til stemmeboks'}
-            </Link>
+            this.props.anonymousUser ? (
+              <a
+                onClick={this.updateSubscription}
+                className="db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6">
+                <CheckSquare className="mr2" />
+                Gå til stemmeboks
+              </a>
+            ) : (
+              <Link
+                to={`${proposal.id}/vote`}
+                className={
+                  proposal.hasVoted
+                    ? 'db i-green bg-white pv2 mt3 ba b--i-green br1'
+                    : 'db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6'
+                }>
+                <CheckSquare className="mr2" />
+                {proposal.hasVoted ? 'Du har stemt' : 'Gå til stemmeboks'}
+              </Link>
+            )
           ) : (
             <span className="db i-green pv2 mv3 ba b--i-green br1 shadow-6">
               <AlertCircle className="mr2" />
