@@ -12,7 +12,6 @@ import stateBuilder from './stateBuilder';
 import Unauthorized from './routes/401';
 import Lost from './routes/404';
 import Auth from './routes/auth';
-import Disclaimer from './routes/disclaimer';
 import Preferences from './routes/preferences';
 import Insights from './routes/insights';
 import Search from './routes/search';
@@ -36,7 +35,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
-      loginExpired: true,
+      anonymousUser: true,
       showAddToHomeScreenModal: false,
       showErrorModal: false,
       proposalList: [],
@@ -70,7 +69,7 @@ class App extends Component {
     const mountTime = Date.parse(mountTimestamp);
     const expTime = Number(window.localStorage.exp) * 1000 || 0;
     const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
-    this.setState({ loginExpired: loginExpired });
+    this.setState({ anonymousUser: loginExpired });
     if (loginExpired && window.localStorage.cacheStateAnonymous) {
       const cacheState = JSON.parse(window.localStorage.cacheStateAnonymous);
       this.setState(cacheState);
@@ -138,24 +137,26 @@ class App extends Component {
       }
       return null;
     };
-    if (window.localStorage.authToken && !this.state.loginExpired) {
-      return (
-        <Router>
-          <div className="min-vh-100 flex flex-column ph2 pt5">
-            <Route path="/" component={logPageView} />
-            <Nav user={this.state.user} updateState={this.updateState} />
-            {this.state.showErrorModal &&
-              this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
-            {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
-            {this.state.appReady ? (
-              <Switch>
-                <Route exact path="/" component={LandingPage} />
-                <Route exact path="/proposals" render={props => <Proposals proposalList={this.state.proposalList} />} />
-                <Route exact path="/insights" render={props => <Insights proposalList={this.state.proposalList} />} />
-                <Route
-                  exact
-                  path="/search"
-                  render={props => (
+    return (
+      <Router>
+        <div className="min-vh-100 flex flex-column ph2 pt5">
+          <Route path="/" component={logPageView} />
+          <Nav user={this.state.user} updateState={this.updateState} />
+          {this.state.showAddToHomeScreenModal && (
+            <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
+          )}
+          {this.state.showErrorModal &&
+            this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
+          {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
+          {this.state.appReady ? (
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/auth" component={Auth} />
+              <Route
+                exact
+                path="/proposals"
+                render={props =>
+                  this.state.anonymousUser ? (
                     <Search
                       updateState={this.updateState}
                       preferenceList={this.state.preferenceList}
@@ -163,125 +164,94 @@ class App extends Component {
                       filter={this.state.filter}
                       proposalList={this.state.proposalList}
                     />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/proposal/:id"
-                  render={props => (
-                    <Proposal
-                      match={props.match}
-                      proposalList={this.state.proposalList}
-                      updateState={this.updateState}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/proposal/:id/vote"
-                  render={props => (
+                  ) : (
+                    <Proposals proposalList={this.state.proposalList} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/search"
+                render={props => (
+                  <Search
+                    updateState={this.updateState}
+                    preferenceList={this.state.preferenceList}
+                    searchString={this.state.searchString}
+                    filter={this.state.filter}
+                    proposalList={this.state.proposalList}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/proposal/:id"
+                render={props => (
+                  <Proposal match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
+                )}
+              />
+              {/* ONLY VISIBLE WHEN SIGNED IN*/}
+              <Route
+                exact
+                path="/proposal/:id/vote"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
                     <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
-                  )}
-                />
-                <Route exact path="/disclaimer" component={Disclaimer} />
-                <Route
-                  exact
-                  path="/preferences"
-                  render={props => (
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/insights"
+                render={props =>
+                  this.state.anonymousUser ? <Unauthorized /> : <Insights proposalList={this.state.proposalList} />
+                }
+              />
+              <Route
+                exact
+                path="/preferences"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
                     <Preferences preferenceList={this.state.preferenceList} updateState={this.updateState} />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/settings"
-                  render={props => <Settings user={this.state.user} updateState={this.updateState} />}
-                />
-                <Route
-                  exact
-                  path="/onboarding"
-                  render={props => (
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/settings"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <Settings user={this.state.user} updateState={this.updateState} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/onboarding"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
                     <Onboarding preferenceList={this.state.preferenceList} updateState={this.updateState} />
-                  )}
-                />
-                <Route exact path="/auth" component={Auth} />
-                <Route path="*" component={Lost} />
-              </Switch>
-            ) : (
-              <div className="flex-auto flex justify-center items-center">
-                <LoadingSpinner />
-              </div>
-            )}
-            <Footer />
-          </div>
-        </Router>
-      );
-    } else {
-      return (
-        <Router>
-          <div className="min-vh-100 flex flex-column ph2 pt5">
-            <Route path="/" component={logPageView} />
-            <Nav user={this.state.user} updateState={this.updateState} />
-            {this.state.showErrorModal &&
-              this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
-            {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
-            {this.state.showAddToHomeScreenModal && (
-              <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
-            )}
-            {this.state.appReady ? (
-              <Switch>
-                <Route
-                  exact
-                  path="/proposals"
-                  render={props => (
-                    <Search
-                      updateState={this.updateState}
-                      preferenceList={this.state.preferenceList}
-                      searchString={this.state.searchString}
-                      filter={this.state.filter}
-                      proposalList={this.state.proposalList}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/search"
-                  render={props => (
-                    <Search
-                      updateState={this.updateState}
-                      preferenceList={this.state.preferenceList}
-                      searchString={this.state.searchString}
-                      filter={this.state.filter}
-                      proposalList={this.state.proposalList}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/proposal/:id"
-                  render={props => (
-                    <Proposal
-                      match={props.match}
-                      proposalList={this.state.proposalList}
-                      updateState={this.updateState}
-                    />
-                  )}
-                />
-                <Route exact path="/proposal/:id/vote" component={Unauthorized} />
-                <Route exact path="/auth" component={Auth} />
-                <Route exact path="/401" component={Unauthorized} />
-                <Route exact path="/disclaimer" component={Disclaimer} />
-                <Route path="*" component={LandingPage} />
-              </Switch>
-            ) : (
-              <div className="flex-auto flex justify-center items-center">
-                <LoadingSpinner />
-              </div>
-            )}
-            <Footer />
-          </div>
-        </Router>
-      );
-    }
+                  )
+                }
+              />
+              <Route path="*" component={Lost} />
+            </Switch>
+          ) : (
+            <div className="flex-auto flex justify-center items-center">
+              <LoadingSpinner />
+            </div>
+          )}
+          <Footer />
+        </div>
+      </Router>
+    );
   }
 }
 
