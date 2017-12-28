@@ -35,7 +35,9 @@ class ProposalPage extends Component {
 
   render() {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList);
-    this.seen(proposal);
+    if (!this.props.anonymousUser) {
+      this.seen(proposal);
+    }
     return (
       <div className="mw8 center w-100 flex-auto">
         <a
@@ -73,7 +75,11 @@ class ProposalPage extends Component {
         </div>
         <div className="flex flex-wrap">
           <ProposalInfo proposal={proposal} />
-          <ProposalActions proposal={proposal} updateState={this.props.updateState} />
+          <ProposalActions
+            proposal={proposal}
+            anonymousUser={this.props.anonymousUser}
+            updateState={this.props.updateState}
+          />
         </div>
       </div>
     );

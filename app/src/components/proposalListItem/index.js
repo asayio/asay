@@ -29,9 +29,11 @@ class ProposalListItem extends Component {
           </div>
           <div className="absolute flex pa1 top-0 right-0">
             {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
-            {proposal.seeNotification && <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag" />}
+            {proposal.seeNotification && (
+              <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag til dig" />
+            )}
             {proposal.seeResultsNotification && (
-              <ProposalListItemNotification iconName="PieChart" labelName="Nyt resultater" />
+              <ProposalListItemNotification iconName="PieChart" labelName="Resultater klar" />
             )}
           </div>
         </div>

@@ -21,7 +21,7 @@ class SearchBar extends Component {
     const searchString = this.state.searchString;
     const inputClass = this.props.inputClass;
     const btnClass = this.props.btnClass;
-    const searchURL = searchString ? `./search?v=${this.state.searchString}` : './search';
+    const searchURL = searchString ? `/search?v=${this.state.searchString}` : '/search';
     return (
       <form
         onSubmit={function(e) {
