@@ -53,35 +53,23 @@ class landingPage extends Component {
       }
     ];
     return (
-      <div className="mw8 center">
-        <div className="tc pt4-ns pb3 pb4-ns">
-          <h1 className="f3">
+      <div>
+        <div>
+          <h1>
             Medbestemmelse. Simpelt.
-            <span className="db lh-copy f5 f4-ns fw4 black-70 mt3 mb4">
-              Politik gjort tilgængeligt, forståeligt og attraktivt at deltage i. Så alle kan være med.
-            </span>
+            <span>Politik gjort tilgængeligt, forståeligt og attraktivt at deltage i. Så alle kan være med.</span>
           </h1>
-          <Login
-            icon="LogIn"
-            iconClass="mr2"
-            type="login"
-            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mh2-ns pv2 ph4 ba b--black-10 br1 shadow-6"
-          />
-          <Login
-            icon="UserPlus"
-            iconClass="mr2"
-            type="signUp"
-            className="pointer db dib-ns min-w12 white bg-dark-blue hover-bg-blue mv2 mh2-ns pv2 ph4 ba b--black-10 br1 shadow-6"
-          />
+          <Login icon="LogIn" iconClass="" type="login" />
+          <Login icon="UserPlus" iconClass="" type="signUp" />
         </div>
-        <div className="flex flex-wrap tc tl-ns pb3 nl2 nr2">
+        <div>
           {cards.map((card, index) => (
-            <div key={index} className="w-100 w-50-ns w-25-l pv2 pv4-ns ph2">
-              <h3 className="mv2">
-                <FeatherIcon className="mr2" name={card.iconName} />
+            <div key={index}>
+              <h3>
+                <FeatherIcon name={card.iconName} />
                 {card.title}
               </h3>
-              <p className="lh-copy black-70 mv0">{card.subtitle}</p>
+              <p>{card.subtitle}</p>
             </div>
           ))}
         </div>

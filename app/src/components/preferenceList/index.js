@@ -26,32 +26,18 @@ class PreferenceList extends Component {
     return (
       <div>
         {this.props.preferenceList.map((preference, index) => (
-          <div key={preference.id} className="flex flex-column flex-row-ns items-center-ns mv4 mv5-ns">
-            <div className="flex-auto">
-              <h3 className="mw6 mv1">
-                <FeatherIcon name={preference.feathericon} className="mr2" />
+          <div key={preference.id}>
+            <div>
+              <h3>
+                <FeatherIcon name={preference.feathericon} />
                 {preference.title}
               </h3>
-              <p className="black-70 lh-copy mw6 mv1">{preference.description}</p>
+              <p>{preference.description}</p>
             </div>
-            <div className="flex-none pv2 pl4-ns">
-              <div className="no-select" onClick={() => this.updatingPreference(preference)}>
-                <a
-                  className={
-                    preference.preference
-                      ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
-                      : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
-                  }>
-                  Følg
-                </a>
-                <a
-                  className={
-                    preference.preference
-                      ? 'dib black-50 bg-near-white ba b--black-10 br1 br--right pv2 ph3'
-                      : 'dib white bg-dark-blue ba b--black-10 br1 br--right pv2 ph3'
-                  }>
-                  Ikke
-                </a>
+            <div>
+              <div onClick={() => this.updatingPreference(preference)}>
+                <a className={preference.preference ? '' : ''}>Følg</a>
+                <a className={preference.preference ? '' : ''}>Ikke</a>
               </div>
             </div>
           </div>

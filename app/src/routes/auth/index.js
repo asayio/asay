@@ -33,7 +33,7 @@ class Auth extends Component {
 
   render() {
     return (
-      <div className="flex-auto flex justify-center items-center">
+      <div>
         <LoadingSpinner />
       </div>
     );

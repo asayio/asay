@@ -29,23 +29,19 @@ class Insights extends Component {
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     if (!proposalList.length) {
       return (
-        <div className="mw8 center tc flex-auto flex items-center pb4">
-          <p className="black-70 lh-copy">
-            Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.
-          </p>
+        <div>
+          <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
         </div>
       );
     } else {
       return (
-        <div className="mw8 center tc w-100 flex-auto">
-          <h1 className="f3 tc mb3">Historik</h1>
+        <div>
+          <h1>Historik</h1>
           <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
-          <div className="tc">
+          <div>
             {limitList && (
-              <a
-                onClick={() => this.setState({ limitList: false })}
-                className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
-                <ArrowDown className="mr2" /> Vis forslag med uafsluttet afstemning
+              <a onClick={() => this.setState({ limitList: false })}>
+                <ArrowDown /> Vis forslag med uafsluttet afstemning
               </a>
             )}
           </div>

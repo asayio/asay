@@ -35,7 +35,7 @@ class Search extends Component {
     const fuse = new Fuse(proposalList, options);
     const searchedProposalList = searchString ? fuse.search(searchString) : proposalList;
     return (
-      <div className="mw8 center tc w-100 flex-auto">
+      <div>
         <ProposalListFilter
           updateState={this.props.updateState}
           preferenceList={this.props.preferenceList}
@@ -44,7 +44,7 @@ class Search extends Component {
         {searchedProposalList.length ? (
           <ProposalList proposalList={searchedProposalList} />
         ) : (
-          <p className="black-70 lh-copy">Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+          <p>Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
         )}
       </div>
     );

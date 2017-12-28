@@ -25,33 +25,27 @@ class ProposalInfo extends Component {
     const proposal = this.props.proposal;
     const resume = proposal.resume.split(/\n/gm);
     return (
-      <div className="w-100 w-75-l flex flex-column">
-        <div className="flex tc">
-          <div className="w-50 w-auto-l">
+      <div>
+        <div>
+          <div>
             <a
               onClick={() => this.setState({ view: 'resume' })}
-              className={
-                (this.state.view === 'resume' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
-                ' db b ph4 pv2 ba b--black-10 br1 shadow-6 mr2'
-              }>
-              <FileText className="mr2" />Resume
+              className={(this.state.view === 'resume' ? '' : '') + ''}>
+              <FileText />Resume
             </a>
           </div>
-          <div className="w-50 w-auto-l">
+          <div>
             <a
               onClick={() => this.setState({ view: 'purpose' })}
-              className={
-                (this.state.view === 'purpose' ? 'bg-white cursor-default' : 'bg-near-white pointer') +
-                ' db b ph4 pv2 ba b--black-10 br1 shadow-6'
-              }>
-              <FileText className="mr2" />Formål
+              className={(this.state.view === 'purpose' ? '' : '') + ''}>
+              <FileText />Formål
             </a>
           </div>
         </div>
-        <div className="flex-auto bg-white pa4 ba b--black-10 br1 shadow-6 mt2">
+        <div>
           {R.path(['presentation', 'proposer'], proposal) &&
             this.state.view === 'purpose' && (
-              <span className="lh-copy db b mb3">
+              <span>
                 Forslaget blev præsenteret for folketinget af {R.path(['presentation', 'proposer'], proposal)}
               </span>
             )}
@@ -60,37 +54,25 @@ class ProposalInfo extends Component {
               if (!paragraph && !index) {
                 return (
                   <div>
-                    <p key={index} className="lh-copy mt0 mb3">
-                      Der findes desværre ikke et resumé for dette forslag endnu.
-                    </p>
-                    <p className="lh-copy mt0 mb3">
+                    <p key={index}>Der findes desværre ikke et resumé for dette forslag endnu.</p>
+                    <p>
                       Selvom der ikke er blevet skrevet et resumé, kan du stadig læse selve forslaget i PDF-form ved at
                       klikke på 'Læs forslag'-knappen.
                     </p>
                   </div>
                 );
               } else {
-                return (
-                  <p key={index} className="lh-copy mt0 mb3">
-                    {paragraph}
-                  </p>
-                );
+                return <p key={index}>{paragraph}</p>;
               }
             })
           ) : proposal.presentation ? (
             proposal.presentation.paragraphs.map(function(paragraph, index) {
-              return (
-                <p key={index} className="lh-copy mt0 mb3">
-                  {paragraph}
-                </p>
-              );
+              return <p key={index}>{paragraph}</p>;
             })
           ) : (
             <div>
-              <p className="lh-copy mt0 mb3">
-                Der findes desværre ikke en fremlæggelse af baggrunden for dette forslag endnu.
-              </p>
-              <p className="lh-copy mt0 mb3">
+              <p>Der findes desværre ikke en fremlæggelse af baggrunden for dette forslag endnu.</p>
+              <p>
                 Selvom der ikke er blevet skrevet en baggrund for forslaget, kan du stadig læse selve forslaget i
                 PDF-form ved at klikke på 'Læs forslag'-knappen.
               </p>

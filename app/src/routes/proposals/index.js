@@ -34,27 +34,23 @@ class Proposals extends Component {
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     if (!proposalList.length) {
       return (
-        <div className="mw8 flex-auto center mv5 mv5 tc">
+        <div>
           <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
-          <Link
-            to="./preferences"
-            className="pointer dib white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6">
-            <Settings className="mr2" />Opdater præferencer
+          <Link to="./preferences">
+            <Settings />Opdater præferencer
           </Link>
         </div>
       );
     } else {
       return (
-        <div className="mw8 center tc w-100 flex-auto">
-          <h1 className="f3 tc mb3">Aktuelle forslag</h1>
+        <div>
+          <h1>Aktuelle forslag</h1>
 
           <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
-          <div className="tc">
+          <div>
             {limitList && (
-              <a
-                onClick={() => this.setState({ limitList: false })}
-                className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
-                <ArrowDown className="mr2" /> Vis forslag uden fastlagt deadline
+              <a onClick={() => this.setState({ limitList: false })}>
+                <ArrowDown /> Vis forslag uden fastlagt deadline
               </a>
             )}
           </div>

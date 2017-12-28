@@ -30,40 +30,26 @@ class SettingsList extends Component {
 
   render() {
     return (
-      <div className="flex flex-column flex-row-ns items-center-ns mv4 mv5-ns">
-        <div className="flex-auto">
-          <h3 className="mw6 mv1">E-mail notifikationer </h3>
-          <p className="black-70 lh-copy mw6 mv1">
-            Vi sender dig en ugentlig opdatering med nye forslag relevante for dig.
-          </p>
+      <div>
+        <div>
+          <h3>E-mail notifikationer </h3>
+          <p>Vi sender dig en ugentlig opdatering med nye forslag relevante for dig.</p>
         </div>
-        <div className="flex-none pv2 pl4-ns">
-          <div className="no-select">
+        <div>
+          <div>
             <a
               onClick={() => this.updatingEmailPreference('never')}
-              className={
-                this.props.user.emailnotification === 'never'
-                  ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
-                  : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
-              }>
+              className={this.props.user.emailnotification === 'never' ? '' : ''}>
               Aldrig
             </a>
             <a
               onClick={() => this.updatingEmailPreference('weekly')}
-              className={
-                this.props.user.emailnotification === 'weekly'
-                  ? 'dib white bg-dark-blue ba b--black-10 br1 br--right br--left pv2 ph3'
-                  : 'dib black-50 bg-near-white ba b--black-10 br1 br--right br--left pv2 ph3'
-              }>
+              className={this.props.user.emailnotification === 'weekly' ? '' : ''}>
               Ugentlig
             </a>
             <a
               onClick={() => this.updatingEmailPreference('monthly')}
-              className={
-                this.props.user.emailnotification === 'monthly'
-                  ? 'dib white bg-dark-blue ba b--black-10 br1 br--right pv2 ph3'
-                  : 'dib black-50 bg-near-white ba b--black-10 br1 br--right pv2 ph3'
-              }>
+              className={this.props.user.emailnotification === 'monthly' ? '' : ''}>
               Månedlig
             </a>
           </div>

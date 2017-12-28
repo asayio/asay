@@ -66,67 +66,52 @@ class Vote extends Component {
     );
     if (proposal.status === 'Afsluttet') {
       return (
-        <div className="mw8 center w-100 flex-auto tc">
-          <h1 className="f3 mt5 mb4">{proposal.shortTitel.replace('.', '')}</h1>
-          <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
-            <h2 className="f4">Afstemningen er afsluttet</h2>
+        <div>
+          <h1>{proposal.shortTitel.replace('.', '')}</h1>
+          <div>
+            <h2>Afstemningen er afsluttet</h2>
           </div>
-          <Link to={`../${this.props.match.params.id}`} className="pointer dark-blue hover-blue dib mt3">
-            <ArrowLeft className="mr2" />Tilbage til forslaget
+          <Link to={`../${this.props.match.params.id}`}>
+            <ArrowLeft />Tilbage til forslaget
           </Link>
         </div>
       );
     } else {
       return (
-        <div className="mw8 center w-100 flex-auto tc">
-          <h1 className="f3 mt5 mb4">{proposal.shortTitel.replace('.', '')}</h1>
-          <div className="mw6 center bg-white mv2 pa3 pa4-ns ba b--black-10 br1 shadow-6">
-            <h2 className="f4">{proposal.hasVoted ? 'Ændr din stemme' : 'Afgiv din stemme'}</h2>
+        <div>
+          <h1>{proposal.shortTitel.replace('.', '')}</h1>
+          <div>
+            <h2>{proposal.hasVoted ? 'Ændr din stemme' : 'Afgiv din stemme'}</h2>
             {proposal.hasVoted && <p>Du har allerede stemt. Ved at ændre din stemme overskrives din gamle stemme.</p>}
-            <a
-              onClick={() => this.handleVote(false)}
-              className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">
-              <X className="mr2" />Imod
+            <a onClick={() => this.handleVote(false)}>
+              <X />Imod
             </a>
-            <a
-              onClick={() => this.handleVote(true)}
-              className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">
-              <Check className="mr2" />For
+            <a onClick={() => this.handleVote(true)}>
+              <Check />For
             </a>
-            <a onClick={() => this.handleVote(null)} className="pointer db dark-blue hover-blue ma3 lh-copy">
-              <Minus className="mr2" />Blankt
+            <a onClick={() => this.handleVote(null)}>
+              <Minus />Blankt
             </a>
           </div>
-          <Link to={`../${this.props.match.params.id}`} className="pointer dark-blue hover-blue dib mt3">
-            <ArrowLeft className="mr2" />Tilbage til forslaget
+          <Link to={`../${this.props.match.params.id}`}>
+            <ArrowLeft />Tilbage til forslaget
           </Link>
           {this.state.showModal && (
             <Modal
               content={
                 <div>
-                  <h2 className="f4">{modalHeader}</h2>
+                  <h2>{modalHeader}</h2>
                   {modalParagraph}
                   {this.state.voteConfirmed ? (
-                    <Link
-                      to="../../"
-                      onClick={() => this.setState({ showModal: false })}
-                      className="pointer dib white bg-dark-blue hover-bg-blue ph3 pv2 ma2 ba b--black-10 br1 shadow-6">
-                      <ArrowLeft className="mr2" />Tilbage til mine forslag
+                    <Link to="../../" onClick={() => this.setState({ showModal: false })}>
+                      <ArrowLeft />Tilbage til mine forslag
                     </Link>
                   ) : this.state.voteSubmitted ? (
                     <LoadingSpinner />
                   ) : (
                     <div>
-                      <a
-                        onClick={() => this.setState({ showModal: false })}
-                        className="pointer dib dark-blue w4 pv2 ma2 ba b--dark-blue br1">
-                        Annuller
-                      </a>
-                      <a
-                        onClick={this.handleSubmit}
-                        className="pointer dib white bg-dark-blue hover-bg-blue w4 pv2 ma2 ba b--black-10 br1 shadow-6">
-                        Bekræft
-                      </a>
+                      <a onClick={() => this.setState({ showModal: false })}>Annuller</a>
+                      <a onClick={this.handleSubmit}>Bekræft</a>
                     </div>
                   )}
                 </div>

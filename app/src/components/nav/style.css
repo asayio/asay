@@ -6,7 +6,6 @@
 }
 #personal-menu,
 #personal-menu-ns {
-  transform: translateY(2px);
   animation: menuFadeIn 0.2s ease-out;
 }
 #personal-menu-ns {
@@ -21,16 +20,13 @@
   0% {
     display: none;
     opacity: 0;
-    transform: translateY(0);
   }
   1% {
     display: block;
     opacity: 0;
-    transform: translateY(0);
   }
   100% {
     display: block;
     opacity: 1;
-    transform: translateY(2px);
   }
 }

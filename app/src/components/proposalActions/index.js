@@ -44,48 +44,31 @@ class ProposalActions extends Component {
             proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix +
             proposal.numberNumeric}_som_fremsat.pdf`;
     return (
-      <div className="w-100 w-25-l mt1-l pt4-l pl3-l">
-        <div className="sticky-l top-4-l tc">
-          <a
-            href={proposalURL}
-            target={`_${proposal.id}`}
-            className="db white bg-dark-blue hover-bg-blue pv2 mv3 mt2-l ba b--black-10 br1 shadow-6">
-            <File className="mr2" />
+      <div>
+        <div>
+          <a href={proposalURL} target={`_${proposal.id}`}>
+            <File />
             Læs forslaget
           </a>
-          <a
-            onClick={this.updateSubscription}
-            className={
-              proposal.isSubscribing
-                ? 'pointer db dark-blue bg-white pv2 mv3 ba b--dark-blue br1'
-                : 'pointer db white bg-dark-blue hover-bg-blue pv2 mv3 ba b--black-10 br1 shadow-6'
-            }>
-            <Bookmark className="mr2" />
+          <a onClick={this.updateSubscription} className={proposal.isSubscribing ? '' : ''}>
+            <Bookmark />
             {proposal.isSubscribing ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
           </a>
           {proposal.status !== 'Afsluttet' ? (
             this.props.anonymousUser ? (
-              <a
-                onClick={this.updateSubscription}
-                className="db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6">
-                <CheckSquare className="mr2" />
+              <a onClick={this.updateSubscription}>
+                <CheckSquare />
                 Gå til stemmeboks
               </a>
             ) : (
-              <Link
-                to={`${proposal.id}/vote`}
-                className={
-                  proposal.hasVoted
-                    ? 'db i-green bg-white pv2 mt3 ba b--i-green br1'
-                    : 'db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6'
-                }>
-                <CheckSquare className="mr2" />
+              <Link to={`${proposal.id}/vote`} className={proposal.hasVoted ? '' : ''}>
+                <CheckSquare />
                 {proposal.hasVoted ? 'Du har stemt' : 'Gå til stemmeboks'}
               </Link>
             )
           ) : (
-            <span className="db i-green pv2 mv3 ba b--i-green br1 shadow-6">
-              <AlertCircle className="mr2" />
+            <span>
+              <AlertCircle />
               Afstemning lukket
             </span>
           )}

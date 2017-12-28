@@ -39,41 +39,38 @@ class ProposalPage extends Component {
       this.seen(proposal);
     }
     return (
-      <div className="mw8 center w-100 flex-auto">
-        <a
-          onClick={() => window.history.back()}
-          className="db dib-ns tc white bg-dark-blue hover-bg-blue ba b--black-10 br1 ph3 pv2 mt4">
-          <ArrowLeft className="mr2" />Tilbage til listen
+      <div>
+        <a onClick={() => window.history.back()}>
+          <ArrowLeft />Tilbage til listen
         </a>
-        <div className="tc tl-ns mv4">
-          <h1 className="f3 mt0 mb3">{proposal.shortTitel.replace('.', '')}</h1>
-          <div className="black-70 lh-copy">
-            <span className="db mt1 dib-ns mr3-ns">
+        <div>
+          <h1>{proposal.shortTitel.replace('.', '')}</h1>
+          <div>
+            <span>
               <b>Kategori:</b> {proposal.category.title}
             </span>
-            <span className="db mt1 dib-ns mr3-ns">
+            <span>
               <b>Status:</b> {proposal.status}
             </span>
-            <span className="db mt1 dib-ns mr3-ns">
+            <span>
               <b>Deadline:</b> {proposal.deadline}
             </span>
-            <span className="db mt1 dib-ns mr3-ns">
+            <span>
               <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
             </span>
           </div>
-          <span className="black-70 lh-copy db mt1">
+          <span>
             Se alle detaljer på{' '}
             <a
               href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
                 proposal.numberNumeric +
                 proposal.numberPostFix}/index.htm`}
-              target={`_${proposal.id}_ft`}
-              className="dark-blue hover-blue">
+              target={`_${proposal.id}_ft`}>
               Folketingets hjemmeside
             </a>.
           </span>
         </div>
-        <div className="flex flex-wrap">
+        <div>
           <ProposalInfo proposal={proposal} />
           <ProposalActions
             proposal={proposal}
@@ -87,5 +84,3 @@ class ProposalPage extends Component {
 }
 
 export default ProposalPage;
-
-/* <span className="db mt1">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">Folketingets hjemmeside</a>.</span> */
