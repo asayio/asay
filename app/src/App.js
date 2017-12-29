@@ -19,6 +19,9 @@ import Proposals from './routes/proposals';
 import Proposal from './routes/proposal';
 import Vote from './routes/proposal/vote';
 import Settings from './routes/settings';
+import Projects from './routes/projects';
+import Project from './routes/project';
+import EditProject from './routes/project/edit';
 
 // components
 import Nav from './components/nav';
@@ -194,6 +197,30 @@ class App extends Component {
                   />
                 )}
               />
+              <Route
+                exact
+                path="/projects"
+                render={props => (
+                  <Projects
+                    updateState={this.updateState}
+                    preferenceList={this.state.preferenceList}
+                    searchString={this.state.searchString}
+                    filter={this.state.filter}
+                    proposalList={this.state.proposalList}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/project/:id"
+                render={props => (
+                  <Project
+                    match={props.match}
+                    anonymousUser={this.state.anonymousUser}
+                    updateState={this.updateState}
+                  />
+                )}
+              />
               {/* ONLY VISIBLE WHEN SIGNED IN*/}
               <Route
                 exact
@@ -203,6 +230,17 @@ class App extends Component {
                     <Unauthorized />
                   ) : (
                     <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/project/:id/edit"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <EditProject match={props.match} updateState={this.updateState} />
                   )
                 }
               />
