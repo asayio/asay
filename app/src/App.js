@@ -138,7 +138,7 @@ class App extends Component {
     };
     return (
       <Router>
-        <div className="min-vh-100 flex flex-column ph2 pt5">
+        <div>
           <Route path="/" component={logPageView} />
           <Nav user={this.state.user} updateState={this.updateState} />
           {this.state.showAddToHomeScreenModal && (

@@ -1,0 +1,26 @@
+/* @import url('https://assets.initiativet.dk/fonts/clear-sans/css/clear-sans.css'); */
+
+/* TAILWIND NORMALIZE */
+@tailwind preflight;
+
+/* CSS THAT NEED TO BE LOADED BEFORE TAILWIND CLASSES */
+
+/* TAILWIND CLASSES */
+@tailwind utilities;
+
+/* CUSTOM CSS */
+
+html {
+  @apply .font-sans .leading-none;
+}
+p {
+  @apply .leading-normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply .leading-tight;
+}

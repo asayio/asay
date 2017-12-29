@@ -18,10 +18,12 @@
     "react-scripts": "1.0.10"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "tailwind build ./src/App.tailwind.css -o ./src/App.css && react-scripts start",
+    "build": "tailwind build ./src/App.tailwind.css -o ./src/App.css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "tailwindcss": "^0.4.0"
+  }
 }
