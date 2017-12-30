@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Login from '../loginBtn';
 import Logout from '../logoutBtn';
 import { Link } from 'react-router-dom';
+import NavItem from './navItem';
 import SearchBar from '../searchBar';
 import './style.css';
 
@@ -17,63 +18,62 @@ class Nav extends Component {
     if (user && user.firstname) {
       const initials = user.firstname.charAt(0) + user.lastname.charAt(0);
       return (
-        <nav>
-          <div>
-            <div>
-              <Link to="/proposals" onMouseDown={e => e.preventDefault()}>
-                Forslag
-              </Link>
-              <Link to="/insights" onMouseDown={e => e.preventDefault()}>
-                Historik
-              </Link>
+        <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lightest select-none p-2">
+          <div className="flex max-w-xl mx-auto">
+            <div className="flex-grow flex">
+              <NavItem to="/proposals" text="Forslag" />
+              <NavItem to="/insights" text="Historik" />
             </div>
-            <div>
-              <SearchBar updateState={this.props.updateState} inputClass="" btnClass="" />
-              <span id="person-ns">{initials}</span>
-              <div id="personal-menu-ns">
-                <div>
-                  <span>{user.firstname + ' ' + user.lastname}</span>
-                  <ul>
-                    <li>
-                      <Link to="/preferences" onMouseDown={e => e.preventDefault()}>
-                        Præferencer
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/settings" onMouseDown={e => e.preventDefault()}>
-                        Indstillinger
-                      </Link>
-                    </li>
-                    <li>
-                      <Logout history={this.props.history} />
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div>
-              <span id="person" onClick={() => this.setState({ showDropDown: !this.state.showDropDown })}>
+            <div className="flex relative">
+              <SearchBar
+                formClass="hidden sm:block"
+                inputClass="w-64 border border-grey-lightest rounded-l-sm p-2"
+                btnClass="inline-block bg-grey-lightest rounded-r-sm p-2 mr-2"
+                updateState={this.props.updateState}
+              />
+              <span
+                className={
+                  this.state.showDropDown
+                    ? 'inline-block font-bold text-white bg-grey-darkest rounded-sm p-2'
+                    : 'inline-block font-bold bg-grey-lightest rounded-sm p-2'
+                }
+                onClick={() => this.setState({ showDropDown: !this.state.showDropDown })}
+                id="person">
                 {initials}
               </span>
               <div
-                id="personal-menu"
-                className={this.state.showDropDown ? '' : ''}
-                onClick={() => this.setState({ showDropDown: !this.state.showDropDown })}>
-                <div>
-                  <span>{user.firstname + ' ' + user.lastname}</span>
-                  <ul>
+                className={
+                  this.state.showDropDown
+                    ? 'absolute pin-t pin-r w-screen sm:w-auto min-w-40 pl-4 pt-2 mt-9'
+                    : 'hidden absolute pin-t pin-r w-screen sm:w-auto min-w-40 pl-4 pt-2 mt-9'
+                }
+                id="personal-menu">
+                <div className="text-white bg-grey-darkest rounded-sm">
+                  <span className="block border-b border-grey-darker p-3">{user.firstname + ' ' + user.lastname}</span>
+                  <ul className="list-reset p-2">
                     <li>
-                      <Link to="/preferences" onMouseDown={e => e.preventDefault()}>
+                      <Link
+                        className="block hover:bg-black rounded-sm p-2"
+                        to="/preferences"
+                        onClick={() => this.setState({ showDropDown: false })}
+                        onMouseDown={e => e.preventDefault()}>
                         Præferencer
                       </Link>
                     </li>
                     <li>
-                      <Link to="/settings" onMouseDown={e => e.preventDefault()}>
+                      <Link
+                        className="block hover:bg-black rounded-sm p-2"
+                        to="/settings"
+                        onClick={() => this.setState({ showDropDown: false })}
+                        onMouseDown={e => e.preventDefault()}>
                         Indstillinger
                       </Link>
                     </li>
                     <li>
-                      <Logout history={this.props.history} />
+                      <Logout
+                        className="block w-full text-left hover:bg-black rounded-sm p-2"
+                        history={this.props.history}
+                      />
                     </li>
                   </ul>
                 </div>
