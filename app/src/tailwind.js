@@ -45,15 +45,15 @@ let defaultConfig = require('tailwindcss/defaultConfig')();
 let colors = {
   transparent: 'transparent',
 
-  black: '#22292f',
-  'grey-darkest': '#3d4852',
-  'grey-darker': '#606f7b',
-  'grey-dark': '#8795a1',
-  grey: '#b8c2cc',
-  'grey-light': '#dae1e7',
-  'grey-lighter': '#f1f5f8',
-  'grey-lightest': '#f8fafc',
-  white: '#ffffff',
+  black: '#111',
+  'grey-darkest': '#333',
+  'grey-darker': '#555',
+  'grey-dark': '#777',
+  grey: '#aaa',
+  'grey-light': '#ccc',
+  'grey-lighter': '#eee',
+  'grey-lightest': '#f5f5f5',
+  white: '#fff',
 
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
@@ -63,6 +63,22 @@ let colors = {
   'red-lighter': '#f9acaa',
   'red-lightest': '#fcebea',
 
+  'orange-darkest': '#462a16',
+  'orange-darker': '#613b1f',
+  'orange-dark': '#de751f',
+  orange: '#f6993f',
+  'orange-light': '#faad63',
+  'orange-lighter': '#fcd9b6',
+  'orange-lightest': '#fff5eb',
+
+  'yellow-darkest': '#453411',
+  'yellow-darker': '#684f1d',
+  'yellow-dark': '#f2d024',
+  yellow: '#ffed4a',
+  'yellow-light': '#fff382',
+  'yellow-lighter': '#fff9c2',
+  'yellow-lightest': '#fcfbeb',
+
   'green-darkest': '#0f2f21',
   'green-darker': '#1a4731',
   'green-dark': '#1f9d55',
@@ -71,13 +87,13 @@ let colors = {
   'green-lighter': '#a2f5bf',
   'green-lightest': '#e3fcec',
 
-  'teal-darkest': '#1E998E',
-  'teal-darker': '#29A59B',
-  'teal-dark': '#35B2A8',
-  teal: '#42BFB4',
-  'teal-light': '#51CCC1',
-  'teal-lighter': '#61D8CE',
-  'teal-lightest': '#72E5DB',
+  'teal-darkest': '#0d3331',
+  'teal-darker': '#20504f',
+  'teal-dark': '#38a89d',
+  teal: '#4dc0b5',
+  'teal-light': '#64d5ca',
+  'teal-lighter': '#a0f0ed',
+  'teal-lightest': '#e8fffe',
 
   'blue-darkest': '#12283a',
   'blue-darker': '#1c3d5a',
@@ -86,6 +102,22 @@ let colors = {
   'blue-light': '#6cb2eb',
   'blue-lighter': '#bcdefa',
   'blue-lightest': '#eff8ff',
+
+  'indigo-darkest': '#191e38',
+  'indigo-darker': '#2f365f',
+  'indigo-dark': '#5661b3',
+  indigo: '#6574cd',
+  'indigo-light': '#7886d7',
+  'indigo-lighter': '#b2b7ff',
+  'indigo-lightest': '#e6e8ff',
+
+  'purple-darkest': '#21183c',
+  'purple-darker': '#382b5f',
+  'purple-dark': '#794acf',
+  purple: '#9561e2',
+  'purple-light': '#a779e9',
+  'purple-lighter': '#d6bbfc',
+  'purple-lightest': '#f3ebff',
 
   'pink-darkest': '#451225',
   'pink-darker': '#6f213f',
@@ -157,16 +189,7 @@ module.exports = {
   */
 
   fonts: {
-    clear: [
-      'Clear Sans',
-      '-apple-system',
-      'BlinkMacSystemFont',
-      'Segoe UI',
-      'Roboto',
-      'Helvetica Neue',
-      'Helvetica',
-      'sans-serif'
-    ],
+    clear: ['Clear Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'sans-serif'],
     sans: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -485,6 +508,7 @@ module.exports = {
 
   minWidth: {
     '0': '0',
+    '40': '10rem',
     full: '100%'
   },
 
@@ -605,7 +629,9 @@ module.exports = {
     '3': '0.75rem',
     '4': '1rem',
     '6': '1.5rem',
-    '8': '2rem'
+    '8': '2rem',
+    '9': '2.25rem',
+    '12': '3rem'
   },
 
   /*
