@@ -7,7 +7,7 @@ class NavItem extends Component {
     const text = this.props.text;
     return (
       <Link
-        className="inline-block font-bold hover:bg-grey-lightest rounded-sm py-2 px-3 mr-2"
+        className="inline-block font-bold hover:bg-grey-lightest rounded-sm p-2 mr-2"
         to={to}
         onMouseDown={e => e.preventDefault()}>
         {text}

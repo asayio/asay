@@ -248,7 +248,7 @@ class App extends Component {
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
-            <div className="flex-auto flex justify-center items-center">
+            <div>
               <LoadingSpinner />
             </div>
           )}

@@ -30,6 +30,9 @@ svg {
 html {
   @apply .font-clear .antialiased .leading-tight;
 }
+#root {
+  @apply .min-h-screen .bg-grey-lightest .pt-13;
+}
 p {
   @apply .text-grey-darkest .leading-normal .max-w-md;
 }
