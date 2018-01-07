@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'react-feather';
+import R from 'ramda';
 
 class ProjectPage extends Component {
   constructor() {
@@ -55,8 +56,8 @@ class ProjectPage extends Component {
   }
 
   render() {
-    const project = this.state.project;
-    const user = this.state.user;
+    const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
+    const user = this.props.user;
     return (
       <div>
         <div>
@@ -84,11 +85,11 @@ class ProjectPage extends Component {
         <div>
           <h2>Projekt</h2>
           <ul>
-            <li>Kategori: {project.category.name}</li>
+            <li>Kategori: {project.category.title}</li>
             <li>Støtter: {project.support} brugere</li>
           </ul>
-          {project.initiator.id === user.id ? (
-            <Link to={`${project.id}/edit`}>Støt projekt</Link>
+          {user && project.initiator.email === user.email ? (
+            <Link to={`${project.id}/edit`}>Rediger projekt</Link>
           ) : project.isSupporting ? (
             <button onClick={this.supportProject}>Træk støtte tilbage</button>
           ) : (

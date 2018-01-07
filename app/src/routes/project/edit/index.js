@@ -1,6 +1,4 @@
-import R from 'ramda';
 import React, { Component } from 'react';
-import { ArrowLeft } from 'react-feather';
 
 class EditProjectPage extends Component {
   componentDidMount() {
@@ -13,4 +11,3 @@ class EditProjectPage extends Component {
 }
 
 export default EditProjectPage;
-

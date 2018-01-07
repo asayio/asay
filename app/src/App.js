@@ -48,6 +48,7 @@ class App extends Component {
       notificationList: [],
       committeeCategoryList: [],
       participationList: [],
+      projectList: [],
       appReady: false,
       searchString: '',
       filter: {
@@ -206,7 +207,7 @@ class App extends Component {
                     preferenceList={this.state.preferenceList}
                     searchString={this.state.searchString}
                     filter={this.state.filter}
-                    proposalList={this.state.proposalList}
+                    projectList={this.state.projectList}
                   />
                 )}
               />
@@ -218,6 +219,8 @@ class App extends Component {
                     match={props.match}
                     anonymousUser={this.state.anonymousUser}
                     updateState={this.updateState}
+                    projectList={this.state.projectList}
+                    user={this.state.user}
                   />
                 )}
               />
@@ -229,7 +232,7 @@ class App extends Component {
                   this.state.anonymousUser ? (
                     <Unauthorized />
                   ) : (
-                    <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
+                    <Vote match={props.match} projectList={this.state.projectList} updateState={this.updateState} />
                   )
                 }
               />
@@ -240,7 +243,11 @@ class App extends Component {
                   this.state.anonymousUser ? (
                     <Unauthorized />
                   ) : (
-                    <EditProject match={props.match} updateState={this.updateState} />
+                    <EditProject
+                      match={props.match}
+                      updateState={this.updateState}
+                      projectList={this.state.projectList}
+                    />
                   )
                 }
               />

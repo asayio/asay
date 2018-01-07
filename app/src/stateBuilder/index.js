@@ -18,6 +18,7 @@ async function initialState() {
     const subscriptionList = appDataBundle.subscriptionList || [];
     const participationList = appDataBundle.participationList;
     const rawPreferenceList = appDataBundle.preferenceList || [];
+    const rawProjectList = appDataBundle.projectList;
     const rawProposalList = appDataBundle.proposalList.map(proposal =>
       Object.assign({}, { id: proposal.id }, proposal.data)
     );
@@ -31,6 +32,10 @@ async function initialState() {
       notificationList,
       preferenceList
     });
+    const projectList = buildProjectList({
+      projectList: rawProjectList,
+      preferenceList
+    });
     return {
       user,
       preferenceList,
@@ -39,7 +44,8 @@ async function initialState() {
       subscriptionList,
       committeeCategoryList,
       participationList,
-      notificationList
+      notificationList,
+      projectList
     };
   }
 }
@@ -53,6 +59,21 @@ function buildPreferenceList(rawPreferenceList, committeeCategoryList) {
 }
 
 const sortPreferenceList = R.sortWith([R.ascend(R.prop('title'))]);
+
+function buildProjectList({ projectList, preferenceList }) {
+  const newProjectList = projectList.map(project => {
+    const category = R.find(R.propEq('id', project.category))(preferenceList);
+    const initiator = { name: project.firstname + ' ' + project.lastname, bio: project.bio, email: project.email };
+    const support = 800; // update to calculate from support list
+    const newProject = Object.assign({}, project, {
+      category,
+      initiator,
+      support
+    });
+    return newProject;
+  });
+  return newProjectList;
+}
 
 function buildProposalList({
   proposalList,
