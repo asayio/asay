@@ -61,8 +61,6 @@ function buildPreferenceList(rawPreferenceList, committeeCategoryList) {
 const sortPreferenceList = R.sortWith([R.ascend(R.prop('title'))]);
 
 function buildProjectList({ projectList, preferenceList }) {
-  console.log(projectList);
-  console.log(preferenceList);
   const newProjectList = projectList.map(project => {
     const category = R.find(R.propEq('id', project.category))(preferenceList);
     const initiator = { name: project.firstname + ' ' + project.lastname, bio: project.bio, email: project.email };
@@ -197,7 +195,6 @@ function updateProjectList(state, entity) {
     firstname: state.user.firstname,
     lastname: state.user.lastname
   });
-  console.log(rawProject);
   const newProject = buildProjectList({ projectList: [rawProject], preferenceList: state.preferenceList });
   const newProjectList = R.reject(R.propEq('id', entity.id))(state.projectList).concat(newProject[0]);
   const newState = Object.assign({}, state, { projectList: newProjectList });

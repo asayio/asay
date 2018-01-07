@@ -51,9 +51,7 @@ class ProjectForm extends Component {
     });
     if (response.ok) {
       const projectid = await response.json();
-      console.log(projectid);
       const project = Object.assign({}, this.state, projectid);
-      console.log(project);
       this.props.updateState({ entityType: 'projectList', entity: project });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
