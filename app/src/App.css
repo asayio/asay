@@ -155,6 +155,11 @@ svg {
   }
 }
 
+.results-titel {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
 .results svg {
   width: 30px;
   height: 30px;

@@ -10,21 +10,18 @@ class VoteResults extends Component {
 
   render() {
     const results = this.props.results;
-    const totalNumberOfVotes = results.length
-    const forVotes = R.filter(R.propEq('result', true), results).length
-    const blankVotes = R.filter(R.propEq('result', null), results).length
-    const againtsVotes = R.filter(R.propEq('result', false), results).length
+    const totalNumberOfVotes = results.for + results.against + results.blank
     function getVoteBarWidth (votes) {
       return {width: (votes / totalNumberOfVotes) * 100 + "%"}
     }
     return (
       <div className='results'>
-        <div>Folkets afstemning</div>
+        <div className='results-titel'>{this.props.titel}</div>
         <ThumbsUp></ThumbsUp>
         <div className='results-bar'>
-          <span className={'for-bar ' + (forVotes > againtsVotes && 'winner')} style={getVoteBarWidth(forVotes)}><div>{forVotes}</div></span>
-          <span className='blank-bar' style={getVoteBarWidth(blankVotes)}><div>{blankVotes}</div></span>
-          <span className={'against-bar ' + (againtsVotes > forVotes && 'winner')} style={getVoteBarWidth(againtsVotes)}><div>{againtsVotes}</div></span>
+          <span className={'for-bar ' + (results.for > results.against && 'winner')} style={getVoteBarWidth(results.for)}><div>{results.for}</div></span>
+          <span className='blank-bar' style={getVoteBarWidth(results.blank)}><div>{results.blank}</div></span>
+          <span className={'against-bar ' + (results.against > results.for && 'winner')} style={getVoteBarWidth(results.against)}><div>{results.against}</div></span>
         </div>
         <ThumbsDown></ThumbsDown>
       </div>

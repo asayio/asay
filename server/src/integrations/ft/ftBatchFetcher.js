@@ -9,7 +9,7 @@ const insertProposal = require('../../db/proposal/insertProposal')
 // Functions
 async function ftBatchFetcher () {
   console.log("ftBatchFetcher started");
-  const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin'
+  const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin/Afstemning'
   const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146'
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter
   const proposalList = await odaFetcher.fetchAllPages(proposalUrl)
