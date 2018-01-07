@@ -4,6 +4,7 @@ const email = require('./api/email');
 const auth = require('./api/auth');
 const vote = require('./api/vote');
 const preference = require('./api/preference');
+const project = require('./api/project');
 const subscription = require('./api/subscription');
 const appData = require('./api/appData');
 const seen = require('./api/notification');
@@ -17,6 +18,7 @@ function map(app) {
   // POST
   app.post('/api/proposal/:id/vote', vote);
   app.post('/api/proposal/:id/subscription', subscription);
+  app.post('/api/project', project);
   app.post('/api/preference', preference);
   app.post('/api/user/onboarding', onboarding);
   app.post('/api/user/emailnotification', email);

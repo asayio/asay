@@ -1,9 +1,6 @@
-import Fuse from 'fuse.js';
-import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
 import ProposalListFilter from '../../components/proposalListFilter';
-import queryString from 'query-string';
 
 class Projects extends Component {
   componentDidMount() {
@@ -14,7 +11,7 @@ class Projects extends Component {
     const projectList = [
       { id: 1, shortTitel: 'Forslag 1', category: { feathericon: 'Circle' } },
       { id: 2, shortTitel: 'Forslag 2', category: { feathericon: 'Circle' } }
-    ];
+    ]; // this.props.projectList;
     return (
       <div>
         <ProposalListFilter

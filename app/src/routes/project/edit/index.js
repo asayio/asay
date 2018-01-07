@@ -14,6 +14,7 @@ class EditProjectPage extends Component {
           projectList={this.props.projectList}
           preferenceList={this.props.preferenceList}
           match={this.props.match}
+          updateState={this.props.updateState}
         />
       </div>
     );
