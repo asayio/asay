@@ -1,7 +1,7 @@
-import R from "ramda";
+const R = require('ramda')
 
 // UNCOMMENTED STUFF UNTIL WE CAN HANDLE MULTIPLE STAGES!
-export default function findStageInfo(stage) {
+function findStageInfo(stage) {
   // voting stages for "beslutningsforslag"
   const bOnlyVote = R.find(R.propEq("typeid", 87))(stage); // first and only vote
   const bFinalVote = R.find(R.propEq("typeid", 7))(stage); // 2nd and final vote
@@ -53,3 +53,5 @@ export default function findStageInfo(stage) {
     } */
   }
 }
+
+module.exports = findStageInfo
