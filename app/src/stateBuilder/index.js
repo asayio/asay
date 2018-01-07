@@ -71,8 +71,8 @@ function buildProposalList({
     const category = R.find(R.propEq('id', matchesCategory.category))(preferenceList);
     const deadline = proposal.deadline;
     const distanceToDeadline = proposal.distanceToDeadline;
-    const status = proposal.status; // Put results here when we get them
-    /* const results = {};*/
+    const status = proposal.status;
+    const results =  proposal.results
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category ? category.preference : false;
     const seeNotification =
       isSubscribing &&
@@ -80,7 +80,7 @@ function buildProposalList({
         return notification.proposal_id === id && notification.type === 'seen';
       }, notificationList);
     const seeResultsNotification =
-      deadline === 'Afsluttet' /* replace w. results */ &&
+      deadline === 'Afsluttet' &&
       !R.find(notification => {
         return notification.proposal_id === id && notification.type === 'seenResults';
       }, notificationList);
