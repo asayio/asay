@@ -16,4 +16,4 @@ insert into project (
   ,$/budget/
   ,$/argument/
   ,$/risk/
-) RETURNING id
+) returning id

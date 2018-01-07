@@ -7,7 +7,7 @@ class ProjectForm extends Component {
     this.state = {
       id: '',
       title: '',
-      category: 'non-selected',
+      category: '',
       bio: '',
       description: '',
       budget: '',
@@ -50,7 +50,11 @@ class ProjectForm extends Component {
       }
     });
     if (response.ok) {
-      // missing update of global state
+      const projectid = await response.json();
+      console.log(projectid);
+      const project = Object.assign({}, this.state, projectid);
+      console.log(project);
+      this.props.updateState({ entityType: 'projectList', entity: project });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
     }
@@ -58,7 +62,6 @@ class ProjectForm extends Component {
 
   render() {
     const project = this.state;
-    console.log(project);
     const preferenceList = this.props.preferenceList;
     return (
       <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
@@ -69,12 +72,13 @@ class ProjectForm extends Component {
             name="title"
             value={project.title}
             placeholder="Giv dit projekt en informativ og fængende titel..."
+            required
           />
         </label>
         <label>
           Kategori
-          <select name="category" value={project.category} onChange={this.handleChange}>
-            <option value="non-selected" disabled>
+          <select name="category" value={project.category} onChange={this.handleChange} required>
+            <option value="" disabled>
               Vælg kategori
             </option>
             {preferenceList.map(item => (
@@ -91,6 +95,7 @@ class ProjectForm extends Component {
             name="bio"
             value={project.bio}
             placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
+            required
           />
         </label>
         <label>
@@ -100,6 +105,7 @@ class ProjectForm extends Component {
             name="description"
             value={project.description}
             placeholder="Beskriv dit projekt kort men fyldestgørende..."
+            required
           />
         </label>
         <label>
@@ -109,6 +115,7 @@ class ProjectForm extends Component {
             name="budget"
             value={project.budget}
             placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det finansieres..."
+            required
           />
         </label>
         <label>
@@ -118,6 +125,7 @@ class ProjectForm extends Component {
             name="argument"
             value={project.argument}
             placeholder="Fremlæg argumentation og begrundelse for, hvorfor forslaget er en god idé..."
+            required
           />
         </label>
         <label>
@@ -127,6 +135,7 @@ class ProjectForm extends Component {
             name="risk"
             value={project.risk}
             placeholder="Præsenter de identificerede risici, der kan udfordre forslagets mulighed for succes..."
+            required
           />
         </label>
         <input type="submit" value="Gem projekt" />

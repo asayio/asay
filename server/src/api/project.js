@@ -11,7 +11,7 @@ async function projectPostHandler(request, response) {
       project = request.body;
       if (project.id) {
         changeProject(project);
-        response.sendStatus(200);
+        response.send({ id: project.id });
       } else {
         const newProject = await createProject(user, project);
         response.send(newProject);
