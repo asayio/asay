@@ -1,6 +1,7 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import { FileText } from 'react-feather';
+import VoteResults from './VoteResults';
 
 class ProposalInfo extends Component {
   constructor() {
@@ -97,6 +98,10 @@ class ProposalInfo extends Component {
             </div>
           )}
         </div>
+        {proposal.results.length
+          ? <VoteResults results={proposal.results}></VoteResults>
+          : null
+        }
       </div>
     );
   }
