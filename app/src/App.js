@@ -22,6 +22,7 @@ import Settings from './routes/settings';
 import Projects from './routes/projects';
 import Project from './routes/project';
 import EditProject from './routes/project/edit';
+import NewProject from './routes/projects/new';
 
 // components
 import Nav from './components/nav';
@@ -247,7 +248,19 @@ class App extends Component {
                       match={props.match}
                       updateState={this.updateState}
                       projectList={this.state.projectList}
+                      preferenceList={this.state.preferenceList}
                     />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/projects/new"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <NewProject updateState={this.updateState} preferenceList={this.state.preferenceList} />
                   )
                 }
               />

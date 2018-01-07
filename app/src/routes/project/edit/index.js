@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ProjectForm from '../../../components/projectForm';
 
 class EditProjectPage extends Component {
   componentDidMount() {
@@ -6,7 +7,16 @@ class EditProjectPage extends Component {
   }
 
   render() {
-    return <div />;
+    return (
+      <div>
+        <h1>Rediger projekt</h1>
+        <ProjectForm
+          projectList={this.props.projectList}
+          preferenceList={this.props.preferenceList}
+          match={this.props.match}
+        />
+      </div>
+    );
   }
 }
 

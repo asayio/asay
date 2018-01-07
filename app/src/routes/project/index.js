@@ -6,26 +6,6 @@ import R from 'ramda';
 class ProjectPage extends Component {
   constructor() {
     super();
-    this.state = {
-      project: {
-        id: 1,
-        title: 'Forslag 1',
-        category: { name: 'Gourmet', feathericon: 'Circle' },
-        description: 'Mega fedt project',
-        budget: 'Uh, det bliver dyrt',
-        argument: 'det ved jeg sgu ikke',
-        risk: 'Ingen risiko. Overhovedet',
-        initiator: {
-          id: 2,
-          name: 'Jens Hansen',
-          bio: 'Mega fed fyr',
-          email: 'dukanglemmedet@dinmor.org'
-        },
-        supporters: 100,
-        isSupporting: false
-      },
-      user: { id: 1 }
-    };
     this.supportProject = this.supportProject.bind(this);
   }
 
