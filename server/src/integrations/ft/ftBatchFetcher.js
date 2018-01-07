@@ -1,42 +1,49 @@
 // Import
-const R = require('ramda')
-const odaFetcher = require('./odaFetcher')
-const scrapeIt = require('scrape-it')
-const getProposalList = require('../../db/proposal/getProposalList')
-const updateProposal = require('../../db/proposal/updateProposal')
-const insertProposal = require('../../db/proposal/insertProposal')
+const R = require('ramda');
+const odaFetcher = require('./odaFetcher');
+const scrapeIt = require('scrape-it');
+const getProposalList = require('../../db/proposal/getProposalList');
+const changeProposal = require('../../db/proposal/changeProposal');
+const createProposal = require('../../db/proposal/createProposal');
 
 // Functions
-async function ftBatchFetcher () {
-  console.log("ftBatchFetcher started");
-  const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin'
-  const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146'
-  const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter
-  const proposalList = await odaFetcher.fetchAllPages(proposalUrl)
-  console.log("oda.ft.dk responded with proposalList");
-  const filteredProposalList = R.filter(function (proposal) {
-    const doesExist = !R.isNil(proposal)
-    !doesExist && console.log('Filterd out empty proposal')
-    const hasCommittee = R.path(['SagAktør'], proposal).length
-    !hasCommittee && console.log('Filtered out proposal (' + proposal.nummer + ') because of missing committee')
-    return doesExist && hasCommittee
+async function ftBatchFetcher() {
+  console.log('ftBatchFetcher started');
+  const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin';
+  const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146';
+  const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter;
+  const proposalList = await odaFetcher.fetchAllPages(proposalUrl);
+  console.log('oda.ft.dk responded with proposalList');
+  const filteredProposalList = R.filter(function(proposal) {
+    const doesExist = !R.isNil(proposal);
+    !doesExist && console.log('Filterd out empty proposal');
+    const hasCommittee = R.path(['SagAktør'], proposal).length;
+    !hasCommittee && console.log('Filtered out proposal (' + proposal.nummer + ') because of missing committee');
+    return doesExist && hasCommittee;
   }, proposalList);
   console.log('proposal list was filtered for bad apples');
-  const existingProposalList = await getProposalList()
+  const existingProposalList = await getProposalList();
   for (const proposal of filteredProposalList) {
-    const existingProposal = R.find(R.propEq('id', proposal.id))(existingProposalList)
-    async function presentation () {
-      const presentationUrl = `http://www.ft.dk/samling/${proposal.Periode.kode}/${proposal.Sagstype.type}/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix + proposal.nummernumerisk}_fremsaettelsestale.htm`
-      const presentation = await scrapeIt(presentationUrl, {paragraphs: {listItem: ".TekstGenerel"}, proposer: ".Fremsaetter"})
+    const existingProposal = R.find(R.propEq('id', proposal.id))(existingProposalList);
+    async function presentation() {
+      const presentationUrl = `http://www.ft.dk/samling/${proposal.Periode.kode}/${
+        proposal.Sagstype.type
+      }/${proposal.nummerprefix + proposal.nummernumerisk}/${proposal.Periode.kode}_${proposal.nummerprefix +
+        proposal.nummernumerisk}_fremsaettelsestale.htm`;
+      const presentation = await scrapeIt(presentationUrl, {
+        paragraphs: { listItem: '.TekstGenerel' },
+        proposer: '.Fremsaetter'
+      });
       if (!presentation.paragraphs.length) {
-        console.log('We could not find a presentation for proposal: ' + proposal.id)
-        return null
+        console.log('We could not find a presentation for proposal: ' + proposal.id);
+        return null;
       } else {
-        return presentation
+        return presentation;
       }
     }
-    const existingPresentation = R.path(['data', 'presentation'], existingProposal)
-    const doNotLookForPresentation = !!R.path(['paragraphs', 'length'], existingPresentation) || proposal.nummerprefix === 'B' // beslutningforslag will never get a presentation
+    const existingPresentation = R.path(['data', 'presentation'], existingProposal);
+    const doNotLookForPresentation =
+      !!R.path(['paragraphs', 'length'], existingPresentation) || proposal.nummerprefix === 'B'; // beslutningforslag will never get a presentation
     const upsertedProposal = {
       id: proposal.id,
       data: {
@@ -57,17 +64,17 @@ async function ftBatchFetcher () {
         stage: proposal.Sagstrin,
         presentation: doNotLookForPresentation ? existingPresentation : await presentation()
       }
-    }
+    };
     if (existingProposal) {
-      await updateProposal(upsertedProposal.id, upsertedProposal.data)
+      await changeProposal(upsertedProposal.id, upsertedProposal.data);
       console.log('Updated proposal with id: ' + proposal.id);
     } else {
-      await insertProposal(upsertedProposal.id, upsertedProposal.data)
+      await createProposal(upsertedProposal.id, upsertedProposal.data);
       console.log('Inserted new proposal with id: ' + proposal.id);
     }
   }
-  console.log("ftBatchFetcher finished");
-};
+  console.log('ftBatchFetcher finished');
+}
 
 // Export
-module.exports = ftBatchFetcher
+module.exports = ftBatchFetcher;
