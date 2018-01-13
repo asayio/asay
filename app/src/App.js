@@ -252,6 +252,7 @@ class App extends Component {
                       updateState={this.updateState}
                       projectList={this.state.projectList}
                       preferenceList={this.state.preferenceList}
+                      user={this.state.user}
                     />
                   )
                 }
