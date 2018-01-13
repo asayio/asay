@@ -1,11 +1,11 @@
 // Import
 const db = require('../db');
-const updateProject = db.sql('./project/sql/updateProject.sql');
+const insertProjectHistory = db.sql('./project/sql/insertProjectHistory.sql');
 
 // Functions
-async function changeProject(project, version) {
-  await db.cx.query(updateProject, {
-    project: project.id,
+async function createProjectHistory(projectId, project, version) {
+  await db.cx.query(insertProjectHistory, {
+    project: projectId,
     version: version,
     category: project.category,
     bio: project.bio,
@@ -18,4 +18,4 @@ async function changeProject(project, version) {
 }
 
 // Export
-module.exports = changeProject;
+module.exports = createProjectHistory;

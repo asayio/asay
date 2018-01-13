@@ -7,4 +7,6 @@ set
   ,budget = $/budget/
   ,argument = $/argument/
   ,risk = $/risk/
+  ,modifiedon = now()
+  ,version = $/version/
 where id = $/project/
