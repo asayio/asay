@@ -53,7 +53,11 @@ class ProjectForm extends Component {
     });
     if (response.ok) {
       const projectid = await response.json();
-      const project = Object.assign({}, this.state, projectid);
+      const project = Object.assign({}, this.state, {
+        id: projectid.id,
+        published: published,
+        category: Number(this.state.category)
+      });
       this.props.updateState({ entityType: 'projectList', entity: project });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
@@ -62,7 +66,6 @@ class ProjectForm extends Component {
 
   render() {
     const project = this.state;
-    console.log(project);
     const preferenceList = this.props.preferenceList;
     return (
       <div>
