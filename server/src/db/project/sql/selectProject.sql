@@ -7,6 +7,7 @@ select
   ,project.budget
   ,project.argument
   ,project.risk
+  ,project.published
   ,"user".email
   ,"user".firstname
   ,"user".lastname

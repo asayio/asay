@@ -8,6 +8,7 @@ insert into project_history (
   ,budget
   ,argument
   ,risk
+  ,published
 ) values (
   $/project/
   ,$/version/
@@ -18,4 +19,5 @@ insert into project_history (
   ,$/budget/
   ,$/argument/
   ,$/risk/
+  ,$/published/
 )

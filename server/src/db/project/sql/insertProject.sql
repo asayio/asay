@@ -7,6 +7,7 @@ insert into project (
   ,budget
   ,argument
   ,risk
+  ,published
 ) values (
   $/initiator/
   ,$/category/
@@ -16,4 +17,5 @@ insert into project (
   ,$/budget/
   ,$/argument/
   ,$/risk/
+  ,$/published/
 ) returning id

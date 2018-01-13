@@ -9,4 +9,5 @@ set
   ,risk = $/risk/
   ,modifiedon = now()
   ,version = $/version/
+  ,published = $/published/
 where id = $/project/

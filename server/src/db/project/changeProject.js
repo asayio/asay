@@ -13,7 +13,8 @@ async function changeProject(project, version) {
     description: project.description,
     budget: project.budget,
     argument: project.argument,
-    risk: project.risk
+    risk: project.risk,
+    published: project.published
   });
 }
 
