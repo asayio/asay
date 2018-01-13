@@ -13,3 +13,4 @@ select
   ,"user".lastname
 from project
   left join "user" on project.initiator_id = "user".id
+  where project.published = true or project.initiator_id = $/user/

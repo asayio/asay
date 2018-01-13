@@ -1,10 +1,12 @@
 // Import
 const db = require('../db');
-const selectProject = db.sql('./project/sql/selectProject.sql');
+const selectProjects = db.sql('./project/sql/selectProjects.sql');
 
 // Functions
-async function getProjectList() {
-  const projects = await db.cx.query(selectProject);
+async function getProjectList(userId) {
+  const projects = await db.cx.query(selectProjects, {
+    user: userId
+  });
   return projects;
 }
 

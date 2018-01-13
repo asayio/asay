@@ -24,7 +24,7 @@ async function appDataBundleFetcher(request, response) {
       const proposalList = await getProposalList();
       const participationList = await getParticipationList();
       const notificationList = await getNotificationList(userId);
-      const projectList = await getProjectList();
+      const projectList = await getProjectList(userId);
       const bundle = {
         user,
         voteList,
