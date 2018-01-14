@@ -20,9 +20,7 @@ async function initialState() {
     const participationList = appDataBundle.participationList;
     const rawPreferenceList = appDataBundle.preferenceList || [];
     const rawProjectList = appDataBundle.projectList;
-    const rawProposalList = appDataBundle.proposalList.map(proposal =>
-      Object.assign({}, { id: proposal.id }, proposal.data)
-    );
+    const rawProposalList = appDataBundle.proposalList;
     const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList);
     const proposalList = buildProposalList({
       participationList,
@@ -74,11 +72,13 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
     const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
     const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
     const cleanProject = R.omit(['firstname', 'email', 'lastname', 'bio'], project);
+    const createdon = Date.parse(project.createdon);
     const newProject = Object.assign({}, cleanProject, {
       category,
       initiator,
       support,
-      isSupporting
+      isSupporting,
+      createdon
     });
     return newProject;
   });

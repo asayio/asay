@@ -149,6 +149,7 @@ class App extends Component {
         ReactGA.set({ page: page });
         ReactGA.pageview(page);
       }
+      window.scrollTo(0, 0);
       return null;
     };
     return (

@@ -8,6 +8,7 @@ select
   ,project.argument
   ,project.risk
   ,project.published
+  ,project.createdon
   ,"user".email
   ,"user".firstname
   ,"user".lastname
