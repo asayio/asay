@@ -9,6 +9,7 @@ class EditProjectPage extends Component {
   }
 
   render() {
+    console.log(this.state);
     const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
     const user = this.props.user;
     if (project.initiator.email === user.email) {
@@ -20,6 +21,7 @@ class EditProjectPage extends Component {
             preferenceList={this.props.preferenceList}
             match={this.props.match}
             updateState={this.props.updateState}
+            formSubmit={this.formSubmit}
           />
         </div>
       );

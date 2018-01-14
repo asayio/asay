@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import Modal from '../modal';
+import LoadingSpinner from '../loadingSpinner';
 import R from 'ramda';
+import { Link } from 'react-router-dom';
 
 class ProjectForm extends Component {
   constructor() {
@@ -13,10 +16,12 @@ class ProjectForm extends Component {
       budget: '',
       argument: '',
       risk: '',
-      published: ''
+      published: false,
+      submitted: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePublish = this.handlePublish.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +36,8 @@ class ProjectForm extends Component {
         budget: project.budget,
         argument: project.argument,
         risk: project.risk,
-        published: project.published
+        published: project.published,
+        showModal: false
       });
     }
   }
@@ -41,7 +47,16 @@ class ProjectForm extends Component {
     this.setState({ [target.name]: target.value });
   }
 
+  handlePublish() {
+    if (this.state.published) {
+      this.setState({ showModal: 'confirm' });
+    } else {
+      this.handleSubmit(true);
+    }
+  }
+
   async handleSubmit(published) {
+    this.setState({ showModal: 'loading' });
     const body = Object.assign({}, this.state, { published: published });
     const response = await fetch('/api/project/', {
       method: 'POST',
@@ -59,6 +74,8 @@ class ProjectForm extends Component {
         category: Number(this.state.category)
       });
       this.props.updateState({ entityType: 'projectList', entity: project });
+      const modal = !published ? 'draft' : !this.state.published ? 'published' : 'public';
+      this.setState({ showModal: modal });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
     }
@@ -69,6 +86,72 @@ class ProjectForm extends Component {
     const preferenceList = this.props.preferenceList;
     return (
       <div>
+        {project.showModal === 'confirm' && (
+          <Modal
+            content={
+              <div>
+                <h1>Er du sikker?</h1>
+                <p>Du er ved et publicere dit projekt.</p>
+                <p>
+                  Sammen med projektet publiceres også dit navn og email, så andre kan komme i kontakt med dig og
+                  bidrage til forslaget.
+                </p>
+                <button onClick={() => this.handleSubmit(false)}>Gem som kladde</button>
+                <button onClick={() => this.handleSubmit(true)}>Publicer</button>
+              </div>
+            }
+          />
+        )}
+        {project.showModal === 'loading' && <Modal content={<LoadingSpinner />} />}
+        {project.showModal === 'draft' && (
+          <Modal
+            content={
+              <div>
+                <h1>Projektet blev gemt</h1>
+                <p>Dit projekt er gemt som kladde, så det kun er synligt for dig.</p>
+                <p>
+                  Du kan altid gå tilbage og rette i projektet, også efter det publiceret. Vi holder styr på tidligere
+                  versioner for dig.
+                </p>
+                <Link to={`../../project/${project.id}`}>OK</Link>
+              </div>
+            }
+          />
+        )}
+        {project.showModal === 'published' && (
+          <Modal
+            content={
+              <div>
+                <h1>Succes! Projektet blev publiceret</h1>
+                <p>
+                  Dit projekt er nu offentligt og du skal samle opbakning til dit forslag. Det gør du ved at række ud
+                  til folk i dit netværk og sende dem til din projektside. Det gør det med linket her:
+                </p>
+                <p>{window.location.origin + '/project/' + project.id}</p>
+                <p>
+                  Når projektet har samlet støtte fra 15 andre brugere kommer det på projektlisten her på platformen.
+                </p>
+                <Link to={`../../project/${project.id}`}>OK</Link>
+              </div>
+            }
+          />
+        )}
+        {project.showModal === 'public' && (
+          <Modal
+            content={
+              <div>
+                <h1>Projektet blev publiceret</h1>
+                <p>
+                  Du kan altid gå tilbage og rette i projektet, som du bliver klogere undervejs. Vi holder styr på
+                  tidligere versioner for dig.
+                </p>
+                <p>Husk du altid kan dele dit projekt direkte med linket:</p>
+                <p>{window.location.origin + '/project/' + project.id}</p>
+                <Link to={`../../project/${project.id}`}>OK</Link>
+              </div>
+            }
+          />
+        )}
         <form onChange={this.handleChange} onSubmit={e => e.preventDefault()}>
           <label>
             Titel
@@ -144,7 +227,7 @@ class ProjectForm extends Component {
             />
           </label>
         </form>
-        {!project.published && <button onClick={() => this.handleSubmit(false)}>Gem</button>}
+        {!project.published && <button onClick={this.handlePublish}>Gem som kladde</button>}
         <button onClick={() => this.handleSubmit(true)}>Publicer</button>
       </div>
     );
