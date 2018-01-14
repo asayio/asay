@@ -3,9 +3,7 @@ const R = require('ramda');
 const odaFetcher = require('./odaFetcher');
 const scrapeIt = require('scrape-it');
 const getProposalList = require('../../db/proposal/getProposalList');
-const updateProposal = require('../../db/proposal/updateProposal');
 const updateProposalState = require('../../db/proposal/updateProposalState');
-const insertProposal = require('../../db/proposal/insertProposal');
 const resultsMailBatch = require('../../mail/resultsMailBatch');
 
 // Functions
