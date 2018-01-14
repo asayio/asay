@@ -8,10 +8,7 @@ class Projects extends Component {
   }
 
   render() {
-    const projectList = [
-      { id: 1, shortTitel: 'Forslag 1', category: { feathericon: 'Circle' } },
-      { id: 2, shortTitel: 'Forslag 2', category: { feathericon: 'Circle' } }
-    ]; // this.props.projectList;
+    const projectList = this.props.projectList
     return (
       <div>
         <ProposalListFilter
