@@ -1,15 +1,21 @@
-import R from "ramda";
+const R = require('ramda')
 
 // UNCOMMENTED STUFF UNTIL WE CAN HANDLE MULTIPLE STAGES!
-export default function findStageInfo(stage) {
+function findStageInfo(stage) {
   // voting stages for "beslutningsforslag"
-  const bOnlyVote = R.find(R.propEq("typeid", 87))(stage); // first and only vote
-  const bFinalVote = R.find(R.propEq("typeid", 7))(stage); // 2nd and final vote
-  const bFirstVote = R.find(R.propEq("typeid", 23))(stage); // first vote
+  const succesfulStatusIdList = [28, 103, 110, 41, 84, 125, 274]
+  const voteWasSuccesful = function (typeid) {
+    return stage => {
+      return stage.typeid === typeid && succesfulStatusIdList.includes(stage.statusid)
+    }
+  }
+  const bOnlyVote = R.find(voteWasSuccesful(87))(stage); // first and only vote
+  const bFinalVote = R.find(voteWasSuccesful(7))(stage); // 2nd and final vote
+  const bFirstVote = R.find(voteWasSuccesful(23))(stage); // first vote
 
   // voting stages for "lovforslag"
-  const lFinalVote = R.find(R.propEq("typeid", 17))(stage); // 3rd and final vote
-  const lFirstVote = R.find(R.propEq("typeid", 12))(stage); // first vote
+  const lFinalVote = R.find(voteWasSuccesful(17))(stage); // 3rd and final vote
+  const lFirstVote = R.find(voteWasSuccesful(12))(stage); // first vote
 
   // get current stage
   const current = bOnlyVote
@@ -41,10 +47,20 @@ export default function findStageInfo(stage) {
         status: "Til endelig afstemning"
       };
     } else if (hasFinal && !isOpen) {
+      const findNumbers = /\d+/g // will find all natural numbers and list them in an array
+      const resultString = current.Afstemning[0].konklusion
+      const resultArray = resultString.match(findNumbers)
+      const actualResults = {
+        for: Number(resultArray[0]),
+        against: Number(resultArray[1]),
+        blank: Number(resultArray[2]),
+        partyDistribution: resultString // make some nice regex on this some day
+      }
       return {
         deadline: "Afsluttet",
         distanceToDeadline: 99999999999, // show last in list ordered by deadline
-        status: "Afsluttet"
+        status: "Afsluttet",
+        actualResults
       }; // refine with result
     } /* else if (hasPreliminary && isOpen) {
       return {deadline: countdown, status: "Til vejledende afstemning"}
@@ -53,3 +69,5 @@ export default function findStageInfo(stage) {
     } */
   }
 }
+
+module.exports = findStageInfo

@@ -1,5 +1,4 @@
 import R from 'ramda';
-import findStageInfo from './findStageInfo';
 
 async function initialState() {
   const appDataBundleResponse = await fetch('/api/appDataBundle/', {
@@ -21,9 +20,7 @@ async function initialState() {
     const participationList = appDataBundle.participationList;
     const rawPreferenceList = appDataBundle.preferenceList || [];
     const rawProjectList = appDataBundle.projectList;
-    const rawProposalList = appDataBundle.proposalList.map(proposal =>
-      Object.assign({}, { id: proposal.id }, proposal.data)
-    );
+    const rawProposalList = appDataBundle.proposalList;
     const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList);
     const proposalList = buildProposalList({
       participationList,
@@ -104,11 +101,9 @@ function buildProposalList({
     const hasSubscription = R.find(R.propEq('proposal', id))(subscriptionList);
     const matchesCategory = R.find(R.propEq('committee', committeeId))(committeeCategoryList);
     const category = R.find(R.propEq('id', matchesCategory.category))(preferenceList);
-    const stageInfo = findStageInfo(proposal.stage);
-    const deadline = stageInfo.deadline;
-    const distanceToDeadline = stageInfo.distanceToDeadline;
-    const status = stageInfo.status; // Put results here when we get them
-    /* const results = {};*/
+    const deadline = proposal.deadline;
+    const distanceToDeadline = proposal.distanceToDeadline;
+    const status = proposal.status;
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category ? category.preference : false;
     const seeNotification =
       isSubscribing &&
@@ -116,7 +111,7 @@ function buildProposalList({
         return notification.proposal_id === id && notification.type === 'seen';
       }, notificationList);
     const seeResultsNotification =
-      deadline === 'Afsluttet' /* replace w. results */ &&
+      deadline === 'Afsluttet' &&
       !R.find(notification => {
         return notification.proposal_id === id && notification.type === 'seenResults';
       }, notificationList);

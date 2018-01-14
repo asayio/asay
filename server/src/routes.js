@@ -2,6 +2,7 @@
 const onboarding = require('./api/onboarding');
 const decleration = require('./api/decleration');
 const email = require('./api/email');
+const notificationSettings = require('./api/notificationSettings');
 const auth = require('./api/auth');
 const vote = require('./api/vote');
 const preference = require('./api/preference');
@@ -26,6 +27,7 @@ function map(app) {
   app.post('/api/user/onboarding', onboarding);
   app.post('/api/user/emailnotification', email);
   app.post('/api/user/decleration', decleration);
+  app.post('/api/user/notificationSettings', notificationSettings);
   app.post('/api/seen/', seen);
 }
 

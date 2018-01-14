@@ -3,13 +3,15 @@ const R = require('ramda');
 const odaFetcher = require('./odaFetcher');
 const scrapeIt = require('scrape-it');
 const getProposalList = require('../../db/proposal/getProposalList');
-const changeProposal = require('../../db/proposal/changeProposal');
-const createProposal = require('../../db/proposal/createProposal');
+const updateProposal = require('../../db/proposal/updateProposal');
+const updateProposalState = require('../../db/proposal/updateProposalState');
+const insertProposal = require('../../db/proposal/insertProposal');
+const resultsMailBatch = require('../../mail/resultsMailBatch');
 
 // Functions
 async function ftBatchFetcher() {
   console.log('ftBatchFetcher started');
-  const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin';
+  const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin/Afstemning';
   const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146';
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter;
   const proposalList = await odaFetcher.fetchAllPages(proposalUrl);
@@ -23,6 +25,11 @@ async function ftBatchFetcher() {
   }, proposalList);
   console.log('proposal list was filtered for bad apples');
   const existingProposalList = await getProposalList();
+  for (const proposal of existingProposalList) {
+    const hasJustClosed = proposal.deadline === 'Afsluttet' && !proposal.state;
+    hasJustClosed && (await updateProposalState(proposal.id, 'closed'));
+    hasJustClosed && resultsMailBatch(proposal);
+  }
   for (const proposal of filteredProposalList) {
     const existingProposal = R.find(R.propEq('id', proposal.id))(existingProposalList);
     async function presentation() {
