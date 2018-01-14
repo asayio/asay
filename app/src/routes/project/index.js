@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'react-feather';
 import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
+import Modal from '../../components/modal';
 
 class ProjectPage extends Component {
   constructor() {
@@ -11,10 +12,15 @@ class ProjectPage extends Component {
       showModal: false
     };
     this.supportProject = this.supportProject.bind(this);
+    this.giveDecleration = this.giveDecleration.bind(this);
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+  async giveDecleration() {
+    console.log('succes');
+    this.setState({ showModal: false });
   }
 
   async supportProject() {
@@ -25,7 +31,7 @@ class ProjectPage extends Component {
       const response = await fetch(`/api/project/${project.id}/support`, {
         method: 'POST',
         body: JSON.stringify({
-          project: !project.isSupporting
+          support: !project.isSupporting
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +40,6 @@ class ProjectPage extends Component {
       });
       if (response.ok) {
         !this.props.user.decleration && !project.isSupporting && this.setState({ showModal: true });
-        this.props.updateState({ entityType: 'projectSupportList', entity: { project: project.id } });
       } else {
         this.props.updateState({ entityType: 'error', entity: response.status });
       }
@@ -47,6 +52,24 @@ class ProjectPage extends Component {
     if (project) {
       return (
         <div>
+          {this.state.showModal && (
+            <Modal
+              content={
+                <div>
+                  <h1>Brug for din støtte...</h1>
+                  <p>Vi har registreret din støtte til projektet.</p>
+                  <p>
+                    Men hvis projektet skal nå ind i Folketinget, skal vi også bruge din vælgererklæring, så Initiativet
+                    kan stille op til næste Folketingsvalg.
+                  </p>
+                  <a href="https://initiativet.dk/sign/forward" target="_decleration" onClick={this.giveDecleration}>
+                    Giv en vælgererklæring
+                  </a>
+                  <a onClick={() => this.setState({ showModal: false })}>Har allerede støttet</a>
+                </div>
+              }
+            />
+          )}
           <div>
             <a onClick={() => window.history.back()}>
               <ArrowLeft />
