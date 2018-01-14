@@ -24,6 +24,9 @@ class Nav extends Component {
               <Link to="/insights" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
                 Historik
               </Link>
+              <Link to="/projects" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
+                Projekter
+              </Link>
             </div>
             <div className="items-center relative dn flex-ns">
               <SearchBar
