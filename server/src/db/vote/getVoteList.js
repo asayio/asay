@@ -1,14 +1,14 @@
 // Import
 const db = require('../db');
-const selectUserProjectSupportList = db.sql('./projectSupport/sql/selectUserProjectSupportList.sql');
+const selectVoteList = db.sql('./vote/sql/selectVoteList.sql');
 
 // Functions
-async function getUserProjectSupportList(userId) {
-  const supportList = await db.cx.query(selectUserProjectSupportList, {
+async function getVoteList(userId) {
+  const voteList = await db.cx.query(selectVoteList, {
     user: userId
   });
-  return supportList;
+  return voteList;
 }
 
 // Export
-module.exports = getUserProjectSupportList;
+module.exports = getVoteList;

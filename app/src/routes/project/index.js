@@ -7,6 +7,9 @@ import LoadingSpinner from '../../components/loadingSpinner';
 class ProjectPage extends Component {
   constructor() {
     super();
+    this.state = {
+      showModal: false
+    };
     this.supportProject = this.supportProject.bind(this);
   }
 
@@ -29,7 +32,10 @@ class ProjectPage extends Component {
           Authorization: 'Bearer ' + window.localStorage.authToken
         }
       });
-      if (!response.ok) {
+      if (response.ok) {
+        !this.props.user.decleration && !project.isSupporting && this.setState({ showModal: true });
+        this.props.updateState({ entityType: 'projectSupportList', entity: { project: project.id } });
+      } else {
         this.props.updateState({ entityType: 'error', entity: response.status });
       }
     }

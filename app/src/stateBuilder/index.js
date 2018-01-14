@@ -16,7 +16,7 @@ async function initialState() {
     const notificationList = appDataBundle.notificationList || [];
     const voteList = appDataBundle.voteList || [];
     const projectSupportList = appDataBundle.projectSupportList || [];
-    const userProjectSupportList = appDataBundle.projectSupportList || [];
+    const userProjectSupportList = appDataBundle.userProjectSupportList || [];
     const subscriptionList = appDataBundle.subscriptionList || [];
     const participationList = appDataBundle.participationList;
     const rawPreferenceList = appDataBundle.preferenceList || [];
@@ -68,8 +68,8 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
   const newProjectList = projectList.map(project => {
     const category = R.find(R.propEq('id', project.category))(preferenceList);
     const initiator = { name: project.firstname + ' ' + project.lastname, bio: project.bio, email: project.email };
-    const support = R.find(R.propEq('project', project.id))(projectSupportList) || 0;
-    const isSupporting = R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
+    const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
+    const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
     const newProject = Object.assign({}, project, {
       category,
       initiator,
@@ -78,7 +78,6 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
     });
     return newProject;
   });
-  console.log(newProjectList);
   return newProjectList;
 }
 
