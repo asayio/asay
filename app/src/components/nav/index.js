@@ -43,18 +43,26 @@ class Nav extends Component {
                   <ul className="list pa1 ma0">
                     <li className="pa1">
                       <Link
-                        to="/preferences"
-                        className="db hover-bg-near-black br1 nowrap pa2"
-                        onMouseDown={e => e.preventDefault()}>
-                        Præferencer
-                      </Link>
-                    </li>
-                    <li className="pa1">
-                      <Link
                         to="/settings"
                         className="db hover-bg-near-black br1 nowrap pa2"
                         onMouseDown={e => e.preventDefault()}>
                         Indstillinger
+                      </Link>
+                    </li>
+                    <li className="pa1">
+                      <Link
+                        to="/projects/mine"
+                        className="db hover-bg-near-black br1 nowrap pa2"
+                        onMouseDown={e => e.preventDefault()}>
+                        Mine projekter
+                      </Link>
+                    </li>
+                    <li className="pa1">
+                      <Link
+                        to="/preferences"
+                        className="db hover-bg-near-black br1 nowrap pa2"
+                        onMouseDown={e => e.preventDefault()}>
+                        Præferencer
                       </Link>
                     </li>
                     <li className="pa1">

@@ -20,9 +20,10 @@ import Proposal from './routes/proposal';
 import Vote from './routes/proposal/vote';
 import Settings from './routes/settings';
 import Projects from './routes/projects';
+import MyProjects from './routes/projects/mine';
+import NewProject from './routes/projects/new';
 import Project from './routes/project';
 import EditProject from './routes/project/edit';
-import NewProject from './routes/projects/new';
 
 // components
 import Nav from './components/nav';
@@ -271,6 +272,24 @@ class App extends Component {
                     <Unauthorized />
                   ) : (
                     <NewProject updateState={this.updateState} preferenceList={this.state.preferenceList} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/projects/mine"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <MyProjects
+                      updateState={this.updateState}
+                      preferenceList={this.state.preferenceList}
+                      searchString={this.state.searchString}
+                      filter={this.state.filter}
+                      projectList={this.state.projectList}
+                      user={this.state.user}
+                    />
                   )
                 }
               />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import R from 'ramda';
-import ProposalList from '../../components/proposalList';
+import ProposalList from '../../../components/proposalList';
 import { Link } from 'react-router-dom';
 
 class Projects extends Component {
@@ -9,15 +9,16 @@ class Projects extends Component {
   }
 
   render() {
+    const user = this.props.user.email;
     let projectList = this.props.projectList;
     projectList = R.filter(project => {
-      return project.support > 15; // show only project with support from 15 or more people
+      return project.initiator.email === user;
     }, projectList);
     return (
       <div>
-        <h1>Alle projekter</h1>
+        <h1>Mine projekter</h1>
         <div>
-          {this.props.user ? (
+          {user ? (
             <Link to="/projects/new">Opret projekt</Link>
           ) : (
             <button onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}>Opret projekt</button>
