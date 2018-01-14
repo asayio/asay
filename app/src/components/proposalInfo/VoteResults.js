@@ -10,6 +10,7 @@ class VoteResults extends Component {
 
   render() {
     const results = this.props.results;
+    const partyDistribution = results.partyDistribution;
     const totalNumberOfVotes = results.for + results.against + results.blank
     function getVoteBarWidth (votes) {
       return {width: (votes / totalNumberOfVotes) * 100 + "%"}
@@ -57,6 +58,7 @@ class VoteResults extends Component {
           }
         </div>
         <ThumbsDown></ThumbsDown>
+        {!!partyDistribution && <div className='party-distribution'>{partyDistribution}</div>}
       </div>
     );
   }

@@ -4,7 +4,9 @@ const odaFetcher = require('./odaFetcher')
 const scrapeIt = require('scrape-it')
 const getProposalList = require('../../db/proposal/getProposalList')
 const updateProposal = require('../../db/proposal/updateProposal')
+const updateProposalState = require('../../db/proposal/updateProposalState')
 const insertProposal = require('../../db/proposal/insertProposal')
+const resultsMailBatch = require('../../mail/resultsMailBatch')
 
 // Functions
 async function ftBatchFetcher () {
@@ -23,6 +25,11 @@ async function ftBatchFetcher () {
   }, proposalList);
   console.log('proposal list was filtered for bad apples');
   const existingProposalList = await getProposalList()
+  for (const proposal of existingProposalList) {
+    const hasJustClosed = proposal.deadline === 'Afsluttet' && !proposal.state
+    hasJustClosed && await updateProposalState(proposal.id, 'closed')
+    hasJustClosed && resultsMailBatch(proposal)
+  }
   for (const proposal of filteredProposalList) {
     const existingProposal = R.find(R.propEq('id', proposal.id))(existingProposalList)
     async function presentation () {

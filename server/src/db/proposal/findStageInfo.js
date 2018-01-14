@@ -54,6 +54,7 @@ function findStageInfo(stage) {
         for: Number(resultArray[0]),
         against: Number(resultArray[1]),
         blank: Number(resultArray[2]),
+        partyDistribution: resultString // make some nice regex on this some day
       }
       return {
         deadline: "Afsluttet",
