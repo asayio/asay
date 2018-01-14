@@ -50,6 +50,8 @@ class App extends Component {
       committeeCategoryList: [],
       participationList: [],
       projectList: [],
+      projectSupportList: [],
+      userProjectSupportList: [],
       appReady: false,
       searchString: '',
       filter: {
@@ -123,6 +125,9 @@ class App extends Component {
         break;
       case 'projectList':
         this.setState(stateBuilder.updateProjectList(this.state, entity));
+        break;
+      case 'projectSupportList':
+        this.setState(stateBuilder.updateProjectSupportList(this.state, entity));
         break;
       case 'error':
         this.setState({ showErrorModal: entity });

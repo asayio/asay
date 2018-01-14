@@ -28,6 +28,14 @@ class ProjectPage extends Component {
       this.props.updateState({ entityType: 'error', entity: 401 });
     } else {
       const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
+
+      !this.props.user.decleration && !project.isSupporting && this.setState({ showModal: true });
+
+      this.props.updateState({
+        entityType: 'projectSupportList',
+        entity: { id: project.id, isSupporting: project.isSupporting }
+      });
+
       const response = await fetch(`/api/project/${project.id}/support`, {
         method: 'POST',
         body: JSON.stringify({
@@ -38,9 +46,7 @@ class ProjectPage extends Component {
           Authorization: 'Bearer ' + window.localStorage.authToken
         }
       });
-      if (response.ok) {
-        !this.props.user.decleration && !project.isSupporting && this.setState({ showModal: true });
-      } else {
+      if (!response.ok) {
         this.props.updateState({ entityType: 'error', entity: response.status });
       }
     }

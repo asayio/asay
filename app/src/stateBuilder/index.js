@@ -49,7 +49,9 @@ async function initialState() {
       committeeCategoryList,
       participationList,
       notificationList,
-      projectList
+      projectList,
+      projectSupportList,
+      userProjectSupportList
     };
   }
 }
@@ -66,7 +68,9 @@ const sortPreferenceList = R.sortWith([R.ascend(R.prop('title'))]);
 
 function buildProjectList({ projectList, preferenceList, projectSupportList, userProjectSupportList }) {
   const newProjectList = projectList.map(project => {
-    const category = R.find(R.propEq('id', project.category))(preferenceList);
+    const category = Number.isInteger(project.category)
+      ? R.find(R.propEq('id', project.category))(preferenceList)
+      : project.category;
     const initiator = { name: project.firstname + ' ' + project.lastname, bio: project.bio, email: project.email };
     const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
     const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
@@ -195,6 +199,7 @@ function updateFilter(state, entity) {
   const newState = Object.assign({}, state, { filter: newFilter });
   return newState;
 }
+
 function updateProjectList(state, entity) {
   const rawProject = Object.assign({}, entity, {
     email: state.user.email,
@@ -207,6 +212,33 @@ function updateProjectList(state, entity) {
   return newState;
 }
 
+function updateProjectSupportList(state, entity) {
+  const projectSupport = R.find(R.propEq('project', entity.id), state.projectSupportList);
+  const newProjectSupport = projectSupport
+    ? Object.assign({}, projectSupport, {
+        support: entity.isSupporting ? Number(projectSupport.support) - 1 : Number(projectSupport.support) + 1
+      })
+    : { project: entity.id, support: 1 };
+  const newProjectSupportList = R.reject(R.propEq('project', entity.id))(state.projectSupportList).concat(
+    newProjectSupport
+  );
+  const newUserProjectSupportList = entity.isSupporting
+    ? R.reject(R.propEq('project', entity.id))(state.userProjectSupportList)
+    : R.append({ project: entity.id }, state.userProjectSupportList);
+  const newProjectList = buildProjectList({
+    projectList: state.projectList,
+    preferenceList: state.preferenceList,
+    projectSupportList: newProjectSupportList,
+    userProjectSupportList: newUserProjectSupportList
+  });
+  const newState = Object.assign({}, state, {
+    projectList: newProjectList,
+    projectSupportList: newProjectSupportList,
+    userProjectSupportList: newUserProjectSupportList
+  });
+  return newState;
+}
+
 export default {
   initialState,
   updatePreferences,
@@ -216,5 +248,6 @@ export default {
   updateNotificationList,
   updateProjectList,
   updateFilter,
-  updateUser
+  updateUser,
+  updateProjectSupportList
 };

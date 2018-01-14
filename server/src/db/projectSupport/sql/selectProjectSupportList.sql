@@ -1,6 +1,6 @@
 select
   project_id as project
-  ,count(*) as support
+  ,cast(count(*) as int) as support
 from project_support
 where support = true
 group by project_id

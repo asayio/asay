@@ -12,7 +12,6 @@ async function postProjectSupport(request, response) {
       const userId = user.id;
       const support = request.body.support;
       const projectId = request.params.id;
-      console.log(request.params.id);
       const currentProjectSupport = await lookupProjectSupport(userId, projectId);
       const hasProjectSupport = currentProjectSupport.length > 0 ? true : false;
       if (hasProjectSupport) {
