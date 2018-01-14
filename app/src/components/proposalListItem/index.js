@@ -7,6 +7,7 @@ class ProposalListItem extends Component {
   render() {
     const proposal = this.props.proposal;
     const daysLeftBeforeShowingDeadlineNotification = 1;
+    const title =  proposal.shortTitel || proposal.title
     const showDeadlineNotification =
       proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 7); // "+1" we need the results one day in advance;
     return (
@@ -17,7 +18,7 @@ class ProposalListItem extends Component {
             <span className="dib black-50 mt1 mt2-ns">{proposal.category.title}</span>
           </div>
           <div className="w-100 w-60-m w-80-l tc tl-ns lh-title flex flex-column justify-center bt bn-ns b--black-10 pa3 pv4-ns">
-            <h3 className="f5 mt0 mb2">{proposal.shortTitel.replace('.', '')}</h3>
+            <h3 className="f5 mt0 mb2">{title.replace('.', '')}</h3>
             <span className="f6 black-70 mb1">
               <span className="mr3">
                 <b>Deadline:</b> {proposal.deadline}
