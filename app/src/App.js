@@ -217,6 +217,7 @@ class App extends Component {
                     searchString={this.state.searchString}
                     filter={this.state.filter}
                     projectList={this.state.projectList}
+                    user={this.state.user}
                   />
                 )}
               />

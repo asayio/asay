@@ -74,7 +74,8 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
     const initiator = { name: project.firstname + ' ' + project.lastname, bio: project.bio, email: project.email };
     const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
     const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
-    const newProject = Object.assign({}, project, {
+    const cleanProject = R.omit(['firstname', 'email', 'lastname', 'bio'], project);
+    const newProject = Object.assign({}, cleanProject, {
       category,
       initiator,
       support,
@@ -206,7 +207,12 @@ function updateProjectList(state, entity) {
     firstname: state.user.firstname,
     lastname: state.user.lastname
   });
-  const newProject = buildProjectList({ projectList: [rawProject], preferenceList: state.preferenceList });
+  const newProject = buildProjectList({
+    projectList: [rawProject],
+    preferenceList: state.preferenceList,
+    projectSupportList: state.projectSupportList,
+    userProjectSupportList: state.userProjectSupportList
+  });
   const newProjectList = R.reject(R.propEq('id', entity.id))(state.projectList).concat(newProject[0]);
   const newState = Object.assign({}, state, { projectList: newProjectList });
   return newState;
