@@ -229,3 +229,7 @@ svg {
   font-size: 12px;
   display: block;
 }
+
+.user-notification-setting {
+  display: block;
+}
