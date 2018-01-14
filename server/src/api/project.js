@@ -11,13 +11,14 @@ async function projectPostHandler(request, response) {
     const user = await getUser(request);
     if (user) {
       const project = request.body;
-      if (project.id) {
-        const projectPrevious = await getProjectHistory(project.id);
+      const projectId = request.params.id;
+      if (projectId !== 'null') {
+        const projectPrevious = await getProjectHistory(projectId);
         if (projectPrevious.initiator === user.id) {
           const version = projectPrevious.version + 1;
           await changeProject(project, version);
-          await createProjectHistory(project.id, project, version);
-          response.send({ id: project.id });
+          await createProjectHistory(projectId, project, version);
+          response.send({ id: projectId });
         } else {
           response.sendStatus(401);
         }

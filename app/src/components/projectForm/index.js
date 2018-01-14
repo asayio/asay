@@ -8,7 +8,7 @@ class ProjectForm extends Component {
   constructor() {
     super();
     this.state = {
-      id: '',
+      id: null,
       title: '',
       category: '',
       bio: '',
@@ -58,7 +58,7 @@ class ProjectForm extends Component {
   async handleSubmit(published) {
     this.setState({ showModal: 'loading' });
     const body = Object.assign({}, this.state, { published: published });
-    const response = await fetch('/api/project/', {
+    const response = await fetch(`/api/project/${this.state.id}/edit`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
@@ -73,11 +73,13 @@ class ProjectForm extends Component {
         published: published,
         category: Number(this.state.category)
       });
+      this.setState({ id: projectid.id });
       this.props.updateState({ entityType: 'projectList', entity: project });
       const modal = !published ? 'draft' : !this.state.published ? 'published' : 'public';
       this.setState({ showModal: modal });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
+      this.setState({ showModal: false });
     }
   }
 

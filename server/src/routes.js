@@ -8,6 +8,7 @@ const project = require('./api/project');
 const subscription = require('./api/subscription');
 const appData = require('./api/appData');
 const seen = require('./api/notification');
+const projectSupport = require('./api/projectSupport');
 
 // Routes
 function map(app) {
@@ -18,7 +19,8 @@ function map(app) {
   // POST
   app.post('/api/proposal/:id/vote', vote);
   app.post('/api/proposal/:id/subscription', subscription);
-  app.post('/api/project', project);
+  app.post('/api/project/:id/edit', project);
+  app.post('/api/project/:id/support', projectSupport);
   app.post('/api/preference', preference);
   app.post('/api/user/onboarding', onboarding);
   app.post('/api/user/emailnotification', email);

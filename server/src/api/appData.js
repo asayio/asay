@@ -9,6 +9,8 @@ const getProposalList = require('../db/proposal/getProposalList');
 const getParticipationList = require('../db/vote/getParticipationList');
 const getNotificationList = require('../db/notification/getNotificationList');
 const getProjectList = require('../db/project/getProjectList');
+const getProjectSupportList = require('../db/projectSupport/getProjectSupportList');
+const getUserProjectSupportList = require('../db/projectSupport/getUserProjectSupportList');
 
 // Functions
 async function appDataBundleFetcher(request, response) {
@@ -25,6 +27,8 @@ async function appDataBundleFetcher(request, response) {
       const participationList = await getParticipationList();
       const notificationList = await getNotificationList(userId);
       const projectList = await getProjectList(userId);
+      const projectSupportList = await getProjectSupportList();
+      const userProjectSupportList = await getProjectSupportList(userId);
       const bundle = {
         user,
         voteList,
@@ -35,7 +39,9 @@ async function appDataBundleFetcher(request, response) {
         proposalList,
         participationList,
         notificationList,
-        projectList
+        projectList,
+        projectSupportList,
+        userProjectSupportList
       };
       response.send(bundle);
     } else {
@@ -44,12 +50,14 @@ async function appDataBundleFetcher(request, response) {
       const proposalList = await getProposalList();
       const participationList = await getParticipationList();
       const projectList = await getProjectList();
+      const projectSupportList = await getProjectSupportList();
       const bundle = {
         preferenceList,
         committeeCategoryList,
         proposalList,
         participationList,
-        projectList
+        projectList,
+        projectSupportList
       };
       response.send(bundle);
     }

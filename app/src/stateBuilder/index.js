@@ -15,6 +15,8 @@ async function initialState() {
     const committeeCategoryList = appDataBundle.committeeCategoryList;
     const notificationList = appDataBundle.notificationList || [];
     const voteList = appDataBundle.voteList || [];
+    const projectSupportList = appDataBundle.projectSupportList || [];
+    const userProjectSupportList = appDataBundle.projectSupportList || [];
     const subscriptionList = appDataBundle.subscriptionList || [];
     const participationList = appDataBundle.participationList;
     const rawPreferenceList = appDataBundle.preferenceList || [];
@@ -34,7 +36,9 @@ async function initialState() {
     });
     const projectList = buildProjectList({
       projectList: rawProjectList,
-      preferenceList
+      preferenceList,
+      projectSupportList,
+      userProjectSupportList
     });
     return {
       user,
@@ -60,18 +64,21 @@ function buildPreferenceList(rawPreferenceList, committeeCategoryList) {
 
 const sortPreferenceList = R.sortWith([R.ascend(R.prop('title'))]);
 
-function buildProjectList({ projectList, preferenceList }) {
+function buildProjectList({ projectList, preferenceList, projectSupportList, userProjectSupportList }) {
   const newProjectList = projectList.map(project => {
     const category = R.find(R.propEq('id', project.category))(preferenceList);
     const initiator = { name: project.firstname + ' ' + project.lastname, bio: project.bio, email: project.email };
-    const support = 800; // update to calculate from support list
+    const support = R.find(R.propEq('project', project.id))(projectSupportList) || 0;
+    const isSupporting = R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
     const newProject = Object.assign({}, project, {
       category,
       initiator,
-      support
+      support,
+      isSupporting
     });
     return newProject;
   });
+  console.log(newProjectList);
   return newProjectList;
 }
 
