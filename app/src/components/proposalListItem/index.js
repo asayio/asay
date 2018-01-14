@@ -19,14 +19,22 @@ class ProposalListItem extends Component {
           </div>
           <div className="w-100 w-60-m w-80-l tc tl-ns lh-title flex flex-column justify-center bt bn-ns b--black-10 pa3 pv4-ns">
             <h3 className="f5 mt0 mb2">{isProject ? proposal.title : proposal.shortTitel.replace('.', '')}</h3>
-            <span className="f6 black-70 mb1">
-              <span className="mr3">
-                <b>Deadline:</b> {proposal.deadline}
+            {isProject ?
+              <span className="f6 black-70 mb1">
+                <span className="mr3">
+                  <b>Støtter:</b> {proposal.support}
+                </span>
               </span>
-              <span>
-                <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+              :
+              <span className="f6 black-70 mb1">
+                <span className="mr3">
+                  <b>Deadline:</b> {proposal.deadline}
+                </span>
+                <span>
+                  <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+                </span>
               </span>
-            </span>
+            }
           </div>
           <div className="absolute flex pa1 top-0 right-0">
             {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
