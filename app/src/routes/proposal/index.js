@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ProposalInfo from '../../components/proposalInfo';
 import ProposalActions from '../../components/proposalActions';
 import { ArrowLeft } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 class ProposalPage extends Component {
   componentDidMount() {
@@ -35,6 +36,20 @@ class ProposalPage extends Component {
 
   render() {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList);
+    if (!proposal) {
+      return (
+        <div>
+          <div>
+            Det lader ikke til at dette lovforslag findes.
+          </div>
+          <div>
+            <Link to={`/`} className="pointer dark-blue hover-blue dib mt3">
+              <ArrowLeft className="mr2" />Gå til forslagliste
+            </Link>
+          </div>
+        </div>
+      )
+    }
     if (!this.props.anonymousUser) {
       this.seen(proposal);
     }
