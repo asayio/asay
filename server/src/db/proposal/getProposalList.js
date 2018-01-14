@@ -10,7 +10,7 @@ async function getProposalList () {
   for (const proposal of proposals) {
     const stageInfo = findStageInfo(proposal.data.stage)
     const results = stageInfo.deadline === "Afsluttet" && await getVoteResults(proposal.id)
-    proposalListWithStageInfo.push(Object.assign({}, {id: proposal.id, results: results}, proposal.data, stageInfo))
+    proposalListWithStageInfo.push(Object.assign({}, {id: proposal.id, results: results, state: proposal.state}, proposal.data, stageInfo))
   }
   return proposalListWithStageInfo
 }

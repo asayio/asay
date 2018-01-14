@@ -72,7 +72,6 @@ function buildProposalList({
     const deadline = proposal.deadline;
     const distanceToDeadline = proposal.distanceToDeadline;
     const status = proposal.status;
-    const results =  proposal.results
     const isSubscribing = hasSubscription ? hasSubscription.subscription : category ? category.preference : false;
     const seeNotification =
       isSubscribing &&
