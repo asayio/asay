@@ -18,9 +18,19 @@ class ProjectPage extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
+
   async giveDecleration() {
-    console.log('succes');
     this.setState({ showModal: false });
+    await fetch('/api/user/decleration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
+    const newUser = Object.assign({}, this.props.user, { decleration: true });
+    console.log(newUser);
+    this.props.updateState({ entityType: 'user', entity: newUser });
   }
 
   async supportProject() {
@@ -71,7 +81,7 @@ class ProjectPage extends Component {
                   <a href="https://initiativet.dk/sign/forward" target="_decleration" onClick={this.giveDecleration}>
                     Giv en vælgererklæring
                   </a>
-                  <a onClick={() => this.setState({ showModal: false })}>Har allerede støttet</a>
+                  <a onClick={this.giveDecleration}>Har allerede støttet</a>
                 </div>
               }
             />

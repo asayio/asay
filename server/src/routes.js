@@ -1,5 +1,6 @@
 // Import
 const onboarding = require('./api/onboarding');
+const decleration = require('./api/decleration');
 const email = require('./api/email');
 const auth = require('./api/auth');
 const vote = require('./api/vote');
@@ -24,6 +25,7 @@ function map(app) {
   app.post('/api/preference', preference);
   app.post('/api/user/onboarding', onboarding);
   app.post('/api/user/emailnotification', email);
+  app.post('/api/user/decleration', decleration);
   app.post('/api/seen/', seen);
 }
 
