@@ -177,7 +177,7 @@ svg {
 
 .results-bar {
   display: inline-block;
-  width: 300px;
+  width: calc(100% - (2 * 30px));
   height: 30px;
   margin-top: 20px;
 }
@@ -213,4 +213,12 @@ svg {
 .against-bar {
   background-color: red;
   color: red;
+}
+
+.vote-results-percentage {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+  vertical-align: middle;
+  margin-left: 5px;
+  line-height: 18px;
 }

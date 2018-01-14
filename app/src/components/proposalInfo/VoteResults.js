@@ -19,9 +19,42 @@ class VoteResults extends Component {
         <div className='results-titel'>{this.props.titel}</div>
         <ThumbsUp></ThumbsUp>
         <div className='results-bar'>
-          <span className={'for-bar ' + (results.for > results.against && 'winner')} style={getVoteBarWidth(results.for)}><div>{results.for}</div></span>
-          <span className='blank-bar' style={getVoteBarWidth(results.blank)}><div>{results.blank}</div></span>
-          <span className={'against-bar ' + (results.against > results.for && 'winner')} style={getVoteBarWidth(results.against)}><div>{results.against}</div></span>
+          {!!results.for &&
+            <span className={'for-bar ' + (results.for > results.against && 'winner')} style={getVoteBarWidth(results.for)}>
+              <div>
+                <span>
+                  {results.for}
+                </span>
+                <span className='vote-results-percentage'>
+                  {Math.round((results.for / totalNumberOfVotes) * 100)}%
+                </span>
+              </div>
+            </span>
+          }
+          {!!results.blank &&
+            <span className='blank-bar' style={getVoteBarWidth(results.blank)}>
+              <div>
+                <span>
+                  {results.blank}
+                </span>
+                <span className='vote-results-percentage'>
+                  {Math.round((results.blank / totalNumberOfVotes) * 100)}%
+                </span>
+              </div>
+            </span>
+          }
+          {!!results.against &&
+            <span className={'against-bar ' + (results.against > results.for && 'winner')} style={getVoteBarWidth(results.against)}>
+              <div>
+                <span>
+                  {results.against}
+                </span>
+                <span className='vote-results-percentage'>
+                  {Math.round((results.against / totalNumberOfVotes) * 100)}%
+                </span>
+              </div>
+            </span>
+          }
         </div>
         <ThumbsDown></ThumbsDown>
       </div>
