@@ -33,7 +33,7 @@ class SearchBar extends Component {
           className={inputClass}
           type="text"
           onChange={this.updateSearchString}
-          placeholder="Søg"
+          placeholder="Søg efter forslag"
           value={searchString}
         />
         <Link id="searchSubmitBtn" className={btnClass} to={searchURL}>

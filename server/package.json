@@ -36,6 +36,7 @@
     "jsonwebtoken": "^7.4.3",
     "node-fetch": "^1.7.3",
     "node-schedule": "^1.2.5",
+    "now": "^9.1.0",
     "open-graph-scraper": "^2.5.5",
     "pg-promise": "^6.10.3",
     "ramda": "^0.24.1",
