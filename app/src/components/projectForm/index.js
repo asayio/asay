@@ -17,17 +17,21 @@ class ProjectForm extends Component {
       argument: '',
       risk: '',
       published: false,
-      submitted: false
+      submitted: false,
+      isPublishable: false, // all input fields required
+      isSaveable: false, //category + title is required (none of our components can handle it missing)
+      showModal: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
+    this.handlePreperationEvaluation = this.handlePreperationEvaluation.bind(this);
   }
 
   componentDidMount() {
     if (this.props.projectList) {
       const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
-      this.setState({
+      const obj = {
         id: project.id,
         title: project.title,
         category: project.category.id,
@@ -36,15 +40,33 @@ class ProjectForm extends Component {
         budget: project.budget,
         argument: project.argument,
         risk: project.risk,
-        published: project.published,
-        showModal: false
-      });
+        published: project.published
+      };
+      this.setState(obj);
+      this.handlePreperationEvaluation(obj);
+    }
+  }
+
+  handlePreperationEvaluation(obj) {
+    const form = obj ? obj : this.state;
+    if (form.title !== '' && form.category !== '') {
+      this.setState({ isSaveable: true });
+      if (
+        form.bio !== '' &&
+        form.description !== '' &&
+        form.budget !== '' &&
+        form.argument !== '' &&
+        form.risk !== ''
+      ) {
+        this.setState({ isPublishable: true });
+      }
     }
   }
 
   handleChange(event) {
     const target = event.target;
     this.setState({ [target.name]: target.value });
+    this.handlePreperationEvaluation();
   }
 
   handlePublish() {
@@ -86,6 +108,7 @@ class ProjectForm extends Component {
   render() {
     const project = this.state;
     const preferenceList = this.props.preferenceList;
+    console.log(project);
     return (
       <div>
         {project.showModal === 'confirm' && (
@@ -162,7 +185,6 @@ class ProjectForm extends Component {
               name="title"
               value={project.title}
               placeholder="Giv dit projekt en informativ og fængende titel..."
-              required
             />
           </label>
           <label>
@@ -185,7 +207,6 @@ class ProjectForm extends Component {
               name="bio"
               value={project.bio}
               placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
-              required
             />
           </label>
           <label>
@@ -195,7 +216,6 @@ class ProjectForm extends Component {
               name="description"
               value={project.description}
               placeholder="Beskriv dit projekt kort men fyldestgørende..."
-              required
             />
           </label>
           <label>
@@ -205,7 +225,6 @@ class ProjectForm extends Component {
               name="budget"
               value={project.budget}
               placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det finansieres..."
-              required
             />
           </label>
           <label>
@@ -215,7 +234,6 @@ class ProjectForm extends Component {
               name="argument"
               value={project.argument}
               placeholder="Fremlæg argumentation og begrundelse for, hvorfor forslaget er en god idé..."
-              required
             />
           </label>
           <label>
@@ -225,12 +243,12 @@ class ProjectForm extends Component {
               name="risk"
               value={project.risk}
               placeholder="Præsenter de identificerede risici, der kan udfordre forslagets mulighed for succes..."
-              required
             />
           </label>
         </form>
-        {!project.published && <button onClick={this.handlePublish}>Gem som kladde</button>}
-        <button onClick={() => this.handleSubmit(true)}>Publicer</button>
+        {/* STYILING COMMENT: CONDITION SHOULDN'T BE HANDLED AS SHOW/NOT SHOW, BUT STYLING + FUNCTION */}
+        {!project.published && project.isSaveable && <button onClick={this.handlePublish}>Gem som kladde</button>}
+        {project.isPublishable && <button onClick={() => this.handleSubmit(true)}>Publicer</button>}
       </div>
     );
   }

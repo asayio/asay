@@ -7,7 +7,7 @@ class ProposalListItem extends Component {
   render() {
     const proposal = this.props.proposal;
     const daysLeftBeforeShowingDeadlineNotification = 1;
-    const isProject = !!proposal.argument;
+    const isProject = !!proposal.initiator;
     const showDeadlineNotification =
       proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 7); // "+1" we need the results one day in advance;
     return (
