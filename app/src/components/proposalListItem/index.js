@@ -11,31 +11,29 @@ class ProposalListItem extends Component {
       proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 7); // "+1" we need the results one day in advance;
     return (
       <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
-        <div>
-          <div>
-            <FeatherIcon name={proposal.category.feathericon} />
-            <span>{proposal.category.title}</span>
+        <div className="relative flex flex-col md:flex-row md:h-32 bg-white border border-grey-lighter rounded-sm my-2">
+          <div className="flex flex-col justify-center md:w-48 flex-none text-center border-b md:border-b-0 md:border-r border-grey-lighter px-4 py-2">
+            <FeatherIcon name={proposal.category.feathericon} className="text-teal text-2xl" />
+            <span className="text-grey-dark mt-2">{proposal.category.title}</span>
           </div>
-          <div>
-            <h3>{proposal.shortTitel.replace('.', '')}</h3>
-            <span>
-              <span>
+          <div className="flex flex-col justify-center text-center md:text-left px-4 py-4">
+            <h4 className="mb-2">{proposal.shortTitel.replace('.', '')}</h4>
+            <div className="text-sm leading-normal text-grey-darker">
+              <span className="mr-4">
                 <b>Deadline:</b> {proposal.deadline}
               </span>
               <span>
                 <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
               </span>
-            </span>
+            </div>
           </div>
-          <div>
-            {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
-            {proposal.seeNotification && (
-              <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag til dig" />
-            )}
-            {proposal.seeResultsNotification && (
-              <ProposalListItemNotification iconName="PieChart" labelName="Resultater klar" />
-            )}
-          </div>
+          {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
+          {proposal.seeNotification && (
+            <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag til dig" />
+          )}
+          {proposal.seeResultsNotification && (
+            <ProposalListItemNotification iconName="PieChart" labelName="Resultater klar" />
+          )}
         </div>
       </Link>
     );

@@ -43,16 +43,19 @@ class Proposals extends Component {
       );
     } else {
       return (
-        <div>
-          <h1>Aktuelle forslag</h1>
-
-          <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
-          <div>
-            {limitList && (
-              <a onClick={() => this.setState({ limitList: false })}>
-                <ArrowDown /> Vis forslag uden fastlagt deadline
-              </a>
-            )}
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto">
+            <h1 className="text-center">Aktuelle forslag</h1>
+            <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
+            <div className="text-center my-4">
+              {limitList && (
+                <button
+                  onClick={() => this.setState({ limitList: false })}
+                  className="bg-white border border-grey-lighter rounded-sm py-2 px-3">
+                  <ArrowDown /> Vis forslag uden fastlagt deadline
+                </button>
+              )}
+            </div>
           </div>
         </div>
       );
