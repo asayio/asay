@@ -34,18 +34,22 @@ class Search extends Component {
     };
     const fuse = new Fuse(proposalList, options);
     const searchedProposalList = searchString ? fuse.search(searchString) : proposalList;
+    const header = window.location.pathname === '/search' ? 'Søgeresultater' : 'Alle forslag';
     return (
-      <div>
-        <ProposalListFilter
-          updateState={this.props.updateState}
-          preferenceList={this.props.preferenceList}
-          filter={this.props.filter}
-        />
-        {searchedProposalList.length ? (
-          <ProposalList proposalList={searchedProposalList} />
-        ) : (
-          <p>Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
-        )}
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          <h1>{header}</h1>
+          <ProposalListFilter
+            updateState={this.props.updateState}
+            preferenceList={this.props.preferenceList}
+            filter={this.props.filter}
+          />
+          {searchedProposalList.length ? (
+            <ProposalList proposalList={searchedProposalList} />
+          ) : (
+            <p className="text-center mx-auto">Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+          )}
+        </div>
       </div>
     );
   }
