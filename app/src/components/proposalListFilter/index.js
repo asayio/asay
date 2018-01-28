@@ -24,7 +24,7 @@ class Root extends Component {
             return preference.preference;
           }, this.props.preferenceList);
     return (
-      <div className="flex flex-wrap -mx-1 mb-4">
+      <div className="flex flex-wrap -mx-1 -mt-2 mb-4">
         <div className="w-full md:w-1/2 px-1">
           <span className="block text-center my-2">Kategori:</span>
           <div className="relative">
