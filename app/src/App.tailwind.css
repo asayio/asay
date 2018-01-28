@@ -30,9 +30,6 @@ svg {
 html {
   @apply .font-clear .antialiased .leading-tight;
 }
-#root {
-  @apply .min-h-screen .bg-grey-lightest .pt-13;
-}
 p {
   @apply .text-grey-darkest .leading-normal .max-w-md;
 }
@@ -45,11 +42,14 @@ h6 {
   @apply .text-black;
 }
 h1 {
-  @apply .mt-8 .mb-4;
+  @apply .text-2xl .mt-8 .mb-4;
 }
 h2 {
-  @apply .mt-8 .mb-2;
+  @apply .text-xl .mt-8 .mb-2;
 }
 h3 {
-  @apply .mt-4 .mb-2;
+  @apply .text-l .mt-4 .mb-2;
+}
+h4 {
+  @apply .text-base;
 }

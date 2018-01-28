@@ -18,7 +18,7 @@ class Nav extends Component {
     if (user && user.firstname) {
       const initials = user.firstname.charAt(0) + user.lastname.charAt(0);
       return (
-        <nav className="fixed pin-t pin-x z-10 bg-white select-none shadow p-2">
+        <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter select-none p-2">
           <div className="flex max-w-xl mx-auto">
             <div className="absolute pin-y flex items-center -ml-6">
               <div className="h-4 w-4 bg-teal rounded-full" />
@@ -52,7 +52,7 @@ class Nav extends Component {
                 }
                 id="personal-menu">
                 <div className="text-white bg-grey-darkest rounded-sm">
-                  <span className="block border-b border-grey-darker p-3">{user.firstname + ' ' + user.lastname}</span>
+                  <span className="block border-b border-grey-darker p-4">{user.firstname + ' ' + user.lastname}</span>
                   <ul className="list-reset p-2">
                     <li>
                       <Link
@@ -87,21 +87,27 @@ class Nav extends Component {
       );
     } else {
       return (
-        <nav>
-          <div>
-            <Link to="/">
-              <div />
-            </Link>
-            <div>
-              <Link to="/proposals" onMouseDown={e => e.preventDefault()}>
-                Forslag
-              </Link>
+        <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter select-none p-2">
+          <div className="flex max-w-xl mx-auto">
+            <div className="absolute pin-y flex items-center -ml-6">
+              <div className="h-4 w-4 bg-teal rounded-full" />
             </div>
-            <div>
-              <SearchBar updateState={this.props.updateState} inputClass="" btnClass="" />
+            <div className="flex-grow flex">
+              <NavItem to="/proposals" text="Forslag" />
             </div>
-            <div>
-              <Login type="login" />
+            <div className="flex relative">
+              <SearchBar
+                formClass="hidden sm:block"
+                inputClass="w-64 border border-grey-lightest rounded-l-sm p-2"
+                btnClass="inline-block bg-grey-lightest rounded-r-sm p-2 mr-2"
+                updateState={this.props.updateState}
+              />
+              <Login
+                type="login"
+                className="font-bold bg-grey-lightest rounded-sm p-2"
+                onClick={() => this.setState({ showDropDown: !this.state.showDropDown })}
+                id="person"
+              />
             </div>
           </div>
         </nav>
