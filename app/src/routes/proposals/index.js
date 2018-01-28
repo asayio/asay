@@ -51,7 +51,7 @@ class Proposals extends Component {
               {limitList && (
                 <button
                   onClick={() => this.setState({ limitList: false })}
-                  className="bg-white border border-grey-lighter rounded-sm py-2 px-3">
+                  className="bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md py-2 px-3">
                   <ArrowDown /> Vis forslag uden fastlagt deadline
                 </button>
               )}

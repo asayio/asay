@@ -18,7 +18,7 @@ class Nav extends Component {
     if (user && user.firstname) {
       const initials = user.firstname.charAt(0) + user.lastname.charAt(0);
       return (
-        <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter select-none p-2">
+        <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter shadow select-none p-2">
           <div className="flex max-w-xl mx-auto">
             <div className="absolute pin-y flex items-center -ml-6">
               <div className="h-4 w-4 bg-teal rounded-full" />

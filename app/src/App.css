@@ -431,7 +431,7 @@ ul {
 *::after {
   border-width: 0;
   border-style: solid;
-  border-color: #ccc;
+  border-color: #bbb;
 }
 /**
  * Temporary reset for a change introduced in Chrome 62 but now reverted.
@@ -535,27 +535,27 @@ button,
 }
 
 .bg-grey-darkest {
-  background-color: #333;
+  background-color: #222;
 }
 
 .bg-grey-darker {
-  background-color: #555;
+  background-color: #444;
 }
 
 .bg-grey-dark {
-  background-color: #777;
+  background-color: #666;
 }
 
 .bg-grey {
-  background-color: #aaa;
+  background-color: #999;
 }
 
 .bg-grey-light {
-  background-color: #ccc;
+  background-color: #bbb;
 }
 
 .bg-grey-lighter {
-  background-color: #eee;
+  background-color: #ddd;
 }
 
 .bg-grey-lightest {
@@ -827,27 +827,27 @@ button,
 }
 
 .hover\:bg-grey-darkest:hover {
-  background-color: #333;
+  background-color: #222;
 }
 
 .hover\:bg-grey-darker:hover {
-  background-color: #555;
+  background-color: #444;
 }
 
 .hover\:bg-grey-dark:hover {
-  background-color: #777;
+  background-color: #666;
 }
 
 .hover\:bg-grey:hover {
-  background-color: #aaa;
+  background-color: #999;
 }
 
 .hover\:bg-grey-light:hover {
-  background-color: #ccc;
+  background-color: #bbb;
 }
 
 .hover\:bg-grey-lighter:hover {
-  background-color: #eee;
+  background-color: #ddd;
 }
 
 .hover\:bg-grey-lightest:hover {
@@ -1179,27 +1179,27 @@ button,
 }
 
 .border-grey-darkest {
-  border-color: #333;
+  border-color: #222;
 }
 
 .border-grey-darker {
-  border-color: #555;
+  border-color: #444;
 }
 
 .border-grey-dark {
-  border-color: #777;
+  border-color: #666;
 }
 
 .border-grey {
-  border-color: #aaa;
+  border-color: #999;
 }
 
 .border-grey-light {
-  border-color: #ccc;
+  border-color: #bbb;
 }
 
 .border-grey-lighter {
-  border-color: #eee;
+  border-color: #ddd;
 }
 
 .border-grey-lightest {
@@ -1471,27 +1471,27 @@ button,
 }
 
 .hover\:border-grey-darkest:hover {
-  border-color: #333;
+  border-color: #222;
 }
 
 .hover\:border-grey-darker:hover {
-  border-color: #555;
+  border-color: #444;
 }
 
 .hover\:border-grey-dark:hover {
-  border-color: #777;
+  border-color: #666;
 }
 
 .hover\:border-grey:hover {
-  border-color: #aaa;
+  border-color: #999;
 }
 
 .hover\:border-grey-light:hover {
-  border-color: #ccc;
+  border-color: #bbb;
 }
 
 .hover\:border-grey-lighter:hover {
-  border-color: #eee;
+  border-color: #ddd;
 }
 
 .hover\:border-grey-lightest:hover {
@@ -3548,6 +3548,26 @@ button,
   box-shadow: none;
 }
 
+.hover\:shadow:hover {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.025);
+}
+
+.hover\:shadow-md:hover {
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.075);
+}
+
+.hover\:shadow-lg:hover {
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+}
+
+.hover\:shadow-inner:hover {
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.hover\:shadow-none:hover {
+  box-shadow: none;
+}
+
 .fill-current {
   fill: currentColor;
 }
@@ -3581,27 +3601,27 @@ button,
 }
 
 .text-grey-darkest {
-  color: #333;
+  color: #222;
 }
 
 .text-grey-darker {
-  color: #555;
+  color: #444;
 }
 
 .text-grey-dark {
-  color: #777;
+  color: #666;
 }
 
 .text-grey {
-  color: #aaa;
+  color: #999;
 }
 
 .text-grey-light {
-  color: #ccc;
+  color: #bbb;
 }
 
 .text-grey-lighter {
-  color: #eee;
+  color: #ddd;
 }
 
 .text-grey-lightest {
@@ -3873,27 +3893,27 @@ button,
 }
 
 .hover\:text-grey-darkest:hover {
-  color: #333;
+  color: #222;
 }
 
 .hover\:text-grey-darker:hover {
-  color: #555;
+  color: #444;
 }
 
 .hover\:text-grey-dark:hover {
-  color: #777;
+  color: #666;
 }
 
 .hover\:text-grey:hover {
-  color: #aaa;
+  color: #999;
 }
 
 .hover\:text-grey-light:hover {
-  color: #ccc;
+  color: #bbb;
 }
 
 .hover\:text-grey-lighter:hover {
-  color: #eee;
+  color: #ddd;
 }
 
 .hover\:text-grey-lightest:hover {
@@ -4539,7 +4559,7 @@ html {
 }
 
 p {
-  color: #333;
+  color: #222;
   line-height: 1.5;
   max-width: 40rem;
 }
@@ -4560,13 +4580,19 @@ h1 {
 }
 
 h2 {
+  font-size: 1.25rem;
   margin-top: 2rem;
   margin-bottom: 0.5rem;
 }
 
 h3 {
+  font-size: 1.125rem;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1rem;
 }
 
 @media (min-width: 576px) {
@@ -4600,27 +4626,27 @@ h3 {
   }
 
   .sm\:bg-grey-darkest {
-    background-color: #333;
+    background-color: #222;
   }
 
   .sm\:bg-grey-darker {
-    background-color: #555;
+    background-color: #444;
   }
 
   .sm\:bg-grey-dark {
-    background-color: #777;
+    background-color: #666;
   }
 
   .sm\:bg-grey {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .sm\:bg-grey-light {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .sm\:bg-grey-lighter {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .sm\:bg-grey-lightest {
@@ -4892,27 +4918,27 @@ h3 {
   }
 
   .sm\:hover\:bg-grey-darkest:hover {
-    background-color: #333;
+    background-color: #222;
   }
 
   .sm\:hover\:bg-grey-darker:hover {
-    background-color: #555;
+    background-color: #444;
   }
 
   .sm\:hover\:bg-grey-dark:hover {
-    background-color: #777;
+    background-color: #666;
   }
 
   .sm\:hover\:bg-grey:hover {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .sm\:hover\:bg-grey-light:hover {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .sm\:hover\:bg-grey-lighter:hover {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .sm\:hover\:bg-grey-lightest:hover {
@@ -5244,27 +5270,27 @@ h3 {
   }
 
   .sm\:border-grey-darkest {
-    border-color: #333;
+    border-color: #222;
   }
 
   .sm\:border-grey-darker {
-    border-color: #555;
+    border-color: #444;
   }
 
   .sm\:border-grey-dark {
-    border-color: #777;
+    border-color: #666;
   }
 
   .sm\:border-grey {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .sm\:border-grey-light {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .sm\:border-grey-lighter {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .sm\:border-grey-lightest {
@@ -5536,27 +5562,27 @@ h3 {
   }
 
   .sm\:hover\:border-grey-darkest:hover {
-    border-color: #333;
+    border-color: #222;
   }
 
   .sm\:hover\:border-grey-darker:hover {
-    border-color: #555;
+    border-color: #444;
   }
 
   .sm\:hover\:border-grey-dark:hover {
-    border-color: #777;
+    border-color: #666;
   }
 
   .sm\:hover\:border-grey:hover {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .sm\:hover\:border-grey-light:hover {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .sm\:hover\:border-grey-lighter:hover {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .sm\:hover\:border-grey-lightest:hover {
@@ -7613,6 +7639,26 @@ h3 {
     box-shadow: none;
   }
 
+  .sm\:hover\:shadow:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.025);
+  }
+
+  .sm\:hover\:shadow-md:hover {
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.075);
+  }
+
+  .sm\:hover\:shadow-lg:hover {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .sm\:hover\:shadow-inner:hover {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .sm\:hover\:shadow-none:hover {
+    box-shadow: none;
+  }
+
   .sm\:text-left {
     text-align: left;
   }
@@ -7638,27 +7684,27 @@ h3 {
   }
 
   .sm\:text-grey-darkest {
-    color: #333;
+    color: #222;
   }
 
   .sm\:text-grey-darker {
-    color: #555;
+    color: #444;
   }
 
   .sm\:text-grey-dark {
-    color: #777;
+    color: #666;
   }
 
   .sm\:text-grey {
-    color: #aaa;
+    color: #999;
   }
 
   .sm\:text-grey-light {
-    color: #ccc;
+    color: #bbb;
   }
 
   .sm\:text-grey-lighter {
-    color: #eee;
+    color: #ddd;
   }
 
   .sm\:text-grey-lightest {
@@ -7930,27 +7976,27 @@ h3 {
   }
 
   .sm\:hover\:text-grey-darkest:hover {
-    color: #333;
+    color: #222;
   }
 
   .sm\:hover\:text-grey-darker:hover {
-    color: #555;
+    color: #444;
   }
 
   .sm\:hover\:text-grey-dark:hover {
-    color: #777;
+    color: #666;
   }
 
   .sm\:hover\:text-grey:hover {
-    color: #aaa;
+    color: #999;
   }
 
   .sm\:hover\:text-grey-light:hover {
-    color: #ccc;
+    color: #bbb;
   }
 
   .sm\:hover\:text-grey-lighter:hover {
-    color: #eee;
+    color: #ddd;
   }
 
   .sm\:hover\:text-grey-lightest:hover {
@@ -8599,27 +8645,27 @@ h3 {
   }
 
   .md\:bg-grey-darkest {
-    background-color: #333;
+    background-color: #222;
   }
 
   .md\:bg-grey-darker {
-    background-color: #555;
+    background-color: #444;
   }
 
   .md\:bg-grey-dark {
-    background-color: #777;
+    background-color: #666;
   }
 
   .md\:bg-grey {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .md\:bg-grey-light {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .md\:bg-grey-lighter {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .md\:bg-grey-lightest {
@@ -8891,27 +8937,27 @@ h3 {
   }
 
   .md\:hover\:bg-grey-darkest:hover {
-    background-color: #333;
+    background-color: #222;
   }
 
   .md\:hover\:bg-grey-darker:hover {
-    background-color: #555;
+    background-color: #444;
   }
 
   .md\:hover\:bg-grey-dark:hover {
-    background-color: #777;
+    background-color: #666;
   }
 
   .md\:hover\:bg-grey:hover {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .md\:hover\:bg-grey-light:hover {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .md\:hover\:bg-grey-lighter:hover {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .md\:hover\:bg-grey-lightest:hover {
@@ -9243,27 +9289,27 @@ h3 {
   }
 
   .md\:border-grey-darkest {
-    border-color: #333;
+    border-color: #222;
   }
 
   .md\:border-grey-darker {
-    border-color: #555;
+    border-color: #444;
   }
 
   .md\:border-grey-dark {
-    border-color: #777;
+    border-color: #666;
   }
 
   .md\:border-grey {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .md\:border-grey-light {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .md\:border-grey-lighter {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .md\:border-grey-lightest {
@@ -9535,27 +9581,27 @@ h3 {
   }
 
   .md\:hover\:border-grey-darkest:hover {
-    border-color: #333;
+    border-color: #222;
   }
 
   .md\:hover\:border-grey-darker:hover {
-    border-color: #555;
+    border-color: #444;
   }
 
   .md\:hover\:border-grey-dark:hover {
-    border-color: #777;
+    border-color: #666;
   }
 
   .md\:hover\:border-grey:hover {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .md\:hover\:border-grey-light:hover {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .md\:hover\:border-grey-lighter:hover {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .md\:hover\:border-grey-lightest:hover {
@@ -11612,6 +11658,26 @@ h3 {
     box-shadow: none;
   }
 
+  .md\:hover\:shadow:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.025);
+  }
+
+  .md\:hover\:shadow-md:hover {
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.075);
+  }
+
+  .md\:hover\:shadow-lg:hover {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .md\:hover\:shadow-inner:hover {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .md\:hover\:shadow-none:hover {
+    box-shadow: none;
+  }
+
   .md\:text-left {
     text-align: left;
   }
@@ -11637,27 +11703,27 @@ h3 {
   }
 
   .md\:text-grey-darkest {
-    color: #333;
+    color: #222;
   }
 
   .md\:text-grey-darker {
-    color: #555;
+    color: #444;
   }
 
   .md\:text-grey-dark {
-    color: #777;
+    color: #666;
   }
 
   .md\:text-grey {
-    color: #aaa;
+    color: #999;
   }
 
   .md\:text-grey-light {
-    color: #ccc;
+    color: #bbb;
   }
 
   .md\:text-grey-lighter {
-    color: #eee;
+    color: #ddd;
   }
 
   .md\:text-grey-lightest {
@@ -11929,27 +11995,27 @@ h3 {
   }
 
   .md\:hover\:text-grey-darkest:hover {
-    color: #333;
+    color: #222;
   }
 
   .md\:hover\:text-grey-darker:hover {
-    color: #555;
+    color: #444;
   }
 
   .md\:hover\:text-grey-dark:hover {
-    color: #777;
+    color: #666;
   }
 
   .md\:hover\:text-grey:hover {
-    color: #aaa;
+    color: #999;
   }
 
   .md\:hover\:text-grey-light:hover {
-    color: #ccc;
+    color: #bbb;
   }
 
   .md\:hover\:text-grey-lighter:hover {
-    color: #eee;
+    color: #ddd;
   }
 
   .md\:hover\:text-grey-lightest:hover {
@@ -12598,27 +12664,27 @@ h3 {
   }
 
   .lg\:bg-grey-darkest {
-    background-color: #333;
+    background-color: #222;
   }
 
   .lg\:bg-grey-darker {
-    background-color: #555;
+    background-color: #444;
   }
 
   .lg\:bg-grey-dark {
-    background-color: #777;
+    background-color: #666;
   }
 
   .lg\:bg-grey {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .lg\:bg-grey-light {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .lg\:bg-grey-lighter {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .lg\:bg-grey-lightest {
@@ -12890,27 +12956,27 @@ h3 {
   }
 
   .lg\:hover\:bg-grey-darkest:hover {
-    background-color: #333;
+    background-color: #222;
   }
 
   .lg\:hover\:bg-grey-darker:hover {
-    background-color: #555;
+    background-color: #444;
   }
 
   .lg\:hover\:bg-grey-dark:hover {
-    background-color: #777;
+    background-color: #666;
   }
 
   .lg\:hover\:bg-grey:hover {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .lg\:hover\:bg-grey-light:hover {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .lg\:hover\:bg-grey-lighter:hover {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .lg\:hover\:bg-grey-lightest:hover {
@@ -13242,27 +13308,27 @@ h3 {
   }
 
   .lg\:border-grey-darkest {
-    border-color: #333;
+    border-color: #222;
   }
 
   .lg\:border-grey-darker {
-    border-color: #555;
+    border-color: #444;
   }
 
   .lg\:border-grey-dark {
-    border-color: #777;
+    border-color: #666;
   }
 
   .lg\:border-grey {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .lg\:border-grey-light {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .lg\:border-grey-lighter {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .lg\:border-grey-lightest {
@@ -13534,27 +13600,27 @@ h3 {
   }
 
   .lg\:hover\:border-grey-darkest:hover {
-    border-color: #333;
+    border-color: #222;
   }
 
   .lg\:hover\:border-grey-darker:hover {
-    border-color: #555;
+    border-color: #444;
   }
 
   .lg\:hover\:border-grey-dark:hover {
-    border-color: #777;
+    border-color: #666;
   }
 
   .lg\:hover\:border-grey:hover {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .lg\:hover\:border-grey-light:hover {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .lg\:hover\:border-grey-lighter:hover {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .lg\:hover\:border-grey-lightest:hover {
@@ -15611,6 +15677,26 @@ h3 {
     box-shadow: none;
   }
 
+  .lg\:hover\:shadow:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.025);
+  }
+
+  .lg\:hover\:shadow-md:hover {
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.075);
+  }
+
+  .lg\:hover\:shadow-lg:hover {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .lg\:hover\:shadow-inner:hover {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .lg\:hover\:shadow-none:hover {
+    box-shadow: none;
+  }
+
   .lg\:text-left {
     text-align: left;
   }
@@ -15636,27 +15722,27 @@ h3 {
   }
 
   .lg\:text-grey-darkest {
-    color: #333;
+    color: #222;
   }
 
   .lg\:text-grey-darker {
-    color: #555;
+    color: #444;
   }
 
   .lg\:text-grey-dark {
-    color: #777;
+    color: #666;
   }
 
   .lg\:text-grey {
-    color: #aaa;
+    color: #999;
   }
 
   .lg\:text-grey-light {
-    color: #ccc;
+    color: #bbb;
   }
 
   .lg\:text-grey-lighter {
-    color: #eee;
+    color: #ddd;
   }
 
   .lg\:text-grey-lightest {
@@ -15928,27 +16014,27 @@ h3 {
   }
 
   .lg\:hover\:text-grey-darkest:hover {
-    color: #333;
+    color: #222;
   }
 
   .lg\:hover\:text-grey-darker:hover {
-    color: #555;
+    color: #444;
   }
 
   .lg\:hover\:text-grey-dark:hover {
-    color: #777;
+    color: #666;
   }
 
   .lg\:hover\:text-grey:hover {
-    color: #aaa;
+    color: #999;
   }
 
   .lg\:hover\:text-grey-light:hover {
-    color: #ccc;
+    color: #bbb;
   }
 
   .lg\:hover\:text-grey-lighter:hover {
-    color: #eee;
+    color: #ddd;
   }
 
   .lg\:hover\:text-grey-lightest:hover {
@@ -16597,27 +16683,27 @@ h3 {
   }
 
   .xl\:bg-grey-darkest {
-    background-color: #333;
+    background-color: #222;
   }
 
   .xl\:bg-grey-darker {
-    background-color: #555;
+    background-color: #444;
   }
 
   .xl\:bg-grey-dark {
-    background-color: #777;
+    background-color: #666;
   }
 
   .xl\:bg-grey {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .xl\:bg-grey-light {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .xl\:bg-grey-lighter {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .xl\:bg-grey-lightest {
@@ -16889,27 +16975,27 @@ h3 {
   }
 
   .xl\:hover\:bg-grey-darkest:hover {
-    background-color: #333;
+    background-color: #222;
   }
 
   .xl\:hover\:bg-grey-darker:hover {
-    background-color: #555;
+    background-color: #444;
   }
 
   .xl\:hover\:bg-grey-dark:hover {
-    background-color: #777;
+    background-color: #666;
   }
 
   .xl\:hover\:bg-grey:hover {
-    background-color: #aaa;
+    background-color: #999;
   }
 
   .xl\:hover\:bg-grey-light:hover {
-    background-color: #ccc;
+    background-color: #bbb;
   }
 
   .xl\:hover\:bg-grey-lighter:hover {
-    background-color: #eee;
+    background-color: #ddd;
   }
 
   .xl\:hover\:bg-grey-lightest:hover {
@@ -17241,27 +17327,27 @@ h3 {
   }
 
   .xl\:border-grey-darkest {
-    border-color: #333;
+    border-color: #222;
   }
 
   .xl\:border-grey-darker {
-    border-color: #555;
+    border-color: #444;
   }
 
   .xl\:border-grey-dark {
-    border-color: #777;
+    border-color: #666;
   }
 
   .xl\:border-grey {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .xl\:border-grey-light {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .xl\:border-grey-lighter {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .xl\:border-grey-lightest {
@@ -17533,27 +17619,27 @@ h3 {
   }
 
   .xl\:hover\:border-grey-darkest:hover {
-    border-color: #333;
+    border-color: #222;
   }
 
   .xl\:hover\:border-grey-darker:hover {
-    border-color: #555;
+    border-color: #444;
   }
 
   .xl\:hover\:border-grey-dark:hover {
-    border-color: #777;
+    border-color: #666;
   }
 
   .xl\:hover\:border-grey:hover {
-    border-color: #aaa;
+    border-color: #999;
   }
 
   .xl\:hover\:border-grey-light:hover {
-    border-color: #ccc;
+    border-color: #bbb;
   }
 
   .xl\:hover\:border-grey-lighter:hover {
-    border-color: #eee;
+    border-color: #ddd;
   }
 
   .xl\:hover\:border-grey-lightest:hover {
@@ -19610,6 +19696,26 @@ h3 {
     box-shadow: none;
   }
 
+  .xl\:hover\:shadow:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.025);
+  }
+
+  .xl\:hover\:shadow-md:hover {
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.075);
+  }
+
+  .xl\:hover\:shadow-lg:hover {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11), 0 5px 15px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .xl\:hover\:shadow-inner:hover {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .xl\:hover\:shadow-none:hover {
+    box-shadow: none;
+  }
+
   .xl\:text-left {
     text-align: left;
   }
@@ -19635,27 +19741,27 @@ h3 {
   }
 
   .xl\:text-grey-darkest {
-    color: #333;
+    color: #222;
   }
 
   .xl\:text-grey-darker {
-    color: #555;
+    color: #444;
   }
 
   .xl\:text-grey-dark {
-    color: #777;
+    color: #666;
   }
 
   .xl\:text-grey {
-    color: #aaa;
+    color: #999;
   }
 
   .xl\:text-grey-light {
-    color: #ccc;
+    color: #bbb;
   }
 
   .xl\:text-grey-lighter {
-    color: #eee;
+    color: #ddd;
   }
 
   .xl\:text-grey-lightest {
@@ -19927,27 +20033,27 @@ h3 {
   }
 
   .xl\:hover\:text-grey-darkest:hover {
-    color: #333;
+    color: #222;
   }
 
   .xl\:hover\:text-grey-darker:hover {
-    color: #555;
+    color: #444;
   }
 
   .xl\:hover\:text-grey-dark:hover {
-    color: #777;
+    color: #666;
   }
 
   .xl\:hover\:text-grey:hover {
-    color: #aaa;
+    color: #999;
   }
 
   .xl\:hover\:text-grey-light:hover {
-    color: #ccc;
+    color: #bbb;
   }
 
   .xl\:hover\:text-grey-lighter:hover {
-    color: #eee;
+    color: #ddd;
   }
 
   .xl\:hover\:text-grey-lightest:hover {
