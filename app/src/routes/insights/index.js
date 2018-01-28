@@ -29,21 +29,28 @@ class Insights extends Component {
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     if (!proposalList.length) {
       return (
-        <div>
-          <p>Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.</p>
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto text-center">
+            <h1>Her ser lidt tomt ud</h1>
+            <p className="mx-auto">Du må hellere komme i gang med at stemme på nogle forslag.</p>
+          </div>
         </div>
       );
     } else {
       return (
-        <div>
-          <h1>Historik</h1>
-          <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
-          <div>
-            {limitList && (
-              <a onClick={() => this.setState({ limitList: false })}>
-                <ArrowDown /> Vis forslag med uafsluttet afstemning
-              </a>
-            )}
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto">
+            <h1>Historik</h1>
+            <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
+            <div>
+              {limitList && (
+                <button
+                  onClick={() => this.setState({ limitList: false })}
+                  className="bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md py-2 px-3">
+                  <ArrowDown /> Vis forslag uden fastlagt deadline
+                </button>
+              )}
+            </div>
           </div>
         </div>
       );
