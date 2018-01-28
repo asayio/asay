@@ -34,18 +34,21 @@ class Proposals extends Component {
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     if (!proposalList.length) {
       return (
-        <div>
-          <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
-          <Link to="./preferences">
-            <Settings />Opdater præferencer
-          </Link>
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto text-center">
+            <h1>Her ser lidt tomt ud</h1>
+            <p className="mx-auto">Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
+            <Link to="./preferences">
+              <Settings />Opdater præferencer
+            </Link>
+          </div>
         </div>
       );
     } else {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
-            <h1 className="text-center">Aktuelle forslag</h1>
+            <h1>Aktuelle forslag</h1>
             <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
             <div className="text-center my-4">
               {limitList && (
