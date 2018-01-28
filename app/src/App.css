@@ -4542,7 +4542,7 @@ button {
   transition: 0.2s ease-out;
 }
 
-svg {
+#root svg {
   position: relative;
   margin-bottom: -0.15em;
   height: 1em;
@@ -4562,6 +4562,7 @@ p {
   color: #222;
   line-height: 1.5;
   max-width: 40rem;
+  margin-bottom: 1rem;
 }
 
 h1,
@@ -4575,6 +4576,7 @@ h6 {
 
 h1 {
   font-size: 1.5rem;
+  text-align: center;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }

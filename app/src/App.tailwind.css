@@ -18,7 +18,7 @@ button {
   color: inherit;
   transition: 0.2s ease-out;
 }
-svg {
+#root svg {
   position: relative;
   margin-bottom: -0.15em;
   height: 1em;
@@ -31,7 +31,7 @@ html {
   @apply .font-clear .antialiased .leading-tight;
 }
 p {
-  @apply .text-grey-darkest .leading-normal .max-w-md;
+  @apply .text-grey-darkest .leading-normal .max-w-md .mb-4;
 }
 h1,
 h2,
@@ -42,7 +42,7 @@ h6 {
   @apply .text-black;
 }
 h1 {
-  @apply .text-2xl .mt-8 .mb-4;
+  @apply .text-2xl .text-center .mt-8 .mb-4;
 }
 h2 {
   @apply .text-xl .mt-8 .mb-2;
