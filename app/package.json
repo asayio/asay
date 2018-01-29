@@ -15,7 +15,8 @@
     "react-ga": "^2.3.5",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "tailwindcss": "^0.4.1"
   },
   "scripts": {
     "start": "tailwind build ./src/App.tailwind.css -c ./src/tailwind.js -o ./src/App.css && react-scripts start",
