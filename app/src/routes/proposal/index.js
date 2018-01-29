@@ -3,8 +3,21 @@ import React, { Component } from 'react';
 import ProposalInfo from '../../components/proposalInfo';
 import ProposalActions from '../../components/proposalActions';
 import { ArrowLeft } from 'react-feather';
+import ProposalTabBar from '../../components/proposalTabBar';
 
 class ProposalPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedTab: 'Resume'
+    };
+    this.selectTab = this.selectTab.bind(this);
+  }
+
+  selectTab(tabName) {
+    this.setState({ selectedTab: tabName });
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -38,6 +51,9 @@ class ProposalPage extends Component {
     if (!this.props.anonymousUser) {
       this.seen(proposal);
     }
+    const resume = proposal.resume.split(/\n/gm);
+    const purpose = proposal.presentation.paragraphs;
+    const tabs = [{ name: 'Resume', icon: 'FileText' }, { name: 'Formål', icon: 'FileText' }];
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
@@ -50,8 +66,10 @@ class ProposalPage extends Component {
             <h1 className="flex-auto pl-4 pr-8 my-0">{proposal.shortTitel.replace('.', '')}</h1>
           </div>
           <div className="flex -mx-2">
+            <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
             <div className="w-3/4 mx-2">
-              <ProposalInfo proposal={proposal} />
+              {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
+              {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
             </div>
             <div className="w-1/4 mx-2">
               <div className="bg-white border border-grey-lighter rounded-sm shadow">
