@@ -1,39 +1,25 @@
 .loading-spinner {
-  width: 2rem;
-  height: 2rem;
-  display: block;
-  margin: 0 auto;
-  position: relative;
+  margin: 2rem auto;
+  text-align: center;
 }
-
 .loading-spinner svg {
-  animation: loading-spinner;
+  height: 3rem;
+  width: auto;
+  animation: loadingSpinner;
   animation-duration: 800ms;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  transform-origin: 50% 50%;
-  padding: 45%;
-  width: 10%;
-  height: 10%;
+  transform: scale(0.5);
 }
 
-@keyframes loading-spinner {
+@keyframes loadingSpinner {
   0% {
-    transform: rotate(-180deg);
-    padding: 45%;
-    width: 10%;
-    height: 10%;
+    transform: scale(0.1) rotate(180deg);
   }
   50% {
-    transform: rotate(0deg);
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    transform: scale(1) rotate(0deg);
   }
   100% {
-    transform: rotate(180deg);
-    padding: 45%;
-    width: 10%;
-    height: 10%;
+    transform: scale(0.1) rotate(-180deg);
   }
 }
