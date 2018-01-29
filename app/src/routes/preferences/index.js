@@ -1,8 +1,6 @@
 import R from 'ramda';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PreferenceList from '../../components/preferenceList';
-import { ArrowLeft } from 'react-feather';
 
 class Preferences extends Component {
   componentDidMount() {
@@ -19,7 +17,7 @@ class Preferences extends Component {
           <h1>Præferencer</h1>
           <div className="flex flex-wrap md:flex-no-wrap md:flex-row-reverse -mx-2">
             <div className="w-full md:w-1/4 mx-2 mb-2">
-              <div className="sticky top-17">
+              <div className="md:sticky md:top-17">
                 <div className="bg-white text-center border border-grey-lighter rounded-sm shadow px-4 pt-4 pb-1">
                   <p>Her kan du vælge, hvilke emner du vil følge med i.</p>
                   <p>
@@ -35,13 +33,6 @@ class Preferences extends Component {
             <div className="w-full md:w-3/4 bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 mx-2">
               <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList} />
             </div>
-          </div>
-          <div className="text-center mt-4">
-            <Link
-              to="/proposals"
-              className="inline-block w-full sm:w-auto bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md py-2 px-3">
-              <ArrowLeft className="mr-2" />Tilbage til lovforslagene
-            </Link>
           </div>
         </div>
       </div>

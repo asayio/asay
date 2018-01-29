@@ -21,37 +21,39 @@ class Onboarding extends Component {
       R.pluck('workload')(R.filter(preferenceList => preferenceList.preference === true)(this.props.preferenceList))
     );
     return (
-      <div>
-        <h1>Velkommen</h1>
-        <div>
-          <p>Vi vil gerne hjælpe dig med at navigere i alle de forslag, der bliver fremsat i Folketinget.</p>
-          <p>Vælg de politiske emner der interesserer dig, så samler vi et overblik til dig. </p>
-        </div>
-        <div>
-          <div>
-            <div>
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          <h1>Velkommen</h1>
+          <div className="text-center mb-8">
+            <p className="mx-auto">
+              Vi vil gerne hjælpe dig med at navigere i alle de forslag, der bliver fremsat i Folketinget.
+            </p>
+            <p className="mx-auto">Vælg de politiske emner der interesserer dig, så samler vi et overblik til dig.</p>
+          </div>
+          <div className="flex flex-wrap md:flex-no-wrap md:flex-row-reverse -mx-2">
+            <div className="w-full md:w-1/4 mx-2 mb-2">
+              <div className="md:sticky md:top-17">
+                <div className="bg-white text-center border border-grey-lighter rounded-sm shadow px-4 pt-4 pb-1">
+                  <p>Her kan du vælge, hvilke emner du vil følge med i.</p>
+                  <p>
+                    Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{workload}</b> forslag
+                    om året.
+                  </p>
+                  <p>
+                    Det svarer til <b>{Math.ceil(workload / 34, 0)}</b> om ugen.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="w-full md:w-3/4 bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 mx-2">
               <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList} />
             </div>
           </div>
-          <div>
-            <div>
-              <div>
-                <p>Her kan du vælge, hvilke emner du vil følge med i.</p>
-                <p>
-                  Med dine nuværende præferencer, skal du i gennemsnit tage stilling til ca. <b>{workload}</b> forslag
-                  om året.
-                </p>
-                <p>
-                  Det svarer til <b>{Math.ceil(workload / 34, 0)}</b> om ugen.
-                </p>
-              </div>
-            </div>
+          <div className="text-center mt-4">
+            <Link to="/proposals" className="btn btn-white">
+              <ArrowRight className="mr-2" />Videre til lovforslagene
+            </Link>
           </div>
-        </div>
-        <div>
-          <Link to="/proposals">
-            <ArrowRight />Videre til lovforslagene
-          </Link>
         </div>
       </div>
     );
