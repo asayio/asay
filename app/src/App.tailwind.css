@@ -31,19 +31,19 @@ svg {
 }
 
 .btn {
-  @apply .inline-block .min-w-48 .border .rounded-sm .px-3 .py-2;
+  @apply .inline-block .min-w-48 .leading-none .text-center .border .rounded-sm .px-3 .py-2;
 }
 .btn-primary {
-  @apply .text-white .font-bold .bg-teal .border-teal-dark;
+  @apply .text-white .bg-blue-dark .border-blue-dark;
 }
 .btn-primary:hover {
-  @apply .bg-teal-light;
+  @apply .bg-blue;
 }
 .btn-secondary {
-  @apply .text-teal .bg-white .text-teal .border-teal;
+  @apply .text-blue-dark .bg-white .border-blue-dark;
 }
 .btn-secondary:hover {
-  @apply .bg-teal-lightest;
+  @apply .bg-blue-lightest;
 }
 .btn-white {
   @apply .text-black .bg-white .border-grey-lighter .shadow;
@@ -70,6 +70,9 @@ svg {
   .sticky {
     position: sticky;
   }
+  .top-15 {
+    top: 3.75rem;
+  }
   .top-17 {
     top: 4.25rem;
   }
@@ -81,13 +84,13 @@ html {
   @apply .font-clear .text-black .leading-tight .antialiased;
 }
 p {
-  @apply .text-grey-darkest .leading-normal .max-w-md .mb-4;
+  @apply .text-grey-darkest .leading-normal .max-w-md .mb-2;
 }
 h1 {
   @apply .text-2xl .leading-normal .text-center .mt-8 .mb-4;
 }
 h2 {
-  @apply .text-xl .mt-8 .mb-2;
+  @apply .text-xl .mt-4 .mb-2;
 }
 h3 {
   @apply .text-lg .mt-4 .mb-2;
