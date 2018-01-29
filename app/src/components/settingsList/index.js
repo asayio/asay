@@ -30,28 +30,37 @@ class SettingsList extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <h3>E-mail notifikationer </h3>
-          <p>Vi sender dig en ugentlig opdatering med nye forslag relevante for dig.</p>
-        </div>
-        <div>
-          <div>
-            <a
+      <div className="my-12">
+        <h3>E-mail notifikationer </h3>
+        <div className="flex flex-wrap md:flex-no-wrap items-center">
+          <div className="flex-auto w-full">
+            <p className="md:mb-0">Vi sender dig en ugentlig opdatering med nye forslag relevante for dig.</p>
+          </div>
+          <div className="flex-none md:pl-8">
+            <button
               onClick={() => this.updatingEmailPreference('never')}
-              className={this.props.user.emailnotification === 'never' ? '' : ''}>
+              className={
+                (this.props.user.emailnotification === 'never' ? 'bg-white shadow' : 'bg-grey-lightest') +
+                ' border border-r-0 border-grey-lighter rounded-l-sm no-outline px-3 py-2'
+              }>
               Aldrig
-            </a>
-            <a
+            </button>
+            <button
               onClick={() => this.updatingEmailPreference('weekly')}
-              className={this.props.user.emailnotification === 'weekly' ? '' : ''}>
+              className={
+                (this.props.user.emailnotification === 'weekly' ? 'bg-white shadow' : 'bg-grey-lightest') +
+                ' border border-grey-lighter no-outline px-3 py-2'
+              }>
               Ugentlig
-            </a>
-            <a
+            </button>
+            <button
               onClick={() => this.updatingEmailPreference('monthly')}
-              className={this.props.user.emailnotification === 'monthly' ? '' : ''}>
+              className={
+                (this.props.user.emailnotification === 'monthly' ? 'bg-white shadow' : 'bg-grey-lightest') +
+                ' border border-l-0 border-grey-lighter rounded-r-sm no-outline px-3 py-2'
+              }>
               Månedlig
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -8,10 +8,12 @@ class Settings extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Indstillinger</h1>
-        <div>
-          <SettingsList user={this.props.user} updateState={this.props.updateState} />
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          <h1>Indstillinger</h1>
+          <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8">
+            <SettingsList user={this.props.user} updateState={this.props.updateState} />
+          </div>
         </div>
       </div>
     );
