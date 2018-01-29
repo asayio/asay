@@ -51,8 +51,8 @@ class ProposalPage extends Component {
     if (!this.props.anonymousUser) {
       this.seen(proposal);
     }
-    const resume = proposal.resume.split(/\n/gm);
-    const purpose = proposal.presentation.paragraphs;
+    const resume = proposal.resume ? proposal.resume.split(/\n/gm) : [];
+    const purpose = proposal.presentation ? proposal.presentation.paragraphs : [];
     const tabs = [{ name: 'Resume', icon: 'FileText' }, { name: 'Formål', icon: 'FileText' }];
     return (
       <div className="flex-auto px-2">
