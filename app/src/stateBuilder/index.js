@@ -18,7 +18,9 @@ async function initialState() {
     const subscriptionList = appDataBundle.subscriptionList || [];
     const participationList = appDataBundle.participationList;
     const rawPreferenceList = appDataBundle.preferenceList || [];
-    const rawProposalList = appDataBundle.proposalList;
+    const rawProposalList = appDataBundle.proposalList.map(proposal =>
+      Object.assign({}, { id: proposal.id }, proposal.data)
+    );
     const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList);
     const proposalList = buildProposalList({
       participationList,
