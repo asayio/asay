@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Home } from 'react-feather';
 
 class Lost extends Component {
   render() {
@@ -13,9 +12,16 @@ class Lost extends Component {
               this.props.history.replace({
                 pathname: '/'
               })
-            }>
-            <Home />Gå til forsiden
+            }
+            className="btn btn-white mt-4 mb-8">
+            Gå til forsiden
           </button>
+          <p className="mx-auto">
+            Burde der være en side her?{' '}
+            <a href="mailto:dinevenner@initiativet.dk" className="link">
+              Send os en mail
+            </a>.
+          </p>
         </div>
       </div>
     );
