@@ -50,9 +50,7 @@ class Proposals extends Component {
               <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
               <div className="text-center mt-4">
                 {limitList && (
-                  <button
-                    onClick={() => this.setState({ limitList: false })}
-                    className="w-full sm:w-auto bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md py-2 px-3">
+                  <button onClick={() => this.setState({ limitList: false })} className="btn btn-white">
                     <FeatherIcon name="ArrowDown" className="mr-2" />Vis forslag uden fastlagt deadline
                   </button>
                 )}

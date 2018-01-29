@@ -57,51 +57,52 @@ class ProposalPage extends Component {
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
-          <div className="flex items-center my-8">
+          <div className="flex flex-wrap sm:flex-no-wrap items-center my-6 sm:my-8">
             <button
               onClick={() => window.history.back()}
-              className="flex-none h-9 w-9 text-xl bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md">
-              <ArrowLeft className="leading-none mb-0" />
+              className="sm:flex-none sm:h-9 w-full sm:w-9 sm:text-xl bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md px-3 py-2 sm:px-0 sm:py-0 mb-4 sm:mb-0">
+              <ArrowLeft className="sm:leading-none sm:mb-0 mr-2 sm:mr-0" />
+              <span className="sm:hidden">Tilbage</span>
             </button>
-            <h1 className="flex-auto pl-4 pr-8 my-0">{proposal.shortTitel.replace('.', '')}</h1>
+            <h1 className="flex-auto sm:pl-4 sm:pr-8 my-0">{proposal.shortTitel.replace('.', '')}</h1>
           </div>
-          <div className="flex -mx-2">
-            <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
-            <div className="w-3/4 mx-2">
+          <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
+          <div className="flex flex-wrap md:flex-no-wrap -m-1">
+            <div className="w-full md:w-auto m-1">
               {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
               {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
             </div>
-            <div className="w-1/4 mx-2">
-              <div className="bg-white border border-grey-lighter rounded-sm shadow">
-                <ProposalActions
-                  proposal={proposal}
-                  anonymousUser={this.props.anonymousUser}
-                  updateState={this.props.updateState}
-                />
-                <div>
-                  <span>
-                    <b>Kategori:</b> {proposal.category.title}
-                  </span>
-                  <span>
-                    <b>Status:</b> {proposal.status}
-                  </span>
-                  <span>
-                    <b>Deadline:</b> {proposal.deadline}
-                  </span>
-                  <span>
-                    <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
-                  </span>
+            <div className="flex-no-shrink w-full md:w-64 -m-1">
+              <div className="md:sticky md:top-15">
+                <div className="bg-white border border-grey-lighter rounded-sm shadow m-2">
+                  <h4 className="text-center border-b border-grey-lighter p-2">Information</h4>
+                  <div className="text-center text-grey-darker p-2">
+                    <span className="block my-2">{proposal.category.title}</span>
+                    <span className="block my-2">Deadline om {proposal.deadline}</span>
+                    <span className="block my-2">
+                      {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+                    </span>
+                    <span className="block my-2">
+                      Se alle detaljer på:{' '}
+                      <a
+                        href={`http://www.ft.dk/samling/${proposal.periodCode}/${
+                          proposal.type
+                        }/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`}
+                        target={`_${proposal.id}_ft`}
+                        className="block link">
+                        Folketingets hjemmeside
+                      </a>
+                    </span>
+                  </div>
                 </div>
-                <span>
-                  Se alle detaljer på{' '}
-                  <a
-                    href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
-                      proposal.numberNumeric +
-                      proposal.numberPostFix}/index.htm`}
-                    target={`_${proposal.id}_ft`}>
-                    Folketingets hjemmeside
-                  </a>.
-                </span>
+                <div className="bg-white border border-grey-lighter rounded-sm shadow m-2">
+                  <h4 className="text-center border-b border-grey-lighter p-2">Aktion</h4>
+                  <ProposalActions
+                    proposal={proposal}
+                    anonymousUser={this.props.anonymousUser}
+                    updateState={this.props.updateState}
+                  />
+                </div>
               </div>
             </div>
           </div>

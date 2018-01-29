@@ -7,7 +7,7 @@ class ProposalTabBar extends Component {
     const selectTab = this.props.selectTab;
     const tabs = this.props.tabs;
     return (
-      <div>
+      <div className="flex -mx-1 mb-2">
         {tabs.map((item, index) => (
           <ProposalTab key={index} tab={item} selectTab={selectTab} selectedTab={selectedTab} />
         ))}

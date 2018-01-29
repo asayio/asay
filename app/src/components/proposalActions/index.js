@@ -44,35 +44,35 @@ class ProposalActions extends Component {
             proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix +
             proposal.numberNumeric}_som_fremsat.pdf`;
     return (
-      <div>
-        <div>
-          <a href={proposalURL} target={`_${proposal.id}`}>
-            <File />
-            Læs forslaget
-          </a>
-          <a onClick={this.updateSubscription} className={proposal.isSubscribing ? '' : ''}>
-            <Bookmark />
-            {proposal.isSubscribing ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
-          </a>
-          {proposal.status !== 'Afsluttet' ? (
-            this.props.anonymousUser ? (
-              <a onClick={this.updateSubscription}>
-                <CheckSquare />
-                Gå til stemmeboks
-              </a>
-            ) : (
-              <Link to={`${proposal.id}/vote`} className={proposal.hasVoted ? '' : ''}>
-                <CheckSquare />
-                {proposal.hasVoted ? 'Du har stemt' : 'Gå til stemmeboks'}
-              </Link>
-            )
+      <div className="text-center px-2 py-1">
+        <a href={proposalURL} target={`_${proposal.id}`} className="w-full btn btn-secondary my-1">
+          <File className="mr-2" />
+          Læs forslaget
+        </a>
+        <button
+          onClick={this.updateSubscription}
+          className={proposal.isSubscribing ? 'w-full btn btn-secondary my-1' : 'w-full btn btn-primary my-1'}>
+          <Bookmark className="mr-2" />
+          {proposal.isSubscribing ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
+        </button>
+        {proposal.status !== 'Afsluttet' ? (
+          this.props.anonymousUser ? (
+            <button onClick={this.updateSubscription} className="w-full btn btn-primary my-1">
+              <CheckSquare className="mr-2" />
+              Gå til stemmeboks
+            </button>
           ) : (
-            <span>
-              <AlertCircle />
-              Afstemning lukket
-            </span>
-          )}
-        </div>
+            <Link to={`${proposal.id}/vote`} className="w-full btn btn-primary my-1">
+              <CheckSquare className="mr-2" />
+              {proposal.hasVoted ? 'Skift din stemme' : 'Gå til stemmeboks'}
+            </Link>
+          )
+        ) : (
+          <button className="w-full btn btn-disabled my-1">
+            <AlertCircle />
+            Afstemning lukket
+          </button>
+        )}
       </div>
     );
   }
