@@ -1,7 +1,8 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
-import { ArrowDown, Settings } from 'react-feather';
+
+import FeatherIcon from '../../components/featherIcon';
 import { Link } from 'react-router-dom';
 
 class Proposals extends Component {
@@ -32,37 +33,35 @@ class Proposals extends Component {
     }, proposalList);
     const limitList =
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
-    if (!proposalList.length) {
-      return (
-        <div className="flex-auto px-2">
-          <div className="max-w-xl mx-auto text-center">
-            <h1>Her ser lidt tomt ud</h1>
-            <p className="mx-auto">Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
-            <Link to="./preferences">
-              <Settings />Opdater præferencer
-            </Link>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="flex-auto px-2">
-          <div className="max-w-xl mx-auto">
-            <h1>Aktuelle forslag</h1>
-            <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
-            <div className="text-center my-4">
-              {limitList && (
-                <button
-                  onClick={() => this.setState({ limitList: false })}
-                  className="bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md py-2 px-3">
-                  <ArrowDown /> Vis forslag uden fastlagt deadline
-                </button>
-              )}
+    return (
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          {!proposalList.length ? (
+            <div className="text-center">
+              <h1>Her ser lidt tomt ud</h1>
+              <p className="mx-auto">Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
+              <Link to="./preferences">
+                <FeatherIcon name="Settings" className="mr-2" />Opdater præferencer
+              </Link>
             </div>
-          </div>
+          ) : (
+            <div>
+              <h1>Aktuelle forslag</h1>
+              <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
+              <div className="text-center mt-4">
+                {limitList && (
+                  <button
+                    onClick={() => this.setState({ limitList: false })}
+                    className="w-full sm:w-auto bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md py-2 px-3">
+                    <FeatherIcon name="ArrowDown" className="mr-2" />Vis forslag uden fastlagt deadline
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

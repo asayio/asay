@@ -26,23 +26,25 @@ class ProposalInfo extends Component {
     const resume = proposal.resume.split(/\n/gm);
     return (
       <div>
-        <div>
-          <div>
-            <a
-              onClick={() => this.setState({ view: 'resume' })}
-              className={(this.state.view === 'resume' ? '' : '') + ''}>
-              <FileText />Resume
-            </a>
-          </div>
-          <div>
-            <a
-              onClick={() => this.setState({ view: 'purpose' })}
-              className={(this.state.view === 'purpose' ? '' : '') + ''}>
-              <FileText />Formål
-            </a>
-          </div>
+        <div className="-mx-1 mb-2">
+          <button
+            onClick={() => this.setState({ view: 'resume' })}
+            className={
+              (this.state.view === 'resume' ? 'bg-white cursor-auto' : 'bg-grey-lightest hover:shadow-md') +
+              ' leading-none border border-grey-lighter rounded-sm shadow no-outline px-4 py-2 mx-1'
+            }>
+            <FileText className="mr-2" />Resume
+          </button>
+          <button
+            onClick={() => this.setState({ view: 'purpose' })}
+            className={
+              (this.state.view === 'purpose' ? 'bg-white cursor-auto' : 'bg-grey-lightest hover:shadow-md') +
+              ' leading-none border border-grey-lighter rounded-sm shadow no-outline px-4 py-2 mx-1'
+            }>
+            <FileText className="mr-2" />Formål
+          </button>
         </div>
-        <div>
+        <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-6 pb-4">
           {R.path(['presentation', 'proposer'], proposal) &&
             this.state.view === 'purpose' && (
               <span>

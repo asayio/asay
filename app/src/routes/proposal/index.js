@@ -39,44 +39,54 @@ class ProposalPage extends Component {
       this.seen(proposal);
     }
     return (
-      <div>
-        <a onClick={() => window.history.back()}>
-          <ArrowLeft />Tilbage til listen
-        </a>
-        <div>
-          <h1>{proposal.shortTitel.replace('.', '')}</h1>
-          <div>
-            <span>
-              <b>Kategori:</b> {proposal.category.title}
-            </span>
-            <span>
-              <b>Status:</b> {proposal.status}
-            </span>
-            <span>
-              <b>Deadline:</b> {proposal.deadline}
-            </span>
-            <span>
-              <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
-            </span>
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          <div className="flex items-center my-8">
+            <button
+              onClick={() => window.history.back()}
+              className="flex-none h-9 w-9 text-xl bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md">
+              <ArrowLeft className="leading-none mb-0" />
+            </button>
+            <h1 className="flex-auto pl-4 pr-8 my-0">{proposal.shortTitel.replace('.', '')}</h1>
           </div>
-          <span>
-            Se alle detaljer på{' '}
-            <a
-              href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
-                proposal.numberNumeric +
-                proposal.numberPostFix}/index.htm`}
-              target={`_${proposal.id}_ft`}>
-              Folketingets hjemmeside
-            </a>.
-          </span>
-        </div>
-        <div>
-          <ProposalInfo proposal={proposal} />
-          <ProposalActions
-            proposal={proposal}
-            anonymousUser={this.props.anonymousUser}
-            updateState={this.props.updateState}
-          />
+          <div className="flex -mx-2">
+            <div className="w-3/4 mx-2">
+              <ProposalInfo proposal={proposal} />
+            </div>
+            <div className="w-1/4 mx-2">
+              <div className="bg-white border border-grey-lighter rounded-sm shadow">
+                <ProposalActions
+                  proposal={proposal}
+                  anonymousUser={this.props.anonymousUser}
+                  updateState={this.props.updateState}
+                />
+                <div>
+                  <span>
+                    <b>Kategori:</b> {proposal.category.title}
+                  </span>
+                  <span>
+                    <b>Status:</b> {proposal.status}
+                  </span>
+                  <span>
+                    <b>Deadline:</b> {proposal.deadline}
+                  </span>
+                  <span>
+                    <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+                  </span>
+                </div>
+                <span>
+                  Se alle detaljer på{' '}
+                  <a
+                    href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
+                      proposal.numberNumeric +
+                      proposal.numberPostFix}/index.htm`}
+                    target={`_${proposal.id}_ft`}>
+                    Folketingets hjemmeside
+                  </a>.
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
