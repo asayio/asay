@@ -4,6 +4,8 @@ import ProposalInfo from '../../components/proposalInfo';
 import ProposalActions from '../../components/proposalActions';
 import { ArrowLeft } from 'react-feather';
 import ProposalTabBar from '../../components/proposalTabBar';
+import { Link } from 'react-router-dom';
+import ProposalResults from '../../components/proposalResults';
 
 class ProposalPage extends Component {
   constructor() {
@@ -48,12 +50,33 @@ class ProposalPage extends Component {
 
   render() {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList);
+    if (!proposal) {
+      return (
+        <div>
+          <div>Det lader ikke til at dette lovforslag findes.</div>
+          <div>
+            <Link to={`/`} className="pointer dark-blue hover-blue dib mt3">
+              <ArrowLeft className="mr2" />Gå til forslagliste
+            </Link>
+          </div>
+        </div>
+      );
+    }
     if (!this.props.anonymousUser) {
       this.seen(proposal);
     }
     const resume = proposal.resume ? proposal.resume.split(/\n/gm) : [];
     const purpose = proposal.presentation ? proposal.presentation.paragraphs : [];
-    const tabs = [{ name: 'Resume', icon: 'FileText' }, { name: 'Formål', icon: 'FileText' }];
+    const tabs = [
+      { name: 'Resume', icon: 'FileText' },
+      { name: 'Formål', icon: 'FileText' },
+      { name: 'Resultater', icon: 'BarChart2' }
+    ];
+    const results = proposal.results.length && {
+      for: R.filter(R.propEq('result', true), proposal.results).length,
+      against: R.filter(R.propEq('result', false), proposal.results).length,
+      blank: R.filter(R.propEq('result', null), proposal.results).length
+    };
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
@@ -71,6 +94,14 @@ class ProposalPage extends Component {
             <div className="w-full md:w-auto m-1">
               {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
               {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
+              {this.state.selectedTab === 'Resultater' ? (
+                <div>
+                  {results ? <ProposalResults titel="Folkets afstemning" results={results} /> : null}
+                  {proposal.actualResults ? (
+                    <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
+                  ) : null}
+                </div>
+              ) : null}
             </div>
             <div className="flex-no-shrink w-full md:w-64 -m-1">
               <div className="md:sticky md:top-15">
