@@ -47,8 +47,8 @@ class Nav extends Component {
                 <div
                   className={
                     this.state.showDropDown
-                      ? 'absolute pin-t pin-r w-screen sm:w-auto min-w-40 pl-4 pt-2 mt-9'
-                      : 'hidden absolute pin-t pin-r w-screen sm:w-auto min-w-40 pl-4 pt-2 mt-9'
+                      ? 'absolute pin-t pin-r w-screen sm:w-auto min-w-48 pl-4 pt-2 mt-9'
+                      : 'hidden absolute pin-t pin-r w-screen sm:w-auto min-w-48 pl-4 pt-2 mt-9'
                   }
                   id="personal-menu">
                   <div className="text-white bg-grey-darkest rounded-sm">

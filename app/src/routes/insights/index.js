@@ -1,7 +1,7 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
-import { ArrowDown } from 'react-feather';
+import FeatherIcon from '../../components/featherIcon';
 
 class Insights extends Component {
   constructor(props) {
@@ -33,6 +33,14 @@ class Insights extends Component {
           <div className="max-w-xl mx-auto text-center">
             <h1>Her ser lidt tomt ud</h1>
             <p className="mx-auto">Du må hellere komme i gang med at stemme på nogle forslag.</p>
+            <button
+              onClick={() =>
+                this.props.history.replace({
+                  pathname: '/'
+                })
+              }>
+              <FeatherIcon name="ArrowDown" />Gå til forsiden
+            </button>
           </div>
         </div>
       );
@@ -47,7 +55,7 @@ class Insights extends Component {
                 <button
                   onClick={() => this.setState({ limitList: false })}
                   className="bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md py-2 px-3">
-                  <ArrowDown /> Vis forslag uden fastlagt deadline
+                  <FeatherIcon name="ArrowDown" className="mr-2" />Vis forslag uden fastlagt deadline
                 </button>
               )}
             </div>
