@@ -26,18 +26,32 @@ class PreferenceList extends Component {
     return (
       <div>
         {this.props.preferenceList.map((preference, index) => (
-          <div key={preference.id}>
-            <div>
-              <h3>
-                <FeatherIcon name={preference.feathericon} />
-                {preference.title}
-              </h3>
-              <p>{preference.description}</p>
-            </div>
-            <div>
-              <div onClick={() => this.updatingPreference(preference)}>
-                <a className={preference.preference ? '' : ''}>Følg</a>
-                <a className={preference.preference ? '' : ''}>Ikke</a>
+          <div key={preference.id} className="my-12">
+            <h3>
+              <FeatherIcon name={preference.feathericon} className="mr-2" />
+              {preference.title}
+            </h3>
+            <div className="flex flex-wrap md:flex-no-wrap items-center">
+              <div className="flex-auto w-full">
+                <p className="md:mb-0">{preference.description}</p>
+              </div>
+              <div className="flex-none md:pl-8">
+                <div onClick={() => this.updatingPreference(preference)}>
+                  <button
+                    className={
+                      (preference.preference ? 'bg-white shadow' : 'bg-grey-lightest border-r-0') +
+                      ' border border-grey-lighter rounded-l-sm no-outline px-3 py-2'
+                    }>
+                    Følg
+                  </button>
+                  <button
+                    className={
+                      (preference.preference ? 'bg-grey-lightest border-l-0' : 'bg-white shadow') +
+                      ' border border-grey-lighter rounded-r-sm no-outline px-3 py-2'
+                    }>
+                    Ikke
+                  </button>
+                </div>
               </div>
             </div>
           </div>
