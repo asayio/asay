@@ -40,24 +40,24 @@ class SettingsList extends Component {
             <button
               onClick={() => this.updatingEmailPreference({ value: 'never', type: 'emailnotification' })}
               className={
-                (this.props.user.emailnotification === 'never' ? 'bg-white shadow' : 'bg-grey-lightest') +
-                ' border border-r-0 border-grey-lighter rounded-l-sm no-outline px-3 py-2'
+                (this.props.user.emailnotification === 'never' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                ' border border-r-0 border-grey-light rounded-l-sm no-outline px-3 py-2'
               }>
               Aldrig
             </button>
             <button
               onClick={() => this.updatingEmailPreference({ value: 'weekly', type: 'emailnotification' })}
               className={
-                (this.props.user.emailnotification === 'weekly' ? 'bg-white shadow' : 'bg-grey-lightest') +
-                ' border border-grey-lighter no-outline px-3 py-2'
+                (this.props.user.emailnotification === 'weekly' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                ' border border-grey-light no-outline px-3 py-2'
               }>
               Ugentlig
             </button>
             <button
               onClick={() => this.updatingEmailPreference({ value: 'montly', type: 'emailnotification' })}
               className={
-                (this.props.user.emailnotification === 'monthly' ? 'bg-white shadow' : 'bg-grey-lightest') +
-                ' border border-l-0 border-grey-lighter rounded-r-sm no-outline px-3 py-2'
+                (this.props.user.emailnotification === 'monthly' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                ' border border-l-0 border-grey-light rounded-r-sm no-outline px-3 py-2'
               }>
               Månedlig
             </button>
