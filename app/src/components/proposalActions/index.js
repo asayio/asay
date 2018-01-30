@@ -69,7 +69,7 @@ class ProposalActions extends Component {
           )
         ) : (
           <button className="w-full btn btn-disabled my-1">
-            <AlertCircle />
+            <AlertCircle className="mr-2" />
             Afstemning lukket
           </button>
         )}
