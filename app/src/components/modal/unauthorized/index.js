@@ -13,14 +13,15 @@ class UnauthorizedModal extends Component {
       <Modal
         content={
           <div>
-            <h2>Ooops...</h2>
-            <p>Der er problemer. Vi kan ikke genkende dig. Prøv at logge ind (igen).</p>
+            <h2>Ups. Der er problemer</h2>
+            <p>Vi kan ikke genkende dig. Prøv at logge ind (igen).</p>
             <p>
-              Virker det stadig ikke? <a href="mailto:dinevenner@initiativet.dk">Send os en mail</a>.
+              Virker det stadig ikke?{' '}
+              <a href="mailto:dinevenner@initiativet.dk" className="link">
+                Send os en mail
+              </a>.
             </p>
-            <div>
-              <Login icon="LogIn" iconClass="" type="login" />
-            </div>
+            <Login icon="LogIn" iconClass="mr-2" type="login" className="btn btn-primary my-8" />
           </div>
         }
       />
