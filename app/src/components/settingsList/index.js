@@ -30,110 +30,70 @@ class SettingsList extends Component {
 
   render() {
     return (
-      <div className="my-12">
-        <h3>E-mail notifikationer </h3>
-        <div className="flex flex-wrap md:flex-no-wrap items-center">
-          <div className="flex-auto w-full">
-            <p className="md:mb-0">Vi sender dig en ugentlig opdatering med nye forslag relevante for dig.</p>
+      <div>
+        <div className="my-12">
+          <h3>Forslagsnotifikationer </h3>
+          <div className="flex flex-wrap md:flex-no-wrap items-center">
+            <div className="flex-auto w-full">
+              <p className="md:mb-0">Vi sender dig en e-mail opdatering med nye forslag relevante for dig.</p>
+            </div>
+            <div className="flex-none md:pl-8">
+              <button
+                onClick={() => this.updatingEmailPreference({ value: 'never', type: 'emailnotification' })}
+                className={
+                  (this.props.user.emailnotification === 'never' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  ' border border-r-0 border-grey-light rounded-l-sm no-outline px-3 py-2'
+                }>
+                Aldrig
+              </button>
+              <button
+                onClick={() => this.updatingEmailPreference({ value: 'monthly', type: 'emailnotification' })}
+                className={
+                  (this.props.user.emailnotification === 'monthly' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  ' border border-grey-light no-outline px-3 py-2'
+                }>
+                Månedlig
+              </button>
+              <button
+                onClick={() => this.updatingEmailPreference({ value: 'weekly', type: 'emailnotification' })}
+                className={
+                  (this.props.user.emailnotification === 'weekly' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  ' border border-l-0 border-grey-light rounded-r-sm no-outline px-3 py-2'
+                }>
+                Ugentlig
+              </button>
+            </div>
           </div>
-          <div className="flex-none md:pl-8">
-            <button
-              onClick={() => this.updatingEmailPreference({ value: 'never', type: 'emailnotification' })}
-              className={
-                (this.props.user.emailnotification === 'never' ? 'bg-white shadow' : 'bg-grey-lighter') +
-                ' border border-r-0 border-grey-light rounded-l-sm no-outline px-3 py-2'
-              }>
-              Aldrig
-            </button>
-            <button
-              onClick={() => this.updatingEmailPreference({ value: 'weekly', type: 'emailnotification' })}
-              className={
-                (this.props.user.emailnotification === 'weekly' ? 'bg-white shadow' : 'bg-grey-lighter') +
-                ' border border-grey-light no-outline px-3 py-2'
-              }>
-              Ugentlig
-            </button>
-            <button
-              onClick={() => this.updatingEmailPreference({ value: 'montly', type: 'emailnotification' })}
-              className={
-                (this.props.user.emailnotification === 'monthly' ? 'bg-white shadow' : 'bg-grey-lighter') +
-                ' border border-l-0 border-grey-light rounded-r-sm no-outline px-3 py-2'
-              }>
-              Månedlig
-            </button>
-            <div className="flex flex-column flex-row-ns items-center-ns mv4 mv5-ns">
-              <div className="flex-auto">
-                <h3 className="mw6 mv1">Resultat E-mail notifikationer </h3>
-                <p className="black-70 lh-copy mw6 mv1">
-                  Vi sender dig en opdatering når der er nye afstemnings resultater relevante for dig.
-                </p>
-              </div>
-              <div className="flex-none pv2 pl4-ns">
-                <div className="no-select">
-                  <a
-                    onClick={() =>
-                      this.props.user.resultnotification !== false &&
-                      this.updatingEmailPreference({ value: false, type: 'resultnotification' })
-                    }
-                    className={
-                      this.props.user.resultnotification === false
-                        ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
-                        : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
-                    }>
-                    Afmeldt
-                  </a>
-                  <a
-                    onClick={() =>
-                      this.props.user.resultnotification !== true &&
-                      this.updatingEmailPreference({ value: true, type: 'resultnotification' })
-                    }
-                    className={
-                      this.props.user.resultnotification === true
-                        ? 'dib white bg-dark-blue ba b--black-10 br1 br--right br--left pv2 ph3'
-                        : 'dib black-50 bg-near-white ba b--black-10 br1 br--right br--left pv2 ph3'
-                    }>
-                    Tilmeldt
-                  </a>
-                </div>
-                <div className="user-notification-setting">
-                  <div className="flex flex-column flex-row-ns items-center-ns mv4 mv5-ns">
-                    <div className="flex-auto">
-                      <h3 className="mw6 mv1">Resultat E-mail notifikationer </h3>
-                      <p className="black-70 lh-copy mw6 mv1">
-                        Vi sender dig en opdatering når der er nye afstemnings resultater relevante for dig.
-                      </p>
-                    </div>
-                    <div className="flex-none pv2 pl4-ns">
-                      <div className="no-select">
-                        <a
-                          onClick={() =>
-                            this.props.user.resultnotification !== false &&
-                            this.updatingEmailPreference({ value: false, type: 'resultnotification' })
-                          }
-                          className={
-                            this.props.user.resultnotification === false
-                              ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
-                              : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
-                          }>
-                          Afmeldt
-                        </a>
-                        <a
-                          onClick={() =>
-                            this.props.user.resultnotification !== true &&
-                            this.updatingEmailPreference({ value: true, type: 'resultnotification' })
-                          }
-                          className={
-                            this.props.user.resultnotification === true
-                              ? 'dib white bg-dark-blue ba b--black-10 br1 br--right br--left pv2 ph3'
-                              : 'dib black-50 bg-near-white ba b--black-10 br1 br--right br--left pv2 ph3'
-                          }>
-                          Tilmeldt
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        </div>
+        <div className="my-12">
+          <h3>Resultat notifikationer </h3>
+          <div className="flex flex-wrap md:flex-no-wrap items-center">
+            <div className="flex-auto w-full">
+              <p>Vi sender dig en e-mail opdatering når der er nye afstemningsresultater, som er relevante for dig.</p>
+            </div>
+            <div className="flex-none md:pl-8">
+              <button
+                onClick={() =>
+                  this.props.user.resultnotification !== false &&
+                  this.updatingEmailPreference({ value: false, type: 'resultnotification' })
+                }
+                className={
+                  (this.props.user.resultnotification === false ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  ' border border-r-0 border-grey-light rounded-l-sm no-outline px-3 py-2'
+                }>
+                Afmeldt
+              </button>
+              <button
+                onClick={() =>
+                  this.props.user.resultnotification !== true &&
+                  this.updatingEmailPreference({ value: true, type: 'resultnotification' })
+                }
+                className={
+                  (this.props.user.resultnotification === true ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  ' border border-grey-light rounded-r-sm no-outline px-3 py-2'
+                }>
+                Tilmeldt
+              </button>
             </div>
           </div>
         </div>
