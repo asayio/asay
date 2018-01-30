@@ -2,125 +2,100 @@ import React, { Component } from 'react';
 import Login from '../loginBtn';
 import Logout from '../logoutBtn';
 import { Link } from 'react-router-dom';
-import { openDropDown } from './dropdown';
+import NavItem from './navItem';
 import SearchBar from '../searchBar';
-import './index.css';
+import './style.css';
 
 class Nav extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showDropDown: false
+    };
+  }
   render() {
     const user = this.props.user;
-    if (user && user.firstname) {
-      const initials = user.firstname.charAt(0) + user.lastname.charAt(0);
-      return (
-        <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pa2">
-          <div className="relative mw8 center flex">
-            <div className="absolute top-0 bottom-0 left--2 flex items-center">
-              <div className="h1 w1 bg-i-green br-100" />
-            </div>
-            <div className="flex-auto flex items-center">
-              <Link to="/proposals" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
-                Forslag
-              </Link>
-              <Link to="/insights" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
-                Historik
-              </Link>
-            </div>
-            <div className="items-center relative dn flex-ns">
-              <SearchBar
-                updateState={this.props.updateState}
-                inputClass="clear-sans w5 pa2 bn br--left br2 search-input"
-                btnClass="dib bg-near-white br--right br2 pa2 mr2"
-              />
-              <span id="person-ns" className="b bg-near-white br1 pa2">
-                {initials}
-              </span>
-              <div id="personal-menu-ns" className="absolute top-2 right-0 pt2">
-                <div className="white bg-dark-gray br1">
-                  <span className="db nowrap bb b--white-10 pa3">{user.firstname + ' ' + user.lastname}</span>
-                  <ul className="list pa1 ma0">
-                    <li className="pa1">
-                      <Link
-                        to="/preferences"
-                        className="db hover-bg-near-black br1 nowrap pa2"
-                        onMouseDown={e => e.preventDefault()}>
-                        Præferencer
-                      </Link>
-                    </li>
-                    <li className="pa1">
-                      <Link
-                        to="/settings"
-                        className="db hover-bg-near-black br1 nowrap pa2"
-                        onMouseDown={e => e.preventDefault()}>
-                        Indstillinger
-                      </Link>
-                    </li>
-                    <li className="pa1">
-                      <Logout history={this.props.history} className="db hover-bg-near-black br1 nowrap pa2" />
-                    </li>
-                  </ul>
+    return (
+      <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter shadow select-none p-2">
+        <div className="flex max-w-xl mx-auto">
+          <div className="absolute pin-y flex items-center -ml-6">
+            <div className="h-4 w-4 bg-teal rounded-full" />
+          </div>
+          <div className="flex-grow flex">
+            <NavItem to="/proposals" text="Forslag" />
+            {user && user.firstname && <NavItem to="/insights" text="Historik" />}
+          </div>
+          <div className="flex relative">
+            <SearchBar
+              formClass="hidden sm:block"
+              inputClass="w-64 border border-grey-lightest rounded-l-sm p-2"
+              btnClass="inline-block bg-grey-lightest rounded-r-sm p-2 mr-2"
+              updateState={this.props.updateState}
+            />
+            {user && user.firstname ? (
+              <div>
+                <span
+                  className={
+                    this.state.showDropDown
+                      ? 'inline-block font-bold text-white bg-grey-darkest rounded-sm p-2'
+                      : 'inline-block font-bold bg-grey-lightest rounded-sm p-2'
+                  }
+                  onClick={() => this.setState({ showDropDown: !this.state.showDropDown })}
+                  id="person">
+                  {user.firstname.charAt(0) + user.lastname.charAt(0)}
+                </span>
+                <div
+                  className={
+                    this.state.showDropDown
+                      ? 'absolute pin-t pin-r w-screen sm:w-auto min-w-48 pl-4 pt-2 mt-9'
+                      : 'hidden absolute pin-t pin-r w-screen sm:w-auto min-w-48 pl-4 pt-2 mt-9'
+                  }
+                  id="personal-menu">
+                  <div className="text-white bg-grey-darkest rounded-sm">
+                    <span className="block border-b border-grey-darker p-4">
+                      {user.firstname + ' ' + user.lastname}
+                    </span>
+                    <ul className="list-reset p-2">
+                      <li>
+                        <Link
+                          className="block hover:bg-black rounded-sm p-2"
+                          to="/preferences"
+                          onClick={() => this.setState({ showDropDown: false })}
+                          onMouseDown={e => e.preventDefault()}>
+                          Præferencer
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="block hover:bg-black rounded-sm p-2"
+                          to="/settings"
+                          onClick={() => this.setState({ showDropDown: false })}
+                          onMouseDown={e => e.preventDefault()}>
+                          Indstillinger
+                        </Link>
+                      </li>
+                      <li>
+                        <Logout
+                          className="block w-full text-left hover:bg-black rounded-sm p-2"
+                          history={this.props.history}
+                        />
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="items-center relative flex dn-ns">
-              <span id="person" className="b bg-near-white br1 pa2" onClick={openDropDown}>
-                {initials}
-              </span>
-              <div id="personal-menu" className="absolute top-2 right-0 pt2 dn" onClick={openDropDown}>
-                <div className="white bg-dark-gray br1">
-                  <span className="db nowrap bb b--white-10 pa3">{user.firstname + ' ' + user.lastname}</span>
-                  <ul className="list pa1 ma0">
-                    <li className="pa1">
-                      <Link
-                        to="/preferences"
-                        className="db hover-bg-near-black br1 nowrap pa2"
-                        onMouseDown={e => e.preventDefault()}>
-                        Præferencer
-                      </Link>
-                    </li>
-                    <li className="pa1">
-                      <Link
-                        to="/settings"
-                        className="db hover-bg-near-black br1 nowrap pa2"
-                        onMouseDown={e => e.preventDefault()}>
-                        Indstillinger
-                      </Link>
-                    </li>
-                    <li className="pa1">
-                      <Logout history={this.props.history} className="db hover-bg-near-black br1 nowrap pa2" />
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      );
-    } else {
-      return (
-        <nav className="fixed top-0 left-0 right-0 z-999 bg-white bb b--black-10 shadow-6 no-select pa2">
-          <div className="relative mw8 center flex">
-            <Link to="/" className="absolute top-0 bottom-0 left--2 flex items-center">
-              <div className="h1 w1 bg-i-green br-100" />
-            </Link>
-            <div className="flex-auto flex items-center">
-              <Link to="/proposals" className="b hover-bg-near-white br1 pa2 mr2" onMouseDown={e => e.preventDefault()}>
-                Forslag
-              </Link>
-            </div>
-            <div className="items-center relative dn flex-ns">
-              <SearchBar
-                updateState={this.props.updateState}
-                inputClass="clear-sans w5 pa2 bn br--left br2 search-input"
-                btnClass="dib bg-near-white br--right br2 pa2 mr2"
+            ) : (
+              <Login
+                type="login"
+                className="font-bold bg-grey-lightest rounded-sm p-2"
+                onClick={() => this.setState({ showDropDown: !this.state.showDropDown })}
+                id="person"
               />
-            </div>
-            <div className="flex items-center">
-              <Login className="pointer white bg-dark-blue hover-bg-blue br1 pv2 ph3" type="login" />
-            </div>
+            )}
           </div>
-        </nav>
-      );
-    }
+        </div>
+      </nav>
+    );
   }
 }
 

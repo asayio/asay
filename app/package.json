@@ -16,12 +16,13 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.10",
-    "tachyons": "^4.9.0"
+    "tailwindcss": "^0.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "tailwind build ./src/App.tailwind.css -c ./src/tailwind.js -o ./src/App.css && react-scripts start",
+    "build": "tailwind build ./src/App.tailwind.css -c ./src/tailwind.js -o ./src/App.css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "devDependencies": {}
 }

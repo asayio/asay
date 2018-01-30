@@ -3,14 +3,11 @@ import React, { Component } from 'react';
 class CountDown extends Component {
   constructor(props) {
     super(props);
-    this.state = {now: new Date().getTime()};
+    this.state = { now: new Date().getTime() };
   }
 
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
+    this.timerID = setInterval(() => this.tick(), 1000);
   }
 
   componentWillUnmount() {
@@ -34,13 +31,9 @@ class CountDown extends Component {
       counter = 'Ikke fastlagt';
     }
     if (distance > 0) {
-      counter = days < 1 ? ( hours < 1 ? minutes + ' minutter' : hours + ' timer') : days + ' dage'
+      counter = days < 1 ? (hours < 1 ? minutes + ' minutter' : hours + ' timer') : days + ' dage';
     }
-    return (
-      <span>
-        {counter}
-      </span>
-    );
+    return <span>{counter}</span>;
   }
 }
 

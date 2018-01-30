@@ -44,52 +44,35 @@ class ProposalActions extends Component {
             proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix +
             proposal.numberNumeric}_som_fremsat.pdf`;
     return (
-      <div className="w-100 w-25-l mt1-l pt4-l pl3-l">
-        <div className="sticky-l top-4-l tc">
-          <a
-            href={proposalURL}
-            target={`_${proposal.id}`}
-            className="db white bg-dark-blue hover-bg-blue pv2 mv3 mt2-l ba b--black-10 br1 shadow-6">
-            <File className="mr2" />
-            Læs forslaget
-          </a>
-          <a
-            onClick={this.updateSubscription}
-            className={
-              proposal.isSubscribing
-                ? 'pointer db dark-blue bg-white pv2 mv3 ba b--dark-blue br1'
-                : 'pointer db white bg-dark-blue hover-bg-blue pv2 mv3 ba b--black-10 br1 shadow-6'
-            }>
-            <Bookmark className="mr2" />
-            {proposal.isSubscribing ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
-          </a>
-          {proposal.status !== 'Afsluttet' ? (
-            this.props.anonymousUser ? (
-              <a
-                onClick={this.updateSubscription}
-                className="db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6">
-                <CheckSquare className="mr2" />
-                Gå til stemmeboks
-              </a>
-            ) : (
-              <Link
-                to={`${proposal.id}/vote`}
-                className={
-                  proposal.hasVoted
-                    ? 'db i-green bg-white pv2 mt3 ba b--i-green br1'
-                    : 'db white bg-i-green hover-bg-i-green pv2 mt3 ba b--black-10 br1 shadow-6'
-                }>
-                <CheckSquare className="mr2" />
-                {proposal.hasVoted ? 'Du har stemt' : 'Gå til stemmeboks'}
-              </Link>
-            )
+      <div className="text-center px-4 py-3">
+        <a href={proposalURL} target={`_${proposal.id}`} className="w-full btn btn-secondary my-1">
+          <File className="mr-2" />
+          Læs forslaget
+        </a>
+        <button
+          onClick={this.updateSubscription}
+          className={proposal.isSubscribing ? 'w-full btn btn-secondary my-1' : 'w-full btn btn-primary my-1'}>
+          <Bookmark className="mr-2" />
+          {proposal.isSubscribing ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
+        </button>
+        {proposal.status !== 'Afsluttet' ? (
+          this.props.anonymousUser ? (
+            <button onClick={this.updateSubscription} className="w-full btn btn-primary my-1">
+              <CheckSquare className="mr-2" />
+              Gå til stemmeboks
+            </button>
           ) : (
-            <span className="db i-green pv2 mv3 ba b--i-green br1 shadow-6">
-              <AlertCircle className="mr2" />
-              Afstemning lukket
-            </span>
-          )}
-        </div>
+            <Link to={`${proposal.id}/vote`} className="w-full btn btn-primary my-1">
+              <CheckSquare className="mr-2" />
+              {proposal.hasVoted ? 'Skift din stemme' : 'Gå til stemmeboks'}
+            </Link>
+          )
+        ) : (
+          <button className="w-full btn btn-disabled my-1">
+            <AlertCircle className="mr-2" />
+            Afstemning lukket
+          </button>
+        )}
       </div>
     );
   }

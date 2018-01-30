@@ -1,7 +1,7 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
-import { ArrowDown } from 'react-feather';
+import FeatherIcon from '../../components/featherIcon';
 
 class Insights extends Component {
   constructor(props) {
@@ -29,25 +29,34 @@ class Insights extends Component {
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     if (!proposalList.length) {
       return (
-        <div className="mw8 center tc flex-auto flex items-center pb4">
-          <p className="black-70 lh-copy">
-            Her ser lidt tomt ud. Du må hellere komme i gang med at stemme på nogle forslag.
-          </p>
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto text-center">
+            <h1>Her ser lidt tomt ud</h1>
+            <p className="mx-auto">Du må hellere komme i gang med at stemme på nogle forslag.</p>
+            <button
+              onClick={() =>
+                this.props.history.replace({
+                  pathname: '/'
+                })
+              }>
+              <FeatherIcon name="ArrowDown" />Gå til forsiden
+            </button>
+          </div>
         </div>
       );
     } else {
       return (
-        <div className="mw8 center tc w-100 flex-auto">
-          <h1 className="f3 tc mb3">Historik</h1>
-          <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
-          <div className="tc">
-            {limitList && (
-              <a
-                onClick={() => this.setState({ limitList: false })}
-                className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
-                <ArrowDown className="mr2" /> Vis forslag med uafsluttet afstemning
-              </a>
-            )}
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto">
+            <h1>Historik</h1>
+            <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
+            <div className="text-center mt-4">
+              {limitList && (
+                <button onClick={() => this.setState({ limitList: false })} className="btn btn-white">
+                  <FeatherIcon name="ArrowDown" className="mr-2" />Vis forslag uden fastlagt deadline
+                </button>
+              )}
+            </div>
           </div>
         </div>
       );

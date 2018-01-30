@@ -10,33 +10,32 @@ class ProposalListItem extends Component {
     const showDeadlineNotification =
       proposal.distanceToDeadline < 1000 * 60 * 60 * 24 * (daysLeftBeforeShowingDeadlineNotification + 7); // "+1" we need the results one day in advance;
     return (
-      <Link key={proposal.id} to={`/proposal/${proposal.id}`}>
-        <div className="relative flex flex-wrap bg-white mv2 ba b--black-10 br1 shadow-6 shadow-7-hover">
-          <div className="w-100 w-30-m w-20-l tc flex flex-column-ns items-center justify-center br-ns b--black-10 pa3">
-            <FeatherIcon name={proposal.category.feathericon} className="f3 i-green mr2 mr0-ns" />
-            <span className="dib black-50 mt1 mt2-ns">{proposal.category.title}</span>
-          </div>
-          <div className="w-100 w-60-m w-80-l tc tl-ns lh-title flex flex-column justify-center bt bn-ns b--black-10 pa3 pv4-ns">
-            <h3 className="f5 mt0 mb2">{proposal.shortTitel.replace('.', '')}</h3>
-            <span className="f6 black-70 mb1">
-              <span className="mr3">
-                <b>Deadline:</b> {proposal.deadline}
-              </span>
-              <span>
-                <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
-              </span>
+      <Link
+        key={proposal.id}
+        to={`/proposal/${proposal.id}`}
+        className="block relative flex flex-col md:flex-row md:h-32 bg-white border border-grey-lighter rounded-sm my-2 shadow hover:shadow-md">
+        <div className="flex flex-col justify-center md:w-48 flex-none text-center border-b md:border-b-0 md:border-r border-grey-lighter px-4 py-2">
+          <FeatherIcon name={proposal.category.feathericon} className="text-teal text-2xl" />
+          <span className="text-grey-dark mt-2">{proposal.category.title}</span>
+        </div>
+        <div className="flex flex-col justify-center text-center md:text-left p-4">
+          <h4 className="mb-2">{proposal.shortTitel.replace('.', '')}</h4>
+          <div className="text-sm leading-normal text-grey-darker">
+            <span className="mr-4">
+              <b>Deadline:</b> {proposal.deadline}
+            </span>
+            <span>
+              <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
             </span>
           </div>
-          <div className="absolute flex pa1 top-0 right-0">
-            {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
-            {proposal.seeNotification && (
-              <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag til dig" />
-            )}
-            {proposal.seeResultsNotification && (
-              <ProposalListItemNotification iconName="PieChart" labelName="Resultater klar" />
-            )}
-          </div>
         </div>
+        {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
+        {proposal.seeNotification && (
+          <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag til dig" />
+        )}
+        {proposal.seeResultsNotification && (
+          <ProposalListItemNotification iconName="PieChart" labelName="Resultater klar" />
+        )}
       </Link>
     );
   }

@@ -26,32 +26,32 @@ class PreferenceList extends Component {
     return (
       <div>
         {this.props.preferenceList.map((preference, index) => (
-          <div key={preference.id} className="flex flex-column flex-row-ns items-center-ns mv4 mv5-ns">
-            <div className="flex-auto">
-              <h3 className="mw6 mv1">
-                <FeatherIcon name={preference.feathericon} className="mr2" />
-                {preference.title}
-              </h3>
-              <p className="black-70 lh-copy mw6 mv1">{preference.description}</p>
-            </div>
-            <div className="flex-none pv2 pl4-ns">
-              <div className="no-select" onClick={() => this.updatingPreference(preference)}>
-                <a
-                  className={
-                    preference.preference
-                      ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
-                      : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
-                  }>
-                  Følg
-                </a>
-                <a
-                  className={
-                    preference.preference
-                      ? 'dib black-50 bg-near-white ba b--black-10 br1 br--right pv2 ph3'
-                      : 'dib white bg-dark-blue ba b--black-10 br1 br--right pv2 ph3'
-                  }>
-                  Ikke
-                </a>
+          <div key={preference.id} className="my-12">
+            <h3>
+              <FeatherIcon name={preference.feathericon} className="mr-2" />
+              {preference.title}
+            </h3>
+            <div className="flex flex-wrap md:flex-no-wrap items-center">
+              <div className="flex-auto w-full">
+                <p className="md:mb-0">{preference.description}</p>
+              </div>
+              <div className="flex-none md:pl-8">
+                <div onClick={() => this.updatingPreference(preference)}>
+                  <button
+                    className={
+                      (preference.preference ? 'bg-white shadow' : 'bg-grey-lighter') +
+                      ' border border-grey-light rounded-l-sm no-outline px-3 py-2'
+                    }>
+                    Følg
+                  </button>
+                  <button
+                    className={
+                      (preference.preference ? 'bg-grey-lighter' : 'bg-white shadow') +
+                      ' border border-l-0 border-grey-light rounded-r-sm no-outline px-3 py-2'
+                    }>
+                    Ikke
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -1,9 +1,7 @@
 .notification-label {
   display: none;
-  position: absolute;
-  white-space: nowrap;
-  right: 0.25rem;
-  top: -1.5rem;
+  top: -1.75rem;
+  right: 0;
 }
 .notification-wrapper:hover > .notification-label {
   display: block;

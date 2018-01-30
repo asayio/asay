@@ -1,5 +1,4 @@
 // packages
-import 'tachyons';
 import './App.css';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -139,7 +138,7 @@ class App extends Component {
     };
     return (
       <Router>
-        <div className="min-vh-100 flex flex-column ph2 pt5">
+        <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
           <Route path="/" component={logPageView} />
           <Nav user={this.state.user} updateState={this.updateState} />
           {this.state.showAddToHomeScreenModal && (
@@ -249,9 +248,7 @@ class App extends Component {
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
-            <div className="flex-auto flex justify-center items-center">
-              <LoadingSpinner />
-            </div>
+            <LoadingSpinner />
           )}
           <Footer />
         </div>
