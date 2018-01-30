@@ -44,7 +44,7 @@ class ProposalActions extends Component {
             proposal.numberNumeric}/${proposal.periodCode}_${proposal.numberPreFix +
             proposal.numberNumeric}_som_fremsat.pdf`;
     return (
-      <div className="text-center px-2 py-1">
+      <div className="text-center px-4 py-3">
         <a href={proposalURL} target={`_${proposal.id}`} className="w-full btn btn-secondary my-1">
           <File className="mr-2" />
           Læs forslaget

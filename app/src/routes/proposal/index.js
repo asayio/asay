@@ -103,30 +103,34 @@ class ProposalPage extends Component {
                 </div>
               ) : null}
             </div>
-            <div className="flex-no-shrink w-full md:w-64 -m-1">
-              <div className="md:sticky md:top-15">
-                <div className="bg-white border border-grey-lighter rounded-sm shadow m-2">
-                  <h4 className="text-center border-b border-grey-lighter p-2">Information</h4>
-                  <div className="text-center text-grey-darker p-2">
-                    <span className="block my-2">{proposal.category.title}</span>
-                    <span className="block my-2">Deadline om {proposal.deadline}</span>
-                    <span className="block my-2">
-                      {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
-                    </span>
-                    <span className="block my-2">
-                      Se alle detaljer på:{' '}
-                      <a
-                        href={`http://www.ft.dk/samling/${proposal.periodCode}/${
-                          proposal.type
-                        }/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`}
-                        target={`_${proposal.id}_ft`}
-                        className="block link">
-                        Folketingets hjemmeside
-                      </a>
-                    </span>
-                  </div>
+            <div className="w-full md:w-64 md:flex-no-shrink m-1">
+              <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
+                <h4 className="text-center border-b border-grey-lighter p-2">Information</h4>
+                <div className="text-center text-grey-darker px-4 py-2">
+                  <span className="block my-2">
+                    <b>Kategori:</b> {proposal.category.title}
+                  </span>
+                  <span className="block my-2">
+                    <b>Deadline:</b> {proposal.deadline}
+                  </span>
+                  <span className="block my-2">
+                    <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+                  </span>
+                  <span className="block my-2">
+                    <b>Detaljer:</b>{' '}
+                    <a
+                      href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
+                        proposal.numberNumeric +
+                        proposal.numberPostFix}/index.htm`}
+                      target={`_${proposal.id}_ft`}
+                      className="link">
+                      www.ft.dk
+                    </a>
+                  </span>
                 </div>
-                <div className="bg-white border border-grey-lighter rounded-sm shadow m-2">
+              </div>
+              <div className="md:sticky md:top-15">
+                <div className="bg-white border border-grey-lighter rounded-sm shadow">
                   <h4 className="text-center border-b border-grey-lighter p-2">Aktion</h4>
                   <ProposalActions
                     proposal={proposal}
