@@ -30,9 +30,9 @@ class Onboarding extends Component {
             </p>
             <p className="mx-auto">Vælg de politiske emner der interesserer dig, så samler vi et overblik til dig.</p>
           </div>
-          <div className="flex flex-wrap md:flex-no-wrap md:flex-row-reverse -mx-2">
-            <div className="w-full md:w-1/4 mx-2 mb-2">
-              <div className="md:sticky md:top-17">
+          <div className="flex flex-wrap md:flex-no-wrap md:flex-row-reverse -mx-1">
+            <div className="w-full md:w-64 md:flex-no-shrink mx-1 mb-2">
+              <div className="md:sticky md:top-15">
                 <div className="bg-white text-center border border-grey-lighter rounded-sm shadow px-4 pt-4 pb-1">
                   <p>Her kan du vælge, hvilke emner du vil følge med i.</p>
                   <p>
@@ -45,12 +45,12 @@ class Onboarding extends Component {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-3/4 bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 mx-2">
+            <div className="w-full bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 mx-1">
               <PreferenceList updateState={this.props.updateState} preferenceList={this.props.preferenceList} />
             </div>
           </div>
           <div className="text-center mt-4">
-            <Link to="/proposals" className="btn btn-white">
+            <Link to="/proposals" className="btn btn-white w-full sm:w-auto">
               <ArrowRight className="mr-2" />Videre til lovforslagene
             </Link>
           </div>
