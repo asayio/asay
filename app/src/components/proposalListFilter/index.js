@@ -50,8 +50,7 @@ class Root extends Component {
               onChange={this.changeFilter}
               className="w-full appearance-none leading-normal text-grey-dark bg-white border border-grey-lighter shadow pl-2 pr-8 py-1">
               <option>Alle</option>
-              <option>Fremsat</option>
-              <option>Til endelig afstemning</option>
+              <option>Til afstemning</option>
               <option>Afsluttet</option>
             </select>
             <div className="absolute pin-y pin-r flex items-center px-2">
