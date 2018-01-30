@@ -95,6 +95,44 @@ class SettingsList extends Component {
                     Tilmeldt
                   </a>
                 </div>
+                <div className="user-notification-setting">
+                  <div className="flex flex-column flex-row-ns items-center-ns mv4 mv5-ns">
+                    <div className="flex-auto">
+                      <h3 className="mw6 mv1">Resultat E-mail notifikationer </h3>
+                      <p className="black-70 lh-copy mw6 mv1">
+                        Vi sender dig en opdatering når der er nye afstemnings resultater relevante for dig.
+                      </p>
+                    </div>
+                    <div className="flex-none pv2 pl4-ns">
+                      <div className="no-select">
+                        <a
+                          onClick={() =>
+                            this.props.user.resultnotification !== false &&
+                            this.updatingEmailPreference({ value: false, type: 'resultnotification' })
+                          }
+                          className={
+                            this.props.user.resultnotification === false
+                              ? 'dib white bg-dark-blue ba b--black-10 br1 br--left pv2 ph3'
+                              : 'dib black-50 bg-near-white ba b--black-10 br1 br--left pv2 ph3'
+                          }>
+                          Afmeldt
+                        </a>
+                        <a
+                          onClick={() =>
+                            this.props.user.resultnotification !== true &&
+                            this.updatingEmailPreference({ value: true, type: 'resultnotification' })
+                          }
+                          className={
+                            this.props.user.resultnotification === true
+                              ? 'dib white bg-dark-blue ba b--black-10 br1 br--right br--left pv2 ph3'
+                              : 'dib black-50 bg-near-white ba b--black-10 br1 br--right br--left pv2 ph3'
+                          }>
+                          Tilmeldt
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
