@@ -47,7 +47,7 @@ class Search extends Component {
           {searchedProposalList.length ? (
             <ProposalList proposalList={searchedProposalList} />
           ) : (
-            <p className="text-center mx-auto">Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+            <p className="text-center mx-auto my-12">Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
           )}
         </div>
       </div>
