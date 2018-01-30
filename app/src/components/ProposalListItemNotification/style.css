@@ -1,7 +1,7 @@
 .notification-label {
   display: none;
-  top: -1.75rem;
-  right: 0;
+  top: -1.5rem;
+  right: 0.25rem;
 }
 .notification-wrapper:hover > .notification-label {
   display: block;

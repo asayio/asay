@@ -6,9 +6,9 @@ class ProposalListItemNotification extends Component {
     const icon = this.props.iconName;
     const label = this.props.labelName;
     return (
-      <div className="notification-wrapper absolute pin-t pin-r leading-none m-2">
+      <div className="notification-wrapper relative p-1">
         <FeatherIcon name={icon} className="text-grey-dark" />
-        <span className="notification-label absolute whitespace-no-wrap text-white bg-grey-darkest rounded-sm p-1">
+        <span className="notification-label absolute whitespace-no-wrap text-white bg-grey-darkest rounded-sm px-2 py-1">
           {label}
         </span>
       </div>

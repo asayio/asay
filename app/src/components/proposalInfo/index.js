@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { FileText } from 'react-feather';
-import VoteResults from './VoteResults';
 
 class ProposalInfo extends Component {
   render() {

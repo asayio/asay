@@ -41,7 +41,9 @@ class SettingsList extends Component {
               <button
                 onClick={() => this.updatingEmailPreference({ value: 'never', type: 'emailnotification' })}
                 className={
-                  (this.props.user.emailnotification === 'never' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  (this.props.user.emailnotification === 'never'
+                    ? 'bg-white shadow-sm'
+                    : 'text-grey-dark bg-grey-lighter') +
                   ' border border-r-0 border-grey-light rounded-l-sm no-outline px-3 py-2'
                 }>
                 Aldrig
@@ -49,15 +51,18 @@ class SettingsList extends Component {
               <button
                 onClick={() => this.updatingEmailPreference({ value: 'monthly', type: 'emailnotification' })}
                 className={
-                  (this.props.user.emailnotification === 'monthly' ? 'bg-white shadow' : 'bg-grey-lighter') +
-                  ' border border-grey-light no-outline px-3 py-2'
+                  (this.props.user.emailnotification === 'monthly'
+                    ? 'bg-white shadow-sm'
+                    : 'text-grey-dark bg-grey-lighter') + ' border border-grey-light no-outline px-3 py-2'
                 }>
                 Månedlig
               </button>
               <button
                 onClick={() => this.updatingEmailPreference({ value: 'weekly', type: 'emailnotification' })}
                 className={
-                  (this.props.user.emailnotification === 'weekly' ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  (this.props.user.emailnotification === 'weekly'
+                    ? 'bg-white shadow-sm'
+                    : 'text-grey-dark bg-grey-lighter') +
                   ' border border-l-0 border-grey-light rounded-r-sm no-outline px-3 py-2'
                 }>
                 Ugentlig
@@ -78,7 +83,9 @@ class SettingsList extends Component {
                   this.updatingEmailPreference({ value: false, type: 'resultnotification' })
                 }
                 className={
-                  (this.props.user.resultnotification === false ? 'bg-white shadow' : 'bg-grey-lighter') +
+                  (this.props.user.resultnotification === false
+                    ? 'bg-white shadow-sm'
+                    : 'text-grey-dark bg-grey-lighter') +
                   ' border border-r-0 border-grey-light rounded-l-sm no-outline px-3 py-2'
                 }>
                 Afmeldt
@@ -89,8 +96,9 @@ class SettingsList extends Component {
                   this.updatingEmailPreference({ value: true, type: 'resultnotification' })
                 }
                 className={
-                  (this.props.user.resultnotification === true ? 'bg-white shadow' : 'bg-grey-lighter') +
-                  ' border border-grey-light rounded-r-sm no-outline px-3 py-2'
+                  (this.props.user.resultnotification === true
+                    ? 'bg-white shadow-sm'
+                    : 'text-grey-dark bg-grey-lighter') + ' border border-grey-light rounded-r-sm no-outline px-3 py-2'
                 }>
                 Tilmeldt
               </button>

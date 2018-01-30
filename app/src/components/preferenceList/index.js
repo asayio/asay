@@ -39,14 +39,14 @@ class PreferenceList extends Component {
                 <div onClick={() => this.updatingPreference(preference)}>
                   <button
                     className={
-                      (preference.preference ? 'bg-white shadow' : 'bg-grey-lighter') +
+                      (preference.preference ? 'bg-white shadow-sm' : 'text-grey-dark bg-grey-lighter') +
                       ' border border-grey-light rounded-l-sm no-outline px-3 py-2'
                     }>
                     Følg
                   </button>
                   <button
                     className={
-                      (preference.preference ? 'bg-grey-lighter' : 'bg-white shadow') +
+                      (preference.preference ? 'text-grey-dark bg-grey-lighter' : 'bg-white shadow-sm') +
                       ' border border-l-0 border-grey-light rounded-r-sm no-outline px-3 py-2'
                     }>
                     Ikke

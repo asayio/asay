@@ -29,13 +29,13 @@ class ProposalListItem extends Component {
             </span>
           </div>
         </div>
-        {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
-        {proposal.seeNotification && (
-          <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag til dig" />
-        )}
-        {proposal.seeResultsNotification && (
-          <ProposalListItemNotification iconName="PieChart" labelName="Resultater klar" />
-        )}
+        <div className="absolute pin-t pin-r flex leading-none p-1">
+          {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
+          {proposal.seeNotification && <ProposalListItemNotification iconName="PlusCircle" labelName="Nyt forslag" />}
+          {proposal.seeResultsNotification && (
+            <ProposalListItemNotification iconName="PieChart" labelName="Resultater klar" />
+          )}
+        </div>
       </Link>
     );
   }
