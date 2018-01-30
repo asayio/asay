@@ -248,9 +248,7 @@ class App extends Component {
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
-            <div>
-              <LoadingSpinner />
-            </div>
+            <LoadingSpinner />
           )}
           <Footer />
         </div>
