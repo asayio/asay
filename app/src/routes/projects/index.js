@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import R from 'ramda';
+import FeatherIcon from '../../components/featherIcon';
 import ProposalList from '../../components/proposalList';
 import FormSelect from '../../components/formSelect';
 
@@ -44,7 +45,7 @@ class Projects extends Component {
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
-          <h1>Alle projekter</h1>
+          <h1>Projekter</h1>
           <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">
             <div className="w-full flex flex-wrap">
               <div className="w-full md:w-1/2 px-1">
@@ -82,14 +83,14 @@ class Projects extends Component {
             </div>
             <div className="hidden md:flex flex-col justify-end px-1">
               {this.props.user ? (
-                <Link to="/projects/new" className="btn btn-primary">
-                  Opret projekt
+                <Link to="/projects/new" className="btn btn-white">
+                  <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
                 </Link>
               ) : (
                 <button
                   onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
-                  className="btn btn-primary">
-                  Opret projekt
+                  className="btn btn-white">
+                  <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
                 </button>
               )}
             </div>

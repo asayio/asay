@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import R from 'ramda';
-import ProposalList from '../../../components/proposalList';
 import { Link } from 'react-router-dom';
+import FeatherIcon from '../../../components/featherIcon';
+import ProposalList from '../../../components/proposalList';
 
 class Projects extends Component {
   componentDidMount() {
@@ -15,20 +16,28 @@ class Projects extends Component {
       return project.initiator.email === user;
     }, projectList);
     return (
-      <div>
-        <h1>Mine projekter</h1>
-        <div>
-          {user ? (
-            <Link to="/projects/new">Opret projekt</Link>
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          <h1>Mine projekter</h1>
+          {projectList.length ? (
+            <ProposalList proposalList={projectList} />
           ) : (
-            <button onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}>Opret projekt</button>
+            <p className="text-center mx-auto my-12">Det ser ikke ud til, at du har oprettet nogle projekter endnu.</p>
           )}
+          <div className="text-center my-4">
+            {user ? (
+              <Link to="/projects/new" className="btn btn-white">
+                <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
+              </Link>
+            ) : (
+              <button
+                onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
+                className="btn btn-white">
+                <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
+              </button>
+            )}
+          </div>
         </div>
-        {projectList.length ? (
-          <ProposalList proposalList={projectList} />
-        ) : (
-          <p>Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
-        )}
       </div>
     );
   }

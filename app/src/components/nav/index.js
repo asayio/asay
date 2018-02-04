@@ -24,7 +24,7 @@ class Nav extends Component {
           <div className="flex-grow flex">
             <NavItem to="/proposals" text="Forslag" />
             {user && user.firstname && <NavItem to="/insights" text="Historik" />}
-            {user && user.firstname && <NavItem to="/projects" text="Projekter" />}
+            <NavItem to="/projects" text="Projekter" />
           </div>
           <div className="flex relative">
             <SearchBar
@@ -72,7 +72,7 @@ class Nav extends Component {
                           to="/preferences"
                           onClick={() => this.setState({ showDropDown: false })}
                           onMouseDown={e => e.preventDefault()}>
-                          Præferencer
+                          Mine præferencer
                         </Link>
                       </li>
                       <li>
@@ -81,7 +81,7 @@ class Nav extends Component {
                           to="/settings"
                           onClick={() => this.setState({ showDropDown: false })}
                           onMouseDown={e => e.preventDefault()}>
-                          Indstillinger
+                          Mine indstillinger
                         </Link>
                       </li>
                       <li>
