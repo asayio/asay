@@ -1,9 +1,9 @@
 {
-  "short_name": "Asay",
-  "name": "Asay",
+  "short_name": "Initiativet",
+  "name": "Initiativet",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "./assets/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     }

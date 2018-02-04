@@ -4,19 +4,18 @@ import Login from '../../components/loginBtn';
 class Curious extends Component {
   render() {
     return (
-      <div className="mw8 center tc w-100 flex-auto">
-        <h1 className="f3 mt4 mt5-l mb4">Ooops...</h1>
-        <p>Der er problemer. Vi kan ikke genkende dig. Prøv at logge ind (igen).</p>
-        <Login
-          type="login"
-          className="pointer dib white bg-dark-blue hover-bg-blue mv3 pv2 ph3 ba b--black-10 br1 shadow-6"
-        />
-        <p>
-          Virker det stadig ikke?{' '}
-          <a href="mailto:dinevenner@initiativet.dk" className="pointer dark-blue hover-blue">
-            Send os en mail
-          </a>.
-        </p>
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto text-center">
+          <h1>Ups! Der er problemer</h1>
+          <p className="mx-auto">Vi kan ikke genkende dig. Prøv at logge ind (igen).</p>
+          <Login type="login" className="btn btn-white mt-4 mb-8" />
+          <p className="mx-auto">
+            Virker det stadig ikke?{' '}
+            <a href="mailto:dinevenner@initiativet.dk" className="link">
+              Send os en mail
+            </a>.
+          </p>
+        </div>
       </div>
     );
   }

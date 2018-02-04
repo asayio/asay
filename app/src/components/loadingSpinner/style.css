@@ -1,0 +1,21 @@
+.loading-spinner svg {
+  height: 3rem;
+  width: auto;
+  animation: loadingSpinner;
+  animation-duration: 800ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform: scale(0.5);
+}
+
+@keyframes loadingSpinner {
+  0% {
+    transform: scale(0.1) rotate(180deg);
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(0.1) rotate(-180deg);
+  }
+}

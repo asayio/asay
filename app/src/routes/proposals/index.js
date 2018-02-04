@@ -1,7 +1,8 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
-import { ArrowDown, Settings } from 'react-feather';
+
+import FeatherIcon from '../../components/featherIcon';
 import { Link } from 'react-router-dom';
 
 class Proposals extends Component {
@@ -32,35 +33,33 @@ class Proposals extends Component {
     }, proposalList);
     const limitList =
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
-    if (!proposalList.length) {
-      return (
-        <div className="mw8 flex-auto center mv5 mv5 tc">
-          <p>Her ser lidt tomt ud. Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
-          <Link
-            to="./preferences"
-            className="pointer dib white bg-dark-blue hover-bg-blue mv2 pv2 ph4 ba b--black-10 br1 shadow-6">
-            <Settings className="mr2" />Opdater præferencer
-          </Link>
+    return (
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          {!proposalList.length ? (
+            <div className="text-center">
+              <h1>Her ser lidt tomt ud</h1>
+              <p className="mx-auto">Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
+              <Link to="./preferences">
+                <FeatherIcon name="Settings" className="mr-2" />Opdater præferencer
+              </Link>
+            </div>
+          ) : (
+            <div>
+              <h1>Aktuelle forslag</h1>
+              <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
+              <div className="text-center mt-4">
+                {limitList && (
+                  <button onClick={() => this.setState({ limitList: false })} className="btn btn-white">
+                    <FeatherIcon name="ArrowDown" className="mr-2" />Vis forslag uden fastlagt deadline
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
         </div>
-      );
-    } else {
-      return (
-        <div className="mw8 center tc w-100 flex-auto">
-          <h1 className="f3 tc mb3">Aktuelle forslag</h1>
-
-          <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
-          <div className="tc">
-            {limitList && (
-              <a
-                onClick={() => this.setState({ limitList: false })}
-                className="pointer db dib-ns white bg-dark-blue hover-bg-blue pv2 ph4 mt2 ba b--black-10 br1 shadow-6">
-                <ArrowDown className="mr2" /> Vis forslag uden fastlagt deadline
-              </a>
-            )}
-          </div>
-        </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

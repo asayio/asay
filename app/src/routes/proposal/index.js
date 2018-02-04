@@ -3,9 +3,23 @@ import React, { Component } from 'react';
 import ProposalInfo from '../../components/proposalInfo';
 import ProposalActions from '../../components/proposalActions';
 import { ArrowLeft } from 'react-feather';
+import ProposalTabBar from '../../components/proposalTabBar';
 import { Link } from 'react-router-dom';
+import ProposalResults from '../../components/proposalResults';
 
 class ProposalPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedTab: 'Resume'
+    };
+    this.selectTab = this.selectTab.bind(this);
+  }
+
+  selectTab(tabName) {
+    this.setState({ selectedTab: tabName });
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -39,62 +53,94 @@ class ProposalPage extends Component {
     if (!proposal) {
       return (
         <div>
-          <div>
-            Det lader ikke til at dette lovforslag findes.
-          </div>
+          <div>Det lader ikke til at dette lovforslag findes.</div>
           <div>
             <Link to={`/`} className="pointer dark-blue hover-blue dib mt3">
               <ArrowLeft className="mr2" />Gå til forslagliste
             </Link>
           </div>
         </div>
-      )
+      );
     }
     if (!this.props.anonymousUser) {
       this.seen(proposal);
     }
+    const resume = proposal.resume ? proposal.resume.split(/\n/gm) : [];
+    const purpose = proposal.presentation ? proposal.presentation.paragraphs : [];
+    const tabs = [
+      { name: 'Resume', icon: 'FileText' },
+      { name: 'Formål', icon: 'FileText' },
+      { name: 'Resultater', icon: 'BarChart2' }
+    ];
+    const results = proposal.results.length && {
+      for: R.filter(R.propEq('result', true), proposal.results).length,
+      against: R.filter(R.propEq('result', false), proposal.results).length,
+      blank: R.filter(R.propEq('result', null), proposal.results).length
+    };
     return (
-      <div className="mw8 center w-100 flex-auto">
-        <a
-          onClick={() => window.history.back()}
-          className="db dib-ns tc white bg-dark-blue hover-bg-blue ba b--black-10 br1 ph3 pv2 mt4">
-          <ArrowLeft className="mr2" />Tilbage til listen
-        </a>
-        <div className="tc tl-ns mv4">
-          <h1 className="f3 mt0 mb3">{proposal.shortTitel.replace('.', '')}</h1>
-          <div className="black-70 lh-copy">
-            <span className="db mt1 dib-ns mr3-ns">
-              <b>Kategori:</b> {proposal.category.title}
-            </span>
-            <span className="db mt1 dib-ns mr3-ns">
-              <b>Status:</b> {proposal.status}
-            </span>
-            <span className="db mt1 dib-ns mr3-ns">
-              <b>Deadline:</b> {proposal.deadline}
-            </span>
-            <span className="db mt1 dib-ns mr3-ns">
-              <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
-            </span>
+      <div className="flex-auto px-2">
+        <div className="max-w-xl mx-auto">
+          <div className="flex flex-wrap sm:flex-no-wrap items-center my-6 sm:my-8">
+            <button
+              onClick={() => window.history.back()}
+              className="sm:flex-none sm:h-9 w-full sm:w-9 sm:text-xl bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md px-3 py-2 sm:px-0 sm:py-0 mb-4 sm:mb-0">
+              <ArrowLeft className="sm:leading-none sm:mb-0 mr-2 sm:mr-0" />
+              <span className="sm:hidden">Tilbage</span>
+            </button>
+            <h1 className="flex-auto sm:pl-4 sm:pr-8 my-0">{proposal.shortTitel.replace('.', '')}</h1>
           </div>
-          <span className="black-70 lh-copy db mt1">
-            Se alle detaljer på{' '}
-            <a
-              href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
-                proposal.numberNumeric +
-                proposal.numberPostFix}/index.htm`}
-              target={`_${proposal.id}_ft`}
-              className="dark-blue hover-blue">
-              Folketingets hjemmeside
-            </a>.
-          </span>
-        </div>
-        <div className="flex flex-wrap">
-          <ProposalInfo proposal={proposal} />
-          <ProposalActions
-            proposal={proposal}
-            anonymousUser={this.props.anonymousUser}
-            updateState={this.props.updateState}
-          />
+          <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
+          <div className="flex flex-wrap md:flex-no-wrap -m-1">
+            <div className="w-full md:w-auto m-1">
+              {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
+              {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
+              {this.state.selectedTab === 'Resultater' ? (
+                <div>
+                  {results ? <ProposalResults titel="Folkets afstemning" results={results} /> : null}
+                  {proposal.actualResults ? (
+                    <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+            <div className="w-full md:w-64 md:flex-no-shrink m-1">
+              <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
+                <h4 className="text-center border-b border-grey-lighter p-2">Information</h4>
+                <div className="text-center text-grey-darker px-4 py-2">
+                  <span className="block my-2">
+                    <b>Kategori:</b> {proposal.category.title}
+                  </span>
+                  <span className="block my-2">
+                    <b>Deadline:</b> {proposal.deadline}
+                  </span>
+                  <span className="block my-2">
+                    <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+                  </span>
+                  <span className="block my-2">
+                    <b>Detaljer:</b>{' '}
+                    <a
+                      href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix +
+                        proposal.numberNumeric +
+                        proposal.numberPostFix}/index.htm`}
+                      target={`_${proposal.id}_ft`}
+                      className="link">
+                      www.ft.dk
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <div className="md:sticky md:top-15">
+                <div className="bg-white border border-grey-lighter rounded-sm shadow">
+                  <h4 className="text-center border-b border-grey-lighter p-2">Aktion</h4>
+                  <ProposalActions
+                    proposal={proposal}
+                    anonymousUser={this.props.anonymousUser}
+                    updateState={this.props.updateState}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -102,5 +148,3 @@ class ProposalPage extends Component {
 }
 
 export default ProposalPage;
-
-/* <span className="db mt1">Se alle detaljer på <a href={`http://www.ft.dk/samling/${proposal.periodCode}/${proposal.type}/${proposal.numberPreFix + proposal.numberNumeric + proposal.numberPostFix}/index.htm`} target={`_${proposal.id}_ft`} className="dark-blue hover-blue">Folketingets hjemmeside</a>.</span> */

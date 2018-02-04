@@ -1,0 +1,97 @@
+/* TAILWIND NORMALIZE */
+@tailwind preflight;
+
+/* CSS THAT NEED TO BE LOADED BEFORE TAILWIND CLASSES */
+
+@import url('https://assets.initiativet.dk/fonts/clear-sans/css/clear-sans.css');
+
+/* TAILWIND CLASSES */
+
+@tailwind utilities;
+
+/* CUSTOM CSS */
+
+a {
+  text-decoration: none;
+}
+a,
+button {
+  color: inherit;
+  transition: 0.2s ease-out;
+}
+svg {
+  position: relative;
+  margin-bottom: -0.15em;
+  height: 1em;
+  width: auto;
+}
+.auth0-lock-container svg {
+  margin-bottom: 0;
+  height: auto;
+}
+
+.btn {
+  @apply .inline-block .min-w-48 .text-center .border .rounded-sm .px-3 .py-2;
+}
+.btn-primary {
+  @apply .text-white .bg-blue-dark .border-blue-dark;
+}
+.btn-primary:hover {
+  @apply .bg-blue;
+}
+.btn-secondary {
+  @apply .text-blue-dark .border-blue-dark;
+}
+.btn-secondary:hover {
+  @apply .text-blue .border-blue;
+}
+.btn-white {
+  @apply .text-black .bg-white .border-grey-lighter .shadow;
+}
+.btn-white:hover {
+  @apply .shadow-md;
+}
+.btn-disabled {
+  @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-auto;
+}
+
+.link {
+  @apply .text-blue-dark;
+}
+.link:hover {
+  @apply .text-blue;
+}
+
+.no-outline:focus {
+  outline: none;
+}
+
+@responsive {
+  .sticky {
+    position: sticky;
+  }
+  .top-15 {
+    top: 3.75rem;
+  }
+}
+
+/* APPLIED CSS */
+
+html {
+  @apply .font-clear .text-black .leading-tight .antialiased;
+}
+p {
+  @apply .text-grey-darkest .leading-normal .max-w-md .mb-2;
+}
+h1 {
+  @apply .text-2xl .leading-normal .text-center .mt-8 .mb-4;
+}
+h2 {
+  @apply .text-xl .mt-4 .mb-2;
+}
+h3 {
+  @apply .text-lg .mt-4 .mb-2;
+}
+h4 {
+  @apply .text-base;
+}

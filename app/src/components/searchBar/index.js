@@ -19,11 +19,13 @@ class SearchBar extends Component {
 
   render() {
     const searchString = this.state.searchString;
+    const formClass = this.props.formClass;
     const inputClass = this.props.inputClass;
     const btnClass = this.props.btnClass;
     const searchURL = searchString ? `/search?v=${this.state.searchString}` : '/search';
     return (
       <form
+        className={formClass}
         onSubmit={function(e) {
           e.preventDefault();
           const submitBtn = document.getElementById('searchSubmitBtn');

@@ -8,9 +8,9 @@ class Logout extends Component {
 
   render() {
     return (
-      <a onClick={this.logout} className={this.props.className}>
+      <button onClick={this.logout} className={this.props.className}>
         Log ud
-      </a>
+      </button>
     );
   }
   logout = async () => {

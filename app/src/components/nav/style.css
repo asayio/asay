@@ -2,35 +2,27 @@
   transition: all 0.2s ease-out;
 }
 #personal-menu {
-  width: calc(100vw - 1rem);
-}
-#personal-menu,
-#personal-menu-ns {
-  transform: translateY(2px);
   animation: menuFadeIn 0.2s ease-out;
 }
-#personal-menu-ns {
-  display: none;
-}
-#personal-menu-ns:hover,
-#person-ns:hover ~ #personal-menu-ns {
+#personal-menu:hover,
+#person:hover ~ #personal-menu {
   display: block;
 }
 
 @keyframes menuFadeIn {
   0% {
     display: none;
+    transform: translateY(-0.25rem);
     opacity: 0;
-    transform: translateY(0);
   }
   1% {
     display: block;
+    transform: translateY(-0.25rem);
     opacity: 0;
-    transform: translateY(0);
   }
   100% {
     display: block;
+    transform: translateY(0);
     opacity: 1;
-    transform: translateY(2px);
   }
 }
