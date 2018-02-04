@@ -18,8 +18,8 @@ class landingPage extends Component {
           </span>
         </h1>
         <div>
-          <Login icon="LogIn" iconClass="mr-2" type="login" className="btn btn-primary m-2" />
-          <Login icon="UserPlus" iconClass="mr-2" type="signUp" className="btn btn-secondary m-2" />
+          <Login icon="LogIn" iconClass="mr-2" type="login" className="btn btn-secondary m-2" />
+          <Login icon="UserPlus" iconClass="mr-2" type="signUp" className="btn btn-primary m-2" />
         </div>
       </div>
     );
@@ -27,4 +27,3 @@ class landingPage extends Component {
 }
 
 export default landingPage;
-

@@ -32,7 +32,7 @@ class Root extends Component {
               name="category"
               value={this.props.filter.category}
               onChange={this.changeFilter}
-              className="w-full appearance-none leading-normal text-grey-dark bg-white border border-grey-lighter shadow pl-2 pr-8 py-1">
+              className="w-full appearance-none leading-normal text-grey-darker bg-white border border-grey-lighter shadow pl-2 pr-8 py-1">
               <option>Alle</option>
               {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
             </select>
@@ -48,7 +48,7 @@ class Root extends Component {
               name="status"
               value={this.props.filter.status}
               onChange={this.changeFilter}
-              className="w-full appearance-none leading-normal text-grey-dark bg-white border border-grey-lighter shadow pl-2 pr-8 py-1">
+              className="w-full appearance-none leading-normal text-grey-darker bg-white border border-grey-lighter shadow pl-2 pr-8 py-1">
               <option>Alle</option>
               <option>Til afstemning</option>
               <option>Afsluttet</option>

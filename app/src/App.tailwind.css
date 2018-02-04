@@ -31,7 +31,7 @@ svg {
 }
 
 .btn {
-  @apply .inline-block .min-w-48 .leading-none .text-center .border .rounded-sm .px-3 .py-2;
+  @apply .inline-block .min-w-48 .text-center .border .rounded-sm .px-3 .py-2;
 }
 .btn-primary {
   @apply .text-white .bg-blue-dark .border-blue-dark;
@@ -40,10 +40,10 @@ svg {
   @apply .bg-blue;
 }
 .btn-secondary {
-  @apply .text-blue-dark .bg-white .border-blue-dark;
+  @apply .text-blue-dark .border-blue-dark;
 }
 .btn-secondary:hover {
-  @apply .bg-blue-lightest;
+  @apply .text-blue .border-blue;
 }
 .btn-white {
   @apply .text-black .bg-white .border-grey-lighter .shadow;
