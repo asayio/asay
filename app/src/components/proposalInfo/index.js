@@ -7,11 +7,7 @@ class ProposalInfo extends Component {
     klikke på 'Læs forslag'-knappen.`
     ];
     const paragraphs = this.props.paragraphs.length > 1 ? this.props.paragraphs : emptyParagraphHandler;
-    return (
-      <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-6 pb-4">
-        {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-      </div>
-    );
+    return <div>{paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>;
   }
 }
 

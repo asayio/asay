@@ -19,7 +19,7 @@ class ProposalListItem extends Component {
           <FeatherIcon name={proposal.category.feathericon} className="text-teal text-2xl" />
           <span className="text-grey-dark mt-2">{proposal.category.title}</span>
         </div>
-        <div className="flex flex-col justify-center text-center md:text-left p-4">
+        <div className="flex flex-col justify-center text-center md:text-left p-4 md:pr-16">
           <h4 className="mb-2">{isProject ? proposal.title : proposal.shortTitel.replace('.', '')}</h4>
           {isProject ? (
             <div className="text-sm leading-normal text-grey-darker">

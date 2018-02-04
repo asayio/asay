@@ -1,6 +1,6 @@
 import R from 'ramda';
 import React, { Component } from 'react';
-import FeatherIcon from '../featherIcon';
+import FormSelect from '../formSelect';
 
 class Root extends Component {
   constructor(props) {
@@ -23,40 +23,28 @@ class Root extends Component {
         : R.filter(preference => {
             return preference.preference;
           }, this.props.preferenceList);
+    const statusList = [{ title: 'Til afstemning' }, { title: 'Afsluttet' }];
     return (
       <div className="flex flex-wrap -mx-1 -mt-2 mb-4">
         <div className="w-full md:w-1/2 px-1">
-          <span className="block text-center my-2">Kategori:</span>
-          <div className="relative">
-            <select
-              name="category"
-              value={this.props.filter.category}
-              onChange={this.changeFilter}
-              className="w-full appearance-none leading-normal text-grey-darker bg-white border border-grey-lighter shadow pl-2 pr-8 py-1">
-              <option>Alle</option>
-              {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
-            </select>
-            <div className="absolute pin-y pin-r flex items-center px-2">
-              <FeatherIcon name="ChevronDown" className="text-grey-dark" />
-            </div>
-          </div>
+          <label className="block text-center my-2">Kategori:</label>
+          <FormSelect
+            name="category"
+            value={this.props.filter.category}
+            onChange={this.changeFilter}
+            allOption={true}
+            options={preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
+          />
         </div>
         <div className="w-full md:w-1/2 px-1">
-          <span className="block text-center my-2">Status:</span>
-          <div className="relative">
-            <select
-              name="status"
-              value={this.props.filter.status}
-              onChange={this.changeFilter}
-              className="w-full appearance-none leading-normal text-grey-darker bg-white border border-grey-lighter shadow pl-2 pr-8 py-1">
-              <option>Alle</option>
-              <option>Til afstemning</option>
-              <option>Afsluttet</option>
-            </select>
-            <div className="absolute pin-y pin-r flex items-center px-2">
-              <FeatherIcon name="ChevronDown" className="text-grey-dark" />
-            </div>
-          </div>
+          <label className="block text-center my-2">Status:</label>
+          <FormSelect
+            name="status"
+            value={this.props.filter.status}
+            onChange={this.changeFilter}
+            allOption={true}
+            options={statusList.map(item => <option>{item.title}</option>)}
+          />
         </div>
       </div>
     );
