@@ -16,9 +16,8 @@ class Auth extends Component {
       const authInfo = await response.json();
       window.localStorage.authToken = authToken;
       window.localStorage.exp = authInfo.exp;
-      console.log(authInfo.user);
       this.setState({ authorized: true }, function() {
-        if (authInfo.user.onboarded) {
+        if (authInfo.user.onboarded || window.sessionStorage.redirectUrl.includes('project')) {
           window.location.href = window.sessionStorage.redirectUrl;
         } else {
           window.location.href = './onboarding';

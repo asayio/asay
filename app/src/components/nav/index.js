@@ -24,6 +24,7 @@ class Nav extends Component {
           <div className="flex-grow flex">
             <NavItem to="/proposals" text="Forslag" />
             {user && user.firstname && <NavItem to="/insights" text="Historik" />}
+            {user && user.firstname && <NavItem to="/projects" text="Projekter" />}
           </div>
           <div className="flex relative">
             <SearchBar
@@ -56,6 +57,15 @@ class Nav extends Component {
                       {user.firstname + ' ' + user.lastname}
                     </span>
                     <ul className="list-reset p-2">
+                      <li>
+                        <Link
+                          className="block hover:bg-black rounded-sm p-2"
+                          to="/projects/mine"
+                          onClick={() => this.setState({ showDropDown: false })}
+                          onMouseDown={e => e.preventDefault()}>
+                          Mine projekter
+                        </Link>
+                      </li>
                       <li>
                         <Link
                           className="block hover:bg-black rounded-sm p-2"

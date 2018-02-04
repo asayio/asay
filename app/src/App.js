@@ -18,6 +18,11 @@ import Proposals from './routes/proposals';
 import Proposal from './routes/proposal';
 import Vote from './routes/proposal/vote';
 import Settings from './routes/settings';
+import Projects from './routes/projects';
+import MyProjects from './routes/projects/mine';
+import NewProject from './routes/projects/new';
+import Project from './routes/project';
+import EditProject from './routes/project/edit';
 
 // components
 import Nav from './components/nav';
@@ -44,6 +49,9 @@ class App extends Component {
       notificationList: [],
       committeeCategoryList: [],
       participationList: [],
+      projectList: [],
+      projectSupportList: [],
+      userProjectSupportList: [],
       appReady: false,
       searchString: '',
       filter: {
@@ -115,6 +123,12 @@ class App extends Component {
       case 'notificationList':
         this.setState(stateBuilder.updateNotificationList(this.state, entity));
         break;
+      case 'projectList':
+        this.setState(stateBuilder.updateProjectList(this.state, entity));
+        break;
+      case 'projectSupportList':
+        this.setState(stateBuilder.updateProjectSupportList(this.state, entity));
+        break;
       case 'error':
         this.setState({ showErrorModal: entity });
         break;
@@ -134,6 +148,7 @@ class App extends Component {
         ReactGA.set({ page: page });
         ReactGA.pageview(page);
       }
+      window.scrollTo(0, 0);
       return null;
     };
     return (
@@ -193,6 +208,33 @@ class App extends Component {
                   />
                 )}
               />
+              <Route
+                exact
+                path="/projects"
+                render={props => (
+                  <Projects
+                    updateState={this.updateState}
+                    preferenceList={this.state.preferenceList}
+                    searchString={this.state.searchString}
+                    filter={this.state.filter}
+                    projectList={this.state.projectList}
+                    user={this.state.user}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/project/:id"
+                render={props => (
+                  <Project
+                    match={props.match}
+                    anonymousUser={this.state.anonymousUser}
+                    updateState={this.updateState}
+                    projectList={this.state.projectList}
+                    user={this.state.user}
+                  />
+                )}
+              />
               {/* ONLY VISIBLE WHEN SIGNED IN*/}
               <Route
                 exact
@@ -201,7 +243,53 @@ class App extends Component {
                   this.state.anonymousUser ? (
                     <Unauthorized />
                   ) : (
-                    <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
+                    <Vote match={props.match} projectList={this.state.projectList} updateState={this.updateState} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/project/:id/edit"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <EditProject
+                      match={props.match}
+                      updateState={this.updateState}
+                      projectList={this.state.projectList}
+                      preferenceList={this.state.preferenceList}
+                      user={this.state.user}
+                    />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/projects/new"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <NewProject updateState={this.updateState} preferenceList={this.state.preferenceList} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/projects/mine"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <MyProjects
+                      updateState={this.updateState}
+                      preferenceList={this.state.preferenceList}
+                      searchString={this.state.searchString}
+                      filter={this.state.filter}
+                      projectList={this.state.projectList}
+                      user={this.state.user}
+                    />
                   )
                 }
               />
