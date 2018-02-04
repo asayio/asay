@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import R from 'ramda';
 import ProposalList from '../../components/proposalList';
-import FormSelect from '../../components/formSelect';
+import { Link } from 'react-router-dom';
 
 class Projects extends Component {
   constructor() {
@@ -27,7 +26,7 @@ class Projects extends Component {
     let projectList = this.props.projectList;
     projectList = sortProjectList(projectList);
     projectList = R.filter(project => {
-      return project.support > 0; // show only project with support from 15 or more people
+      return project.support > 15; // show only project with support from 15 or more people
     }, projectList);
     if (this.state.category !== 'Alle') {
       projectList = R.filter(project => {
@@ -35,71 +34,36 @@ class Projects extends Component {
       }, projectList);
     }
     const preferenceList = this.props.preferenceList;
-    const sortList = [{ value: 'support', title: 'Antal støtter' }, { value: 'createdon', title: 'Oprettelsesdato' }];
-    const supportedOrder = [
-      { value: 'desc', title: 'Mest støttede først' },
-      { value: 'asc', title: 'Mindst støttede først' }
-    ];
-    const chronologicalOrder = [{ value: 'desc', title: 'Nyeste først' }, { value: 'asc', title: 'Ældste først' }];
     return (
-      <div className="flex-auto px-2">
-        <div className="max-w-xl mx-auto">
-          <h1>Alle projekter</h1>
-          <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">
-            <div className="w-full flex flex-wrap">
-              <div className="w-full md:w-1/2 px-1">
-                <label className="block text-center my-2">Kategori:</label>
-                <FormSelect
-                  name="category"
-                  value={this.state.category}
-                  onChange={this.updateState}
-                  allOption={true}
-                  options={preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
-                />
-              </div>
-              <div className="w-1/2 md:w-1/4 px-1">
-                <label className="block text-center my-2">Sorter efter:</label>
-                <FormSelect
-                  name="sortBy"
-                  value={this.state.sortBy}
-                  onChange={this.updateState}
-                  options={sortList.map(item => <option value={item.value}>{item.title}</option>)}
-                />
-              </div>
-              <div className="w-1/2 md:w-1/4 px-1">
-                <label className="block text-center my-2">Rækkefølge:</label>
-                <FormSelect
-                  name="sortOrder"
-                  value={this.state.sortOrder}
-                  onChange={this.updateState}
-                  options={
-                    this.state.sortBy === 'support'
-                      ? supportedOrder.map(item => <option value={item.value}>{item.title}</option>)
-                      : chronologicalOrder.map(item => <option value={item.value}>{item.title}</option>)
-                  }
-                />
-              </div>
-            </div>
-            <div className="hidden md:flex flex-col justify-end px-1">
-              {this.props.user ? (
-                <Link to="/projects/new" className="btn btn-primary">
-                  Opret projekt
-                </Link>
-              ) : (
-                <button
-                  onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
-                  className="btn btn-primary">
-                  Opret projekt
-                </button>
-              )}
-            </div>
-          </div>
-          {projectList.length ? (
-            <ProposalList proposalList={projectList} />
+      <div>
+        <h1>Alle projekter</h1>
+        <div>
+          <label>Kategori:</label>
+          <select name="category" value={this.state.category} onChange={this.updateState}>
+            <option>Alle</option>
+            {preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
+          </select>
+          <label>Sorter efter:</label>
+          <select name="sortBy" value={this.state.sortBy} onChange={this.updateState}>
+            <option value="support">Antal støtter</option>
+            <option value="createdon">Oprettelsesdato</option>
+          </select>
+          <label>Rækkefølge:</label>
+          <select name="sortOrder" value={this.state.sortOrder} onChange={this.updateState}>
+            <option value="desc">{this.state.sortBy === 'support' ? 'Mest støttede først' : 'Nyeste først'} </option>
+            <option value="asc">{this.state.sortBy === 'support' ? 'Mindst støttede først' : 'Ældste først'}</option>
+          </select>
+          {this.props.user ? (
+            <Link to="/projects/new">Opret projekt</Link>
           ) : (
-            <p className="text-center mx-auto my-12">Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+            <button onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}>Opret projekt</button>
           )}
         </div>
+        {projectList.length ? (
+          <ProposalList proposalList={projectList} />
+        ) : (
+          <p>Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+        )}
       </div>
     );
   }
