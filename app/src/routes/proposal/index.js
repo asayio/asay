@@ -91,17 +91,25 @@ class ProposalPage extends Component {
           </div>
           <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
           <div className="flex flex-wrap md:flex-no-wrap -m-1">
-            <div className="w-full md:w-auto m-1">
-              {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
-              {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
-              {this.state.selectedTab === 'Resultater' ? (
-                <div>
-                  {results ? <ProposalResults titel="Folkets afstemning" results={results} /> : null}
-                  {proposal.actualResults ? (
-                    <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
-                  ) : null}
-                </div>
-              ) : null}
+            <div className="w-full m-1">
+              <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-6 pb-4">
+                {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
+                {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
+                {this.state.selectedTab === 'Resultater' ? (
+                  <div>
+                    {results ? (
+                      <div>
+                        <ProposalResults titel="Folkets afstemning" results={results} />
+                        {proposal.actualResults ? (
+                          <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
+                        ) : null}
+                      </div>
+                    ) : (
+                      <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
+                    )}
+                  </div>
+                ) : null}
+              </div>
             </div>
             <div className="w-full md:w-64 md:flex-no-shrink m-1">
               <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
