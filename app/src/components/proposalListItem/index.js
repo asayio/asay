@@ -21,23 +21,25 @@ class ProposalListItem extends Component {
         </div>
         <div className="flex flex-col justify-center text-center md:text-left p-4">
           <h4 className="mb-2">{isProject ? proposal.title : proposal.shortTitel.replace('.', '')}</h4>
-          <div className="text-sm leading-normal text-grey-darker">
-            {isProject ? (
-            <span className="mr-4">
-              <b>Oprettet:</b> {Date(proposal.createdon).substr(4, 11)}
-            </span>
-            <span>
-              <b>Støtter:</b> {proposal.support}
-            </span>
-            ) : (
-            <span className="mr-4">
-              <b>Deadline:</b> {proposal.deadline}
-            </span>
-            <span>
-              <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
-            </span>
-            )}
-          </div>
+          {isProject ? (
+            <div className="text-sm leading-normal text-grey-darker">
+              <span className="mr-4">
+                <b>Oprettet:</b> {Date(proposal.createdon).substr(4, 11)}
+              </span>
+              <span>
+                <b>Støtter:</b> {proposal.support}
+              </span>
+            </div>
+          ) : (
+            <div className="text-sm leading-normal text-grey-darker">
+              <span className="mr-4">
+                <b>Deadline:</b> {proposal.deadline}
+              </span>
+              <span>
+                <b>Deltagelse:</b> {proposal.participation} {proposal.participation === 1 ? 'stemme' : 'stemmer'}
+              </span>
+            </div>
+          )}
         </div>
         <div className="absolute pin-t pin-r flex leading-none p-1">
           {showDeadlineNotification && <ProposalListItemNotification iconName="Clock" labelName="Deadline snart" />}
