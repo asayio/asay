@@ -4,6 +4,7 @@ import { ArrowLeft } from 'react-feather';
 import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
 import Modal from '../../components/modal';
+import ProposalTitle from '../../components/proposalTitle';
 
 class ProjectPage extends Component {
   constructor() {
@@ -69,15 +70,7 @@ class ProjectPage extends Component {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
-            <div className="flex flex-wrap sm:flex-no-wrap items-center my-6 sm:my-8">
-              <button
-                onClick={() => window.history.back()}
-                className="sm:flex-none sm:h-9 w-full sm:w-9 sm:text-xl bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md px-3 py-2 sm:px-0 sm:py-0 mb-4 sm:mb-0">
-                <ArrowLeft className="sm:leading-none sm:mb-0 mr-2 sm:mr-0" />
-                <span className="sm:hidden">Tilbage</span>
-              </button>
-              <h1 className="flex-auto sm:pl-4 sm:pr-8 my-0">{project.title}</h1>
-            </div>
+            <ProposalTitle title={project.title} />
             <div className="flex flex-wrap md:flex-no-wrap -m-1">
               <div className="w-full m-1">
                 <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-6 pb-4">

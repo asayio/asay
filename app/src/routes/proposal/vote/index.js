@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Check, X, Minus, ArrowLeft } from 'react-feather';
 import FeatherIcon from '../../../components/featherIcon';
 import Modal from '../../../components/modal';
+import ProposalTitle from '../../../components/proposalTitle';
 
 class Vote extends Component {
   constructor(props, context) {
@@ -89,15 +90,7 @@ class Vote extends Component {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
-            <div className="flex flex-wrap sm:flex-no-wrap items-center my-6 sm:my-8">
-              <button
-                onClick={() => window.history.back()}
-                className="sm:flex-none sm:h-9 w-full sm:w-9 sm:text-xl bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md px-3 py-2 sm:px-0 sm:py-0 mb-4 sm:mb-0">
-                <ArrowLeft className="sm:leading-none sm:mb-0 mr-2 sm:mr-0" />
-                <span className="sm:hidden">Tilbage</span>
-              </button>
-              <h1 className="flex-auto sm:pl-4 sm:pr-8 my-0">{proposal.shortTitel.replace('.', '')}</h1>
-            </div>
+            <ProposalTitle title={proposal.shortTitel.replace('.', '')} />
             <div className="max-w-md text-center bg-white border border-grey-lighter rounded-sm shadow px-4 pt-4 pb-8 mx-auto">
               <div>
                 <h2>{proposal.hasVoted ? 'Ændr din stemme' : 'Afgiv din stemme'}</h2>
