@@ -73,7 +73,7 @@ class ProjectPage extends Component {
             <ProposalTitle title={project.title} />
             <div className="flex flex-wrap md:flex-no-wrap -m-1">
               <div className="w-full m-1">
-                <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-6 pb-4">
+                <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
                   <div className="mb-4">
                     <h3>Beskrivelse</h3>
                     <p>{project.description}</p>
