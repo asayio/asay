@@ -28,7 +28,7 @@ class Projects extends Component {
     let projectList = this.props.projectList;
     projectList = sortProjectList(projectList);
     projectList = R.filter(project => {
-      return project.support > 15; // show only project with support from 15 or more people
+      return project.support > 0; // show only project with support from 15 or more people
     }, projectList);
     if (this.state.category !== 'Alle') {
       projectList = R.filter(project => {
@@ -54,7 +54,7 @@ class Projects extends Component {
                   name="category"
                   value={this.state.category}
                   onChange={this.updateState}
-                  allOption={true}
+                  defaultOption="Alle"
                   options={preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
                 />
               </div>

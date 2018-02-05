@@ -14,15 +14,19 @@ class EditProjectPage extends Component {
     const user = this.props.user;
     if (project.initiator.email === user.email) {
       return (
-        <div>
-          <h1>Rediger projekt</h1>
-          <ProjectForm
-            projectList={this.props.projectList}
-            preferenceList={this.props.preferenceList}
-            match={this.props.match}
-            updateState={this.props.updateState}
-            formSubmit={this.formSubmit}
-          />
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto">
+            <h1>Rediger projekt</h1>
+            <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
+              <ProjectForm
+                projectList={this.props.projectList}
+                preferenceList={this.props.preferenceList}
+                match={this.props.match}
+                updateState={this.props.updateState}
+                formSubmit={this.formSubmit}
+              />
+            </div>
+          </div>
         </div>
       );
     } else {

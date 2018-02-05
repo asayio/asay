@@ -67,61 +67,95 @@ class ProjectPage extends Component {
     const user = this.props.user;
     if (project) {
       return (
-        <div>
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto">
+            <div className="flex flex-wrap sm:flex-no-wrap items-center my-6 sm:my-8">
+              <button
+                onClick={() => window.history.back()}
+                className="sm:flex-none sm:h-9 w-full sm:w-9 sm:text-xl bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md px-3 py-2 sm:px-0 sm:py-0 mb-4 sm:mb-0">
+                <ArrowLeft className="sm:leading-none sm:mb-0 mr-2 sm:mr-0" />
+                <span className="sm:hidden">Tilbage</span>
+              </button>
+              <h1 className="flex-auto sm:pl-4 sm:pr-8 my-0">{project.title}</h1>
+            </div>
+            <div className="flex flex-wrap md:flex-no-wrap -m-1">
+              <div className="w-full m-1">
+                <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-6 pb-4">
+                  <div className="mb-4">
+                    <h3>Beskrivelse</h3>
+                    <p>{project.description}</p>
+                  </div>
+                  <div className="mb-4">
+                    <h3>Budgettering</h3>
+                    <p>{project.budget}</p>
+                  </div>
+                  <div className="mb-4">
+                    <h3>Begrundelse og argumentation</h3>
+                    <p>{project.argument}</p>
+                  </div>
+                  <div>
+                    <h3>Risiko og udfordringer</h3>
+                    <p>{project.risk}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-64 md:flex-no-shrink m-1">
+                <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
+                  <h4 className="text-center border-b border-grey-lighter p-2">Initiativtager</h4>
+                  <div className="text-center text-grey-darker p-4">
+                    <span className="block mb-4">{project.initiator.name}</span>
+                    <span className="block mb-4">{project.initiator.bio}</span>
+                    <a href={`mailto:${project.initiator.email}`} className="btn btn-secondary">
+                      Kontakt initiativtager
+                    </a>
+                  </div>
+                </div>
+                <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
+                  <h4 className="text-center border-b border-grey-lighter p-2">Projekt</h4>
+                  <div className="text-center text-grey-darker p-4">
+                    <span className="block mb-4">Kategori: {project.category.title}</span>
+                    <span className="block mb-4">Støtter: {project.support} brugere</span>
+                    {user && project.initiator.email === user.email ? (
+                      <Link to={`${project.id}/edit`} className="btn btn-primary">
+                        Rediger projekt
+                      </Link>
+                    ) : project.isSupporting ? (
+                      <button onClick={this.supportProject} className="btn btn-secondary">
+                        Træk støtte tilbage
+                      </button>
+                    ) : (
+                      <button onClick={this.supportProject} className="btn btn-primary">
+                        Støt projektet
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           {this.state.showModal && (
             <Modal
               content={
                 <div>
-                  <h1>Brug for din støtte...</h1>
-                  <p>Vi har registreret din støtte til projektet.</p>
-                  <p>
-                    Men hvis projektet skal nå ind i Folketinget, skal vi også bruge din vælgererklæring, så Initiativet
-                    kan stille op til næste Folketingsvalg.
-                  </p>
-                  <a href="https://initiativet.dk/sign/forward" target="_decleration" onClick={this.giveDecleration}>
-                    Giv en vælgererklæring
-                  </a>
-                  <a onClick={this.giveDecleration}>Har allerede støttet</a>
+                  <h2>Vi har registreret din støtte til projektet</h2>
+                  <p>Men for at det kan nå ind i Folketinget, har vi også brug for din vælgererklæring.</p>
+                  <p>Så Initiativet kan stille op til næste Folketingsvalg.</p>
+                  <div className="mt-6 mb-2">
+                    <button onClick={this.giveDecleration} className="btn btn-secondary m-2">
+                      Har allerede støttet
+                    </button>
+                    <a
+                      href="https://initiativet.dk/sign/forward"
+                      target="_decleration"
+                      onClick={this.giveDecleration}
+                      className="btn btn-primary m-2">
+                      Giv en vælgererklæring
+                    </a>
+                  </div>
                 </div>
               }
             />
           )}
-          <div>
-            <a onClick={() => window.history.back()}>
-              <ArrowLeft />
-            </a>
-            <h1>{project.title}</h1>
-          </div>
-          <div>
-            <h2>Beskrivelse</h2>
-            <p>{project.description}</p>
-            <h2>Budgettering</h2>
-            <p>{project.budget}</p>
-            <h2>Begrundelse og argumentation</h2>
-            <p>{project.argument}</p>
-            <h2>Risiko og udfordringer</h2>
-            <p>{project.risk}</p>
-          </div>
-          <div>
-            <h2>Initiativtager</h2>
-            <p>{project.initiator.name}</p>
-            <p>{project.initiator.bio}</p>
-            <a href={`mailto:${project.initiator.email}`}>Kontakt initiativtager</a>
-          </div>
-          <div>
-            <h2>Projekt</h2>
-            <ul>
-              <li>Kategori: {project.category.title}</li>
-              <li>Støtter: {project.support} brugere</li>
-            </ul>
-            {user && project.initiator.email === user.email ? (
-              <Link to={`${project.id}/edit`}>Rediger projekt</Link>
-            ) : project.isSupporting ? (
-              <button onClick={this.supportProject}>Træk støtte tilbage</button>
-            ) : (
-              <button onClick={this.supportProject}>Støt projektet</button>
-            )}
-          </div>
         </div>
       );
     } else {

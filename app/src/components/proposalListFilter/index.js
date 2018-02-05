@@ -32,7 +32,7 @@ class Root extends Component {
             name="category"
             value={this.props.filter.category}
             onChange={this.changeFilter}
-            allOption={true}
+            defaultOption="Alle"
             options={preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
           />
         </div>
@@ -42,7 +42,7 @@ class Root extends Component {
             name="status"
             value={this.props.filter.status}
             onChange={this.changeFilter}
-            allOption={true}
+            defaultOption="Alle"
             options={statusList.map(item => <option>{item.title}</option>)}
           />
         </div>

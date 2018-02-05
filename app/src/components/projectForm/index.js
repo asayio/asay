@@ -3,6 +3,8 @@ import Modal from '../modal';
 import LoadingSpinner from '../loadingSpinner';
 import R from 'ramda';
 import { Link } from 'react-router-dom';
+import ProjectFormInput from '../projectFormInput';
+import ProjectFormSelect from '../projectFormSelect';
 
 class ProjectForm extends Component {
   constructor() {
@@ -108,21 +110,26 @@ class ProjectForm extends Component {
   render() {
     const project = this.state;
     const preferenceList = this.props.preferenceList;
-    console.log(project);
     return (
       <div>
         {project.showModal === 'confirm' && (
           <Modal
             content={
               <div>
-                <h1>Er du sikker?</h1>
+                <h2>Er du sikker?</h2>
                 <p>Du er ved et publicere dit projekt.</p>
                 <p>
                   Sammen med projektet publiceres også dit navn og email, så andre kan komme i kontakt med dig og
                   bidrage til forslaget.
                 </p>
-                <button onClick={() => this.handleSubmit(false)}>Gem som kladde</button>
-                <button onClick={() => this.handleSubmit(true)}>Publicer</button>
+                <div className="mt-6 mb-2">
+                  <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
+                    Gem som kladde
+                  </button>
+                  <button onClick={() => this.handleSubmit(true)} className="btn btn-primary m-2">
+                    Publicer
+                  </button>
+                </div>
               </div>
             }
           />
@@ -132,13 +139,15 @@ class ProjectForm extends Component {
           <Modal
             content={
               <div>
-                <h1>Projektet blev gemt</h1>
+                <h2>Projektet blev gemt</h2>
                 <p>Dit projekt er gemt som kladde, så det kun er synligt for dig.</p>
                 <p>
                   Du kan altid gå tilbage og rette i projektet, også efter det publiceret. Vi holder styr på tidligere
                   versioner for dig.
                 </p>
-                <Link to={`../../project/${project.id}`}>OK</Link>
+                <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
+                  OK
+                </Link>
               </div>
             }
           />
@@ -147,7 +156,7 @@ class ProjectForm extends Component {
           <Modal
             content={
               <div>
-                <h1>Succes! Projektet blev publiceret</h1>
+                <h2>Succes! Projektet blev publiceret</h2>
                 <p>
                   Dit projekt er nu offentligt og du skal samle opbakning til dit forslag. Det gør du ved at række ud
                   til folk i dit netværk og sende dem til din projektside. Det gør det med linket her:
@@ -156,7 +165,9 @@ class ProjectForm extends Component {
                 <p>
                   Når projektet har samlet støtte fra 15 andre brugere kommer det på projektlisten her på platformen.
                 </p>
-                <Link to={`../../project/${project.id}`}>OK</Link>
+                <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
+                  OK
+                </Link>
               </div>
             }
           />
@@ -165,90 +176,99 @@ class ProjectForm extends Component {
           <Modal
             content={
               <div>
-                <h1>Projektet blev publiceret</h1>
+                <h2>Projektet blev publiceret</h2>
                 <p>
                   Du kan altid gå tilbage og rette i projektet, som du bliver klogere undervejs. Vi holder styr på
                   tidligere versioner for dig.
                 </p>
                 <p>Husk du altid kan dele dit projekt direkte med linket:</p>
                 <p>{window.location.origin + '/project/' + project.id}</p>
-                <Link to={`../../project/${project.id}`}>OK</Link>
+                <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
+                  OK
+                </Link>
               </div>
             }
           />
         )}
-        <form onChange={this.handleChange} onSubmit={e => e.preventDefault()}>
-          <label>
-            Titel
-            <input
+        <div className="max-w-md mx-auto">
+          <form onChange={this.handleChange} onSubmit={e => e.preventDefault()} className="-mt-8">
+            <ProjectFormInput
               type="text"
+              title="Titel"
               name="title"
               value={project.title}
               placeholder="Giv dit projekt en informativ og fængende titel..."
             />
-          </label>
-          <label>
-            Kategori
-            <select name="category" value={project.category} onChange={this.handleChange} required>
-              <option value="" disabled>
-                Vælg kategori
-              </option>
-              {preferenceList.map(item => (
+            <ProjectFormSelect
+              title="Kategori"
+              name="category"
+              value={project.category}
+              onChange={this.handleChange}
+              defaultOption="Vælg kategori"
+              defaultOptionDisabled="yes"
+              options={preferenceList.map(item => (
                 <option value={item.id} key={item.id}>
                   {item.title}
                 </option>
               ))}
-            </select>
-          </label>
-          <label>
-            Bio
-            <input
-              type="text"
+            />
+            <ProjectFormInput
+              type="textarea"
+              title="Bio"
               name="bio"
               value={project.bio}
               placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
             />
-          </label>
-          <label>
-            Beskrivelse
-            <input
-              type="text"
+            <ProjectFormInput
+              type="textarea"
+              title="Beskrivelse"
               name="description"
               value={project.description}
               placeholder="Beskriv dit projekt kort men fyldestgørende..."
             />
-          </label>
-          <label>
-            Budgettering
-            <input
-              type="text"
+            <ProjectFormInput
+              type="textarea"
+              title="Budgettering"
               name="budget"
               value={project.budget}
-              placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det finansieres..."
+              placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det skal finansieres..."
             />
-          </label>
-          <label>
-            Begrundelse og argumentation
-            <input
-              type="text"
+            <ProjectFormInput
+              type="textarea"
+              title="Begrundelse og argumentation"
               name="argument"
               value={project.argument}
               placeholder="Fremlæg argumentation og begrundelse for, hvorfor forslaget er en god idé..."
             />
-          </label>
-          <label>
-            Risiko og udfordringer
-            <input
-              type="text"
+            <ProjectFormInput
+              type="textarea"
+              title="Risici og udfordringer"
               name="risk"
               value={project.risk}
               placeholder="Præsenter de identificerede risici, der kan udfordre forslagets mulighed for succes..."
             />
-          </label>
-        </form>
-        {/* STYILING COMMENT: CONDITION SHOULDN'T BE HANDLED AS SHOW/NOT SHOW, BUT STYLING + FUNCTION */}
-        {!project.published && project.isSaveable && <button onClick={this.handlePublish}>Gem som kladde</button>}
-        {project.isPublishable && <button onClick={() => this.handleSubmit(true)}>Publicer</button>}
+          </form>
+          <div className="text-center -my-2">
+            {!project.published && project.isSaveable ? (
+              <button onClick={this.handlePublish} className="btn btn-secondary m-2">
+                Gem som kladde
+              </button>
+            ) : (
+              <button className="btn btn-disabled m-2" disabled>
+                Gem som kladde
+              </button>
+            )}
+            {project.isPublishable ? (
+              <button onClick={() => this.handleSubmit(true)} className="btn btn-primary m-2">
+                Publicer
+              </button>
+            ) : (
+              <button className="btn btn-disabled m-2" disabled>
+                Publicer
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
