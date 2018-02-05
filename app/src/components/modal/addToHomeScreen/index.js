@@ -25,7 +25,7 @@ class AddToHomeScreenModal extends Component {
               </div>
             )}
             <button
-              className="btn btn-primary my-8"
+              className="btn btn-primary mt-8 mb-4"
               onClick={() => {
                 this.props.updateState({ entityType: 'mobile', entity: false });
                 window.localStorage.promptAddToHomeScreen = false;

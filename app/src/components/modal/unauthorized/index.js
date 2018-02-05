@@ -21,7 +21,7 @@ class UnauthorizedModal extends Component {
                 Send os en mail
               </a>.
             </p>
-            <Login icon="LogIn" iconClass="mr-2" type="login" className="btn btn-primary my-8" />
+            <Login icon="LogIn" iconClass="mr-2" type="login" className="btn btn-primary mt-8 mb-4" />
           </div>
         }
       />

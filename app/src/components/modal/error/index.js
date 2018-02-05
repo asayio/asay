@@ -14,13 +14,11 @@ class ErrorModal extends Component {
                 send os en mail
               </a>.
             </p>
-            <div>
-              <button
-                onClick={() => this.props.updateState({ entityType: 'error', entity: false })}
-                className="btn btn-primary my-8">
-                OK
-              </button>
-            </div>
+            <button
+              onClick={() => this.props.updateState({ entityType: 'error', entity: false })}
+              className="btn btn-primary mt-8 mb-4">
+              OK
+            </button>
           </div>
         }
       />

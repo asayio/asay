@@ -31,7 +31,7 @@ svg {
 }
 
 .btn {
-  @apply .inline-block .min-w-48 .text-center .border .rounded-sm .px-3 .py-2;
+  @apply .inline-block .min-w-48 .leading-tight .text-center .border .rounded-sm .px-3 .py-2;
 }
 .btn-primary {
   @apply .text-white .bg-blue-dark .border-blue-dark;
@@ -52,7 +52,7 @@ svg {
   @apply .shadow-md;
 }
 .btn-disabled {
-  @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-auto;
+  @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-not-allowed;
 }
 
 .link {
@@ -87,10 +87,10 @@ h1 {
   @apply .text-2xl .leading-normal .text-center .mt-8 .mb-4;
 }
 h2 {
-  @apply .text-xl .mt-4 .mb-2;
+  @apply .text-xl .my-4;
 }
 h3 {
-  @apply .text-lg .mt-4 .mb-2;
+  @apply .text-lg .mb-2;
 }
 h4 {
   @apply .text-base;

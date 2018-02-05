@@ -128,7 +128,7 @@ class Vote extends Component {
                     <h2>{modalHeader}</h2>
                     {modalParagraph}
                     {this.state.voteConfirmed ? (
-                      <div className="my-8">
+                      <div className="mt-8 mb-4">
                         <Link
                           to="../../"
                           onClick={() => this.setState({ showModal: false })}
@@ -139,7 +139,7 @@ class Vote extends Component {
                     ) : this.state.voteSubmitted ? (
                       <LoadingSpinner />
                     ) : (
-                      <div className="my-8">
+                      <div className="mt-8 mb-4">
                         <button onClick={() => this.setState({ showModal: false })} className="btn btn-secondary m-2">
                           <FeatherIcon name="X" className="mr-2" />
                           Annuller
