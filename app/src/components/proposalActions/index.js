@@ -51,13 +51,17 @@ class ProposalActions extends Component {
         </a>
         <button
           onClick={this.updateSubscription}
+          onMouseDown={e => e.preventDefault()}
           className={proposal.isSubscribing ? 'w-full btn btn-secondary my-1' : 'w-full btn btn-primary my-1'}>
           <Bookmark className="mr-2" />
           {proposal.isSubscribing ? 'Fjern fra mine forslag' : 'Tilføj til mine forslag'}
         </button>
         {proposal.status !== 'Afsluttet' ? (
           this.props.anonymousUser ? (
-            <button onClick={this.updateSubscription} className="w-full btn btn-primary my-1">
+            <button
+              onClick={this.updateSubscription}
+              onMouseDown={e => e.preventDefault()}
+              className="w-full btn btn-primary my-1">
               <CheckSquare className="mr-2" />
               Gå til stemmeboks
             </button>

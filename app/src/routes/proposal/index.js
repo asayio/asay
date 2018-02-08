@@ -92,7 +92,7 @@ class ProposalPage extends Component {
                   <div>
                     {results ? (
                       <div>
-                        <ProposalResults titel="Folkets afstemning" results={results} />
+                        <ProposalResults titel="Platformens afstemning" results={results} />
                         {proposal.actualResults ? (
                           <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
                         ) : null}

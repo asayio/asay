@@ -8,7 +8,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <button onClick={this.logout} className={this.props.className}>
+      <button onClick={this.logout} onMouseDown={e => e.preventDefault()} className={this.props.className}>
         Log ud
       </button>
     );

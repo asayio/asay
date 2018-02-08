@@ -8,7 +8,7 @@ class Login extends Component {
     const login = this.props.type === 'login' ? true : false;
     const title = login ? 'Log ind' : 'Opret bruger';
     return (
-      <button onClick={this.login} className={this.props.className}>
+      <button onClick={this.login} onMouseDown={e => e.preventDefault()} className={this.props.className}>
         {this.props.icon && <FeatherIcon name={this.props.icon} className={this.props.iconClass} />}
         {title}
       </button>

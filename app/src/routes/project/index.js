@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'react-feather';
 import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
 import Modal from '../../components/modal';
@@ -113,11 +112,17 @@ class ProjectPage extends Component {
                         Rediger projekt
                       </Link>
                     ) : project.isSupporting ? (
-                      <button onClick={this.supportProject} className="btn btn-secondary">
+                      <button
+                        onClick={this.supportProject}
+                        onMouseDown={e => e.preventDefault()}
+                        className="btn btn-secondary">
                         Træk støtte tilbage
                       </button>
                     ) : (
-                      <button onClick={this.supportProject} className="btn btn-primary">
+                      <button
+                        onClick={this.supportProject}
+                        onMouseDown={e => e.preventDefault()}
+                        className="btn btn-primary">
                         Støt projektet
                       </button>
                     )}

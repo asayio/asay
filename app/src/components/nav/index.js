@@ -97,9 +97,8 @@ class Nav extends Component {
             ) : (
               <Login
                 type="login"
-                className="font-bold bg-grey-lightest rounded-sm p-2"
                 onClick={() => this.setState({ showDropDown: !this.state.showDropDown })}
-                id="person"
+                className="font-bold bg-grey-lightest rounded-sm p-2"
               />
             )}
           </div>
