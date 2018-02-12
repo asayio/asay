@@ -6,10 +6,6 @@ import ProposalListFilter from '../../components/proposalListFilter';
 import queryString from 'query-string';
 
 class Search extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const filterSelection = {
       category: this.props.filter.category,

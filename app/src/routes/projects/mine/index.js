@@ -5,10 +5,6 @@ import FeatherIcon from '../../../components/featherIcon';
 import ProposalList from '../../../components/proposalList';
 
 class Projects extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const user = this.props.user.email;
     let projectList = this.props.projectList;

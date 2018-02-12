@@ -148,11 +148,10 @@ class App extends Component {
         ReactGA.set({ page: page });
         ReactGA.pageview(page);
       }
-      window.scrollTo(0, 0);
       return null;
     };
     return (
-      <Router>
+      <Router onUpdate={() => window.scrollTo(0, 0)}>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
           <Route path="/" component={logPageView} />
           <Nav user={this.state.user} updateState={this.updateState} />

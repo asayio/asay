@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import PreferenceList from '../../components/preferenceList';
 
 class Preferences extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const workload = R.sum(
       R.pluck('workload')(R.filter(preferenceList => preferenceList.preference === true)(this.props.preferenceList))

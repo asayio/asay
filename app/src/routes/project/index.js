@@ -15,10 +15,6 @@ class ProjectPage extends Component {
     this.giveDecleration = this.giveDecleration.bind(this);
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   async giveDecleration() {
     this.setState({ showModal: false });
     await fetch('/api/user/decleration', {

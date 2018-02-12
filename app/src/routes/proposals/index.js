@@ -12,9 +12,6 @@ class Proposals extends Component {
       limitList: true
     };
   }
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
 
   render() {
     let proposalList = this.props.proposalList;

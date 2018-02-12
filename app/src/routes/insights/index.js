@@ -10,9 +10,6 @@ class Insights extends Component {
       limitList: true
     };
   }
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
 
   render() {
     const sortProposalList = R.sortWith([R.descend(R.prop('distanceToDeadline'))]);

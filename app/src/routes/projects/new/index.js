@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import ProjectForm from '../../../components/projectForm';
 
 class NewProjectPage extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     return (
       <div className="flex-auto px-2">

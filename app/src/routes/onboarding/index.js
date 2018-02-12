@@ -6,7 +6,6 @@ import { ArrowRight } from 'react-feather';
 
 class Onboarding extends Component {
   async componentDidMount() {
-    window.scrollTo(0, 0);
     await fetch('/api/user/onboarding', {
       method: 'POST',
       headers: {

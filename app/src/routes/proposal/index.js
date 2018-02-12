@@ -21,10 +21,6 @@ class ProposalPage extends Component {
     this.setState({ selectedTab: tabName });
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   async seen(proposal) {
     proposal.seeNotification &&
       this.props.updateState(

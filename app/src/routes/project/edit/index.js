@@ -4,10 +4,6 @@ import ProjectForm from '../../../components/projectForm';
 import { ArrowLeft } from 'react-feather';
 
 class EditProjectPage extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     console.log(this.state);
     const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
