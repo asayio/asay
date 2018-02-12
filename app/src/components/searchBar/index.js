@@ -10,11 +10,19 @@ class SearchBar extends Component {
       searchString: ''
     };
     this.updateSearchString = this.updateSearchString.bind(this);
+    this.submitSearch = this.submitSearch.bind(this);
   }
 
   updateSearchString(event) {
     const searchString = R.path(['target', 'value'], event);
     this.setState({ searchString: searchString });
+  }
+
+  submitSearch(evnt) {
+    evnt.preventDefault();
+    const submitBtn = document.getElementById('searchSubmitBtn');
+    submitBtn.click();
+    this.setState({ searchString: '' });
   }
 
   render() {
@@ -24,13 +32,7 @@ class SearchBar extends Component {
     const btnClass = this.props.btnClass;
     const searchURL = searchString ? `/search?v=${this.state.searchString}` : '/search';
     return (
-      <form
-        className={formClass}
-        onSubmit={function(e) {
-          e.preventDefault();
-          const submitBtn = document.getElementById('searchSubmitBtn');
-          submitBtn.click();
-        }}>
+      <form id="searchBar" className={formClass} onSubmit={this.submitSearch}>
         <input
           className={inputClass}
           type="text"
