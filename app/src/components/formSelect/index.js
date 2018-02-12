@@ -10,13 +10,12 @@ class FormSelect extends Component {
           value={this.props.value}
           onChange={this.props.onChange}
           className="w-full appearance-none leading-tight text-grey-darker bg-white border border-grey-lighter rounded-sm shadow pl-3 pr-8 py-2">
-          {this.props.defaultOption ? (
-            this.props.defaultOptionDisabled === 'yes' ? (
+          {this.props.defaultOption &&
+            (this.props.defaultOptionDisabled ? (
               <option disabled>{this.props.defaultOption}</option>
             ) : (
               <option>{this.props.defaultOption}</option>
-            )
-          ) : null}
+            ))}
           {this.props.options}
         </select>
         <div className="absolute pin-y pin-r flex items-center px-2">
