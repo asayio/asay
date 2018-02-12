@@ -242,7 +242,7 @@ class App extends Component {
                   this.state.anonymousUser ? (
                     <Unauthorized />
                   ) : (
-                    <Vote match={props.match} projectList={this.state.projectList} updateState={this.updateState} />
+                    <Vote match={props.match} proposalList={this.state.proposalList} updateState={this.updateState} />
                   )
                 }
               />
