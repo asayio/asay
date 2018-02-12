@@ -64,7 +64,11 @@ class Projects extends Component {
                   name="sortBy"
                   value={this.state.sortBy}
                   onChange={this.updateState}
-                  options={sortList.map(item => <option value={item.value}>{item.title}</option>)}
+                  options={sortList.map((item, index) => (
+                    <option key={index} value={item.value}>
+                      {item.title}
+                    </option>
+                  ))}
                 />
               </div>
               <div className="w-1/2 md:w-1/4 px-1">
@@ -75,8 +79,16 @@ class Projects extends Component {
                   onChange={this.updateState}
                   options={
                     this.state.sortBy === 'support'
-                      ? supportedOrder.map(item => <option value={item.value}>{item.title}</option>)
-                      : chronologicalOrder.map(item => <option value={item.value}>{item.title}</option>)
+                      ? supportedOrder.map((item, index) => (
+                          <option key={index} value={item.value}>
+                            {item.title}
+                          </option>
+                        ))
+                      : chronologicalOrder.map((item, index) => (
+                          <option key={index} value={item.value}>
+                            {item.title}
+                          </option>
+                        ))
                   }
                 />
               </div>

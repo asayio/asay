@@ -43,7 +43,7 @@ class Root extends Component {
             value={this.props.filter.status}
             onChange={this.changeFilter}
             defaultOption="Alle"
-            options={statusList.map(item => <option>{item.title}</option>)}
+            options={statusList.map((item, index) => <option key={index}>{item.title}</option>)}
           />
         </div>
       </div>
