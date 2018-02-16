@@ -89,9 +89,9 @@ class ProposalPage extends Component {
                     {results ? (
                       <div>
                         <ProposalResults titel="Platformens afstemning" results={results} />
-                        {proposal.actualResults ? (
+                        {proposal.actualResults && (
                           <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
-                        ) : null}
+                        )}
                       </div>
                     ) : (
                       <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
