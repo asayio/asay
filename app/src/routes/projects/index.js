@@ -10,8 +10,7 @@ class Projects extends Component {
     super();
     this.state = {
       category: 'Alle',
-      sortBy: 'support',
-      sortOrder: 'desc'
+      sort: 'supportDesc'
     };
     this.updateState = this.updateState.bind(this);
   }
@@ -22,9 +21,12 @@ class Projects extends Component {
   }
 
   render() {
-    const sortProjectList = R.sortWith([
-      this.state.sortOrder === 'desc' ? R.descend(R.prop(this.state.sortBy)) : R.ascend(R.prop(this.state.sortBy))
-    ]);
+    console.log(this.state.sort);
+    const sortOrder = this.state.sort === 'supportDesc' || this.state.sortOrder === 'createdonDesc' ? 'desc' : 'asc';
+    const sortBy = this.state.sort === 'supportDesc' || this.state.sortOrder === 'supportAsc' ? 'support' : 'createdon';
+    console.log(sortOrder);
+    console.log(sortBy);
+    const sortProjectList = R.sortWith([sortOrder === 'desc' ? R.descend(R.prop(sortBy)) : R.ascend(R.prop(sortBy))]);
     let projectList = this.props.projectList;
     projectList = sortProjectList(projectList);
     projectList = R.filter(project => {
@@ -36,19 +38,19 @@ class Projects extends Component {
       }, projectList);
     }
     const preferenceList = this.props.preferenceList;
-    const sortList = [{ value: 'support', title: 'Antal støtter' }, { value: 'createdon', title: 'Oprettelsesdato' }];
-    const supportedOrder = [
-      { value: 'desc', title: 'Mest støttede først' },
-      { value: 'asc', title: 'Mindst støttede først' }
+    const sortList = [
+      { value: 'supportDesc', title: 'Flest støtter' },
+      { value: 'supportAsc', title: 'Færrest støtter' },
+      { value: 'createdonDesc', title: 'Nyeste' },
+      { value: 'createdonAsc', title: 'Ældste' }
     ];
-    const chronologicalOrder = [{ value: 'desc', title: 'Nyeste først' }, { value: 'asc', title: 'Ældste først' }];
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
           <h1>Projekter</h1>
           <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">
             <div className="w-full flex flex-wrap">
-              <div className="w-full md:w-1/2 px-1">
+              <div className="w-full md:w-2/3 px-1">
                 <label className="block text-center my-2">Kategori:</label>
                 <FormSelect
                   name="category"
@@ -58,10 +60,10 @@ class Projects extends Component {
                   options={preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
                 />
               </div>
-              <div className="w-1/2 md:w-1/4 px-1">
+              <div className="w-full md:w-1/3 px-1">
                 <label className="block text-center my-2">Sorter efter:</label>
                 <FormSelect
-                  name="sortBy"
+                  name="sort"
                   value={this.state.sortBy}
                   onChange={this.updateState}
                   options={sortList.map((item, index) => (
@@ -69,27 +71,6 @@ class Projects extends Component {
                       {item.title}
                     </option>
                   ))}
-                />
-              </div>
-              <div className="w-1/2 md:w-1/4 px-1">
-                <label className="block text-center my-2">Rækkefølge:</label>
-                <FormSelect
-                  name="sortOrder"
-                  value={this.state.sortOrder}
-                  onChange={this.updateState}
-                  options={
-                    this.state.sortBy === 'support'
-                      ? supportedOrder.map((item, index) => (
-                          <option key={index} value={item.value}>
-                            {item.title}
-                          </option>
-                        ))
-                      : chronologicalOrder.map((item, index) => (
-                          <option key={index} value={item.value}>
-                            {item.title}
-                          </option>
-                        ))
-                  }
                 />
               </div>
             </div>
