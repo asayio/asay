@@ -1,0 +1,12 @@
+.modal {
+  animation: showModal 0.15s;
+}
+
+@keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

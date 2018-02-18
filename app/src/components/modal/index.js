@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import FeatherIcon from '../featherIcon';
+import './style.css';
 
 class Modal extends Component {
   render() {
     return (
-      <div className="fixed z-20 pin flex items-center justify-center bg-black-50 p-2">
-        <div className="w-full sm:w-128 text-center bg-white rounded-sm p-8">{this.props.content}</div>
+      <div className="modal flex fixed z-20 pin items-center justify-center bg-black-50 p-2">
+        <div className="relative w-full sm:w-128 text-center bg-white rounded-sm shadow p-8">{this.props.content}</div>
       </div>
     );
   }

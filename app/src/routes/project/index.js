@@ -136,7 +136,7 @@ class ProjectPage extends Component {
                   <p>Så Initiativet kan stille op til næste Folketingsvalg.</p>
                   <div className="mt-6 mb-2">
                     <button onClick={this.giveDecleration} className="btn btn-secondary m-2">
-                      Har allerede støttet
+                      Luk vinduet
                     </button>
                     <a
                       href="https://initiativet.dk/sign/forward"

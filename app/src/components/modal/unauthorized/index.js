@@ -13,17 +13,16 @@ class UnauthorizedModal extends Component {
       <Modal
         content={
           <div>
-            <h2>Ups. Der er problemer</h2>
-            <p>Vi kan ikke genkende dig. Prøv at logge ind (igen).</p>
-            <p>
-              Virker det stadig ikke?{' '}
-              <a href="mailto:dinevenner@initiativet.dk" className="link">
-                Send os en mail
-              </a>.
-            </p>
-            <Login icon="LogIn" iconClass="mr-2" type="login" className="btn btn-primary mt-8 mb-4" />
+            <h2>Opret en bruger</h2>
+            <p>For at benytte dig af den funktion, skal du have en bruger.</p>
+            <p>Du kan oprette en bruger eller logge ind lige her.</p>
+            <div className="mt-6 mb-2">
+              <Login icon="UserPlus" iconClass="mr-2" className="btn btn-secondary m-2" type="login" />
+              <Login icon="UserPlus" iconClass="mr-2" className="btn btn-primary m-2" />
+            </div>
           </div>
         }
+        xClick={this.setState({ showModal: false })}
       />
     );
   }
