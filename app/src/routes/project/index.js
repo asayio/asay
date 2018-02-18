@@ -25,7 +25,6 @@ class ProjectPage extends Component {
       }
     });
     const newUser = Object.assign({}, this.props.user, { decleration: true });
-    console.log(newUser);
     this.props.updateState({ entityType: 'user', entity: newUser });
   }
 
