@@ -4,11 +4,15 @@ import ProposalListItem from '../proposalListItem';
 class Root extends Component {
   render() {
     return (
-      <div>
+      <ul className="list-reset">
         {this.props.proposalList.map(function(proposal, index) {
-          return <ProposalListItem key={index} proposal={proposal} />;
+          return (
+            <li>
+              <ProposalListItem key={index} proposal={proposal} />
+            </li>
+          );
         })}
-      </div>
+      </ul>
     );
   }
 }
