@@ -22,7 +22,6 @@ class UnauthorizedModal extends Component {
             </div>
           </div>
         }
-        xClick={this.setState({ showModal: false })}
       />
     );
   }
