@@ -49,12 +49,19 @@ class ProposalPage extends Component {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList);
     if (!proposal) {
       return (
-        <div>
-          <div>Det lader ikke til at dette lovforslag findes.</div>
-          <div>
-            <Link to={`/`} className="pointer dark-blue hover-blue dib mt3">
-              <ArrowLeft className="mr2" />Gå til forslagliste
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto text-center">
+            <h1>Ups! Der er problemer</h1>
+            <p className="mx-auto">Det lader ikke til at dette lovforslag findes.</p>
+            <Link to={`/`} className="btn btn-white mt-4 mb-8">
+              <ArrowLeft className="mr-2" />Gå listen med forslag
             </Link>
+            <p className="mx-auto">
+              Burde der være en side her?{' '}
+              <a href="mailto:dinevenner@initiativet.dk" className="link">
+                Send os en mail
+              </a>.
+            </p>
           </div>
         </div>
       );
