@@ -21,11 +21,8 @@ class Projects extends Component {
   }
 
   render() {
-    console.log(this.state.sort);
-    const sortOrder = this.state.sort === 'supportDesc' || this.state.sortOrder === 'createdonDesc' ? 'desc' : 'asc';
-    const sortBy = this.state.sort === 'supportDesc' || this.state.sortOrder === 'supportAsc' ? 'support' : 'createdon';
-    console.log(sortOrder);
-    console.log(sortBy);
+    const sortOrder = this.state.sort === 'supportDesc' || this.state.sort === 'createdonDesc' ? 'desc' : 'asc';
+    const sortBy = this.state.sort === 'supportDesc' || this.state.sort === 'supportAsc' ? 'support' : 'createdon';
     const sortProjectList = R.sortWith([sortOrder === 'desc' ? R.descend(R.prop(sortBy)) : R.ascend(R.prop(sortBy))]);
     let projectList = this.props.projectList;
     projectList = sortProjectList(projectList);
