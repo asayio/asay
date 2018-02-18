@@ -10,6 +10,7 @@ class formInput extends Component {
           placeholder={this.props.placeholder}
           className="block w-full bg-grey-lightest border border-grey-lighter rounded-sm px-3 py-2"
           onChange={this.props.handleChange}
+          value={this.props.value}
         />
       </label>
     );

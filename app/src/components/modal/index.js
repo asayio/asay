@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FeatherIcon from '../featherIcon';
 import './style.css';
 
 class Modal extends Component {
