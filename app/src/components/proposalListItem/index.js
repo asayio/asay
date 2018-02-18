@@ -22,7 +22,7 @@ class ProposalListItem extends Component {
         <div className="flex flex-col justify-center text-center md:text-left p-4 md:pr-16">
           <h4 className="mb-2">{isProject ? proposal.title : proposal.shortTitel.replace('.', '')}</h4>
           {isProject ? (
-            <div className="text-sm leading-normal text-grey-darker">
+            <div className="text-sm text-grey-darker">
               <span className="mr-4">
                 <b>Oprettet:</b> {Date(proposal.createdon).substr(4, 11)}
               </span>
@@ -31,7 +31,7 @@ class ProposalListItem extends Component {
               </span>
             </div>
           ) : (
-            <div className="text-sm leading-normal text-grey-darker">
+            <div className="text-sm text-grey-darker">
               <span className="mr-4">
                 <b>Deadline:</b> {proposal.deadline}
               </span>
