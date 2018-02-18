@@ -1,4 +1,6 @@
 // Import
+const candidate = require('./api/candidate');
+const candidateSupport = require('./api/support');
 const onboarding = require('./api/onboarding');
 const decleration = require('./api/decleration');
 const notificationSettings = require('./api/notificationSettings');
@@ -18,6 +20,8 @@ function map(app) {
   app.get('/api/appDataBundle', appData);
 
   // POST
+  app.post('/api/candidate/', candidate);
+  app.post('/api/candidate/:id/support', candidateSupport);
   app.post('/api/proposal/:id/vote', vote);
   app.post('/api/proposal/:id/subscription', subscription);
   app.post('/api/project/:id/edit', project);

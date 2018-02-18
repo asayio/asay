@@ -1,0 +1,31 @@
+insert into candidate (
+  user_id,
+  gender,
+  phone,
+  address,
+  birthday,
+  picture,
+  constituity_id,
+  facebook,
+  twitter,
+  linkedin,
+  youtube,
+  story,
+  motivation,
+  threat
+) values (
+  $/user/,
+  $/gender/,
+  $/phone/,
+  $/address/,
+  $/birthday/,
+  $/picture/,
+  $/constituity/,
+  $/facebook/,
+  $/twitter/,
+  $/linkedin/,
+  $/youtube/,
+  $/story/,
+  $/motivation/,
+  $/threat/
+)
