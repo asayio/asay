@@ -27,6 +27,7 @@ class Nav extends Component {
             <NavItem to="/proposals" text="Forslag" />
             {user && user.firstname && <NavItem to="/insights" text="Historik" />}
             <NavItem to="/projects" text="Projekter" />
+            <NavItem to="/candidates" text="Kandidater" />
           </div>
           <div className="flex relative">
             <SearchBar

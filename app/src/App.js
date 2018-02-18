@@ -23,6 +23,7 @@ import MyProjects from './routes/projects/mine';
 import NewProject from './routes/projects/new';
 import Project from './routes/project';
 import EditProject from './routes/project/edit';
+import Candidates from './routes/candidates';
 
 // components
 import Nav from './components/nav';
@@ -233,6 +234,11 @@ class App extends Component {
                     user={this.state.user}
                   />
                 )}
+              />
+              <Route
+                exact
+                path="/candidates"
+                render={props => <Candidates anonymousUser={this.state.anonymousUser} />}
               />
               {/* ONLY VISIBLE WHEN SIGNED IN*/}
               <Route
