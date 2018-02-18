@@ -93,7 +93,7 @@ class ProposalPage extends Component {
                       )}
                     </div>
                   ) : (
-                    <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
+                    <div className="bg-white border border-grey-lighter rounded-sm shadow p-8 m-1">
                       <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
                     </div>
                   )}
