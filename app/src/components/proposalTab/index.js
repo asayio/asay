@@ -13,7 +13,7 @@ class ProposalTab extends Component {
         onClick={() => this.props.selectTab(tab.name)}
         onMouseDown={e => e.preventDefault()}
         className={className}>
-        <FeatherIcon name={tab.icon} className="mr-2" />
+        <FeatherIcon name={tab.icon} className="hidden sm:inline-block mr-2" />
         {tab.name}
       </button>
     );

@@ -80,25 +80,25 @@ class ProposalPage extends Component {
           <ProposalTitle title={proposal.shortTitel.replace('.', '')} />
           <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
           <div className="flex flex-wrap md:flex-no-wrap -m-1">
-            <div className="w-full m-1">
-              <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
-                {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
-                {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
-                {this.state.selectedTab === 'Resultater' ? (
-                  <div>
-                    {results ? (
-                      <div>
-                        <ProposalResults titel="Platformens afstemning" results={results} />
-                        {proposal.actualResults && (
-                          <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
-                        )}
-                      </div>
-                    ) : (
+            <div className="w-full">
+              {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
+              {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
+              {this.state.selectedTab === 'Resultater' && (
+                <div>
+                  {results ? (
+                    <div className="-m-1">
+                      <ProposalResults titel="Platformens afstemning" results={results} />
+                      {proposal.actualResults && (
+                        <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
+                      )}
+                    </div>
+                  ) : (
+                    <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
                       <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
-                    )}
-                  </div>
-                ) : null}
-              </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
             <div className="w-full md:w-64 md:flex-no-shrink m-1">
               <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
