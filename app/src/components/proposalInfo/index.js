@@ -8,9 +8,9 @@ class ProposalInfo extends Component {
     ];
     const paragraphs = this.props.paragraphs.length > 1 ? this.props.paragraphs : emptyParagraphHandler;
     return (
-      <div className="bg-white border border-grey-lighter rounded-sm shadow p-8 m-1">
+      <article className="bg-white border border-grey-lighter rounded-sm shadow p-8 m-1">
         {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-      </div>
+      </article>
     );
   }
 }

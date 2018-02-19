@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
 import Modal from '../../components/modal';
-import ProposalTitle from '../../components/proposalTitle';
+import Heading from '../../components/headingWithBackBtn';
 
 class ProjectPage extends Component {
   constructor() {
@@ -64,26 +64,26 @@ class ProjectPage extends Component {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
-            <ProposalTitle title={project.title} />
+            <Heading title={project.title} />
             <div className="flex flex-wrap md:flex-no-wrap -m-1">
               <div className="w-full m-1">
                 <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
-                  <div className="mb-4">
+                  <article className="mb-4">
                     <h3>Beskrivelse</h3>
                     <p>{project.description}</p>
-                  </div>
-                  <div className="mb-4">
+                  </article>
+                  <article className="mb-4">
                     <h3>Budgettering</h3>
                     <p>{project.budget}</p>
-                  </div>
-                  <div className="mb-4">
+                  </article>
+                  <article className="mb-4">
                     <h3>Begrundelse og argumentation</h3>
                     <p>{project.argument}</p>
-                  </div>
-                  <div>
+                  </article>
+                  <article>
                     <h3>Risiko og udfordringer</h3>
                     <p>{project.risk}</p>
-                  </div>
+                  </article>
                 </div>
               </div>
               <div className="w-full md:w-64 md:flex-no-shrink m-1">

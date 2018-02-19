@@ -25,9 +25,14 @@ class Nav extends Component {
           </div>
           <div className="flex-grow flex">
             <NavItem to="/proposals" text="Forslag" />
-            {user && user.firstname && <NavItem to="/insights" text="Historik" />}
             <NavItem to="/projects" text="Projekter" />
             <NavItem to="/candidates" text="Kandidater" />
+            {user &&
+              user.firstname && (
+                <div className="border-l border-grey-lightest px-2">
+                  <NavItem to="/insights" text="Historik" />
+                </div>
+              )}
           </div>
           <div className="flex relative">
             <SearchBar

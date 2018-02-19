@@ -1,6 +1,6 @@
 import R from 'ramda';
 import React, { Component } from 'react';
-import ProposalTitle from '../../components/proposalTitle';
+import Heading from '../../components/headingWithBackBtn';
 import ProposalInfo from '../../components/proposalInfo';
 import ProposalActions from '../../components/proposalActions';
 import { ArrowLeft } from 'react-feather';
@@ -84,7 +84,7 @@ class ProposalPage extends Component {
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
-          <ProposalTitle title={proposal.shortTitel.replace('.', '')} />
+          <Heading title={proposal.shortTitel.replace('.', '')} />
           <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
           <div className="flex flex-wrap md:flex-no-wrap -m-1">
             <div className="w-full">
