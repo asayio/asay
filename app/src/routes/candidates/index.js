@@ -32,7 +32,7 @@ class Candidates extends Component {
             {candidateList.map((candidate, index) => (
               <li key={index} className="w-full md:w-1/4">
                 <Link
-                  to="/candidate/id"
+                  to={`/candidate/${candidate.id}`}
                   className="flex flex-row md:flex-col bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden m-1">
                   <div className="relative">
                     <img
