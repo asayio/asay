@@ -28,7 +28,7 @@ class EditProjectPage extends Component {
       return (
         <div>
           <h1>Hovsa...</h1>
-          <p>Det er da vist ikke din projekt. Lad hellere initiativtageren stå for redigeringen.</p>
+          <p>Det er da vist ikke din profil. Lad hellere kandidaten selv stå for redigeringen.</p>
           <a onClick={() => window.history.back()}>
             <ArrowLeft /> Gå tilbage
           </a>
