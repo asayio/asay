@@ -18,7 +18,7 @@ class FormSelect extends Component {
             ))}
           {this.props.options}
         </select>
-        <div className="absolute pin-y pin-r flex items-center px-2">
+        <div className="pointer-events-none absolute pin-y pin-r flex items-center px-2">
           <FeatherIcon name="ChevronDown" className="text-grey-dark" />
         </div>
       </div>
