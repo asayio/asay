@@ -7,8 +7,8 @@ class Root extends Component {
       <ul className="list-reset">
         {this.props.proposalList.map(function(proposal, index) {
           return (
-            <li>
-              <ProposalListItem key={index} proposal={proposal} />
+            <li key={index}>
+              <ProposalListItem proposal={proposal} />
             </li>
           );
         })}

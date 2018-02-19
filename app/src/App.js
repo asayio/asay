@@ -24,6 +24,8 @@ import NewProject from './routes/projects/new';
 import Project from './routes/project';
 import EditProject from './routes/project/edit';
 import Candidates from './routes/candidates';
+import Candidate from './routes/candidate';
+import EditCandidate from './routes/candidate/edit';
 
 // components
 import Nav from './components/nav';
@@ -53,6 +55,9 @@ class App extends Component {
       projectList: [],
       projectSupportList: [],
       userProjectSupportList: [],
+      candidateList: [],
+      candidateCommitmentList: [],
+      constituencyList: [],
       appReady: false,
       searchString: '',
       filter: {
@@ -215,8 +220,6 @@ class App extends Component {
                   <Projects
                     updateState={this.updateState}
                     preferenceList={this.state.preferenceList}
-                    searchString={this.state.searchString}
-                    filter={this.state.filter}
                     projectList={this.state.projectList}
                     user={this.state.user}
                   />
@@ -238,7 +241,27 @@ class App extends Component {
               <Route
                 exact
                 path="/candidates"
-                render={props => <Candidates anonymousUser={this.state.anonymousUser} />}
+                render={props => (
+                  <Candidates
+                    anonymousUser={this.state.anonymousUser}
+                    candidateList={this.state.candidateList}
+                    user={this.state.user}
+                    constituencyList={this.state.candidateList}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/candidate/:id"
+                render={props => (
+                  <Candidate
+                    match={props.match}
+                    anonymousUser={this.state.anonymousUser}
+                    candidateList={this.state.candidateList}
+                    updateState={this.updateState}
+                    user={this.state.user}
+                  />
+                )}
               />
               {/* ONLY VISIBLE WHEN SIGNED IN*/}
               <Route
@@ -264,6 +287,22 @@ class App extends Component {
                       updateState={this.updateState}
                       projectList={this.state.projectList}
                       preferenceList={this.state.preferenceList}
+                      user={this.state.user}
+                    />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/candidate/:id/edit"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <EditCandidate
+                      updateState={this.updateState}
+                      candidateList={this.state.candidateList}
+                      constituencyList={this.state.constituencyList}
                       user={this.state.user}
                     />
                   )

@@ -12,6 +12,7 @@ async function initialState() {
     const appDataBundle = await appDataBundleResponse.json();
     const user = appDataBundle.user;
     const committeeCategoryList = appDataBundle.committeeCategoryList;
+    const constituencyList = appDataBundle.constituencyList;
     const notificationList = appDataBundle.notificationList || [];
     const voteList = appDataBundle.voteList || [];
     const projectSupportList = appDataBundle.projectSupportList || [];
@@ -21,6 +22,8 @@ async function initialState() {
     const rawPreferenceList = appDataBundle.preferenceList || [];
     const rawProjectList = appDataBundle.projectList;
     const rawProposalList = appDataBundle.proposalList;
+    const rawCandidateList = appDataBundle.candidateList;
+    const candidateCommitmentList = appDataBundle.candidateCommitmentList;
     const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList);
     const proposalList = buildProposalList({
       participationList,
@@ -37,6 +40,11 @@ async function initialState() {
       projectSupportList,
       userProjectSupportList
     });
+    const candidateList = buildCandidateList({
+      candidateList: rawCandidateList,
+      candidateCommitmentList,
+      constituencyList
+    });
     return {
       user,
       preferenceList,
@@ -48,9 +56,25 @@ async function initialState() {
       notificationList,
       projectList,
       projectSupportList,
-      userProjectSupportList
+      userProjectSupportList,
+      constituencyList,
+      candidateCommitmentList,
+      candidateList
     };
   }
+}
+
+function buildCandidateList({ candidateList, candidateCommitmentList, constituencyList }) {
+  const newCandidateList = candidateList.map(candidate => {
+    const constituency = R.find(R.propEq('id', candidate.constituency))(constituencyList);
+    const commitments = R.filter(commitment => candidate.id === commitment.candidate)(candidateCommitmentList);
+    const newCandidate = Object.assign({}, candidate, {
+      constituency,
+      commitments
+    });
+    return newCandidate;
+  });
+  return newCandidateList;
 }
 
 function buildPreferenceList(rawPreferenceList, committeeCategoryList) {

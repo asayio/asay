@@ -1,6 +1,6 @@
 select
   id,
-  constituency_id,
+  constituency_id as constituency,
   email,
   firstname,
   lastname,
