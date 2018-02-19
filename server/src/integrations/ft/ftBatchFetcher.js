@@ -5,6 +5,7 @@ const scrapeIt = require('scrape-it');
 const getProposalList = require('../../db/proposal/getProposalList');
 const updateProposalState = require('../../db/proposal/updateProposalState');
 const resultsMailBatch = require('../../mail/resultsMailBatch');
+const findStageInfo = require('../../db/proposal/findStageInfo')
 
 // Functions
 async function ftBatchFetcher() {
@@ -51,7 +52,7 @@ async function ftBatchFetcher() {
       !!R.path(['paragraphs', 'length'], existingPresentation) || proposal.nummerprefix === 'B'; // beslutningforslag will never get a presentation
     const upsertedProposal = {
       id: proposal.id,
-      data: {
+      data: Object.assign({
         committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
         titel: proposal.titel,
         shortTitel: proposal.titelkort,
@@ -68,7 +69,7 @@ async function ftBatchFetcher() {
         period: proposal.Periode.titel,
         stage: proposal.Sagstrin,
         presentation: doNotLookForPresentation ? existingPresentation : await presentation()
-      }
+      }, findStageInfo(proposal.Sagstrin))
     };
     if (existingProposal) {
       await changeProposal(upsertedProposal.id, upsertedProposal.data);
