@@ -4,9 +4,7 @@ select
   email,
   firstname,
   lastname,
-  gender,
   phone,
-  birthday,
   picture,
   facebook,
   twitter,
@@ -15,6 +13,7 @@ select
   story,
   motivation,
   threat,
+  experience,
   active
 from candidate
   inner join public.user on candidate.user_id = "user".id

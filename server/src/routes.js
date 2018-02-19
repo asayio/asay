@@ -20,7 +20,7 @@ function map(app) {
   app.get('/api/appDataBundle', appData);
 
   // POST
-  app.post('/api/candidate/', candidate);
+  app.post('/api/candidate', candidate);
   app.post('/api/candidate/:id/support', candidateSupport);
   app.post('/api/proposal/:id/vote', vote);
   app.post('/api/proposal/:id/subscription', subscription);

@@ -1,9 +1,6 @@
 insert into candidate (
   user_id,
-  gender,
   phone,
-  address,
-  birthday,
   picture,
   constituency_id,
   facebook,
@@ -13,13 +10,11 @@ insert into candidate (
   story,
   motivation,
   threat,
+  experience,
   active
 ) values (
   $/user/,
-  $/gender/,
   $/phone/,
-  $/address/,
-  $/birthday/,
   $/picture/,
   $/constituency/,
   $/facebook/,
@@ -29,5 +24,6 @@ insert into candidate (
   $/story/,
   $/motivation/,
   $/threat/,
+  $/experience/,
   $/active/
 )

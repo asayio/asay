@@ -6,12 +6,9 @@ const updateCandidate = db.sql('./candidate/sql/updateCandidate.sql');
 async function changeCandidate(userId, candidate) {
   await db.cx.query(updateCandidate, {
     user: userId,
-    gender: candidate.gender,
     phone: candidate.phone,
-    address: candidate.address,
-    birthday: candidate.birthday,
     picture: candidate.picture,
-    constituency: candidate.constituency,
+    constituency: candidate.constituency === '' ? null : candidate.constituency,
     facebook: candidate.facebook,
     twitter: candidate.twitter,
     linkedin: candidate.linkedin,
@@ -19,6 +16,7 @@ async function changeCandidate(userId, candidate) {
     story: candidate.story,
     motivation: candidate.motivation,
     threat: candidate.threat,
+    experience: candidate.experience,
     active: candidate.active
   });
 }

@@ -11,8 +11,8 @@ async function postCandidate(request, response) {
     if (user) {
       const userId = user.id;
       const candidate = request.body;
-      const currentCandidate = await lookupCandidate(userId);
-      const hasCandidacy = currentCandidate.length > 0 ? true : false;
+      const hasCandidacy = await lookupCandidate(userId);
+      const testing = hasCandidacy ? true : false;
       if (hasCandidacy) {
         await changeCandidate(userId, candidate);
       } else {

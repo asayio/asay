@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
+import R from 'ramda';
 import { ArrowLeft } from 'react-feather';
+import CandidateForm from '../../../components/candidateForm';
 
 class EditCandidatePage extends Component {
   render() {
-    if (true) {
+    const candidateId = Number(this.props.match.params.id);
+    const candidate = R.find(R.propEq('id', candidateId), this.props.candidateList);
+    const user = this.props.user;
+    if (candidateId === user.id) {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
             <h1>Rediger kandidatprofil</h1>
-            <div className="bg-white border border-grey-lighter rounded-sm shadow p-8" />
+            <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
+              <CandidateForm
+                match={this.props.match}
+                updateState={this.props.updateState}
+                candidate={candidate}
+                constituencyList={this.props.constituencyList}
+                user={this.props.user}
+              />
+            </div>
           </div>
         </div>
       );
@@ -16,7 +29,7 @@ class EditCandidatePage extends Component {
       return (
         <div>
           <h1>Hovsa...</h1>
-          <p>Det er da vist ikke din projekt. Lad hellere initiativtageren stå for redigeringen.</p>
+          <p>Det er da vist ikke din profil. Lad hellere kandidaten selv stå for redigeringen.</p>
           <a onClick={() => window.history.back()}>
             <ArrowLeft /> Gå tilbage
           </a>

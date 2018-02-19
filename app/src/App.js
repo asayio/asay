@@ -300,6 +300,7 @@ class App extends Component {
                     <Unauthorized />
                   ) : (
                     <EditCandidate
+                      match={props.match}
                       updateState={this.updateState}
                       candidateList={this.state.candidateList}
                       constituencyList={this.state.constituencyList}

@@ -6,12 +6,9 @@ const insertCandidate = db.sql('./candidate/sql/insertCandidate.sql');
 async function createCandidate(userId, candidate) {
   await db.cx.query(insertCandidate, {
     user: userId,
-    gender: candidate.gender,
     phone: candidate.phone,
-    address: candidate.address,
-    birthday: candidate.birthday,
     picture: candidate.picture,
-    constituency: candidate.constituency,
+    constituency: candidate.constituency === '' ? null : candidate.constituency,
     facebook: candidate.facebook,
     twitter: candidate.twitter,
     linkedin: candidate.linkedin,
@@ -19,6 +16,7 @@ async function createCandidate(userId, candidate) {
     story: candidate.story,
     motivation: candidate.motivation,
     threat: candidate.threat,
+    experience: candidate.experience,
     active: candidate.active
   });
 }
