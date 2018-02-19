@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import R from 'ramda';
 import FormSelect from '../../components/formSelect';
+import FeatherIcon from '../../components/featherIcon';
 import { Link } from 'react-router-dom';
 
 class Candidates extends Component {
   render() {
+    console.log(this.props.candidateList);
+    const candidateList = R.filter(candidate => {
+      return candidate.active;
+    }, this.props.candidateList);
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
@@ -22,19 +28,40 @@ class Candidates extends Component {
               <FormSelect name="category" options={<option>Flest støtter</option>} />
             </div>
           </div>
-          <Link
-            to="/candidate/id"
-            className="block relative flex bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden p-2 my-2">
-            <img
-              src="https://source.unsplash.com/TV1QYUtTxJ8/200x200"
-              alt="Jens Hansen"
-              className="block h-32 w-32 flex-none rounded-sm mx-auto"
-            />
-            <div className="relative flex-auto flex flex-col justify-center px-8 py-2 md:pr-16">
-              <h4 className="mb-2">Jens Hansen</h4>
-              <span className="block text-grey-darker">49 støtter, København, Interesser</span>
-            </div>
-          </Link>
+          <ul className="list-reset flex flex-wrap -m-1">
+            {candidateList.map((candidate, index) => (
+              <li key={index} className="w-full md:w-1/4">
+                <Link
+                  to="/candidate/id"
+                  className="flex flex-row md:flex-col bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden m-1">
+                  <div className="relative">
+                    <img
+                      src={candidate.picture}
+                      alt={candidate.firstname + ' ' + candidate.lastname}
+                      className="block w-full max-w-2xs md:max-w-full"
+                    />
+                    <h4 className="absolute pin-x pin-b text-center text-white text-xl font-bold bg-transparent-to-black pt-4 pb-2 mb-0">
+                      {candidate.firstname + ' ' + candidate.lastname}
+                    </h4>
+                    <span className="absolute pin-t pin-r text-white bg-teal leading-none rounded-sm p-1 m-1">149</span>
+                  </div>
+                  <div className="flex flex-col justify-center p-4 md:pt-2">
+                    <span className="block md:text-center text-grey uppercase mb-2">
+                      {candidate.constituency.district}
+                    </span>
+                    <ul className="list-reset">
+                      {candidate.commitments.map((commitment, index) => (
+                        <li key={index} className="block leading-normal truncate">
+                          <FeatherIcon name={commitment.category.feathericon} className="text-teal mr-2" />
+                          {commitment.category.title}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     );
