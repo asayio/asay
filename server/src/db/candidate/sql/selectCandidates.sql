@@ -1,6 +1,6 @@
 select
   id,
-  constituity_id,
+  constituency_id,
   email,
   firstname,
   lastname,
@@ -16,4 +16,5 @@ select
   motivation,
   threat
 from candidate
-  inner join public.user
+  inner join public.user on candidate.user_id = "user".id
+  where active = true or id = $/user/

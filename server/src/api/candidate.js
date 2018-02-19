@@ -1,7 +1,7 @@
 // Import
-const changeCandidate = require('../db/projectSupport/changeCandidate');
-const createCandidate = require('../db/projectSupport/createCandidate');
-const lookupCandidate = require('../db/projectSupport/lookupCandidate');
+const changeCandidate = require('../db/candidate/changeCandidate');
+const createCandidate = require('../db/candidate/createCandidate');
+const lookupCandidate = require('../db/candidate/lookupCandidate');
 const getUser = require('../logic/getUser');
 
 // Function
@@ -14,9 +14,9 @@ async function postCandidate(request, response) {
       const currentCandidate = await lookupCandidate(userId);
       const hasCandidacy = currentCandidate.length > 0 ? true : false;
       if (hasCandidacy) {
-        changeCandidate(userId, candidate);
+        await changeCandidate(userId, candidate);
       } else {
-        createCandidate(userId, candidate);
+        await createCandidate(userId, candidate);
       }
       response.sendStatus(200);
     } else {

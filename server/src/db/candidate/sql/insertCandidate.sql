@@ -5,14 +5,15 @@ insert into candidate (
   address,
   birthday,
   picture,
-  constituity_id,
+  constituency_id,
   facebook,
   twitter,
   linkedin,
   youtube,
   story,
   motivation,
-  threat
+  threat,
+  active
 ) values (
   $/user/,
   $/gender/,
@@ -20,12 +21,13 @@ insert into candidate (
   $/address/,
   $/birthday/,
   $/picture/,
-  $/constituity/,
+  $/constituency/,
   $/facebook/,
   $/twitter/,
   $/linkedin/,
   $/youtube/,
   $/story/,
   $/motivation/,
-  $/threat/
+  $/threat/,
+  $/active/
 )

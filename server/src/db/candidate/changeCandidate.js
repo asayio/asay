@@ -1,6 +1,6 @@
 // Import
 const db = require('../db');
-const updateCandidate = db.sql('./user/sql/updateCandidate.sql');
+const updateCandidate = db.sql('./candidate/sql/updateCandidate.sql');
 
 // Functions
 async function changeCandidate(userId, candidate) {
@@ -11,14 +11,15 @@ async function changeCandidate(userId, candidate) {
     address: candidate.address,
     birthday: candidate.birthday,
     picture: candidate.picture,
-    constituity: candidate.constituity,
+    constituency: candidate.constituency,
     facebook: candidate.facebook,
     twitter: candidate.twitter,
     linkedin: candidate.linkedin,
     youtube: candidate.youtube,
     story: candidate.story,
     motivation: candidate.motivation,
-    threat: candidate.threat
+    threat: candidate.threat,
+    active: candidate.active
   });
 }
 

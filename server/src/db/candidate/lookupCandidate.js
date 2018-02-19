@@ -1,6 +1,6 @@
 // Import
 const db = require('../db');
-const selectCandidate = db.sql('./user/sql/selectCandidate.sql');
+const selectCandidate = db.sql('./candidate/sql/selectCandidate.sql');
 
 // Functions
 async function lookupCandidate(candidateId) {

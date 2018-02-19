@@ -1,6 +1,6 @@
 // Import
 const candidate = require('./api/candidate');
-const candidateSupport = require('./api/support');
+const candidateSupport = require('./api/candidateSupport');
 const onboarding = require('./api/onboarding');
 const decleration = require('./api/decleration');
 const notificationSettings = require('./api/notificationSettings');
