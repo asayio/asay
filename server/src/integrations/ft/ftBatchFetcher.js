@@ -6,6 +6,8 @@ const getProposalList = require('../../db/proposal/getProposalList');
 const updateProposalState = require('../../db/proposal/updateProposalState');
 const resultsMailBatch = require('../../mail/resultsMailBatch');
 const findStageInfo = require('../../db/proposal/findStageInfo')
+const changeProposal = require('../../db/proposal/changeProposal')
+const createProposal = require('../../db/proposal/createProposal')
 
 // Functions
 async function ftBatchFetcher() {
@@ -44,12 +46,14 @@ async function ftBatchFetcher() {
         console.log('We could not find a presentation for proposal: ' + proposal.id);
         return null;
       } else {
+        console.log('I found a presentation!');
         return presentation;
       }
     }
-    const existingPresentation = R.path(['data', 'presentation'], existingProposal);
+    const existingPresentation = R.path(['presentation'], existingProposal);
     const doNotLookForPresentation =
       !!R.path(['paragraphs', 'length'], existingPresentation) || proposal.nummerprefix === 'B'; // beslutningforslag will never get a presentation
+    if (!doNotLookForPresentation) console.log('I am looking for a presentation...');
     const upsertedProposal = {
       id: proposal.id,
       data: Object.assign({
