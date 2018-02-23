@@ -67,46 +67,49 @@ class ProjectPage extends Component {
           <div className="max-w-xl mx-auto">
             <Heading title={candidate.firstname + ' ' + candidate.lastname} />
             <div className="flex flex-wrap md:flex-no-wrap -m-1">
-              <main className="w-full m-1 md:mt-8">
-                <div className="relative bg-white border border-grey-lighter rounded-sm shadow p-8">
-                  <img
-                    src={
-                      candidate.picture
-                        ? candidate.picture
-                        : 'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png'
-                    }
-                    alt={candidate.firstname + ' ' + candidate.lastname}
-                    className="absolute pin-t pin-l h-32 w-32 ml-8 -mt-8 rounded-sm shadow"
-                  />
-                  <div className="pl-40 -mt-2 mb-10">
-                    <span className="mb-2">
-                      {candidate.constituency
-                        ? `Opstilling i ${candidate.constituency.constituency}`
-                        : 'Opstillingskreds ikke valgt'}
-                    </span>
-                    <ul className="list-reset text-grey-dark -mx-2">
-                      {candidate.facebook && (
-                        <li className="inline-block m-2">
-                          <a href={candidate.facebook} target="_facebook" className="hover:text-grey-darkest">
-                            <FeatherIcon name="Facebook" className="text-grey-darkest mr-1" />Facebook
-                          </a>
-                        </li>
-                      )}
-                      {candidate.linkedin && (
-                        <li className="inline-block m-2">
-                          <a href={candidate.linkedin} target="_linkedin" className="hover:text-grey-darkest">
-                            <FeatherIcon name="Linkedin" className="text-grey-darkest mr-1" />LinkedIn
-                          </a>
-                        </li>
-                      )}
-                      {candidate.twitter && (
-                        <li className="inline-block m-2">
-                          <a href={candidate.twitter} target="_twitter" className="hover:text-grey-darkest">
-                            <FeatherIcon name="Twitter" className="text-grey-darkest mr-1" />Twitter
-                          </a>
-                        </li>
-                      )}
-                    </ul>
+              <main className="w-full m-1 mt-8 sm:mt-0 md:mt-8">
+                <div className="relative bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
+                  <div className="flex flex-wrap items-center md:pl-40 md:-mt-2 mb-8 md:mb-12">
+                    <img
+                      src={
+                        candidate.picture
+                          ? candidate.picture
+                          : 'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png'
+                      }
+                      alt={candidate.firstname + ' ' + candidate.lastname}
+                      className="h-32 w-32 rounded-sm shadow mx-auto sm:mx-0 mb-2 sm:mb-2 md:absolute md:pin-t md:pin-l md:ml-8 -mt-16 sm:mt-0 md:-mt-8"
+                    />
+                    <div className="w-full sm:w-auto text-center sm:text-left pl-4 md:pl-0">
+                      <span className="mb-2">
+                        {candidate.constituency
+                          ? `Opstilling i ${candidate.constituency.constituency}`
+                          : 'Opstillingskreds ikke valgt'}
+                      </span>
+                      <ul className="list-reset text-grey-dark -mx-2 my-1">
+                        {candidate.facebook && (
+                          <li className="inline-block mx-2 my-1">
+                            <a href={candidate.facebook} target="_facebook" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Facebook" className="text-grey-darkest mr-1" />Facebook
+                            </a>
+                          </li>
+                        )}
+                        {candidate.linkedin && (
+                          <li className="inline-block mx-2 my-1">
+                            <a href={candidate.linkedin} target="_linkedin" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Linkedin" className="text-grey-darkest mr-1" />LinkedIn
+                            </a>
+                          </li>
+                        )}
+                        {candidate.twitter && (
+                          <li className="inline-block mx-2 my-1">
+                            <a href={candidate.twitter} target="_twitter" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Twitter" className="text-grey-darkest mr-1" />Twitter
+                            </a>
+                          </li>
+                        )}
+                      </ul>
+                      <button className="md:hidden btn btn-primary mt-1">Støt {candidate.firstname}</button>
+                    </div>
                   </div>
                   <article className="mb-4">
                     <h3>Motivation for opstilling</h3>

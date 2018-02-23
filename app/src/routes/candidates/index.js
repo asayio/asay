@@ -92,7 +92,7 @@ class Candidates extends Component {
                   <Link
                     to={`/candidate/${candidate.id}`}
                     className="flex flex-row md:flex-col bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden m-1">
-                    <div className="relative">
+                    <div className="flex-none relative">
                       <img
                         src={candidate.picture}
                         alt={candidate.firstname + ' ' + candidate.lastname}
@@ -105,7 +105,7 @@ class Candidates extends Component {
                         {candidate.support}
                       </span>
                     </div>
-                    <div className="flex flex-col justify-center p-4 md:pt-2">
+                    <div className="overflow-hidden flex flex-col justify-center p-4 md:pt-2">
                       <span className="block md:text-center text-grey uppercase mb-2">
                         {candidate.constituency.constituency}
                       </span>

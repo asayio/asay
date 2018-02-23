@@ -12,7 +12,7 @@ class EditProjectPage extends Component {
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
             <h1>Rediger projekt</h1>
-            <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
+            <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
               <ProjectForm
                 projectList={this.props.projectList}
                 preferenceList={this.props.preferenceList}
