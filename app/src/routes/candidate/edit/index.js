@@ -20,6 +20,7 @@ class EditCandidatePage extends Component {
                 candidate={candidate}
                 constituencyList={this.props.constituencyList}
                 user={this.props.user}
+                preferenceList={this.props.preferenceList}
               />
             </div>
           </div>

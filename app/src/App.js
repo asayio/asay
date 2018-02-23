@@ -308,6 +308,7 @@ class App extends Component {
                       updateState={this.updateState}
                       candidateList={this.state.candidateList}
                       constituencyList={this.state.constituencyList}
+                      preferenceList={this.state.preferenceList}
                       user={this.state.user}
                     />
                   )

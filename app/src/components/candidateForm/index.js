@@ -11,28 +11,27 @@ class candidateForm extends Component {
     super();
     this.state = {};
     this.handleChange = this.handleChange.bind(this);
+    this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePreperationEvaluation = this.handlePreperationEvaluation.bind(this);
   }
 
   componentDidMount() {
     const candidate = this.props.candidate;
-    const obj = {
+    const commitments =
+      candidate.commitments &&
+      candidate.commitments.map(commitment => {
+        const flatCommitment = Object.assign({}, commitment, {
+          category: commitment.category.id
+        });
+        return flatCommitment;
+      });
+    const obj = Object.assign({}, candidate, {
       id: Number(this.props.match.params.id),
-      constituency: (candidate && candidate.constituency && candidate.constituency.id) || '',
-      picture: (candidate && candidate.picture) || '',
-      phone: (candidate && candidate.phone) || '',
-      facebook: (candidate && candidate.facebook) || '',
-      twitter: (candidate && candidate.twitter) || '',
-      linkedin: (candidate && candidate.linkedin) || '',
-      youtube: (candidate && candidate.youtube) || '',
-      story: (candidate && candidate.story) || '',
-      motivation: (candidate && candidate.motivation) || '',
-      threat: (candidate && candidate.threat) || '',
-      experience: (candidate && candidate.experience) || '',
-      active: (candidate && candidate.active) || false,
-      originalActive: (candidate && candidate.active) || false
-    };
+      commitments: commitments,
+      constituency: candidate.constituency.id
+    });
+    console.log(obj);
     this.setState(obj);
     this.handlePreperationEvaluation(obj);
   }
@@ -61,20 +60,24 @@ class candidateForm extends Component {
     this.handlePreperationEvaluation();
   }
 
-  async handleSubmit(published) {
+  async handleCommitmentChange(event, priority) {
+    const target = event.target;
+  }
+
+  async handleSubmit() {
     this.setState({ showModal: 'loading' });
+    const candidate = Object.assign({}, this.state, {
+      constituency: Number(this.state.constituency)
+    });
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(candidate),
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + window.localStorage.authToken
       }
     });
     if (response.ok) {
-      const candidate = Object.assign({}, this.state, {
-        category: Number(this.state.constituency)
-      });
       this.props.updateState({ entityType: 'candidateList', entity: candidate });
       const modal = this.state.active ? 'active' : 'saved';
       this.setState({ showModal: modal });
@@ -86,8 +89,9 @@ class candidateForm extends Component {
 
   render() {
     const candidate = this.state;
+    console.log(candidate);
     const constituencyList = this.props.constituencyList;
-    if (candidate) {
+    if (candidate.id) {
       return (
         <div>
           {candidate.showModal === 'loading' && <Modal content={<LoadingSpinner />} />}
@@ -201,6 +205,35 @@ class candidateForm extends Component {
                 />
               </div>
               <div>
+                <h2>Fokusområder</h2>
+                <p>
+                  Vælg tre politiske emner du vil engagere dig i og forklar. Begrund dine valg og redegør kort for din
+                  indgangsvinkel.
+                </p>
+                {candidate.commitments.map(commitment => (
+                  <div key={commitment.priority}>
+                    <FormSelect
+                      onChange={this.handleCommitmentChange}
+                      name="category"
+                      value={commitment.category}
+                      defaultOption="Vælg kategori"
+                      defaultOptionDisabled="yes"
+                      options={this.props.preferenceList.map(category => (
+                        <option value={category.id} key={category.id}>
+                          {category.title}
+                        </option>
+                      ))}
+                    />
+                    <FormTextArea
+                      onChange={this.handleCommitmentChange}
+                      name="commitment"
+                      value={commitment.commitment}
+                      placeholder="Her skal stå noget"
+                    />
+                  </div>
+                ))}
+              </div>
+              <div>
                 <h2>Godkend og offentliggør dit kandidatur</h2>
                 {candidate.isPublishable ? (
                   <div>
@@ -245,6 +278,8 @@ class candidateForm extends Component {
           </div>
         </div>
       );
+    } else {
+      return <LoadingSpinner />;
     }
   }
 }
