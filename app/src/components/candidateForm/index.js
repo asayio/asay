@@ -128,154 +128,154 @@ class candidateForm extends Component {
               }
             />
           )}
-          <div className="max-w-md mx-auto">
-            <form onChange={this.handleChange} onSubmit={e => e.preventDefault()} className="-mt-8">
-              <div>
-                <h2>Social tilstedeværelse</h2>
-                <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
-                <FormInput
-                  title="Facebook URL"
-                  name="facebook"
-                  value={candidate.facebook}
-                  placeholder="Link til din Facebook profil"
-                  type="url"
+          <form onChange={this.handleChange} onSubmit={e => e.preventDefault()}>
+            <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 py-4 my-4">
+              <h2>Social tilstedeværelse</h2>
+              <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
+              <FormInput
+                title="Facebook URL"
+                name="facebook"
+                value={candidate.facebook}
+                placeholder="Link til din Facebook profil"
+                type="url"
+              />
+              <FormInput
+                title="Twitter URL"
+                name="twitter"
+                value={candidate.twitter}
+                placeholder="Link til din Twitter profil"
+                type="url"
+              />
+              <FormInput
+                title="LinkedIn URL"
+                name="linkedin"
+                value={candidate.linkedin}
+                placeholder="Link til din LinkedIn profil"
+                type="url"
+              />
+              <FormInput
+                title="Youtube URL"
+                name="youtube"
+                value={candidate.youtube}
+                placeholder="Link til videopræsentation af dit kandidatur"
+                type="url"
+              />
+            </div>
+            <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 py-4 my-4">
+              <h2>Kandidatur</h2>
+              <label className="block md:w-1/2 my-8">
+                <span className="block font-bold mb-2">Hvilken storkreds ønsker du at stille op i?</span>
+                <FormSelect
+                  title="Storkreds"
+                  name="constituency"
+                  value={candidate.constituency}
+                  defaultOption="Vælg kategori"
+                  defaultOptionDisabled="yes"
+                  options={constituencyList.map(constituency => (
+                    <option value={constituency.id} key={constituency.id}>
+                      {constituency.constituency}
+                    </option>
+                  ))}
                 />
-                <FormInput
-                  title="Twitter URL"
-                  name="twitter"
-                  value={candidate.twitter}
-                  placeholder="Link til din Twitter profil"
-                  type="url"
-                />
-                <FormInput
-                  title="LinkedIn URL"
-                  name="linkedin"
-                  value={candidate.linkedin}
-                  placeholder="Link til din LinkedIn profil"
-                  type="url"
-                />
-                <FormInput
-                  title="Youtube URL"
-                  name="youtube"
-                  value={candidate.youtube}
-                  placeholder="Link til videopræsentation af dit kandidatur"
-                  type="url"
-                />
-              </div>
-              <div>
-                <h2>Kandidatur</h2>
-                <label className="block md:w-1/2 my-8">
-                  <span className="block font-bold mb-2">Hvilken storkreds ønsker du at stille op i?</span>
+              </label>
+              <FormTextArea
+                title="Kort om din baggrund"
+                name="story"
+                value={candidate.story}
+                placeholder="Fortæl din livshistorie. Kort."
+              />
+              <FormTextArea
+                title="Kort om din motivation"
+                name="motivation"
+                value={candidate.motivation}
+                placeholder="Fortæl hvorfor du ønsker at stille op til Folketinget?"
+              />
+              <FormTextArea
+                title="Politisk erfaring"
+                name="experience"
+                value={candidate.experience}
+                placeholder="Har du tidligere erfaring fra politik, f.eks. opstilling, offentlig fremtoning el. lign.?"
+              />
+              <FormTextArea
+                title="Dette kan skade mit kandidatur"
+                name="threat"
+                value={candidate.threat}
+                placeholder="Vi har behov for transparens. Det er derfor vigtigt, at du åbent fortæller os og vælgerne de ting, som medierne kunne finde på at grave i, hvis du stiller op til Folketinget."
+              />
+            </div>
+            <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 py-4 my-4">
+              <h2>Fokusområder</h2>
+              <p>
+                Vælg tre politiske emner du vil engagere dig i og forklar. Begrund dine valg og redegør kort for din
+                indgangsvinkel.
+              </p>
+              {candidate.commitments.map(commitment => (
+                <div key={commitment.priority}>
                   <FormSelect
-                    title="Storkreds"
-                    name="constituency"
-                    value={candidate.constituency}
+                    onChange={this.handleCommitmentChange}
+                    name="category"
+                    value={commitment.category}
                     defaultOption="Vælg kategori"
                     defaultOptionDisabled="yes"
-                    options={constituencyList.map(constituency => (
-                      <option value={constituency.id} key={constituency.id}>
-                        {constituency.constituency}
+                    options={this.props.preferenceList.map(category => (
+                      <option value={category.id} key={category.id}>
+                        {category.title}
                       </option>
                     ))}
                   />
-                </label>
-                <FormTextArea
-                  title="Kort om din baggrund"
-                  name="story"
-                  value={candidate.story}
-                  placeholder="Fortæl din livshistorie. Kort."
-                />
-                <FormTextArea
-                  title="Kort om din motivation"
-                  name="motivation"
-                  value={candidate.motivation}
-                  placeholder="Fortæl hvorfor du ønsker at stille op til Folketinget?"
-                />
-                <FormTextArea
-                  title="Politisk erfaring"
-                  name="experience"
-                  value={candidate.experience}
-                  placeholder="Har du tidligere erfaring fra politik, f.eks. opstilling, offentlig fremtoning el. lign.?"
-                />
-                <FormTextArea
-                  title="Dette kan skade mit kandidatur"
-                  name="threat"
-                  value={candidate.threat}
-                  placeholder="Vi har behov for transparens. Det er derfor vigtigt, at du åbent fortæller os og vælgerne de ting, som medierne kunne finde på at grave i, hvis du stiller op til Folketinget."
-                />
-              </div>
-              <div>
-                <h2>Fokusområder</h2>
-                <p>
-                  Vælg tre politiske emner du vil engagere dig i og forklar. Begrund dine valg og redegør kort for din
-                  indgangsvinkel.
-                </p>
-                {candidate.commitments.map(commitment => (
-                  <div key={commitment.priority}>
-                    <FormSelect
-                      onChange={this.handleCommitmentChange}
-                      name="category"
-                      value={commitment.category}
-                      defaultOption="Vælg kategori"
-                      defaultOptionDisabled="yes"
-                      options={this.props.preferenceList.map(category => (
-                        <option value={category.id} key={category.id}>
-                          {category.title}
-                        </option>
-                      ))}
-                    />
-                    <FormTextArea
-                      onChange={this.handleCommitmentChange}
-                      name="commitment"
-                      value={commitment.commitment}
-                      placeholder="Her skal stå noget"
-                    />
-                  </div>
-                ))}
-              </div>
-              <div>
-                <h2>Godkend og offentliggør dit kandidatur</h2>
-                {candidate.isPublishable ? (
-                  <div>
-                    <input name="active" onChange={this.handleChange} checked={candidate.active} type="checkbox" />
-                    <p>
-                      Jeg bekræfter hermed, at jeg tiltræder{' '}
-                      <a
-                        href="https://assets.initiativet.dk/files/initiativet_forretningsorden.pdf"
-                        target="_forretningsorden">
-                        Initiativets Forretningsorden for Folketingsgruppen
-                      </a>{' '}
-                      og ønsker at offentliggøre mit kandidatur.
-                    </p>
-                  </div>
-                ) : (
-                  <p>
-                    Du har ikke udfyldt alle obligatoriske oplysninger. Vi kan ikke offentliggøre dit kandidatur, før
-                    din kandidatprofil er fuldstændig.
-                  </p>
-                )}
-              </div>
-            </form>
-            <div className="text-center -my-2">
-              {!candidate.active &&
-                candidate.originalActive && (
-                  <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
-                    Træk kandidatur tilbage
-                  </button>
-                )}
-              {!candidate.active &&
-                !candidate.originalActive && (
-                  <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
-                    Gem som kladde
-                  </button>
-                )}
-              {candidate.active && (
-                <button onClick={this.handleSubmit} className="btn btn-primary m-2">
-                  Offentliggør
-                </button>
-              )}
+                  <FormTextArea
+                    onChange={this.handleCommitmentChange}
+                    name="commitment"
+                    value={commitment.commitment}
+                    placeholder="Her skal stå noget"
+                  />
+                </div>
+              ))}
             </div>
-          </div>
+            <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-4 pb-8 my-4">
+              <h2>Godkend og offentliggør dit kandidatur</h2>
+              {candidate.isPublishable ? (
+                <div className="flex">
+                  <div className="pr-2">
+                    <input name="active" onChange={this.handleChange} checked={candidate.active} type="checkbox" />
+                  </div>
+                  <p>
+                    Jeg bekræfter hermed, at jeg tiltræder{' '}
+                    <a
+                      href="https://assets.initiativet.dk/files/initiativet_forretningsorden.pdf"
+                      target="_forretningsorden">
+                      Initiativets Forretningsorden for Folketingsgruppen
+                    </a>{' '}
+                    og ønsker at offentliggøre mit kandidatur.
+                  </p>
+                </div>
+              ) : (
+                <p>
+                  Du har ikke udfyldt alle obligatoriske oplysninger. Vi kan ikke offentliggøre dit kandidatur, før din
+                  kandidatprofil er fuldstændig.
+                </p>
+              )}
+              <div className="-mx-2">
+                {!candidate.active &&
+                  candidate.originalActive && (
+                    <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
+                      Træk kandidatur tilbage
+                    </button>
+                  )}
+                {!candidate.active &&
+                  !candidate.originalActive && (
+                    <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
+                      Gem som kladde
+                    </button>
+                  )}
+                {candidate.active && (
+                  <button onClick={this.handleSubmit} className="btn btn-primary m-2">
+                    Offentliggør
+                  </button>
+                )}
+              </div>
+            </div>
+          </form>
         </div>
       );
     } else {

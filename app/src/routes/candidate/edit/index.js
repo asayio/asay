@@ -13,16 +13,14 @@ class EditCandidatePage extends Component {
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
             <h1>Rediger kandidatprofil</h1>
-            <div className="bg-white border border-grey-lighter rounded-sm shadow p-8">
-              <CandidateForm
-                match={this.props.match}
-                updateState={this.props.updateState}
-                candidate={candidate}
-                constituencyList={this.props.constituencyList}
-                user={this.props.user}
-                preferenceList={this.props.preferenceList}
-              />
-            </div>
+            <CandidateForm
+              match={this.props.match}
+              updateState={this.props.updateState}
+              candidate={candidate}
+              constituencyList={this.props.constituencyList}
+              user={this.props.user}
+              preferenceList={this.props.preferenceList}
+            />
           </div>
         </div>
       );
