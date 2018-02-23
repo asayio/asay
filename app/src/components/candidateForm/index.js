@@ -18,7 +18,7 @@ class candidateForm extends Component {
   componentDidMount() {
     const candidate = this.props.candidate;
     const obj = {
-      id: this.props.match.params.id,
+      id: Number(this.props.match.params.id),
       constituency: (candidate && candidate.constituency && candidate.constituency.id) || '',
       picture: (candidate && candidate.picture) || '',
       phone: (candidate && candidate.phone) || '',

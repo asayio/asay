@@ -135,6 +135,9 @@ class App extends Component {
       case 'projectSupportList':
         this.setState(stateBuilder.updateProjectSupportList(this.state, entity));
         break;
+      case 'candidateList':
+        this.setState(stateBuilder.updateCandidateList(this.state, entity));
+        break;
       case 'error':
         this.setState({ showErrorModal: entity });
         break;

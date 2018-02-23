@@ -247,6 +247,20 @@ function updateProjectList(state, entity) {
   return newState;
 }
 
+function updateCandidateList(state, entity) {
+  const oldCandidate = R.find(R.propEq('id', entity.id))(state.candidateList);
+  const newCandidate = Object.assign({}, oldCandidate, entity);
+  const updatedCandidate = buildCandidateList({
+    candidateList: [newCandidate],
+    candidateCommitmentList: state.candidateCommitmentList,
+    constituencyList: state.constituencyList,
+    preferenceList: state.preferenceList
+  });
+  const candidateList = R.reject(R.propEq('id', entity.id))(state.candidateList).concat(updatedCandidate[0]);
+  const newState = Object.assign({}, state, { candidateList: candidateList });
+  return newState;
+}
+
 function updateProjectSupportList(state, entity) {
   const projectSupport = R.find(R.propEq('project', entity.id), state.projectSupportList);
   const newProjectSupport = projectSupport
@@ -284,5 +298,6 @@ export default {
   updateProjectList,
   updateFilter,
   updateUser,
-  updateProjectSupportList
+  updateProjectSupportList,
+  updateCandidateList
 };
