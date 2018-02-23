@@ -30,7 +30,8 @@ class candidateForm extends Component {
       motivation: (candidate && candidate.motivation) || '',
       threat: (candidate && candidate.threat) || '',
       experience: (candidate && candidate.experience) || '',
-      active: (candidate && candidate.active) || false
+      active: (candidate && candidate.active) || false,
+      originalActive: (candidate && candidate.active) || false
     };
     this.setState(obj);
     this.handlePreperationEvaluation(obj);
@@ -104,7 +105,7 @@ class candidateForm extends Component {
               }
             />
           )}
-          {
+          {candidate.showModal === 'active' && (
             <Modal
               content={
                 <div>
@@ -122,7 +123,7 @@ class candidateForm extends Component {
                 </div>
               }
             />
-          }
+          )}
           <div className="max-w-md mx-auto">
             <form onChange={this.handleChange} onSubmit={e => e.preventDefault()} className="-mt-8">
               <div>
@@ -203,13 +204,13 @@ class candidateForm extends Component {
                 <h2>Godkend og offentliggør dit kandidatur</h2>
                 {candidate.isPublishable ? (
                   <div>
-                    <input name="active" value={candidate.active} type="checkbox" />
+                    <input name="active" onChange={this.handleChange} checked={candidate.active} type="checkbox" />
                     <p>
-                      Jeg bekræfter hermed, at jeg tiltræder Initiativets{' '}
+                      Jeg bekræfter hermed, at jeg tiltræder{' '}
                       <a
                         href="https://assets.initiativet.dk/files/initiativet_forretningsorden.pdf"
                         target="_forretningsorden">
-                        Forretningsorden for Folketingsgruppen
+                        Initiativets Forretningsorden for Folketingsgruppen
                       </a>{' '}
                       og ønsker at offentliggøre mit kandidatur.
                     </p>
@@ -223,21 +224,20 @@ class candidateForm extends Component {
               </div>
             </form>
             <div className="text-center -my-2">
-              {!candidate.active ? (
-                <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
-                  Gem som kladde
-                </button>
-              ) : (
-                <button className="btn btn-disabled m-2" disabled>
-                  Gem som kladde
-                </button>
-              )}
-              {candidate.active ? (
+              {!candidate.active &&
+                candidate.originalActive && (
+                  <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
+                    Træk kandidatur tilbage
+                  </button>
+                )}
+              {!candidate.active &&
+                !candidate.originalActive && (
+                  <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
+                    Gem som kladde
+                  </button>
+                )}
+              {candidate.active && (
                 <button onClick={this.handleSubmit} className="btn btn-primary m-2">
-                  Offentliggør
-                </button>
-              ) : (
-                <button className="btn btn-disabled m-2" disabled>
                   Offentliggør
                 </button>
               )}
