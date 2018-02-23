@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
 // import Modal from '../../components/modal';
@@ -60,8 +60,8 @@ class ProjectPage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-    console.log(candidate);
-    if (true) {
+    const user = this.props.user;
+    if (candidate) {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
@@ -70,12 +70,20 @@ class ProjectPage extends Component {
               <main className="w-full m-1 md:mt-8">
                 <div className="relative bg-white border border-grey-lighter rounded-sm shadow p-8">
                   <img
-                    src={candidate.picture}
+                    src={
+                      candidate.picture
+                        ? candidate.picture
+                        : 'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png'
+                    }
                     alt={candidate.firstname + ' ' + candidate.lastname}
                     className="absolute pin-t pin-l h-32 w-32 ml-8 -mt-8 rounded-sm shadow"
                   />
                   <div className="pl-40 -mt-2 mb-10">
-                    <span className="mb-2">Københavns Omegn</span>
+                    <span className="mb-2">
+                      {candidate.constituency
+                        ? `Opstilling i ${candidate.constituency.constituency}`
+                        : 'Opstillingskreds ikke valgt'}
+                    </span>
                     <ul className="list-reset text-grey-dark -mx-2">
                       {candidate.facebook && (
                         <li className="inline-block m-2">
@@ -120,14 +128,30 @@ class ProjectPage extends Component {
               </main>
               <sidebar className="hidden md:block w-64 flex-no-shrink m-1 mt-8">
                 <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
-                  <h4 className="text-center border-b border-grey-lighter p-2">149 støttere</h4>
-                  <div className="text-center text-grey-darker p-4">
-                    <p className="mb-4">
-                      {candidate.firstname} mangler <b>1</b> støtter for at blive berettiget til opstilling på
-                      Initiativets liste.
-                    </p>
-                    <button className="btn btn-primary">Støt {candidate.firstname}</button>
-                  </div>
+                  <h4 className="text-center border-b border-grey-lighter p-2">{candidate.support} støttere</h4>
+                  {user && user.id === candidate.id ? (
+                    <div className="text-center text-grey-darker p-4">
+                      {candidate.active ? (
+                        <p className="mb-4">
+                          Du mangler <b>{candidate.support > 150 ? 'ingen' : 150 - candidate.support}</b> støtter for at
+                          blive berettiget til opstilling på Initiativets liste.
+                        </p>
+                      ) : (
+                        <p className="mb-4"> 'Dit kandidatur er ikke offentligt. Kun du kan se denne side.</p>
+                      )}
+                      <Link to={`${candidate.id}/edit`} className="btn btn-primary">
+                        Rediger kandidatprofil
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="text-center text-grey-darker p-4">
+                      <p className="mb-4">
+                        {candidate.firstname} mangler <b>{150 - candidate.support}</b> støtter for at blive berettiget
+                        til opstilling på Initiativets liste.
+                      </p>
+                      <button className="btn btn-primary">Støt {candidate.firstname}</button>
+                    </div>
+                  )}
                 </div>
               </sidebar>
             </div>
