@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FeatherIcon from '../featherIcon';
-import ProposalListItemNotification from '../ProposalListItemNotification';
+import ProposalListItemNotification from '../proposalListItemNotification';
 
 class ProposalListItem extends Component {
   render() {
