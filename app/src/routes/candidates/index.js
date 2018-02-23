@@ -38,6 +38,9 @@ class Candidates extends Component {
     ]);
     candidateList = sortCandidateList(candidateList);
     const sortOrder = ['Flest støtter', 'Færrest støtter'];
+
+    console.log(candidateList);
+
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
@@ -104,7 +107,7 @@ class Candidates extends Component {
                     </div>
                     <div className="flex flex-col justify-center p-4 md:pt-2">
                       <span className="block md:text-center text-grey uppercase mb-2">
-                        {candidate.constituency.district}
+                        {candidate.constituency.constituency}
                       </span>
                       <ul className="list-reset">
                         {candidate.commitments.map((commitment, index) => (
