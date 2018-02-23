@@ -160,7 +160,7 @@ class App extends Component {
       <Router onUpdate={() => window.scrollTo(0, 0)}>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
           <Route path="/" component={logPageView} />
-          <Nav user={this.state.user} updateState={this.updateState} />
+          <Nav user={this.state.user} candidateList={this.state.candidateList} updateState={this.updateState} />
           {this.state.showAddToHomeScreenModal && (
             <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
           )}
@@ -246,7 +246,8 @@ class App extends Component {
                     anonymousUser={this.state.anonymousUser}
                     candidateList={this.state.candidateList}
                     user={this.state.user}
-                    constituencyList={this.state.candidateList}
+                    preferenceList={this.state.preferenceList}
+                    constituencyList={this.state.constituencyList}
                   />
                 )}
               />

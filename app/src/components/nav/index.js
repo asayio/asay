@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import R from 'ramda';
 import Login from '../loginBtn';
 import Logout from '../logoutBtn';
 import { Link } from 'react-router-dom';
@@ -15,6 +16,7 @@ class Nav extends Component {
   }
   render() {
     const user = this.props.user;
+    const candidate = user && R.find(R.propEq('id', user.id), this.props.candidateList);
     return (
       <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter shadow select-none p-2">
         <div className="flex max-w-xl mx-auto">
@@ -74,6 +76,17 @@ class Nav extends Component {
                           Mine projekter
                         </Link>
                       </li>
+                      {candidate && (
+                        <li>
+                          <Link
+                            className="block hover:bg-black rounded-sm p-2"
+                            to={`/candidate/${user.id}`}
+                            onClick={() => this.setState({ showDropDown: false })}
+                            onMouseDown={e => e.preventDefault()}>
+                            Mit kandidatur
+                          </Link>
+                        </li>
+                      )}
                       <li>
                         <Link
                           className="block hover:bg-black rounded-sm p-2"
