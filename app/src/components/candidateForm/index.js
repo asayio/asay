@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import R from 'ramda';
 import Modal from '../modal';
 import LoadingSpinner from '../loadingSpinner';
 import { Link } from 'react-router-dom';
@@ -18,7 +19,12 @@ class candidateForm extends Component {
 
   componentDidMount() {
     const candidate = this.props.candidate;
-    const commitments =
+    const emptyCommitments = [
+      { priority: 1, category: '', commitment: '' },
+      { priority: 2, category: '', commitment: '' },
+      { priority: 3, category: '', commitment: '' }
+    ];
+    const knownCommitments =
       candidate.commitments &&
       candidate.commitments.map(commitment => {
         const flatCommitment = Object.assign({}, commitment, {
@@ -26,12 +32,14 @@ class candidateForm extends Component {
         });
         return flatCommitment;
       });
+    const commitments = R.sortWith([R.descend(R.prop('priority'))])(
+      R.unionWith(R.eqBy(R.prop('priority')), knownCommitments, emptyCommitments)
+    );
     const obj = Object.assign({}, candidate, {
       id: Number(this.props.match.params.id),
       commitments: commitments,
       constituency: candidate.constituency.id
     });
-    console.log(obj);
     this.setState(obj);
     this.handlePreperationEvaluation(obj);
   }
@@ -60,8 +68,11 @@ class candidateForm extends Component {
     this.handlePreperationEvaluation();
   }
 
-  async handleCommitmentChange(event, priority) {
-    const target = event.target;
+  handleCommitmentChange(priority) {
+    return function(event) {
+      const value = event.target.value;
+      console.log(value);
+    };
   }
 
   async handleSubmit() {
@@ -89,7 +100,6 @@ class candidateForm extends Component {
 
   render() {
     const candidate = this.state;
-    console.log(candidate);
     const constituencyList = this.props.constituencyList;
     if (candidate.id) {
       return (
@@ -212,7 +222,7 @@ class candidateForm extends Component {
               {candidate.commitments.map(commitment => (
                 <div key={commitment.priority}>
                   <FormSelect
-                    onChange={this.handleCommitmentChange}
+                    onChange={this.handleCommitmentChange(commitment.priority)}
                     name="category"
                     value={commitment.category}
                     defaultOption="Vælg kategori"
@@ -224,7 +234,7 @@ class candidateForm extends Component {
                     ))}
                   />
                   <FormTextArea
-                    onChange={this.handleCommitmentChange}
+                    onChange={this.handleCommitmentChange(commitment.priority)}
                     name="commitment"
                     value={commitment.commitment}
                     placeholder="Her skal stå noget"
