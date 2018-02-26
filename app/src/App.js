@@ -264,6 +264,7 @@ class App extends Component {
                     candidateList={this.state.candidateList}
                     updateState={this.updateState}
                     user={this.state.user}
+                    projectList={this.state.projectList}
                   />
                 )}
               />

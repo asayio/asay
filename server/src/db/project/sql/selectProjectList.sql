@@ -9,6 +9,7 @@ select
   ,project.risk
   ,project.published
   ,project.createdon
+  ,"user".id as initiatorid
   ,"user".email
   ,"user".firstname
   ,"user".lastname
