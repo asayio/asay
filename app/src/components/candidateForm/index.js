@@ -32,9 +32,7 @@ class candidateForm extends Component {
         });
         return flatCommitment;
       });
-    const commitments = R.sortWith([R.descend(R.prop('priority'))])(
-      R.unionWith(R.eqBy(R.prop('priority')), knownCommitments, emptyCommitments)
-    );
+    const commitments = R.unionWith(R.eqBy(R.prop('priority')), knownCommitments, emptyCommitments)
     const obj = Object.assign({}, candidate, {
       id: Number(this.props.match.params.id),
       commitments: commitments,
@@ -59,7 +57,7 @@ class candidateForm extends Component {
     }
   }
 
-  async handleChange(event) {
+  handleChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
@@ -68,11 +66,14 @@ class candidateForm extends Component {
     this.handlePreperationEvaluation();
   }
 
-  handleCommitmentChange(priority) {
+  handleCommitmentChange(priority, type) {
     return function(event) {
-      const value = event.target.value;
-      console.log(value);
-    };
+      const value = type === 'commitment' ? event.target.value : Number(event.target.value);
+      const existingCommitment =  R.find(R.propEq('priority', priority))(this.state.commitments)
+      const updatedCommitment = Object.assign({}, existingCommitment, R.objOf(type, value))
+      const newCommitmentList = R.filter(c => c.priority !== priority, this.state.commitments).concat(updatedCommitment)
+      this.setState(Object.assign({}, this.state, {commitments: newCommitmentList}));
+    }.bind(this);
   }
 
   async handleSubmit() {
@@ -100,6 +101,7 @@ class candidateForm extends Component {
 
   render() {
     const candidate = this.state;
+    const commitments = candidate.commitments && R.sortWith([R.ascend(R.prop('priority'))])(candidate.commitments)
     const constituencyList = this.props.constituencyList;
     if (candidate.id) {
       return (
@@ -219,10 +221,10 @@ class candidateForm extends Component {
                 Vælg tre politiske emner du vil engagere dig i og forklar. Begrund dine valg og redegør kort for din
                 indgangsvinkel.
               </p>
-              {candidate.commitments.map(commitment => (
+              {commitments.map(commitment => (
                 <div key={commitment.priority}>
                   <FormSelect
-                    onChange={this.handleCommitmentChange(commitment.priority)}
+                    onChange={this.handleCommitmentChange(commitment.priority, 'category')}
                     name="category"
                     value={commitment.category}
                     defaultOption="Vælg kategori"
@@ -234,7 +236,7 @@ class candidateForm extends Component {
                     ))}
                   />
                   <FormTextArea
-                    onChange={this.handleCommitmentChange(commitment.priority)}
+                    onChange={this.handleCommitmentChange(commitment.priority, 'commitment')}
                     name="commitment"
                     value={commitment.commitment}
                     placeholder="Her skal stå noget"
