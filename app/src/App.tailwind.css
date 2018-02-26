@@ -3,7 +3,7 @@
 
 /* CSS THAT NEED TO BE LOADED BEFORE TAILWIND CLASSES */
 
-@import url('https://assets.initiativet.dk/fonts/clear-sans/css/clear-sans.css');
+/* @import url('https://assets.initiativet.dk/fonts/clear-sans/css/clear-sans.css'); */
 
 /* TAILWIND CLASSES */
 
@@ -77,12 +77,18 @@ svg {
   .top-15 {
     top: 3.75rem;
   }
+  .order--1 {
+    order: -1;
+  }
+  .order-unset {
+    order: unset;
+  }
 }
 
 /* APPLIED CSS */
 
 html {
-  @apply .font-clear .text-black .leading-tight .antialiased;
+  @apply .font-sans .text-black .leading-tight .antialiased;
 }
 p {
   @apply .text-grey-darkest .leading-normal .max-w-md .mb-2;
