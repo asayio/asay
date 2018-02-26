@@ -8,8 +8,8 @@ class Candidates extends Component {
   constructor() {
     super();
     this.state = {
-      category: 1,
-      constituency: -1,
+      category: 'Alle',
+      constituency: 'Alle',
       sortOrder: 'Flest støtter'
     };
     this.handleChange = this.handleChange.bind(this);
@@ -28,9 +28,16 @@ class Candidates extends Component {
     }, this.props.candidateList);
 
     let candidateList = activeCandidateList;
-    if (this.state.constituency !== -1) {
+    if (this.state.constituency !== 'Alle') {
       candidateList = R.filter(candidate => {
         return candidate.constituency.id === Number(this.state.constituency);
+      }, candidateList);
+    }
+    if (this.state.category !== 'Alle') {
+      candidateList = R.filter(candidate => {
+        const categoryTitleList = candidate.commitments.map(commitment => commitment.category.id);
+        console.log(categoryTitleList, this.state.category);
+        return categoryTitleList.includes(Number(this.state.category))
       }, candidateList);
     }
     const sortCandidateList = R.sortWith([
@@ -38,8 +45,6 @@ class Candidates extends Component {
     ]);
     candidateList = sortCandidateList(candidateList);
     const sortOrder = ['Flest støtter', 'Færrest støtter'];
-
-    console.log(candidateList);
 
     return (
       <div className="flex-auto px-2">
