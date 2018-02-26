@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import R from 'ramda';
 import Login from '../loginBtn';
 import Logout from '../logoutBtn';
-import { Link } from 'react-router-dom';
 import MenuItem from './menuItem';
 import DropdownItem from './dropdownItem';
 import SearchBar from '../searchBar';

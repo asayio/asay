@@ -37,7 +37,7 @@ class Candidates extends Component {
       candidateList = R.filter(candidate => {
         const categoryTitleList = candidate.commitments.map(commitment => commitment.category.id);
         console.log(categoryTitleList, this.state.category);
-        return categoryTitleList.includes(Number(this.state.category))
+        return categoryTitleList.includes(Number(this.state.category));
       }, candidateList);
     }
     const sortCandidateList = R.sortWith([
@@ -106,7 +106,7 @@ class Candidates extends Component {
                       <h4 className="absolute pin-x pin-b text-center text-white text-xl font-bold bg-transparent-to-black pt-4 pb-2 mb-0">
                         {candidate.firstname + ' ' + candidate.lastname}
                       </h4>
-                      <span className="absolute pin-t pin-r text-white bg-teal leading-none rounded-sm p-1 m-1">
+                      <span className="absolute pin-t pin-r text-white bg-teal leading-none rounded-sm px-2 py-1 m-1">
                         {candidate.support}
                       </span>
                     </div>
