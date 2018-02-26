@@ -44,7 +44,8 @@ async function initialState() {
       candidateList: rawCandidateList,
       candidateCommitmentList,
       constituencyList,
-      preferenceList
+      preferenceList,
+      projectList
     });
     return {
       user,
@@ -65,14 +66,18 @@ async function initialState() {
   }
 }
 
-function buildCandidateList({ candidateList, candidateCommitmentList, constituencyList, preferenceList }) {
+function buildCandidateList({ candidateList, candidateCommitmentList, constituencyList, preferenceList, projectList }) {
   const newCandidateList = candidateList.map(candidate => {
     const constituency = R.find(R.propEq('id', candidate.constituency))(constituencyList);
     const candidateCommitments = R.filter(commitment => candidate.id === commitment.candidate)(candidateCommitmentList);
     const commitments = candidateCommitments.map(commitment => {
       const category = R.find(R.propEq('id', commitment.category))(preferenceList);
+      const projects = R.filter(project => {
+        return project.initiatorid === candidate.id && project.category === category;
+      }, projectList);
       const categoryObject = Object.assign({}, commitment, {
-        category: category
+        category: category,
+        projects: projects
       });
       return categoryObject;
     });

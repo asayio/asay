@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
-// import Modal from '../../components/modal';
+import ProposalList from '../../components/proposalList';
 import Heading from '../../components/headingWithBackBtn';
 import FeatherIcon from '../../components/featherIcon';
 
@@ -60,6 +60,8 @@ class ProjectPage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
+    const remaindingProjectList = this.props.projectList; // this should be filtered to be the remainding projects related to the candidate, but outside the candidate's commitment
+    console.log(remaindingProjectList);
     const user = this.props.user;
     if (candidate) {
       return (
@@ -129,6 +131,26 @@ class ProjectPage extends Component {
                   </article>
                 </div>
               </main>
+              <div>
+                <h2>Fokusområder</h2>
+                {candidate.commitments.map(commitment => (
+                  <div>
+                    <h3>{commitment.category.title}</h3>
+                    <p>{commitment.commitment}</p>
+                    {commitment.projects.length ? (
+                      <ProposalList proposalList={commitment.projects} />
+                    ) : (
+                      <p>{candidate.firstname} har ingen igangværende projekter på området.</p>
+                    )}
+                  </div>
+                ))}
+                {remaindingProjectList.length > 0 && (
+                  <div>
+                    <h3>Andre projekter</h3>
+                    <ProposalList proposalList={remaindingProjectList} />
+                  </div>
+                )}
+              </div>
               <sidebar className="hidden md:block w-64 flex-no-shrink m-1 mt-8">
                 <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
                   <h4 className="text-center border-b border-grey-lighter p-2">{candidate.support} støttere</h4>

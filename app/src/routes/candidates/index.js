@@ -36,8 +36,7 @@ class Candidates extends Component {
     if (this.state.category !== 'Alle') {
       candidateList = R.filter(candidate => {
         const categoryTitleList = candidate.commitments.map(commitment => commitment.category.id);
-        console.log(categoryTitleList, this.state.category);
-        return categoryTitleList.includes(Number(this.state.category))
+        return categoryTitleList.includes(Number(this.state.category));
       }, candidateList);
     }
     const sortCandidateList = R.sortWith([
