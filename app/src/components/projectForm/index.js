@@ -188,6 +188,7 @@ class ProjectForm extends Component {
                 name="title"
                 value={project.title}
                 placeholder="Giv dit projekt en informativ og fængende titel..."
+                type="text"
               />
               <label className="block md:w-1/2 my-8">
                 <span className="block font-bold mb-2">{this.props.title}</span>

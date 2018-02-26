@@ -9,7 +9,7 @@ class formInput extends Component {
           name={this.props.name}
           placeholder={this.props.placeholder}
           className="block w-full bg-grey-lightest border border-grey-lighter rounded-sm px-3 py-2"
-          value={this.props.value}
+          defaultValue={this.props.value}
           type={this.props.type}
         />
       </label>
