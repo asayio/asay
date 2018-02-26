@@ -11,7 +11,7 @@ async function projectPostHandler(request, response) {
     const user = await getUser(request);
     if (user) {
       const project = request.body;
-      if (projectId !== 'null') {
+      if (request.params.id !== 'null') {
         const projectId = parseInt(request.params.id);
         const projectPrevious = await getProjectHistory(projectId);
         if (projectPrevious.initiator === user.id) {

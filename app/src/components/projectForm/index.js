@@ -100,7 +100,7 @@ class ProjectForm extends Component {
   render() {
     const project = this.state;
     const preferenceList = this.props.preferenceList;
-    if (project) {
+    if (!R.isEmpty(project)) {
       return (
         <div>
           {project.showModal === 'confirm' && (
@@ -259,6 +259,10 @@ class ProjectForm extends Component {
             </div>
           </div>
         </div>
+      );
+    } else {
+      return (
+        <div>Henter projekt...</div>
       );
     }
   }

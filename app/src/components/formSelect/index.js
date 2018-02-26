@@ -7,7 +7,7 @@ class FormSelect extends Component {
       <div className="relative">
         <select
           name={this.props.name}
-          value={this.props.value}
+          defaultValue={this.props.value}
           onChange={this.props.onChange}
           className="w-full appearance-none leading-tight text-grey-darker bg-white border border-grey-lighter rounded-sm shadow pl-3 pr-8 py-2">
           {this.props.defaultOption &&
