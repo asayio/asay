@@ -65,15 +65,16 @@ class Nav extends Component {
                       {user.firstname + ' ' + user.lastname}
                     </span>
                     <ul className="md:hidden list-reset border-b border-grey-darker p-2">
-                      <DropdownItem to="/proposals" itemName="Forslag" />
-                      <DropdownItem to="/projects" itemName="Projekter" />
-                      <DropdownItem to="/candidates" itemName="Kandidater" />
+                      <DropdownItem to="/proposals" itemName="Forslag" onClick={toggleMenu} />
+                      <DropdownItem to="/projects" itemName="Projekter" onClick={toggleMenu} />
+                      <DropdownItem to="/candidates" itemName="Kandidater" onClick={toggleMenu} />
                       {user &&
                         user.firstname && (
                           <DropdownItem
                             to="/insights"
                             itemName="Historik"
                             className="md:border-l md:border-grey-lightest pl-2"
+                            onClick={toggleMenu}
                           />
                         )}
                     </ul>
@@ -114,17 +115,9 @@ class Nav extends Component {
                     }>
                     <div className="text-white bg-grey-darkest rounded-sm relative z-30">
                       <ul className="md:hidden list-reset border-b border-grey-darker p-2">
-                        <DropdownItem to="/proposals" itemName="Forslag" />
-                        <DropdownItem to="/projects" itemName="Projekter" />
-                        <DropdownItem to="/candidates" itemName="Kandidater" />
-                        {user &&
-                          user.firstname && (
-                            <DropdownItem
-                              to="/insights"
-                              itemName="Historik"
-                              className="md:border-l md:border-grey-lightest pl-2"
-                            />
-                          )}
+                        <DropdownItem to="/proposals" itemName="Forslag" onClick={toggleMenu} />
+                        <DropdownItem to="/projects" itemName="Projekter" onClick={toggleMenu} />
+                        <DropdownItem to="/candidates" itemName="Kandidater" onClick={toggleMenu} />
                       </ul>
                       <div className="p-2">
                         <Login

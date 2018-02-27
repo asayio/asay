@@ -110,7 +110,13 @@ class ProjectPage extends Component {
                           </li>
                         )}
                       </ul>
-                      <button className="md:hidden btn btn-primary mt-1">Støt {candidate.firstname}</button>
+                      {user && user.id === candidate.id ? (
+                        <Link to={`${candidate.id}/edit`} className="btn btn-primary">
+                          Rediger kandidatprofil
+                        </Link>
+                      ) : (
+                        <button className="md:hidden btn btn-primary mt-1">Støt {candidate.firstname}</button>
+                      )}
                     </div>
                   </div>
                   <article className="mb-4">
@@ -130,27 +136,27 @@ class ProjectPage extends Component {
                     <p>{candidate.threat}</p>
                   </article>
                 </div>
-              </main>
-              <div>
-                <h2>Fokusområder</h2>
-                {candidate.commitments.map(commitment => (
-                  <div>
-                    <h3>{commitment.category.title}</h3>
-                    <p>{commitment.commitment}</p>
-                    {commitment.projects.length ? (
-                      <ProposalList proposalList={commitment.projects} />
-                    ) : (
-                      <p>{candidate.firstname} har ingen igangværende projekter på området.</p>
-                    )}
-                  </div>
-                ))}
+                <div>
+                  <h2 className="text-center">Fokusområder</h2>
+                  {candidate.commitments.map(commitment => (
+                    <div>
+                      <h3>{commitment.category.title}</h3>
+                      <p>{commitment.commitment}</p>
+                      {commitment.projects.length ? (
+                        <ProposalList proposalList={commitment.projects} />
+                      ) : (
+                        <p>{candidate.firstname} har ingen igangværende projekter på området.</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
                 {remaindingProjectList.length > 0 && (
                   <div>
-                    <h3>Andre projekter</h3>
+                    <h2 className="text-center">Andre projekter</h2>
                     <ProposalList proposalList={remaindingProjectList} />
                   </div>
                 )}
-              </div>
+              </main>
               <sidebar className="hidden md:block w-64 flex-no-shrink m-1 mt-8">
                 <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
                   <h4 className="text-center border-b border-grey-lighter p-2">{candidate.support} støttere</h4>
