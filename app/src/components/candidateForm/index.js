@@ -111,7 +111,6 @@ class candidateForm extends Component {
     const candidate = this.state;
     const commitments = candidate.commitments && R.sortWith([R.ascend(R.prop('priority'))])(candidate.commitments);
     const constituencyList = this.props.constituencyList;
-    console.log(candidate);
     if (candidate.id) {
       return (
         <div>

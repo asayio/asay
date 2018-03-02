@@ -255,14 +255,10 @@ function updateProjectList(state, entity) {
 }
 
 function updateCandidateList(state, entity) {
+  console.log(entity);
   const oldCandidate = R.find(R.propEq('id', entity.id))(state.candidateList);
   const newCandidate = Object.assign({}, oldCandidate, entity);
-  const updatedCandidate = buildCandidateList({
-    candidateList: [newCandidate],
-    candidateCommitmentList: state.candidateCommitmentList,
-    constituencyList: state.constituencyList,
-    preferenceList: state.preferenceList
-  });
+  const updatedCandidate = buildCandidateList(Object.assign({}, state, { candidateList: [newCandidate] }));
   const candidateList = R.reject(R.propEq('id', entity.id))(state.candidateList).concat(updatedCandidate[0]);
   const newState = Object.assign({}, state, { candidateList: candidateList });
   return newState;
