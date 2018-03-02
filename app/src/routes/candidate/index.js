@@ -5,15 +5,28 @@ import LoadingSpinner from '../../components/loadingSpinner';
 import ProposalList from '../../components/proposalList';
 import Heading from '../../components/headingWithBackBtn';
 import FeatherIcon from '../../components/featherIcon';
+import ProposalTabBar from '../../components/proposalTabBar';
+import ProposalInfo from '../../components/proposalInfo';
 
 class ProjectPage extends Component {
   constructor() {
     super();
     this.state = {
-      showModal: false
+      showModal: false,
+      selectedTab: undefined
     };
     this.supportProject = this.supportProject.bind(this);
     this.giveDecleration = this.giveDecleration.bind(this);
+    this.selectTab = this.selectTab.bind(this);
+  }
+
+  componentDidMount() {
+    const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
+    this.selectTab(candidate.commitments[0].category.title);
+  }
+
+  selectTab(tabName) {
+    this.setState({ selectedTab: tabName });
   }
 
   async giveDecleration() {
@@ -61,7 +74,15 @@ class ProjectPage extends Component {
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
     const remaindingProjectList = this.props.projectList; // this should be filtered to be the remainding projects related to the candidate, but outside the candidate's commitment
-    console.log(remaindingProjectList);
+    const tabs = candidate.commitments.map(commitment => {
+      return {
+        name: commitment.category.title,
+        icon: commitment.category.feathericon
+      };
+    });
+    const commitment = R.filter(commitment => commitment.category.title === this.state.selectedTab)(
+      candidate.commitments
+    )[0];
     const user = this.props.user;
     if (candidate) {
       return (
@@ -83,9 +104,8 @@ class ProjectPage extends Component {
                     />
                     <div className="w-full sm:w-auto text-center sm:text-left pl-4 md:pl-0">
                       <span className="mb-2">
-                        {candidate.constituency
-                          ? `Opstilling i ${candidate.constituency.constituency}`
-                          : 'Opstillingskreds ikke valgt'}
+                        <FeatherIcon name="Home" className="mr-1" />
+                        {candidate.constituency ? candidate.constituency.constituency : 'Opstillingskreds ikke valgt'}
                       </span>
                       <ul className="list-reset text-grey-dark -mx-2 my-1">
                         {candidate.facebook && (
@@ -136,26 +156,8 @@ class ProjectPage extends Component {
                     <p>{candidate.threat}</p>
                   </article>
                 </div>
-                <div>
-                  <h2 className="text-center">Fokusområder</h2>
-                  {candidate.commitments.map(commitment => (
-                    <div>
-                      <h3>{commitment.category.title}</h3>
-                      <p>{commitment.commitment}</p>
-                      {commitment.projects.length ? (
-                        <ProposalList proposalList={commitment.projects} />
-                      ) : (
-                        <p>{candidate.firstname} har ingen igangværende projekter på området.</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                {remaindingProjectList.length > 0 && (
-                  <div>
-                    <h2 className="text-center">Andre projekter</h2>
-                    <ProposalList proposalList={remaindingProjectList} />
-                  </div>
-                )}
+                <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
+                {commitment && commitment.commitment}
               </main>
               <sidebar className="hidden md:block w-64 flex-no-shrink m-1 mt-8">
                 <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
