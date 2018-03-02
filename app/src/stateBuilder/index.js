@@ -72,18 +72,19 @@ function buildCandidateList({ candidateList, candidateCommitmentList, constituen
     const candidateCommitments = R.filter(commitment => candidate.id === commitment.candidate)(candidateCommitmentList);
     const commitments = candidateCommitments.map(commitment => {
       const category = R.find(R.propEq('id', commitment.category))(preferenceList);
-      const projects = R.filter(project => {
-        return project.initiatorid === candidate.id && project.category === category;
-      }, projectList);
       const categoryObject = Object.assign({}, commitment, {
         category: category,
         projects: projects
       });
       return categoryObject;
     });
+    const projects = R.filter(project => {
+      return project.initiatorid === candidate.id;
+    }, projectList);
     const newCandidate = Object.assign({}, candidate, {
       constituency,
-      commitments
+      commitments,
+      projects
     });
     return newCandidate;
   });

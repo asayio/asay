@@ -158,6 +158,7 @@ class ProjectPage extends Component {
                 </div>
                 <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
                 {commitment && commitment.commitment}
+                <ProposalList proposalList={candidate.projects} />
               </main>
               <sidebar className="hidden md:block w-64 flex-no-shrink m-1 mt-8">
                 <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
