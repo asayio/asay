@@ -191,7 +191,7 @@ class ProjectForm extends Component {
                 type="text"
               />
               <label className="block md:w-1/2 my-8">
-                <span className="block font-bold mb-2">{this.props.title}</span>
+                <span className="block font-bold mb-2">Kategori</span>
                 <FormSelect
                   title="Kategori"
                   name="category"
@@ -261,9 +261,7 @@ class ProjectForm extends Component {
         </div>
       );
     } else {
-      return (
-        <div>Henter projekt...</div>
-      );
+      return <div>Henter projekt...</div>;
     }
   }
 }

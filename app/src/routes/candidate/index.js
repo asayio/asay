@@ -111,7 +111,7 @@ class ProjectPage extends Component {
                         )}
                       </ul>
                       {user && user.id === candidate.id ? (
-                        <Link to={`${candidate.id}/edit`} className="btn btn-primary">
+                        <Link to={`${candidate.id}/edit`} className="md:hidden btn btn-primary mt-1">
                           Rediger kandidatprofil
                         </Link>
                       ) : (

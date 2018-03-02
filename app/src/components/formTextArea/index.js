@@ -10,7 +10,7 @@ class formTextArea extends Component {
           defaultValue={this.props.value}
           placeholder={this.props.placeholder}
           onChange={this.props.onChange}
-          className="block w-full h-64 resize-none bg-grey-lightest border border-grey-lighter rounded-sm px-3 py-2"
+          className="block w-full h-48 resize-none bg-grey-lightest border border-grey-lighter rounded-sm px-3 py-2"
         />
       </label>
     );
