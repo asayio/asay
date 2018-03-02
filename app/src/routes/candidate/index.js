@@ -6,15 +6,11 @@ import ProposalList from '../../components/proposalList';
 import Heading from '../../components/headingWithBackBtn';
 import FeatherIcon from '../../components/featherIcon';
 import ProposalTabBar from '../../components/proposalTabBar';
-import ProposalInfo from '../../components/proposalInfo';
 
 class ProjectPage extends Component {
   constructor() {
     super();
-    this.state = {
-      showModal: false,
-      selectedTab: undefined
-    };
+    this.state = {};
     this.supportProject = this.supportProject.bind(this);
     this.giveDecleration = this.giveDecleration.bind(this);
     this.selectTab = this.selectTab.bind(this);
@@ -73,7 +69,6 @@ class ProjectPage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-    const remaindingProjectList = this.props.projectList; // this should be filtered to be the remainding projects related to the candidate, but outside the candidate's commitment
     const tabs = candidate.commitments.map(commitment => {
       return {
         name: commitment.category.title,
@@ -171,7 +166,7 @@ class ProjectPage extends Component {
                           blive berettiget til opstilling på Initiativets liste.
                         </p>
                       ) : (
-                        <p className="mb-4"> 'Dit kandidatur er ikke offentligt. Kun du kan se denne side.</p>
+                        <p className="mb-4">Dit kandidatur er ikke offentligt. Kun du kan se denne side.</p>
                       )}
                       <Link to={`${candidate.id}/edit`} className="btn btn-primary">
                         Rediger kandidatprofil

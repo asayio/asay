@@ -20,9 +20,9 @@ class candidateForm extends Component {
   componentDidMount() {
     const candidate = this.props.candidate;
     const emptyCommitments = [
-      { priority: 1, category: '', commitment: '' },
-      { priority: 2, category: '', commitment: '' },
-      { priority: 3, category: '', commitment: '' }
+      { priority: 1, category: 'Vælg kategori', commitment: '' },
+      { priority: 2, category: 'Vælg kategori', commitment: '' },
+      { priority: 3, category: 'Vælg kategori', commitment: '' }
     ];
     const knownCommitments =
       candidate.commitments &&
@@ -49,7 +49,13 @@ class candidateForm extends Component {
       form.story !== '' &&
       form.motivation !== '' &&
       form.threat !== '' &&
-      form.experience !== ''
+      form.experience !== '' &&
+      form.commitments[0].commitment !== '' &&
+      form.commitments[1].commitment !== '' &&
+      form.commitments[2].commitment !== '' &&
+      form.commitments[0].category !== 'Vælg kategori' &&
+      form.commitments[1].category !== 'Vælg kategori' &&
+      form.commitments[2].category !== 'Vælg kategori'
     ) {
       this.setState({ isPublishable: true });
     } else {
@@ -105,6 +111,7 @@ class candidateForm extends Component {
     const candidate = this.state;
     const commitments = candidate.commitments && R.sortWith([R.ascend(R.prop('priority'))])(candidate.commitments);
     const constituencyList = this.props.constituencyList;
+    console.log(candidate);
     if (candidate.id) {
       return (
         <div>
@@ -146,6 +153,11 @@ class candidateForm extends Component {
             <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 py-4 my-4">
               <div className="max-w-md mx-auto">
                 <h2>Social tilstedeværelse</h2>
+                <p>
+                  Hjælp dine støttere med at lære dig bedre at kende, samt følge og komme i kontakt med dig. Der er op
+                  til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt.{' '}
+                  <b>Bemærk, at andre brugere kan se din email.</b>
+                </p>
                 <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
                 <FormInput
                   title="Facebook URL"
