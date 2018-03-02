@@ -131,8 +131,9 @@ function buildProposalList({
   preferenceList,
   participationList
 }) {
-  const newProposalList = proposalList.map(proposal => {
-    const id = proposal.id;
+  const newProposalList = proposalList.map(datarow => {
+    const proposal = datarow.data ? datarow.data : datarow;
+    const id = datarow.id;
     const committeeId = proposal.committeeId;
     const participation = R.path(['participation'], R.find(R.propEq('proposal', id))(participationList)) || 0;
     const hasVoted = !!R.find(R.propEq('proposal', id))(voteList);

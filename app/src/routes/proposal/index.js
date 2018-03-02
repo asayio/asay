@@ -37,12 +37,6 @@ class ProposalPage extends Component {
           }
         })
       );
-    // for a rainy day, when we get results
-    // proposal.seeResultsNotification &&
-    //   this.props.updateState({
-    //     entityType: "notificationList",
-    //     entity: { proposal_id: proposal.id, type: "seenResults" }
-    //   });
   }
 
   render() {

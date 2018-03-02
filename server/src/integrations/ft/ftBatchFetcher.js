@@ -8,6 +8,7 @@ const resultsMailBatch = require('../../mail/resultsMailBatch');
 const findStageInfo = require('../../db/proposal/findStageInfo');
 const changeProposal = require('../../db/proposal/changeProposal');
 const createProposal = require('../../db/proposal/createProposal');
+const getVoteResults = require('../../db/vote/getVoteResults');
 
 // Functions
 async function ftBatchFetcher() {
@@ -50,33 +51,33 @@ async function ftBatchFetcher() {
         return presentation;
       }
     }
+    const stageInfo = findStageInfo(proposal.Sagstrin);
+    const results = stageInfo.status === 'Afsluttet' && (await getVoteResults(proposal.id));
     const existingPresentation = R.path(['presentation'], existingProposal);
     const doNotLookForPresentation =
       !!R.path(['paragraphs', 'length'], existingPresentation) || proposal.nummerprefix === 'B'; // beslutningforslag will never get a presentation
     if (!doNotLookForPresentation) console.log('I am looking for a presentation...');
     const upsertedProposal = {
       id: proposal.id,
-      data: Object.assign(
-        {
-          committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
-          titel: proposal.titel,
-          shortTitel: proposal.titelkort,
-          type: proposal.Sagstype.type,
-          resume: proposal.resume,
-          number: proposal.nummer,
-          numberPreFix: proposal.nummerprefix,
-          numberNumeric: proposal.nummernumerisk,
-          numberPostFix: proposal.nummerpostfix,
-          statusId: proposal.Sagsstatus.id,
-          status: proposal.Sagsstatus.status,
-          periodId: proposal.Periode.id,
-          periodCode: proposal.Periode.kode,
-          period: proposal.Periode.titel,
-          stage: proposal.Sagstrin,
-          presentation: doNotLookForPresentation ? existingPresentation : await presentation()
-        },
-        findStageInfo(proposal.Sagstrin)
-      )
+      data: {
+        committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
+        titel: proposal.titel,
+        shortTitel: proposal.titelkort,
+        type: proposal.Sagstype.type,
+        resume: proposal.resume,
+        number: proposal.nummer,
+        numberPreFix: proposal.nummerprefix,
+        numberNumeric: proposal.nummernumerisk,
+        numberPostFix: proposal.nummerpostfix,
+        deadline: stageInfo.deadline,
+        distanceToDeadline: stageInfo.distanceToDeadline,
+        periodId: proposal.Periode.id,
+        periodCode: proposal.Periode.kode,
+        period: proposal.Periode.titel,
+        presentation: doNotLookForPresentation ? existingPresentation : await presentation(),
+        results: results,
+        actualResults: stageInfo.actualResults
+      }
     };
     if (existingProposal) {
       await changeProposal(upsertedProposal.id, upsertedProposal.data);
