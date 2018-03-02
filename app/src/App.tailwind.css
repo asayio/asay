@@ -1,9 +1,10 @@
 /* TAILWIND NORMALIZE */
+
 @tailwind preflight;
 
 /* CSS THAT NEED TO BE LOADED BEFORE TAILWIND CLASSES */
 
-/* @import url('https://assets.initiativet.dk/fonts/clear-sans/css/clear-sans.css'); */
+@import url('./assets/fonts/clear-sans/css/clear-sans.css');
 
 /* TAILWIND CLASSES */
 
@@ -85,10 +86,10 @@ svg {
   }
 }
 
-/* APPLIED CSS */
+/* GLOBALLY APPLIED CSS */
 
 html {
-  @apply .font-sans .text-black .leading-tight .antialiased;
+  @apply .font-clear .text-black .leading-tight .antialiased;
 }
 p {
   @apply .text-grey-darkest .leading-normal .max-w-md .mb-2;
