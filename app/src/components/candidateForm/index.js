@@ -63,10 +63,10 @@ class candidateForm extends Component {
     }
   }
 
-  handleChange(event) {
+  async handleChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({
+    await this.setState({
       [target.name]: value
     });
     this.handlePreperationEvaluation();
@@ -80,7 +80,10 @@ class candidateForm extends Component {
       const newCommitmentList = R.filter(c => c.priority !== priority, this.state.commitments).concat(
         updatedCommitment
       );
-      this.setState(Object.assign({}, this.state, { commitments: newCommitmentList }));
+      this.setState(
+        Object.assign({}, this.state, { commitments: newCommitmentList }),
+        this.handlePreperationEvaluation()
+      );
     }.bind(this);
   }
 
@@ -192,7 +195,7 @@ class candidateForm extends Component {
               <div className="max-w-md mx-auto">
                 <h2>Kandidatur</h2>
                 <label className="block md:w-1/2 my-8">
-                  <span className="block font-bold mb-2">Hvilken storkreds ønsker du at stille op i?</span>
+                  <span className="block font-bold mb-2">Hvilken storkreds ønsker du at stille op i? *</span>
                   <FormSelect
                     title="Storkreds"
                     name="constituency"
@@ -207,25 +210,25 @@ class candidateForm extends Component {
                   />
                 </label>
                 <FormTextArea
-                  title="Kort om din baggrund"
+                  title="Kort om din baggrund *"
                   name="story"
                   value={candidate.story}
                   placeholder="Fortæl din livshistorie. Kort."
                 />
                 <FormTextArea
-                  title="Kort om din motivation"
+                  title="Kort om din motivation *"
                   name="motivation"
                   value={candidate.motivation}
                   placeholder="Fortæl hvorfor du ønsker at stille op til Folketinget?"
                 />
                 <FormTextArea
-                  title="Politisk erfaring"
+                  title="Politisk erfaring *"
                   name="experience"
                   value={candidate.experience}
                   placeholder="Har du tidligere erfaring fra politik, f.eks. opstilling, offentlig fremtoning el. lign.?"
                 />
                 <FormTextArea
-                  title="Dette kan skade mit kandidatur"
+                  title="Dette kan skade mit kandidatur *"
                   name="threat"
                   value={candidate.threat}
                   placeholder="Vi har behov for transparens. Det er derfor vigtigt, at du åbent fortæller os og vælgerne de ting, som medierne kunne finde på at grave i, hvis du stiller op til Folketinget."
@@ -242,7 +245,7 @@ class candidateForm extends Component {
                 {commitments.map(commitment => (
                   <div key={commitment.priority}>
                     <label className="block md:w-1/2 mt-8">
-                      <span className="block font-bold mb-2">Kategori</span>
+                      <span className="block font-bold mb-2">Kategori *</span>
                       <FormSelect
                         onChange={this.handleCommitmentChange(commitment.priority, 'category')}
                         name="category"
