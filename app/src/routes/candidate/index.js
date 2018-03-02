@@ -18,7 +18,8 @@ class ProjectPage extends Component {
 
   componentDidMount() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-    this.selectTab(candidate.commitments[0].category.title);
+    const tab = (candidate.commitments[0] && candidate.commitments[0].category.title) || undefined;
+    this.selectTab(tab);
   }
 
   selectTab(tabName) {
