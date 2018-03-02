@@ -69,6 +69,8 @@ async function ftBatchFetcher() {
         numberPreFix: proposal.nummerprefix,
         numberNumeric: proposal.nummernumerisk,
         numberPostFix: proposal.nummerpostfix,
+        statusId: proposal.Sagsstatus.id,
+        status: stageInfo.status,
         deadline: stageInfo.deadline,
         distanceToDeadline: stageInfo.distanceToDeadline,
         periodId: proposal.Periode.id,

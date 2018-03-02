@@ -86,18 +86,18 @@ class ProposalPage extends Component {
               {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
               {this.state.selectedTab === 'Resultater' && (
                 <div>
-                  {results ? (
-                    <div className="-m-1">
-                      <ProposalResults titel="Platformens afstemning" results={results} />
-                      {proposal.actualResults && (
-                        <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
-                      )}
-                    </div>
-                  ) : (
-                    <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-1">
-                      <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
-                    </div>
-                  )}
+                  <div className="-m-1">
+                    {!!results && <ProposalResults titel="Platformens afstemning" results={results} />}
+                    {!!proposal.actualResults && (
+                      <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
+                    )}
+                  </div>
+                  {!results &&
+                    !proposal.actualResults && (
+                      <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-1">
+                        <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
+                      </div>
+                    )}
                 </div>
               )}
             </div>

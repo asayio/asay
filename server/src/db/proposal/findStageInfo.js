@@ -2,20 +2,19 @@ const R = require('ramda');
 
 // UNCOMMENTED STUFF UNTIL WE CAN HANDLE MULTIPLE STAGES!
 function findStageInfo(stage) {
-  // voting stages for "beslutningsforslag"
-  const succesfulStatusIdList = [28, 103, 110, 41, 84, 125, 274];
-  const voteWasSuccesful = function(typeid) {
+  const voteStage = function(typeid) {
     return stage => {
-      return stage.typeid === typeid && succesfulStatusIdList.includes(stage.statusid);
+      return stage.typeid === typeid;
     };
   };
-  const bOnlyVote = R.find(voteWasSuccesful(87))(stage); // first and only vote
-  const bFinalVote = R.find(voteWasSuccesful(7))(stage); // 2nd and final vote
-  const bFirstVote = R.find(voteWasSuccesful(23))(stage); // first vote
+  // voting stages for "beslutningsforslag"
+  const bOnlyVote = R.find(voteStage(87))(stage); // first and only vote
+  const bFinalVote = R.find(voteStage(7))(stage); // 2nd and final vote
+  const bFirstVote = R.find(voteStage(23))(stage); // first vote
 
   // voting stages for "lovforslag"
-  const lFinalVote = R.find(voteWasSuccesful(17))(stage); // 3rd and final vote
-  const lFirstVote = R.find(voteWasSuccesful(12))(stage); // first vote
+  const lFinalVote = R.find(voteStage(17))(stage); // 3rd and final vote
+  const lFirstVote = R.find(voteStage(12))(stage); // first vote
 
   // get current stage
   const current = bOnlyVote
@@ -24,8 +23,7 @@ function findStageInfo(stage) {
 
   // determine stage
   const hasFinal = bFinalVote || lFinalVote || bOnlyVote ? true : false;
-  /*const hasPreliminary = bFirstVote || lFirstVote ? true : false*/
-  if (!hasFinal /*&& !hasPreliminary*/) {
+  if (!hasFinal) {
     return {
       deadline: 'Ikke fastlagt',
       distanceToDeadline: 99999999998, // show second to last in list ordered by deadline
@@ -46,7 +44,7 @@ function findStageInfo(stage) {
         distanceToDeadline: distanceToDeadline,
         status: 'Til afstemning'
       };
-    } else if (hasFinal && !isOpen) {
+    } else if (hasFinal && !isOpen && current.Afstemning[0]) {
       const findNumbers = /\d+/g; // will find all natural numbers and list them in an array
       const resultString = current.Afstemning[0].konklusion;
       const resultArray = resultString.match(findNumbers);
@@ -61,12 +59,14 @@ function findStageInfo(stage) {
         distanceToDeadline: 99999999999, // show last in list ordered by deadline
         status: 'Afsluttet',
         actualResults
-      }; // refine with result
-    } /* else if (hasPreliminary && isOpen) {
-      return {deadline: countdown, status: "Til vejledende afstemning"}
-    } else if (hasPreliminary && !isOpen) {
-      return {deadline: "Ikke fastlagt", status: "I behandling"}
-    } */
+      };
+    } else if (hasFinal && !isOpen) {
+      return {
+        deadline: 'Afsluttet',
+        distanceToDeadline: 99999999999, // show last in list ordered by deadline
+        status: 'Afsluttet'
+      };
+    }
   }
 }
 
