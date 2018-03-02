@@ -56,7 +56,6 @@ async function ftBatchFetcher() {
     if (!doNotLookForPresentation) console.log('I am looking for a presentation...');
     const upsertedProposal = {
       id: proposal.id,
-<<<<<<< HEAD
       data: Object.assign(
         {
           committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
@@ -78,26 +77,6 @@ async function ftBatchFetcher() {
         },
         findStageInfo(proposal.Sagstrin)
       )
-=======
-      data: Object.assign({
-        committeeId: R.find(R.propEq('rolleid', 11), proposal.SagAktør).aktørid,
-        titel: proposal.titel,
-        shortTitel: proposal.titelkort,
-        type: proposal.Sagstype.type,
-        resume: proposal.resume,
-        number: proposal.nummer,
-        numberPreFix: proposal.nummerprefix,
-        numberNumeric: proposal.nummernumerisk,
-        numberPostFix: proposal.nummerpostfix,
-        statusId: proposal.Sagsstatus.id,
-        status: proposal.Sagsstatus.status,
-        periodId: proposal.Periode.id,
-        periodCode: proposal.Periode.kode,
-        period: proposal.Periode.titel,
-        stage: proposal.Sagstrin,
-        presentation: doNotLookForPresentation ? existingPresentation : await presentation()
-      }, findStageInfo(proposal.Sagstrin))
->>>>>>> master
     };
     if (existingProposal) {
       await changeProposal(upsertedProposal.id, upsertedProposal.data);
