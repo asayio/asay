@@ -36,7 +36,7 @@ class candidateForm extends Component {
     const obj = Object.assign({}, candidate, {
       id: Number(this.props.match.params.id),
       commitments: commitments,
-      constituency: candidate.constituency.id
+      constituency: (candidate.constituency && candidate.constituency.id) || 'Vælg opstillingskreds'
     });
     this.setState(obj);
     this.handlePreperationEvaluation(obj);
@@ -200,7 +200,7 @@ class candidateForm extends Component {
                     title="Storkreds"
                     name="constituency"
                     value={candidate.constituency}
-                    defaultOption="Vælg kategori"
+                    defaultOption="Vælg opstillingskreds"
                     defaultOptionDisabled="yes"
                     options={constituencyList.map(constituency => (
                       <option value={constituency.id} key={constituency.id}>
