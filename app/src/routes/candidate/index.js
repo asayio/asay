@@ -6,12 +6,13 @@ import ProposalList from '../../components/proposalList';
 import Heading from '../../components/headingWithBackBtn';
 import FeatherIcon from '../../components/featherIcon';
 import ProposalTabBar from '../../components/proposalTabBar';
+import Modal from '../../components/modal';
 
-class ProjectPage extends Component {
+class CandidatePage extends Component {
   constructor() {
     super();
     this.state = {};
-    this.supportProject = this.supportProject.bind(this);
+    this.supportCandidate = this.supportCandidate.bind(this);
     this.giveDecleration = this.giveDecleration.bind(this);
     this.selectTab = this.selectTab.bind(this);
   }
@@ -41,24 +42,22 @@ class ProjectPage extends Component {
     this.props.updateState({ entityType: 'user', entity: newUser });
   }
 
-  async supportProject() {
+  async supportCandidate() {
     if (this.props.anonymousUser) {
       this.props.updateState({ entityType: 'error', entity: 401 });
     } else {
-      const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
+      const user = this.props.user;
+      const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
+      const isSupporting = candidate.id === user.supportscandidate;
+      const candidateId = isSupporting ? null : candidate.id;
 
-      !this.props.user.decleration && !project.isSupporting && this.setState({ showModal: true });
-
+      !user.decleration && !isSupporting && this.setState({ showModal: true });
       this.props.updateState({
-        entityType: 'projectSupportList',
-        entity: { id: project.id, isSupporting: project.isSupporting }
+        entityType: 'user',
+        entity: { id: user.id, supportscandidate: candidateId }
       });
-
-      const response = await fetch(`/api/project/${project.id}/support`, {
+      const response = await fetch(`/api/candidate/${candidateId}/support`, {
         method: 'POST',
-        body: JSON.stringify({
-          support: !project.isSupporting
-        }),
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + window.localStorage.authToken
@@ -101,6 +100,7 @@ class ProjectPage extends Component {
       candidate.commitments
     )[0];
     const user = this.props.user;
+    const isSupporting = candidate.id === user.supportscandidate;
     if (candidate) {
       return (
         <div className="flex-auto px-2">
@@ -151,8 +151,14 @@ class ProjectPage extends Component {
                         <Link to={`${candidate.id}/edit`} className="md:hidden btn btn-primary mt-1">
                           Rediger kandidatprofil
                         </Link>
+                      ) : isSupporting ? (
+                        <button onClick={this.supportCandidate} className="md:hidden btn btn-primary mt-1">
+                          Du støtter {candidate.firstname}
+                        </button>
                       ) : (
-                        <button className="md:hidden btn btn-primary mt-1">Støt {candidate.firstname}</button>
+                        <button onClick={this.supportCandidate} className="md:hidden btn btn-primary mt-1">
+                          Støt {candidate.firstname}
+                        </button>
                       )}
                     </div>
                   </div>
@@ -200,13 +206,44 @@ class ProjectPage extends Component {
                         {candidate.firstname} mangler <b>{150 - candidate.support}</b> støtter for at blive berettiget
                         til opstilling på Initiativets liste.
                       </p>
-                      <button className="btn btn-primary">Støt {candidate.firstname}</button>
+                      {isSupporting ? (
+                        <button onClick={this.supportCandidate} className="btn btn-secondary">
+                          Fjern støtte fra {candidate.firstname}
+                        </button>
+                      ) : (
+                        <button onClick={this.supportCandidate} className="btn btn-primary">
+                          Støt {candidate.firstname}
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
               </sidebar>
             </div>
           </div>
+          {this.state.showModal && (
+            <Modal
+              content={
+                <div>
+                  <h2>Vi har registreret din støtte til {candidate.firstname + ' ' + candidate.lastname}</h2>
+                  <p>Men for at få kandidaten i Folketinget, har vi også brug for din vælgererklæring.</p>
+                  <p>Så Initiativet kan stille op til næste Folketingsvalg.</p>
+                  <div className="mt-6 mb-2">
+                    <button onClick={this.giveDecleration} className="btn btn-secondary m-2">
+                      Luk vinduet
+                    </button>
+                    <a
+                      href={`https://initiativet.dk/sign/forward?referrer=${window.location}`}
+                      target="_decleration"
+                      onClick={this.giveDecleration}
+                      className="btn btn-primary m-2">
+                      Giv en vælgererklæring
+                    </a>
+                  </div>
+                </div>
+              }
+            />
+          )}
         </div>
       );
     } else {
@@ -215,4 +252,4 @@ class ProjectPage extends Component {
   }
 }
 
-export default ProjectPage;
+export default CandidatePage;

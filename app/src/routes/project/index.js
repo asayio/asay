@@ -158,7 +158,7 @@ class ProjectPage extends Component {
                       Luk vinduet
                     </button>
                     <a
-                      href="https://initiativet.dk/sign/forward"
+                      href={`https://initiativet.dk/sign/forward?referrer=${window.location}`}
                       target="_decleration"
                       onClick={this.giveDecleration}
                       className="btn btn-primary m-2">

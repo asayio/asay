@@ -8,8 +8,8 @@ async function postUserCandidateSupport(request, response) {
     const user = await getUser(request);
     if (user) {
       const userId = user.id;
-      const candidateId = request.params.id;
-      await changeCandidateSupport(userId, candidateId);
+      const candidateId = request.params.id === 'null' ? null : request.params.id;
+      await changeUserCandidateSupport(userId, candidateId);
       response.sendStatus(200);
     } else {
       response.sendStatus(401);

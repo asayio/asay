@@ -222,7 +222,22 @@ function updateNotificationList(state, entity) {
 }
 
 function updateUser(state, entity) {
-  const newState = Object.assign({}, state, { user: entity });
+  let candidateList = state.candidateList;
+  const updateCandidateList = entity.supportscandidate === null || Number.isInteger(entity.supportscandidate);
+  if (state.user.supportscandidate && updateCandidateList) {
+    const oldCandidateSupport = R.find(R.propEq('id', state.user.supportscandidate))(state.candidateList);
+    const updatedOldCandidate =
+      oldCandidateSupport && Object.assign({}, oldCandidateSupport, { support: oldCandidateSupport.support - 1 });
+    candidateList = R.reject(R.propEq('id', state.user.supportscandidate))(candidateList).concat(updatedOldCandidate);
+  }
+  if (entity.supportscandidate && updateCandidateList) {
+    const newCandidateSupport = R.find(R.propEq('id', entity.supportscandidate))(state.candidateList);
+    const updatedNewCandidate =
+      newCandidateSupport && Object.assign({}, newCandidateSupport, { support: newCandidateSupport.support + 1 });
+    candidateList = R.reject(R.propEq('id', entity.supportscandidate))(candidateList).concat(updatedNewCandidate);
+  }
+  const user = Object.assign({}, state.user, entity);
+  const newState = Object.assign({}, state, { user: user, candidateList });
   return newState;
 }
 
