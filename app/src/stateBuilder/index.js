@@ -68,7 +68,7 @@ async function initialState() {
 
 function buildCandidateList({ candidateList, candidateCommitmentList, constituencyList, preferenceList, projectList }) {
   const newCandidateList = candidateList.map(candidate => {
-    const constituency = R.find(R.propEq('id', candidate.constituency))(constituencyList);
+    const constituency = R.find(R.propEq('id', candidate.constituency))(constituencyList) || candidate.constituency;
     const candidateCommitments = R.filter(commitment => candidate.id === commitment.candidate)(candidateCommitmentList);
     const commitments = candidateCommitments.map(commitment => {
       const category = R.find(R.propEq('id', commitment.category))(preferenceList);
@@ -110,7 +110,7 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
     const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
     const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
     const cleanProject = R.omit(['firstname', 'email', 'lastname', 'bio'], project);
-    const createdon = Date.parse(project.createdon);
+    const createdon = isNaN(Date.parse(project.createdon)) ? Date.now() : Date.parse(project.createdon);
     const newProject = Object.assign({}, cleanProject, {
       category,
       initiator,
@@ -239,6 +239,7 @@ function updateFilter(state, entity) {
 
 function updateProjectList(state, entity) {
   const rawProject = Object.assign({}, entity, {
+    initiatorid: state.user.id,
     email: state.user.email,
     firstname: state.user.firstname,
     lastname: state.user.lastname
@@ -250,7 +251,14 @@ function updateProjectList(state, entity) {
     userProjectSupportList: state.userProjectSupportList
   });
   const newProjectList = R.reject(R.propEq('id', entity.id))(state.projectList).concat(newProject[0]);
-  const newState = Object.assign({}, state, { projectList: newProjectList });
+  const newCandidateList = buildCandidateList({
+    candidateList: state.candidateList,
+    candidateCommitmentList: state.candidateCommitmentList,
+    constituencyList: state.constituencyList,
+    preferenceList: state.preferenceList,
+    projectList: newProjectList
+  });
+  const newState = Object.assign({}, state, { projectList: newProjectList, candidateList: newCandidateList });
   return newState;
 }
 
