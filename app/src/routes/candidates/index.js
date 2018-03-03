@@ -45,7 +45,8 @@ class Candidates extends Component {
     ]);
     candidateList = sortCandidateList(candidateList);
     const sortOrder = ['Flest støtter', 'Færrest støtter'];
-
+    const user = this.props.user;
+    const userIsCandidate = user && !!R.find(R.propEq('id', user.id), this.props.candidateList);
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
@@ -90,6 +91,17 @@ class Candidates extends Component {
               />
             </div>
           </form>
+          <div>
+            {userIsCandidate ? (
+              <Link to={`/candidate/${user.id}`} className="btn btn-white">
+                <FeatherIcon name="UserCheck" className="mr-2" />Mit kandidatur
+              </Link>
+            ) : (
+              <a href="https://initiativet.dk/stilop" className="btn btn-white">
+                <FeatherIcon name="PlusCircle" className="mr-2" />Bliv kandidat
+              </a>
+            )}
+          </div>
           {candidateList.length ? (
             <ul className="list-reset flex flex-wrap -m-1">
               {candidateList.map((candidate, index) => (
