@@ -98,12 +98,6 @@ class App extends Component {
       this.setState(initialState);
       this.setState({ appReady: true });
     }
-    if (initialState && loginExpired) {
-      window.localStorage.cacheStateAnonymous = JSON.stringify(initialState);
-    }
-    if (initialState && !loginExpired) {
-      window.localStorage.cacheStateUser = JSON.stringify(initialState);
-    }
   }
 
   updateState({ entityType, entity }) {
@@ -160,6 +154,12 @@ class App extends Component {
       }
       return null;
     };
+    if (this.state.appReady && this.state.anonymousUser) {
+      window.localStorage.cacheStateAnonymous = JSON.stringify(this.state);
+    }
+    if (this.state.appReady && !this.state.anonymousUser) {
+      window.localStorage.cacheStateUser = JSON.stringify(this.state);
+    }
     return (
       <Router>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
