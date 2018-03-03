@@ -18,8 +18,10 @@ class ProjectPage extends Component {
 
   componentDidMount() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-    const tab = (candidate.commitments[0] && candidate.commitments[0].category.title) || undefined;
-    this.selectTab(tab);
+    if (candidate) {
+      const tab = (candidate.commitments[0] && candidate.commitments[0].category.title) || undefined;
+      this.selectTab(tab);
+    }
   }
 
   selectTab(tabName) {
@@ -70,6 +72,25 @@ class ProjectPage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
+    if (!candidate) {
+      return (
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto text-center">
+            <h1>Ups! Der er problemer</h1>
+            <p className="mx-auto">Det lader ikke til at kandidaten du leder efter findes.</p>
+            <Link to={'/candidates'} className="btn btn-white mt-4 mb-8">
+              <FeatherIcon name="ArrowLeft" className="mr-2" />Gå til listen med kandidater
+            </Link>
+            <p className="mx-auto">
+              Burde der være en side her?{' '}
+              <a href="mailto:dinevenner@initiativet.dk" className="link">
+                Send os en mail
+              </a>.
+            </p>
+          </div>
+        </div>
+      );
+    }
     const tabs = candidate.commitments.map(commitment => {
       return {
         name: commitment.category.title,

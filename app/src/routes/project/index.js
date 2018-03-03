@@ -4,6 +4,7 @@ import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
 import Modal from '../../components/modal';
 import Heading from '../../components/headingWithBackBtn';
+import FeatherIcon from '../../components/featherIcon';
 
 class ProjectPage extends Component {
   constructor() {
@@ -59,6 +60,25 @@ class ProjectPage extends Component {
 
   render() {
     const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
+    if (!project) {
+      return (
+        <div className="flex-auto px-2">
+          <div className="max-w-xl mx-auto text-center">
+            <h1>Ups! Der er problemer</h1>
+            <p className="mx-auto">Det lader ikke til at projektet du leder efter findes.</p>
+            <Link to={'/projects'} className="btn btn-white mt-4 mb-8">
+              <FeatherIcon name="ArrowLeft" className="mr-2" />Gå til listen med projekter
+            </Link>
+            <p className="mx-auto">
+              Burde der være en side her?{' '}
+              <a href="mailto:dinevenner@initiativet.dk" className="link">
+                Send os en mail
+              </a>.
+            </p>
+          </div>
+        </div>
+      );
+    }
     const user = this.props.user;
     if (project) {
       return (

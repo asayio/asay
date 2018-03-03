@@ -46,9 +46,9 @@ class ProposalPage extends Component {
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto text-center">
             <h1>Ups! Der er problemer</h1>
-            <p className="mx-auto">Det lader ikke til at dette lovforslag findes.</p>
-            <Link to={`/`} className="btn btn-white mt-4 mb-8">
-              <ArrowLeft className="mr-2" />Gå listen med forslag
+            <p className="mx-auto">Det lader ikke til at forslaget du leder efter findes.</p>
+            <Link to={'/proposals'} className="btn btn-white mt-4 mb-8">
+              <ArrowLeft className="mr-2" />Gå til listen med forslag
             </Link>
             <p className="mx-auto">
               Burde der være en side her?{' '}
