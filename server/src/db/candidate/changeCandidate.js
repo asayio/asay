@@ -17,7 +17,8 @@ async function changeCandidate(userId, candidate) {
     motivation: candidate.motivation,
     threat: candidate.threat,
     experience: candidate.experience,
-    active: candidate.active
+    active: candidate.active,
+    terms: candidate.terms
   });
 }
 

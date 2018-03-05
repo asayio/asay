@@ -11,7 +11,8 @@ insert into candidate (
   motivation,
   threat,
   experience,
-  active
+  active,
+  terms_accepted
 ) values (
   $/user/,
   $/phone/,
@@ -25,5 +26,6 @@ insert into candidate (
   $/motivation/,
   $/threat/,
   $/experience/,
-  $/active/
+  $/active/,
+  $/terms/
 )
