@@ -51,56 +51,58 @@ class Candidates extends Component {
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
           <h1>Kandidater</h1>
-          <form
-            onChange={this.handleChange}
-            onSubmit={e => e.preventDefault()}
-            className="flex flex-wrap -mx-1 -mt-2 mb-4">
-            <div className="w-full md:w-1/2 px-1">
-              <label className="block text-center my-2">Interesse:</label>
-              <FormSelect
-                name="category"
-                defaultOption="Alle"
-                options={this.props.preferenceList.map(preference => (
-                  <option value={preference.id} key={preference.id}>
-                    {preference.title}
-                  </option>
-                ))}
-              />
+          <div className="flex flex-wrap items-end -mx-1 -mt-2 mb-4">
+            <form
+              onChange={this.handleChange}
+              onSubmit={e => e.preventDefault()}
+              className="w-full md:w-3/4 flex flex-wrap">
+              <div className="w-full md:w-1/3 px-1">
+                <label className="block text-center my-2">Interesse:</label>
+                <FormSelect
+                  name="category"
+                  defaultOption="Alle"
+                  options={this.props.preferenceList.map(preference => (
+                    <option value={preference.id} key={preference.id}>
+                      {preference.title}
+                    </option>
+                  ))}
+                />
+              </div>
+              <div className="w-1/2 md:w-1/3 px-1">
+                <label className="block text-center my-2">Område:</label>
+                <FormSelect
+                  name="constituency"
+                  defaultOption="Alle"
+                  options={this.props.constituencyList.map(constituency => (
+                    <option value={constituency.id} key={constituency.id}>
+                      {constituency.constituency}
+                    </option>
+                  ))}
+                />
+              </div>
+              <div className="w-1/2 md:w-1/3 px-1">
+                <label className="block text-center my-2">Sorter efter:</label>
+                <FormSelect
+                  name="sortOrder"
+                  options={sortOrder.map(sortOption => (
+                    <option value={sortOption} key={sortOption}>
+                      {sortOption}
+                    </option>
+                  ))}
+                />
+              </div>
+            </form>
+            <div className="w-full md:w-1/4 flex px-1 py-2 md:py-0">
+              {userIsCandidate ? (
+                <Link to={`/candidate/${user.id}`} className="flex-auto btn btn-white">
+                  <FeatherIcon name="User" className="mr-2" />Mit kandidatur
+                </Link>
+              ) : (
+                <a href="https://initiativet.dk/stilop" target="_stilop" className="flex-auto btn btn-white">
+                  <FeatherIcon name="UserPlus" className="mr-2" />Bliv kandidat
+                </a>
+              )}
             </div>
-            <div className="w-1/2 md:w-1/4 px-1">
-              <label className="block text-center my-2">Område:</label>
-              <FormSelect
-                name="constituency"
-                defaultOption="Alle"
-                options={this.props.constituencyList.map(constituency => (
-                  <option value={constituency.id} key={constituency.id}>
-                    {constituency.constituency}
-                  </option>
-                ))}
-              />
-            </div>
-            <div className="w-1/2 md:w-1/4 px-1">
-              <label className="block text-center my-2">Sorter efter:</label>
-              <FormSelect
-                name="sortOrder"
-                options={sortOrder.map(sortOption => (
-                  <option value={sortOption} key={sortOption}>
-                    {sortOption}
-                  </option>
-                ))}
-              />
-            </div>
-          </form>
-          <div>
-            {userIsCandidate ? (
-              <Link to={`/candidate/${user.id}`} className="btn btn-white">
-                <FeatherIcon name="UserCheck" className="mr-2" />Mit kandidatur
-              </Link>
-            ) : (
-              <a href="https://initiativet.dk/stilop" className="btn btn-white">
-                <FeatherIcon name="PlusCircle" className="mr-2" />Bliv kandidat
-              </a>
-            )}
           </div>
           {candidateList.length ? (
             <ul className="list-reset flex flex-wrap -m-1">
