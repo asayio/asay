@@ -94,7 +94,7 @@ class ProposalPage extends Component {
                   </div>
                   {!results &&
                     !proposal.actualResults && (
-                      <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-1">
+                      <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 mx-1 my-2">
                         <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
                       </div>
                     )}

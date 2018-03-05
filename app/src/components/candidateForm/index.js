@@ -182,13 +182,13 @@ class candidateForm extends Component {
                   placeholder="Link til din LinkedIn profil"
                   type="url"
                 />
-                <FormInput
+                {/* <FormInput
                   title="Youtube URL"
                   name="youtube"
                   value={candidate.youtube}
                   placeholder="Link til videopræsentation af dit kandidatur"
                   type="url"
-                />
+                /> */}
               </div>
             </div>
             <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 py-4 my-4">
@@ -210,16 +210,16 @@ class candidateForm extends Component {
                   />
                 </label>
                 <FormTextArea
-                  title="Kort om din baggrund *"
-                  name="story"
-                  value={candidate.story}
-                  placeholder="Fortæl din livshistorie. Kort."
-                />
-                <FormTextArea
                   title="Kort om din motivation *"
                   name="motivation"
                   value={candidate.motivation}
                   placeholder="Fortæl hvorfor du ønsker at stille op til Folketinget?"
+                />
+                <FormTextArea
+                  title="Kort om din baggrund *"
+                  name="story"
+                  value={candidate.story}
+                  placeholder="Fortæl din livshistorie. Kort."
                 />
                 <FormTextArea
                   title="Politisk erfaring *"
