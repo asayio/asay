@@ -71,6 +71,7 @@ class CandidatePage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
+    console.log(candidate);
     if (!candidate) {
       return (
         <div className="flex-auto px-2">
@@ -105,25 +106,21 @@ class CandidatePage extends Component {
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
             <Heading title={candidate.firstname + ' ' + candidate.lastname} />
-            <div className="flex flex-wrap md:flex-no-wrap -m-1">
-              <main className="w-full m-1 mt-8 sm:mt-0 md:mt-8">
-                <div className="relative bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
-                  <div className="flex flex-wrap items-center md:pl-40 md:-mt-2 mb-8 md:mb-12">
+            <div className="flex -m-1">
+              <main className="flex-auto m-1">
+                <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
+                  <div className="flex flex-col sm:flex-row mb-8">
                     <img
-                      src={
-                        candidate.picture
-                          ? candidate.picture
-                          : 'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png'
-                      }
+                      src={candidate.picture ? candidate.picture : '../../assets/img/candidate.png'}
                       alt={candidate.firstname + ' ' + candidate.lastname}
-                      className="h-32 w-32 rounded-sm shadow mx-auto sm:mx-0 mb-2 sm:mb-2 md:absolute md:pin-t md:pin-l md:ml-8 -mt-16 sm:mt-0 md:-mt-8"
+                      className="h-32 w-32 rounded-sm shadow-img"
                     />
-                    <div className="w-full sm:w-auto text-center sm:text-left pl-4 md:pl-0">
-                      <span className="mb-2">
+                    <div className="flex flex-col justify-center pt-4 sm:pt-0 sm:pl-8">
+                      <span className="my-1">
                         <FeatherIcon name="Home" className="mr-1" />
                         {candidate.constituency ? candidate.constituency.constituency : 'Opstillingskreds ikke valgt'}
                       </span>
-                      <ul className="list-reset text-grey-dark -mx-2 my-1">
+                      <ul className="list-reset text-grey-dark -mx-2">
                         {candidate.facebook && (
                           <li className="inline-block mx-2 my-1">
                             <a href={candidate.facebook} target="_facebook" className="hover:text-grey-darkest">
@@ -146,19 +143,21 @@ class CandidatePage extends Component {
                           </li>
                         )}
                       </ul>
-                      {user && user.id === candidate.id ? (
-                        <Link to={`${candidate.id}/edit`} className="md:hidden btn btn-primary mt-1">
-                          Rediger kandidatprofil
-                        </Link>
-                      ) : isSupporting ? (
-                        <button onClick={this.supportCandidate} className="md:hidden btn btn-primary mt-1">
-                          Du støtter {candidate.firstname}
-                        </button>
-                      ) : (
-                        <button onClick={this.supportCandidate} className="md:hidden btn btn-primary mt-1">
-                          Støt {candidate.firstname}
-                        </button>
-                      )}
+                      <div className="md:hidden py-2">
+                        {user && user.id === candidate.id ? (
+                          <Link to={`${candidate.id}/edit`} className="btn btn-primary">
+                            Rediger kandidatprofil
+                          </Link>
+                        ) : isSupporting ? (
+                          <button onClick={this.supportCandidate} className="btn btn-primary">
+                            Du støtter {candidate.firstname}
+                          </button>
+                        ) : (
+                          <button onClick={this.supportCandidate} className="btn btn-primary">
+                            Støt {candidate.firstname}
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <article className="mb-4">
@@ -178,11 +177,21 @@ class CandidatePage extends Component {
                     <p>{candidate.threat}</p>
                   </article>
                 </div>
-                <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
-                {commitment && commitment.commitment}
-                <ProposalList proposalList={candidate.projects} />
+                <div>
+                  <h2 className="text-center">Fokusområder</h2>
+                  <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
+                  <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
+                    {commitment && commitment.commitment}
+                  </div>
+                </div>
+                {candidate.projects.length > 0 && (
+                  <div>
+                    <h2 className="text-center">Projekter</h2>
+                    <ProposalList proposalList={candidate.projects} />
+                  </div>
+                )}
               </main>
-              <sidebar className="hidden md:block w-64 flex-no-shrink m-1 mt-8">
+              <sidebar className="hidden md:block w-64 flex-no-shrink m-1">
                 <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
                   <h4 className="text-center border-b border-grey-lighter p-2">{candidate.support} støttere</h4>
                   {user && user.id === candidate.id ? (

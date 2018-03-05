@@ -7,7 +7,7 @@ class ProposalTab extends Component {
     const isSelected = this.props.selectedTab === tab.name;
     const className =
       (isSelected ? 'bg-white cursor-auto' : 'bg-grey-lightest hover:shadow-md') +
-      ' leading-none w-full sm:w-auto border border-grey-lighter rounded-sm shadow px-4 py-2 mx-1';
+      ' flex-1 md:flex-none leading-none truncate border border-grey-lighter rounded-sm shadow px-4 py-2 mx-1';
     return (
       <button
         onClick={() => this.props.selectTab(tab.name)}
