@@ -71,7 +71,6 @@ class CandidatePage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-    console.log(candidate);
     if (!candidate) {
       return (
         <div className="flex-auto px-2">
@@ -149,7 +148,7 @@ class CandidatePage extends Component {
                             Rediger kandidatprofil
                           </Link>
                         ) : isSupporting ? (
-                          <button onClick={this.supportCandidate} className="btn btn-primary">
+                          <button onClick={this.supportCandidate} className="btn btn-secondary">
                             Du støtter {candidate.firstname}
                           </button>
                         ) : (
@@ -216,7 +215,7 @@ class CandidatePage extends Component {
                       </p>
                       {isSupporting ? (
                         <button onClick={this.supportCandidate} className="btn btn-secondary">
-                          Fjern støtte fra {candidate.firstname}
+                          Du støtter {candidate.firstname}
                         </button>
                       ) : (
                         <button onClick={this.supportCandidate} className="btn btn-primary">
@@ -234,19 +233,26 @@ class CandidatePage extends Component {
               content={
                 <div>
                   <h2>Vi har registreret din støtte til {candidate.firstname + ' ' + candidate.lastname}</h2>
-                  <p>Men for at få kandidaten i Folketinget, har vi også brug for din vælgererklæring.</p>
-                  <p>Så Initiativet kan stille op til næste Folketingsvalg.</p>
+                  <p>
+                    For at få kandidaten i Folketinget, har vi også brug for din vælgererklæring, så Initiativet kan
+                    stille op til næste Folketingsvalg.
+                  </p>
                   <div className="mt-6 mb-2">
-                    <button onClick={this.giveDecleration} className="btn btn-secondary m-2">
+                    <button onClick={() => this.setState({ showModal: false })} className="btn btn-secondary m-2">
                       Luk vinduet
                     </button>
                     <a
                       href={`https://initiativet.dk/sign/forward?referrer=${window.location}`}
-                      target="_decleration"
+                      target="_declaration"
                       onClick={this.giveDecleration}
                       className="btn btn-primary m-2">
                       Giv en vælgererklæring
                     </a>
+                  </div>
+                  <div className="text-center mt-4">
+                    <button onClick={this.giveDecleration} className="text-grey hover:text-grey-dark">
+                      Jeg har allerede støttet
+                    </button>
                   </div>
                 </div>
               }
