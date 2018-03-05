@@ -56,10 +56,10 @@ svg {
   @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-not-allowed;
 }
 
-.link {
+.inline-link {
   @apply .text-blue-dark;
 }
-.link:hover {
+.inline-link:hover {
   @apply .text-blue;
 }
 

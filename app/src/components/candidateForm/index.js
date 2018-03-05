@@ -281,7 +281,8 @@ class candidateForm extends Component {
                       Jeg bekræfter hermed, at jeg tiltræder{' '}
                       <a
                         href="https://assets.initiativet.dk/files/initiativet_forretningsorden.pdf"
-                        target="_forretningsorden">
+                        target="_forretningsorden"
+                        className="inline-link">
                         Initiativets Forretningsorden for Folketingsgruppen
                       </a>{' '}
                       og ønsker at offentliggøre mit kandidatur.
