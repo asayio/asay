@@ -55,11 +55,12 @@ class candidateForm extends Component {
       form.commitments[2].commitment !== '' &&
       form.commitments[0].category !== 'Vælg kategori' &&
       form.commitments[1].category !== 'Vælg kategori' &&
-      form.commitments[2].category !== 'Vælg kategori'
+      form.commitments[2].category !== 'Vælg kategori' &&
+      form.terms
     ) {
       this.setState({ isPublishable: true });
     } else {
-      this.setState({ isPublishable: false, active: false });
+      this.setState({ isPublishable: false });
     }
   }
 
@@ -87,10 +88,11 @@ class candidateForm extends Component {
     }.bind(this);
   }
 
-  async handleSubmit() {
+  async handleSubmit(active) {
     this.setState({ showModal: 'loading' });
     const candidate = Object.assign({}, this.state, {
-      constituency: Number(this.state.constituency)
+      constituency: Number(this.state.constituency),
+      active: active
     });
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
@@ -102,7 +104,7 @@ class candidateForm extends Component {
     });
     if (response.ok) {
       this.props.updateState({ entityType: 'candidateList', entity: candidate });
-      const modal = this.state.active ? 'active' : 'saved';
+      const modal = active ? 'active' : 'saved';
       this.setState({ showModal: modal });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
@@ -112,6 +114,7 @@ class candidateForm extends Component {
 
   render() {
     const candidate = this.state;
+    console.log(candidate);
     const commitments = candidate.commitments && R.sortWith([R.ascend(R.prop('priority'))])(candidate.commitments);
     const constituencyList = this.props.constituencyList;
     if (candidate.id) {
@@ -272,47 +275,49 @@ class candidateForm extends Component {
             <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 pt-4 pb-8 my-4">
               <div className="max-w-md mx-auto">
                 <h2>Godkend og offentliggør dit kandidatur</h2>
-                {candidate.isPublishable ? (
-                  <div className="flex">
-                    <div className="pr-2">
-                      <input name="active" onChange={this.handleChange} checked={candidate.active} type="checkbox" />
-                    </div>
-                    <p>
-                      Jeg bekræfter hermed, at jeg tiltræder{' '}
-                      <a
-                        href="https://assets.initiativet.dk/files/initiativet_forretningsorden.pdf"
-                        target="_forretningsorden"
-                        className="inline-link">
-                        Initiativets Forretningsorden for Folketingsgruppen
-                      </a>{' '}
-                      og ønsker at offentliggøre mit kandidatur.
-                    </p>
+                <div className="flex">
+                  <div className="pr-2">
+                    <input name="terms" onChange={this.handleChange} checked={candidate.terms} type="checkbox" />
                   </div>
-                ) : (
                   <p>
-                    Du har ikke udfyldt alle obligatoriske oplysninger. Vi kan ikke offentliggøre dit kandidatur, før
-                    din kandidatprofil er fuldstændig.
+                    Jeg bekræfter hermed, at jeg tiltræder{' '}
+                    <a
+                      href="https://assets.initiativet.dk/files/initiativet_forretningsorden.pdf"
+                      target="_forretningsorden"
+                      className="inline-link">
+                      Initiativets Forretningsorden for Folketingsgruppen
+                    </a>{' '}
+                    og ønsker at offentliggøre mit kandidatur.
                   </p>
-                )}
+                </div>
                 <div className="-mx-2">
-                  {!candidate.active &&
-                    candidate.originalActive && (
-                      <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
-                        Træk kandidatur tilbage
-                      </button>
-                    )}
-                  {!candidate.active &&
-                    !candidate.originalActive && (
-                      <button onClick={this.handleSubmit} className="btn btn-secondary m-2">
-                        Gem som kladde
-                      </button>
-                    )}
-                  {candidate.active && (
-                    <button onClick={this.handleSubmit} className="btn btn-primary m-2">
-                      Offentliggør
+                  {candidate.active ? (
+                    <button className="btn btn-disabled m-2">Gem som kladde</button>
+                  ) : (
+                    <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
+                      Gem som kladde
                     </button>
                   )}
+                  {candidate.isPublishable ? (
+                    <button onClick={() => this.handleSubmit(true)} className="btn btn-primary m-2">
+                      Offentliggør
+                    </button>
+                  ) : (
+                    <button className="btn btn-disabled m-2">Offentliggør</button>
+                  )}
                 </div>
+                {!candidate.isPublishable &&
+                  (candidate.active ? (
+                    <p>
+                      Din kandidatprofil er offentlig og det skulle helst forblive sådan. Sørg for, at din
+                      kandidatprofil er udfyldt og fuldstændig.
+                    </p>
+                  ) : (
+                    <p>
+                      Du har ikke udfyldt alle obligatoriske oplysninger. Vi kan ikke offentliggøre dit kandidatur, før
+                      din kandidatprofil er fuldstændig.
+                    </p>
+                  ))}
               </div>
             </div>
           </form>

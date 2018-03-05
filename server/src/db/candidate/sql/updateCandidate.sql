@@ -11,5 +11,6 @@ update candidate
     motivation = $/motivation/,
     threat = $/threat/,
     experience = $/experience/,
-    active = $/active/
+    active = $/active/,
+    terms_accepted = $/terms/
   where user_id = $/user/

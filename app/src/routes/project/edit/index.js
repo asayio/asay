@@ -7,7 +7,7 @@ class EditProjectPage extends Component {
   render() {
     const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
     const user = this.props.user;
-    if (project.initiator.email === user.email) {
+    if (project && project.initiator.email === user.email) {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">

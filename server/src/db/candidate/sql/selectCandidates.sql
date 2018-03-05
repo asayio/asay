@@ -15,6 +15,7 @@ select
   threat,
   experience,
   active,
+  candidate.terms_accepted as terms,
   cast(count(b.*) as int) as support
 from candidate
   inner join public.user a on candidate.user_id = a.id
@@ -36,4 +37,5 @@ group by
   motivation,
   threat,
   experience,
-  active
+  active,
+  candidate.terms_accepted
