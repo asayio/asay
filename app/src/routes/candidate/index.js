@@ -89,19 +89,18 @@ class CandidatePage extends Component {
           </div>
         </div>
       );
-    }
-    const tabs = candidate.commitments.map(commitment => {
-      return {
-        name: commitment.category.title,
-        icon: commitment.category.feathericon
-      };
-    });
-    const commitment = R.filter(commitment => commitment.category.title === this.state.selectedTab)(
-      candidate.commitments
-    )[0];
-    const user = this.props.user;
-    const isSupporting = candidate.id === user.supportscandidate;
-    if (candidate) {
+    } else if (candidate) {
+      const user = this.props.user;
+      const isSupporting = user && candidate.id === user.supportscandidate;
+      const tabs = candidate.commitments.map(commitment => {
+        return {
+          name: commitment.category.title,
+          icon: commitment.category.feathericon
+        };
+      });
+      const commitment = R.filter(commitment => commitment.category.title === this.state.selectedTab)(
+        candidate.commitments
+      )[0];
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
