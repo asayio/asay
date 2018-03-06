@@ -6,6 +6,7 @@ const changeCandidateCommitment = require('../db/candidate/changeCandidateCommit
 const createCandidateCommitment = require('../db/candidate/createCandidateCommitment');
 const lookupCandidateCommitment = require('../db/candidate/lookupCandidateCommitment');
 const getUser = require('../logic/getUser');
+const contentful = require('../integrations/contentful');
 
 // Function
 async function postCandidate(request, response) {
@@ -14,6 +15,9 @@ async function postCandidate(request, response) {
     if (user) {
       const userId = user.id;
       const candidate = request.body;
+      if (candidate.image) {
+        await contentful.uploadImage(candidate.image)
+      }
       const hasCandidacy = await lookupCandidate(userId);
       const testing = hasCandidacy ? true : false;
       if (hasCandidacy) {
