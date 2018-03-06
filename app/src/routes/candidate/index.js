@@ -130,6 +130,22 @@ class CandidatePage extends Component {
                         {candidate.constituency ? candidate.constituency.constituency : 'Opstillingskreds ikke valgt'}
                       </span>
                       <ul className="list-reset text-grey-dark -mx-2">
+                        {candidate.email && (
+                          <li className="inline-block mx-2 my-1">
+                            <a href={`mailto:${candidate.email}`} target="_mail" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Mail" className="text-grey-darkest mr-1" />Email
+                            </a>
+                          </li>
+                        )}
+                        {candidate.phone && (
+                          <li className="inline-block mx-2 my-1">
+                            <a href={`tel:${candidate.phone}`} target="_phone" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Phone" className="text-grey-darkest mr-1" />Telefon
+                            </a>
+                          </li>
+                        )}
+                      </ul>
+                      <ul className="list-reset text-grey-dark -mx-2">
                         {candidate.facebook && (
                           <li className="inline-block mx-2 my-1">
                             <a href={candidate.facebook} target="_facebook" className="hover:text-grey-darkest">
