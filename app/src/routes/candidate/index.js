@@ -13,6 +13,7 @@ class CandidatePage extends Component {
     super();
     this.state = {};
     this.supportCandidate = this.supportCandidate.bind(this);
+    this.supportingCandidate = this.supportingCandidate.bind(this);
     this.giveDecleration = this.giveDecleration.bind(this);
     this.selectTab = this.selectTab.bind(this);
   }
@@ -42,30 +43,39 @@ class CandidatePage extends Component {
     this.props.updateState({ entityType: 'user', entity: newUser });
   }
 
-  async supportCandidate() {
+  supportingCandidate(confirmedChange) {
     if (this.props.anonymousUser) {
       this.props.updateState({ entityType: 'error', entity: 401 });
     } else {
       const user = this.props.user;
-      const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-      const isSupporting = candidate.id === user.supportscandidate;
-      const candidateId = isSupporting ? null : candidate.id;
-
-      !user.decleration && !isSupporting && this.setState({ showModal: true });
-      this.props.updateState({
-        entityType: 'user',
-        entity: { id: user.id, supportscandidate: candidateId }
-      });
-      const response = await fetch(`/api/candidate/${candidateId}/support`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + window.localStorage.authToken
-        }
-      });
-      if (!response.ok) {
-        this.props.updateState({ entityType: 'error', entity: response.status });
+      const userSupportsCandidate = user.supportscandidate;
+      const candidateId = Number(this.props.match.params.id);
+      const isSupporting = candidateId === userSupportsCandidate;
+      const mustConfirm = userSupportsCandidate && !isSupporting;
+      const newCandidateId = isSupporting ? null : candidateId;
+      if (!confirmedChange && mustConfirm) {
+        this.setState({ showModal: 'confirmation' });
+      } else {
+        !user.decleration && !isSupporting
+          ? this.setState({ showModal: 'decleration' })
+          : this.setState({ showModal: false });
+        this.supportCandidate(newCandidateId);
       }
+    }
+  }
+
+  async supportCandidate(candidateId) {
+    // const newUser = Object.assign({}, this.props.user, { supportscandidate: candidateId });
+    this.props.updateState({ entityType: 'user', entity: { supportscandidate: candidateId } });
+    const response = await fetch(`/api/candidate/${candidateId}/support`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
+    if (!response.ok) {
+      this.props.updateState({ entityType: 'error', entity: response.status });
     }
   }
 
@@ -148,11 +158,11 @@ class CandidatePage extends Component {
                             Rediger kandidatprofil
                           </Link>
                         ) : isSupporting ? (
-                          <button onClick={this.supportCandidate} className="btn btn-secondary">
+                          <button onClick={() => this.supportingCandidate(false)} className="btn btn-secondary">
                             Du støtter {candidate.firstname}
                           </button>
                         ) : (
-                          <button onClick={this.supportCandidate} className="btn btn-primary">
+                          <button onClick={() => this.supportingCandidate(false)} className="btn btn-primary">
                             Støt {candidate.firstname}
                           </button>
                         )}
@@ -190,7 +200,7 @@ class CandidatePage extends Component {
                   </div>
                 )}
               </main>
-              <sidebar className="hidden md:block w-64 flex-no-shrink m-1">
+              <div className="hidden md:block w-64 flex-no-shrink m-1">
                 <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
                   <h4 className="text-center border-b border-grey-lighter p-2">{candidate.support} støttere</h4>
                   {user && user.id === candidate.id ? (
@@ -214,21 +224,43 @@ class CandidatePage extends Component {
                         til opstilling på Initiativets liste.
                       </p>
                       {isSupporting ? (
-                        <button onClick={this.supportCandidate} className="btn btn-secondary">
+                        <button onClick={() => this.supportingCandidate(false)} className="btn btn-secondary">
                           Du støtter {candidate.firstname}
                         </button>
                       ) : (
-                        <button onClick={this.supportCandidate} className="btn btn-primary">
+                        <button onClick={() => this.supportingCandidate(false)} className="btn btn-primary">
                           Støt {candidate.firstname}
                         </button>
                       )}
                     </div>
                   )}
                 </div>
-              </sidebar>
+              </div>
             </div>
           </div>
-          {this.state.showModal && (
+          {this.state.showModal === 'confirmation' && (
+            <Modal
+              content={
+                <div>
+                  <h2>Er du sikker?</h2>
+                  <p>
+                    Du kan kun støtte én kandidat og har allerede støttet en anden. Vælger du at støtte{' '}
+                    {candidate.firstname + ' ' + candidate.lastname} bortfalder den støtte du tidligere har givet til en
+                    anden kandidat.
+                  </p>
+                  <div className="mt-6 mb-2">
+                    <button onClick={() => this.setState({ showModal: false })} className="btn btn-secondary m-2">
+                      Annuller
+                    </button>
+                    <button onClick={() => this.supportingCandidate(true)} className="btn btn-primary m-2">
+                      Bekræft støtte
+                    </button>
+                  </div>
+                </div>
+              }
+            />
+          )}
+          {this.state.showModal === 'decleration' && (
             <Modal
               content={
                 <div>
