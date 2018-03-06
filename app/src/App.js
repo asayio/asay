@@ -145,7 +145,6 @@ class App extends Component {
 
   render() {
     const logPageView = () => {
-      window.scrollTo(0, 0);
       if (process.env.NODE_ENV === 'production') {
         ReactGA.initialize('UA-107447977-1');
         const page = window.location.pathname;
