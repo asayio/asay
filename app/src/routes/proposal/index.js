@@ -64,7 +64,9 @@ class ProposalPage extends Component {
       this.seen(proposal);
     }
     const resume = proposal.resume ? proposal.resume.split(/\n/gm) : [];
-    const purpose = proposal.presentation ? proposal.presentation.paragraphs : [];
+    const presentation = proposal.presentation ? proposal.presentation.paragraphs.slice(1, 999) : [];
+    const proposer = proposal.presentation ? ['Med ord fra ' + proposal.presentation.proposer] : [];
+    const purpose = proposer.concat(presentation);
     const tabs = [
       { name: 'Resume', icon: 'FileText' },
       { name: 'Formål', icon: 'FileText' },

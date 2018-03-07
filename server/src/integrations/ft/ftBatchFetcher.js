@@ -53,9 +53,8 @@ async function ftBatchFetcher() {
     }
     const stageInfo = findStageInfo(proposal.Sagstrin);
     const results = stageInfo.status === 'Afsluttet' && (await getVoteResults(proposal.id));
-    const existingPresentation = R.path(['presentation'], existingProposal);
-    const doNotLookForPresentation =
-      !!R.path(['paragraphs', 'length'], existingPresentation) || proposal.nummerprefix === 'B'; // beslutningforslag will never get a presentation
+    const existingPresentation = R.path(['data', 'presentation'], existingProposal);
+    const doNotLookForPresentation = existingPresentation || proposal.nummerprefix === 'B'; // beslutningforslag will never get a presentation
     if (!doNotLookForPresentation) console.log('I am looking for a presentation...');
     const upsertedProposal = {
       id: proposal.id,
