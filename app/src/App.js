@@ -170,6 +170,7 @@ class App extends Component {
           {this.state.showErrorModal &&
             this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
           {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
+
           {this.state.appReady ? (
             <Switch>
               <Route exact path="/" component={LandingPage} />
@@ -386,7 +387,11 @@ class App extends Component {
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
-            <LoadingSpinner />
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/auth" component={Auth} />
+              <Route path="*" component={LoadingSpinner} />
+            </Switch>
           )}
           <Footer />
         </div>
