@@ -6,11 +6,11 @@ class ProposalInfo extends Component {
       `Dette afsnit findes desværre ikke for dette forslag endnu. Du kan i stedet læse selve forslaget i PDF-form ved at
     klikke på 'Læs forslag'-knappen.`
     ];
-    const paragraphs = this.props.paragraphs.length > 1 ? this.props.paragraphs : emptyParagraphHandler;
+    const paragraphs = this.props.paragraphs.length > 0 ? this.props.paragraphs : emptyParagraphHandler;
     return (
-      <div className="bg-white border border-grey-lighter rounded-sm shadow p-8 m-1">
+      <article className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-1">
         {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-      </div>
+      </article>
     );
   }
 }

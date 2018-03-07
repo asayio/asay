@@ -23,6 +23,9 @@ import MyProjects from './routes/projects/mine';
 import NewProject from './routes/projects/new';
 import Project from './routes/project';
 import EditProject from './routes/project/edit';
+import Candidates from './routes/candidates';
+import Candidate from './routes/candidate';
+import EditCandidate from './routes/candidate/edit';
 
 // components
 import Nav from './components/nav';
@@ -52,6 +55,9 @@ class App extends Component {
       projectList: [],
       projectSupportList: [],
       userProjectSupportList: [],
+      candidateList: [],
+      candidateCommitmentList: [],
+      constituencyList: [],
       appReady: false,
       searchString: '',
       filter: {
@@ -92,12 +98,6 @@ class App extends Component {
       this.setState(initialState);
       this.setState({ appReady: true });
     }
-    if (initialState && loginExpired) {
-      window.localStorage.cacheStateAnonymous = JSON.stringify(initialState);
-    }
-    if (initialState && !loginExpired) {
-      window.localStorage.cacheStateUser = JSON.stringify(initialState);
-    }
   }
 
   updateState({ entityType, entity }) {
@@ -129,6 +129,9 @@ class App extends Component {
       case 'projectSupportList':
         this.setState(stateBuilder.updateProjectSupportList(this.state, entity));
         break;
+      case 'candidateList':
+        this.setState(stateBuilder.updateCandidateList(this.state, entity));
+        break;
       case 'error':
         this.setState({ showErrorModal: entity });
         break;
@@ -150,17 +153,24 @@ class App extends Component {
       }
       return null;
     };
+    if (this.state.appReady && this.state.anonymousUser) {
+      window.localStorage.cacheStateAnonymous = JSON.stringify(this.state);
+    }
+    if (this.state.appReady && !this.state.anonymousUser) {
+      window.localStorage.cacheStateUser = JSON.stringify(this.state);
+    }
     return (
-      <Router onUpdate={() => window.scrollTo(0, 0)}>
+      <Router>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
           <Route path="/" component={logPageView} />
-          <Nav user={this.state.user} updateState={this.updateState} />
+          <Nav user={this.state.user} candidateList={this.state.candidateList} updateState={this.updateState} />
           {this.state.showAddToHomeScreenModal && (
             <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
           )}
           {this.state.showErrorModal &&
             this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
           {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
+
           {this.state.appReady ? (
             <Switch>
               <Route exact path="/" component={LandingPage} />
@@ -214,8 +224,6 @@ class App extends Component {
                   <Projects
                     updateState={this.updateState}
                     preferenceList={this.state.preferenceList}
-                    searchString={this.state.searchString}
-                    filter={this.state.filter}
                     projectList={this.state.projectList}
                     user={this.state.user}
                   />
@@ -230,6 +238,32 @@ class App extends Component {
                     anonymousUser={this.state.anonymousUser}
                     updateState={this.updateState}
                     projectList={this.state.projectList}
+                    user={this.state.user}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/candidates"
+                render={props => (
+                  <Candidates
+                    anonymousUser={this.state.anonymousUser}
+                    candidateList={this.state.candidateList}
+                    user={this.state.user}
+                    preferenceList={this.state.preferenceList}
+                    constituencyList={this.state.constituencyList}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/candidate/:id"
+                render={props => (
+                  <Candidate
+                    match={props.match}
+                    anonymousUser={this.state.anonymousUser}
+                    candidateList={this.state.candidateList}
+                    updateState={this.updateState}
                     user={this.state.user}
                   />
                 )}
@@ -257,6 +291,24 @@ class App extends Component {
                       match={props.match}
                       updateState={this.updateState}
                       projectList={this.state.projectList}
+                      preferenceList={this.state.preferenceList}
+                      user={this.state.user}
+                    />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/candidate/:id/edit"
+                render={props =>
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <EditCandidate
+                      match={props.match}
+                      updateState={this.updateState}
+                      candidateList={this.state.candidateList}
+                      constituencyList={this.state.constituencyList}
                       preferenceList={this.state.preferenceList}
                       user={this.state.user}
                     />
@@ -335,7 +387,11 @@ class App extends Component {
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
-            <LoadingSpinner />
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/auth" component={Auth} />
+              <Route path="*" component={LoadingSpinner} />
+            </Switch>
           )}
           <Footer />
         </div>

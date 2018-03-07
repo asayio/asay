@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FeatherIcon from '../featherIcon';
 
-class ProposalTitle extends Component {
+class Heading extends Component {
   render() {
     return (
       <div className="flex flex-wrap sm:flex-no-wrap items-center my-6 sm:my-8">
@@ -17,4 +17,4 @@ class ProposalTitle extends Component {
   }
 }
 
-export default ProposalTitle;
+export default Heading;

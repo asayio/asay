@@ -1,6 +1,6 @@
 import R from 'ramda';
 import React, { Component } from 'react';
-import ProposalTitle from '../../components/proposalTitle';
+import Heading from '../../components/headingWithBackBtn';
 import ProposalInfo from '../../components/proposalInfo';
 import ProposalActions from '../../components/proposalActions';
 import { ArrowLeft } from 'react-feather';
@@ -37,12 +37,6 @@ class ProposalPage extends Component {
           }
         })
       );
-    // for a rainy day, when we get results
-    // proposal.seeResultsNotification &&
-    //   this.props.updateState({
-    //     entityType: "notificationList",
-    //     entity: { proposal_id: proposal.id, type: "seenResults" }
-    //   });
   }
 
   render() {
@@ -52,13 +46,13 @@ class ProposalPage extends Component {
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto text-center">
             <h1>Ups! Der er problemer</h1>
-            <p className="mx-auto">Det lader ikke til at dette lovforslag findes.</p>
-            <Link to={`/`} className="btn btn-white mt-4 mb-8">
-              <ArrowLeft className="mr-2" />Gå listen med forslag
+            <p className="mx-auto">Det lader ikke til at forslaget du leder efter findes.</p>
+            <Link to={'/proposals'} className="btn btn-white mt-4 mb-8">
+              <ArrowLeft className="mr-2" />Gå til listen med forslag
             </Link>
             <p className="mx-auto">
               Burde der være en side her?{' '}
-              <a href="mailto:dinevenner@initiativet.dk" className="link">
+              <a href="mailto:dinevenner@initiativet.dk" className="inline-link">
                 Send os en mail
               </a>.
             </p>
@@ -70,7 +64,9 @@ class ProposalPage extends Component {
       this.seen(proposal);
     }
     const resume = proposal.resume ? proposal.resume.split(/\n/gm) : [];
-    const purpose = proposal.presentation ? proposal.presentation.paragraphs : [];
+    const presentation = proposal.presentation ? proposal.presentation.paragraphs.slice(1, 999) : [];
+    const proposer = proposal.presentation ? ['Med ord fra ' + proposal.presentation.proposer] : [];
+    const purpose = proposer.concat(presentation);
     const tabs = [
       { name: 'Resume', icon: 'FileText' },
       { name: 'Formål', icon: 'FileText' },
@@ -84,7 +80,7 @@ class ProposalPage extends Component {
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
-          <ProposalTitle title={proposal.shortTitel.replace('.', '')} />
+          <Heading title={proposal.shortTitel.replace('.', '')} />
           <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
           <div className="flex flex-wrap md:flex-no-wrap -m-1">
             <div className="w-full">
@@ -92,18 +88,18 @@ class ProposalPage extends Component {
               {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
               {this.state.selectedTab === 'Resultater' && (
                 <div>
-                  {results ? (
-                    <div className="-m-1">
-                      <ProposalResults titel="Platformens afstemning" results={results} />
-                      {proposal.actualResults && (
-                        <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
-                      )}
-                    </div>
-                  ) : (
-                    <div className="bg-white border border-grey-lighter rounded-sm shadow p-8 m-1">
-                      <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
-                    </div>
-                  )}
+                  <div className="-m-1">
+                    {!!results && <ProposalResults titel="Platformens afstemning" results={results} />}
+                    {!!proposal.actualResults && (
+                      <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
+                    )}
+                  </div>
+                  {!results &&
+                    !proposal.actualResults && (
+                      <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 mx-1 my-2">
+                        <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
+                      </div>
+                    )}
                 </div>
               )}
             </div>
@@ -127,7 +123,7 @@ class ProposalPage extends Component {
                         proposal.numberNumeric +
                         proposal.numberPostFix}/index.htm`}
                       target={`_${proposal.id}_ft`}
-                      className="link">
+                      className="inline-link">
                       www.ft.dk
                     </a>
                   </span>

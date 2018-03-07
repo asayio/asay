@@ -18,7 +18,7 @@ class Lost extends Component {
           </button>
           <p className="mx-auto">
             Burde der være en side her?{' '}
-            <a href="mailto:dinevenner@initiativet.dk" className="link">
+            <a href="mailto:dinevenner@initiativet.dk" className="inline-link">
               Send os en mail
             </a>.
           </p>

@@ -1,9 +1,10 @@
 /* TAILWIND NORMALIZE */
+
 @tailwind preflight;
 
 /* CSS THAT NEED TO BE LOADED BEFORE TAILWIND CLASSES */
 
-@import url('https://assets.initiativet.dk/fonts/clear-sans/css/clear-sans.css');
+@import url('./assets/fonts/clear-sans/css/clear-sans.css');
 
 /* TAILWIND CLASSES */
 
@@ -55,11 +56,15 @@ svg {
   @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-not-allowed;
 }
 
-.link {
+.inline-link {
   @apply .text-blue-dark;
 }
-.link:hover {
+.inline-link:hover {
   @apply .text-blue;
+}
+
+.bg-transparent-to-black {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45));
 }
 
 .no-outline:focus {
@@ -73,9 +78,15 @@ svg {
   .top-15 {
     top: 3.75rem;
   }
+  .order--1 {
+    order: -1;
+  }
+  .order-unset {
+    order: unset;
+  }
 }
 
-/* APPLIED CSS */
+/* GLOBALLY APPLIED CSS */
 
 html {
   @apply .font-clear .text-black .leading-tight .antialiased;

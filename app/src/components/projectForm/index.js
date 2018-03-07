@@ -23,13 +23,13 @@ class ProjectForm extends Component {
     const obj = {
       id: (project && project.id) || null,
       title: (project && project.title) || '',
-      category: (project && project.category.id) || '',
+      category: (project && project.category.id) || 'Vælg kategori',
       bio: (project && project.initiator.bio) || '',
       description: (project && project.description) || '',
       budget: (project && project.budget) || '',
       argument: (project && project.argument) || '',
       risk: (project && project.risk) || '',
-      published: (project && project.published) || ''
+      published: (project && project.published) || false
     };
     this.setState(obj);
     this.handlePreperationEvaluation(obj);
@@ -62,7 +62,7 @@ class ProjectForm extends Component {
   }
 
   handlePublish() {
-    if (this.state.published) {
+    if (!this.state.published) {
       this.setState({ showModal: 'confirm' });
     } else {
       this.handleSubmit(true);
@@ -100,7 +100,7 @@ class ProjectForm extends Component {
   render() {
     const project = this.state;
     const preferenceList = this.props.preferenceList;
-    if (project) {
+    if (!R.isEmpty(project)) {
       return (
         <div>
           {project.showModal === 'confirm' && (
@@ -188,9 +188,10 @@ class ProjectForm extends Component {
                 name="title"
                 value={project.title}
                 placeholder="Giv dit projekt en informativ og fængende titel..."
+                type="text"
               />
               <label className="block md:w-1/2 my-8">
-                <span className="block font-bold mb-2">{this.props.title}</span>
+                <span className="block font-bold mb-2">Kategori</span>
                 <FormSelect
                   title="Kategori"
                   name="category"
@@ -205,11 +206,12 @@ class ProjectForm extends Component {
                   ))}
                 />
               </label>
-              <FormTextArea
+              <FormInput
                 title="Bio"
                 name="bio"
                 value={project.bio}
                 placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
+                text="text"
               />
               <FormTextArea
                 title="Beskrivelse"
@@ -238,7 +240,7 @@ class ProjectForm extends Component {
             </form>
             <div className="text-center -my-2">
               {!project.published && project.isSaveable ? (
-                <button onClick={this.handlePublish} className="btn btn-secondary m-2">
+                <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
                   Gem som kladde
                 </button>
               ) : (
@@ -247,7 +249,7 @@ class ProjectForm extends Component {
                 </button>
               )}
               {project.isPublishable ? (
-                <button onClick={() => this.handleSubmit(true)} className="btn btn-primary m-2">
+                <button onClick={() => this.handlePublish()} className="btn btn-primary m-2">
                   Publicer
                 </button>
               ) : (
@@ -259,6 +261,8 @@ class ProjectForm extends Component {
           </div>
         </div>
       );
+    } else {
+      return <div>Henter projekt...</div>;
     }
   }
 }

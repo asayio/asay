@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Check, X, Minus, ArrowLeft } from 'react-feather';
 import FeatherIcon from '../../../components/featherIcon';
 import Modal from '../../../components/modal';
-import ProposalTitle from '../../../components/proposalTitle';
+import Heading from '../../../components/headingWithBackBtn';
 
 class Vote extends Component {
   constructor(props, context) {
@@ -90,7 +90,7 @@ class Vote extends Component {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
-            <ProposalTitle title={proposal.shortTitel.replace('.', '')} />
+            <Heading title={proposal.shortTitel.replace('.', '')} />
             <div className="max-w-md text-center bg-white border border-grey-lighter rounded-sm shadow px-4 pt-4 pb-8 mx-auto">
               <div>
                 <h2>{proposal.hasVoted ? 'Ændr din stemme' : 'Afgiv din stemme'}</h2>

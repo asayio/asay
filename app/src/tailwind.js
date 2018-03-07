@@ -384,6 +384,7 @@ module.exports = {
   width: {
     auto: 'auto',
     px: '1px',
+    none: '0',
     '1': '0.25rem',
     '2': '0.5rem',
     '3': '0.75rem',
@@ -507,6 +508,7 @@ module.exports = {
   */
 
   maxWidth: {
+    '2xs': '9rem',
     xs: '20rem',
     sm: '30rem',
     md: '40rem',
@@ -516,7 +518,8 @@ module.exports = {
     '3xl': '80rem',
     '4xl': '90rem',
     '5xl': '100rem',
-    full: '100%'
+    full: '100%',
+    screen: '100vw'
   },
 
   /*
@@ -564,7 +567,9 @@ module.exports = {
     '8': '2rem',
     '10': '2.5rem',
     '13': '3.25rem',
-    '16': '4rem'
+    '16': '4rem',
+    '32': '8rem',
+    '40': '10rem'
   },
 
   /*
@@ -595,7 +600,8 @@ module.exports = {
     '9': '2.25rem',
     '10': '2.5rem',
     '12': '3rem',
-    '13': '3.25rem'
+    '13': '3.25rem',
+    '16': '4rem'
   },
 
   /*
@@ -621,7 +627,9 @@ module.exports = {
     '3': '0.75rem',
     '4': '1rem',
     '6': '1.5rem',
-    '8': '2rem'
+    '8': '2rem',
+    '12': '3rem',
+    '16': '4rem'
   },
 
   /*
@@ -646,7 +654,8 @@ module.exports = {
     md: '0 4px 16px 0 rgba(0,0,0,0.075)',
     lg: '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
     inner: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
-    none: 'none'
+    none: 'none',
+    img: '0 2px 8px 2px rgba(0,0,0,0.12)'
   },
 
   /*

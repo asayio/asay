@@ -12,6 +12,7 @@ async function initialState() {
     const appDataBundle = await appDataBundleResponse.json();
     const user = appDataBundle.user;
     const committeeCategoryList = appDataBundle.committeeCategoryList;
+    const constituencyList = appDataBundle.constituencyList;
     const notificationList = appDataBundle.notificationList || [];
     const voteList = appDataBundle.voteList || [];
     const projectSupportList = appDataBundle.projectSupportList || [];
@@ -21,6 +22,8 @@ async function initialState() {
     const rawPreferenceList = appDataBundle.preferenceList || [];
     const rawProjectList = appDataBundle.projectList;
     const rawProposalList = appDataBundle.proposalList;
+    const rawCandidateList = appDataBundle.candidateList;
+    const candidateCommitmentList = appDataBundle.candidateCommitmentList;
     const preferenceList = buildPreferenceList(rawPreferenceList, committeeCategoryList);
     const proposalList = buildProposalList({
       participationList,
@@ -37,6 +40,13 @@ async function initialState() {
       projectSupportList,
       userProjectSupportList
     });
+    const candidateList = buildCandidateList({
+      candidateList: rawCandidateList,
+      candidateCommitmentList,
+      constituencyList,
+      preferenceList,
+      projectList
+    });
     return {
       user,
       preferenceList,
@@ -48,9 +58,37 @@ async function initialState() {
       notificationList,
       projectList,
       projectSupportList,
-      userProjectSupportList
+      userProjectSupportList,
+      constituencyList,
+      candidateCommitmentList,
+      candidateList
     };
   }
+}
+
+function buildCandidateList({ candidateList, candidateCommitmentList, constituencyList, preferenceList, projectList }) {
+  const newCandidateList = candidateList.map(candidate => {
+    const constituency = R.find(R.propEq('id', candidate.constituency))(constituencyList) || candidate.constituency;
+    const candidateCommitments = R.filter(commitment => candidate.id === commitment.candidate)(candidateCommitmentList);
+    const commitments = candidateCommitments.map(commitment => {
+      const category = R.find(R.propEq('id', commitment.category))(preferenceList);
+      const categoryObject = Object.assign({}, commitment, {
+        category: category,
+        projects: projects
+      });
+      return categoryObject;
+    });
+    const projects = R.filter(project => {
+      return project.initiatorid === candidate.id;
+    }, projectList);
+    const newCandidate = Object.assign({}, candidate, {
+      constituency,
+      commitments,
+      projects
+    });
+    return newCandidate;
+  });
+  return newCandidateList;
 }
 
 function buildPreferenceList(rawPreferenceList, committeeCategoryList) {
@@ -72,7 +110,7 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
     const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
     const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
     const cleanProject = R.omit(['firstname', 'email', 'lastname', 'bio'], project);
-    const createdon = Date.parse(project.createdon);
+    const createdon = isNaN(Date.parse(project.createdon)) ? Date.now() : Date.parse(project.createdon);
     const newProject = Object.assign({}, cleanProject, {
       category,
       initiator,
@@ -94,8 +132,9 @@ function buildProposalList({
   preferenceList,
   participationList
 }) {
-  const newProposalList = proposalList.map(proposal => {
-    const id = proposal.id;
+  const newProposalList = proposalList.map(datarow => {
+    const proposal = datarow.data ? datarow.data : datarow;
+    const id = datarow.id;
     const committeeId = proposal.committeeId;
     const participation = R.path(['participation'], R.find(R.propEq('proposal', id))(participationList)) || 0;
     const hasVoted = !!R.find(R.propEq('proposal', id))(voteList);
@@ -183,7 +222,22 @@ function updateNotificationList(state, entity) {
 }
 
 function updateUser(state, entity) {
-  const newState = Object.assign({}, state, { user: entity });
+  let candidateList = state.candidateList;
+  const updateCandidateList = entity.supportscandidate === null || Number.isInteger(entity.supportscandidate);
+  if (state.user.supportscandidate && updateCandidateList) {
+    const oldCandidateSupport = R.find(R.propEq('id', state.user.supportscandidate))(state.candidateList);
+    const updatedOldCandidate =
+      oldCandidateSupport && Object.assign({}, oldCandidateSupport, { support: oldCandidateSupport.support - 1 });
+    candidateList = R.reject(R.propEq('id', state.user.supportscandidate))(candidateList).concat(updatedOldCandidate);
+  }
+  if (entity.supportscandidate && updateCandidateList) {
+    const newCandidateSupport = R.find(R.propEq('id', entity.supportscandidate))(state.candidateList);
+    const updatedNewCandidate =
+      newCandidateSupport && Object.assign({}, newCandidateSupport, { support: newCandidateSupport.support + 1 });
+    candidateList = R.reject(R.propEq('id', entity.supportscandidate))(candidateList).concat(updatedNewCandidate);
+  }
+  const user = Object.assign({}, state.user, entity);
+  const newState = Object.assign({}, state, { user: user, candidateList });
   return newState;
 }
 
@@ -200,6 +254,7 @@ function updateFilter(state, entity) {
 
 function updateProjectList(state, entity) {
   const rawProject = Object.assign({}, entity, {
+    initiatorid: state.user.id,
     email: state.user.email,
     firstname: state.user.firstname,
     lastname: state.user.lastname
@@ -211,7 +266,32 @@ function updateProjectList(state, entity) {
     userProjectSupportList: state.userProjectSupportList
   });
   const newProjectList = R.reject(R.propEq('id', entity.id))(state.projectList).concat(newProject[0]);
-  const newState = Object.assign({}, state, { projectList: newProjectList });
+  const newCandidateList = buildCandidateList({
+    candidateList: state.candidateList,
+    candidateCommitmentList: state.candidateCommitmentList,
+    constituencyList: state.constituencyList,
+    preferenceList: state.preferenceList,
+    projectList: newProjectList
+  });
+  const newState = Object.assign({}, state, { projectList: newProjectList, candidateList: newCandidateList });
+  return newState;
+}
+
+function updateCandidateList(state, entity) {
+  const oldCandidateCommitmentList = R.reject(R.propEq('candidate', entity.id))(state.candidateCommitmentList);
+  const newCandidateCommitmentList = R.reject(R.propEq('category', 'Vælg kategori'))(
+    entity.commitments.map(commitment => Object.assign({}, commitment, { candidate: entity.id }))
+  ).concat(oldCandidateCommitmentList);
+  const oldCandidate = R.find(R.propEq('id', entity.id))(state.candidateList);
+  const newCandidate = Object.assign({}, oldCandidate, entity);
+  const updatedCandidate = buildCandidateList(
+    Object.assign({}, state, { candidateList: [newCandidate], candidateCommitmentList: newCandidateCommitmentList })
+  );
+  const candidateList = R.reject(R.propEq('id', entity.id))(state.candidateList).concat(updatedCandidate[0]);
+  const newState = Object.assign({}, state, {
+    candidateList: candidateList,
+    candidateCommitmentList: newCandidateCommitmentList
+  });
   return newState;
 }
 
@@ -252,5 +332,6 @@ export default {
   updateProjectList,
   updateFilter,
   updateUser,
-  updateProjectSupportList
+  updateProjectSupportList,
+  updateCandidateList
 };

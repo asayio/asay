@@ -1,12 +1,5 @@
-#person {
-  transition: all 0.2s ease-out;
-}
-#personal-menu {
+.menu-animation {
   animation: menuFadeIn 0.2s ease-out;
-}
-#personal-menu:hover,
-#person:hover ~ #personal-menu {
-  display: block;
 }
 
 @keyframes menuFadeIn {
