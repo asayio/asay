@@ -3,7 +3,7 @@ import R from 'ramda';
 import Modal from '../modal';
 import LoadingSpinner from '../loadingSpinner';
 import { Link } from 'react-router-dom';
-import UploadImage from '../uploadImage';
+// import UploadImage from '../uploadImage';
 import getImageBinary from '../uploadImage/getImageBinary';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
@@ -69,15 +69,15 @@ class candidateForm extends Component {
   async handleChange(event) {
     const target = event.target;
     let value = target.type === 'checkbox' ? target.checked : target.value;
-    switch(target.type) {
+    switch (target.type) {
       case 'checkbox':
-        value = target.checked
+        value = target.checked;
         break;
       case 'file':
-        value = getImageBinary(document.getElementById("image-to-upload"))
+        value = getImageBinary(document.getElementById('image-to-upload'));
         break;
       default:
-        value = target.value
+        value = target.value;
     }
     await this.setState({
       [target.name]: value
@@ -175,9 +175,9 @@ class candidateForm extends Component {
                   til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt.{' '}
                   <b>Bemærk, at andre brugere kan se din email.</b>
                 </p>
-                <UploadImage
+                {/* <UploadImage
                   name="image"
-                />
+                /> */}
                 <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
                 <FormInput
                   title="Facebook URL"
