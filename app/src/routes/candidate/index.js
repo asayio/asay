@@ -120,7 +120,7 @@ class CandidatePage extends Component {
                 <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
                   <div className="flex flex-col sm:flex-row mb-8">
                     <img
-                      src={candidate.picture ? candidate.picture : '../../assets/img/candidate.png'}
+                      src={candidate.picture ? candidate.picture : '../../assets/candidate.png'}
                       alt={candidate.firstname + ' ' + candidate.lastname}
                       className="h-32 w-32 rounded-sm shadow-img"
                     />
