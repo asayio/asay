@@ -50,7 +50,7 @@ class Insights extends Component {
             <div className="text-center mt-4">
               {limitList && (
                 <button onClick={() => this.setState({ limitList: false })} className="btn btn-white">
-                  <FeatherIcon name="ArrowDown" className="mr-2" />Vis forslag uden fastlagt deadline
+                  <FeatherIcon name="ArrowDown" className="mr-2" />Vis forslag uden resultater
                 </button>
               )}
             </div>
