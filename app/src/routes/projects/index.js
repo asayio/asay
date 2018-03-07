@@ -46,51 +46,49 @@ class Projects extends Component {
         <div className="max-w-xl mx-auto">
           <h1>Projekter</h1>
           <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">
-            <div className="w-full md:w-1/2 flex flex-wrap">
-              <div className="w-1/2 px-1">
-                <label className="block text-center my-2">Kategori:</label>
-                <FormSelect
-                  name="category"
-                  value={this.state.category}
-                  onChange={this.updateState}
-                  defaultOption="Alle"
-                  options={preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
-                />
-              </div>
-              <div className="w-1/2 px-1">
-                <label className="block text-center my-2">Sorter efter:</label>
-                <FormSelect
-                  name="sort"
-                  value={this.state.sortBy}
-                  onChange={this.updateState}
-                  options={sortList.map((item, index) => (
-                    <option key={index} value={item.value}>
-                      {item.title}
-                    </option>
-                  ))}
-                />
-              </div>
+            <div className="w-1/2 px-1">
+              <label className="block text-center my-2">Kategori:</label>
+              <FormSelect
+                name="category"
+                value={this.state.category}
+                onChange={this.updateState}
+                defaultOption="Alle"
+                options={preferenceList.map(item => <option key={item.id}>{item.title}</option>)}
+              />
             </div>
-            <div className="w-full md:w-1/2 flex items-end py-2 md:py-0">
-              <div className="w-1/2 px-1">
-                <Link to="/projects/mine" className="w-full btn btn-white">
+            <div className="w-1/2 px-1">
+              <label className="block text-center my-2">Sorter efter:</label>
+              <FormSelect
+                name="sort"
+                value={this.state.sortBy}
+                onChange={this.updateState}
+                options={sortList.map((item, index) => (
+                  <option key={index} value={item.value}>
+                    {item.title}
+                  </option>
+                ))}
+              />
+            </div>
+            {this.props.user ? (
+              <div className="w-full md:w-1/2 flex items-end py-2 md:py-0">
+                <Link to="/projects/mine" className="w-full btn btn-white mx-1">
                   <FeatherIcon name="User" className="mr-2" />Mine projekter
                 </Link>
-              </div>
-              <div className="w-1/2 px-1">
-                {this.props.user ? (
+                <div className="hidden md:block mx-1">
                   <Link to="/projects/new" className="w-full btn btn-white">
                     <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
                   </Link>
-                ) : (
-                  <button
-                    onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
-                    className="flex-auto btn btn-white">
-                    <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
-                  </button>
-                )}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="hidden md:flex w-1/4 items-end px-1 py-2 md:py-0">
+                <button
+                  onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
+                  className="w-full btn btn-white">
+                  <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
+                </button>
+              </div>
+            )}
           </div>
           {projectList.length ? (
             <ProposalList proposalList={projectList} />
