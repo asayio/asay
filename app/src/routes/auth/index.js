@@ -17,7 +17,11 @@ class Auth extends Component {
       window.localStorage.authToken = authToken;
       window.localStorage.exp = authInfo.exp;
       this.setState({ authorized: true }, function() {
-        if (authInfo.user.onboarded || window.sessionStorage.redirectUrl.includes('project')) {
+        if (
+          authInfo.user.onboarded ||
+          window.sessionStorage.redirectUrl.includes('project') ||
+          window.sessionStorage.redirectUrl.includes('candidate')
+        ) {
           window.location.href = window.sessionStorage.redirectUrl;
         } else {
           window.location.href = './onboarding';
