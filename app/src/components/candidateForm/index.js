@@ -4,7 +4,6 @@ import Modal from '../modal';
 import LoadingSpinner from '../loadingSpinner';
 import { Link } from 'react-router-dom';
 // import UploadImage from '../uploadImage';
-import getImageBinary from '../uploadImage/getImageBinary';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
 import FormTextArea from '../formTextArea';
@@ -73,9 +72,6 @@ class candidateForm extends Component {
       case 'checkbox':
         value = target.checked;
         break;
-      case 'file':
-        value = getImageBinary(document.getElementById('image-to-upload'));
-        break;
       default:
         value = target.value;
     }
@@ -106,6 +102,15 @@ class candidateForm extends Component {
       constituency: Number(this.state.constituency),
       active: active
     });
+    // const formData = new FormData()
+    // formData.append('image', document.getElementById('image-input').files[0])
+    // fetch(`/api/updatePhoto`, {
+    //   method: 'POST',
+    //   body: formData,
+    //   headers: {
+    //     Authorization: 'Bearer ' + window.localStorage.authToken
+    //   }
+    // });
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
       body: JSON.stringify(candidate),
@@ -126,7 +131,6 @@ class candidateForm extends Component {
 
   render() {
     const candidate = this.state;
-    console.log(candidate);
     const commitments = candidate.commitments && R.sortWith([R.ascend(R.prop('priority'))])(candidate.commitments);
     const constituencyList = this.props.constituencyList;
     if (candidate.id) {
@@ -175,9 +179,9 @@ class candidateForm extends Component {
                   til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt.{' '}
                   <b>Bemærk, at andre brugere kan se din email.</b>
                 </p>
-                {/* <UploadImage
+                {/*<UploadImage
                   name="image"
-                /> */}
+                />*/}
                 <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
                 <FormInput
                   title="Facebook URL"

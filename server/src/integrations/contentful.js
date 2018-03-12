@@ -1,51 +1,41 @@
 // Import
+const fs = require('fs')
 const apiKey = process.env.CONTENTFUL;
 const fetch = require('node-fetch');
 const request = require('request')
 const R = require('ramda')
+const contentful = require('contentful-management')
 
 // Functions
-async function uploadImage(image) {
-  request({
-    url: "https://upload.contentful.com/spaces/ihbts236hb1z/uploads",
-    headers: {
-      "Authorization": "Bearer " + apiKey,
-      "Content-Type": "application/octet-stream"
-    },
-    method: "POST",
-    body: image
-  }, function (error, response, body){
-    request({
-      url: "https://upload.contentful.com/spaces/ihbts236hb1z/assets",
-      headers: {
-        "Authorization": "Bearer " + apiKey,
-        "Content-Type": "application/vnd.contentful.management.v1+json"
-      },
-      method: "POST",
-      body: {
-        "fields": {
-          "title": {
-            "en-US": "My cute cat pic"
-          },
-          "file": {
-            "en-US": {
-              "contentType": "image/png",
-              "fileName": "cute_cat.png",
-              "uploadFrom": {
-                "sys": {
-                  "type": "Link",
-                  "linkType": "Upload",
-                  "id": JSON.parse(body).sys.id
-                }
-              }
-            }
+async function uploadImage(image, user) {
+  const client = contentful.createClient({
+    accessToken: apiKey
+  })
+  fs.readFile(image.path, function(err, imageBinary) {
+    client.getSpace('ihbts236hb1z')
+    .then((space) => space.createAssetFromFiles({
+      fields: {
+        title: {
+          'en-US': user.firstname + user.lastname
+        },
+        description: {
+          'en-US': 'profile image for candidate'
+        },
+        file: {
+          'en-US': {
+            contentType: 'image/svg+xml',
+            fileName: user.firstname + user.lastname + '.jpg',
+            file: imageBinary
           }
         }
       }
-    }, function (error, response, body){
-      console.log(body);
-    });
+    }))
+    .then((asset) => asset.processForAllLocales())
+    .then((asset) => asset.publish())
+    .then((asset) => console.log(asset))
+    .catch(console.error)
   });
+
 }
 
 // Export
