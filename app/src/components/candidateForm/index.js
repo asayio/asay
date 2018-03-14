@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import R from 'ramda';
-import Modal from '../modal';
 import LoadingSpinner from '../loadingSpinner';
-import { Link } from 'react-router-dom';
 // import UploadImage from '../uploadImage';
 import getImageBinary from '../uploadImage/getImageBinary';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
 import FormTextArea from '../formTextArea';
+import ActiveModal from './activeModal';
+import SavedModal from './savedModal';
 
 class candidateForm extends Component {
   constructor() {
@@ -101,7 +101,7 @@ class candidateForm extends Component {
   }
 
   async handleSubmit(active) {
-    this.setState({ showModal: 'loading' });
+    this.props.updateState({ entityType: 'modal', entity: 'loading' });
     const candidate = Object.assign({}, this.state, {
       constituency: Number(this.state.constituency),
       active: active
@@ -116,56 +116,20 @@ class candidateForm extends Component {
     });
     if (response.ok) {
       this.props.updateState({ entityType: 'candidateList', entity: candidate });
-      const modal = active ? 'active' : 'saved';
-      this.setState({ showModal: modal });
+      const modal = active ? <ActiveModal candidateId={candidate.id} /> : <SavedModal candidateId={candidate.id} />;
+      this.props.upadateState({ entityType: 'modal', entity: { content: modal } });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
-      this.setState({ showModal: false });
     }
   }
 
   render() {
     const candidate = this.state;
-    console.log(candidate);
     const commitments = candidate.commitments && R.sortWith([R.ascend(R.prop('priority'))])(candidate.commitments);
     const constituencyList = this.props.constituencyList;
     if (candidate.id) {
       return (
         <div>
-          {candidate.showModal === 'loading' && <Modal content={<LoadingSpinner />} />}
-          {candidate.showModal === 'saved' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Din kandidatprofil blev gemt</h2>
-                  <p>Din kandidatprofil er ikke offentlig, men kun synlig for dig.</p>
-                  <p>Du kan altid gå tilbage og rette i projektet, også efter dit kandidatur er offentligt.</p>
-                  <Link to={`../../candidate/${candidate.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
-                </div>
-              }
-            />
-          )}
-          {candidate.showModal === 'active' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Tillykke! Dit kandidatur er offentligt</h2>
-                  <p>Dit kandidatur fremgår på listen over kandidater.</p>
-                  <p>
-                    Du skal nu række ud til folk i dit netværk og sende dem til din kandidatprofil og for at samle
-                    støtte til din opstilling. Det gør du med linket her:
-                  </p>
-                  <p>{window.location.origin + '/candidate/' + candidate.id}</p>
-                  <p />
-                  <Link to={`../../candidate/${candidate.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
-                </div>
-              }
-            />
-          )}
           <form onChange={this.handleChange} onSubmit={e => e.preventDefault()}>
             <div className="bg-white border border-grey-lighter rounded-sm shadow px-8 py-4 my-4">
               <div className="max-w-md mx-auto">

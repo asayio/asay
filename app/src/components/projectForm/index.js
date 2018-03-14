@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Modal from '../modal';
-import LoadingSpinner from '../loadingSpinner';
 import R from 'ramda';
 import { Link } from 'react-router-dom';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
 import FormTextArea from '../formTextArea';
+import DraftModal from './draftModal';
+import PublicModal from './publicModal';
+import PublishedModal from './publishedModal';
 
 class ProjectForm extends Component {
   constructor() {
@@ -70,7 +72,7 @@ class ProjectForm extends Component {
   }
 
   async handleSubmit(published) {
-    this.setState({ showModal: 'loading' });
+    this.props.updateState({ entityType: 'modal', entity: 'loading' });
     const body = Object.assign({}, this.state, { published: published });
     const response = await fetch(`/api/project/${this.state.id}/edit`, {
       method: 'POST',
@@ -89,11 +91,16 @@ class ProjectForm extends Component {
       });
       this.setState({ id: projectid.id });
       this.props.updateState({ entityType: 'projectList', entity: project });
-      const modal = !published ? 'draft' : !this.state.published ? 'published' : 'public';
-      this.setState({ showModal: modal });
+      const modal = !published ? (
+        <DraftModal projectId={project.id} />
+      ) : !this.state.published ? (
+        <PublishedModal projectId={project.id} />
+      ) : (
+        <PublicModal projectId={project.id} />
+      );
+      this.props.updateState({ entityType: 'modal', entity: { content: modal } });
     } else {
       this.props.updateState({ entityType: 'error', entity: response.status });
-      this.setState({ showModal: false });
     }
   }
 
@@ -121,62 +128,6 @@ class ProjectForm extends Component {
                       Publicer
                     </button>
                   </div>
-                </div>
-              }
-            />
-          )}
-          {project.showModal === 'loading' && <Modal content={<LoadingSpinner />} />}
-          {project.showModal === 'draft' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Projektet blev gemt</h2>
-                  <p>Dit projekt er gemt som kladde, så det kun er synligt for dig.</p>
-                  <p>
-                    Du kan altid gå tilbage og rette i projektet, også efter det publiceret. Vi holder styr på tidligere
-                    versioner for dig.
-                  </p>
-                  <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
-                </div>
-              }
-            />
-          )}
-          {project.showModal === 'published' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Succes! Projektet blev publiceret</h2>
-                  <p>
-                    Dit projekt er nu offentligt og du skal samle opbakning til dit forslag. Det gør du ved at række ud
-                    til folk i dit netværk og sende dem til din projektside. Det gør det med linket her:
-                  </p>
-                  <p>{window.location.origin + '/project/' + project.id}</p>
-                  <p>
-                    Når projektet har samlet støtte fra 15 andre brugere kommer det på projektlisten her på platformen.
-                  </p>
-                  <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
-                </div>
-              }
-            />
-          )}
-          {project.showModal === 'public' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Projektet blev publiceret</h2>
-                  <p>
-                    Du kan altid gå tilbage og rette i projektet, som du bliver klogere undervejs. Vi holder styr på
-                    tidligere versioner for dig.
-                  </p>
-                  <p>Husk du altid kan dele dit projekt direkte med linket:</p>
-                  <p>{window.location.origin + '/project/' + project.id}</p>
-                  <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
                 </div>
               }
             />
@@ -262,7 +213,7 @@ class ProjectForm extends Component {
         </div>
       );
     } else {
-      return <div>Henter projekt...</div>;
+      return <div>{'Henter projekt...'}</div>;
     }
   }
 }
