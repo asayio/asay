@@ -65,7 +65,6 @@ class CandidatePage extends Component {
   }
 
   async supportCandidate(candidateId) {
-    // const newUser = Object.assign({}, this.props.user, { supportscandidate: candidateId });
     this.props.updateState({ entityType: 'user', entity: { supportscandidate: candidateId } });
     const response = await fetch(`/api/candidate/${candidateId}/support`, {
       method: 'POST',
@@ -111,6 +110,12 @@ class CandidatePage extends Component {
       const commitment = R.filter(commitment => commitment.category.title === this.state.selectedTab)(
         candidate.commitments
       )[0];
+      const commitmentParagraphs =
+        (commitment && R.filter(paragraph => paragraph !== '')(commitment.commitment.split(/\n/))) || [];
+      const motivation = R.filter(paragraph => paragraph !== '')(candidate.motivation.split(/\n/));
+      const story = R.filter(paragraph => paragraph !== '')(candidate.story.split(/\n/));
+      const experience = R.filter(paragraph => paragraph !== '')(candidate.experience.split(/\n/));
+      const threat = R.filter(paragraph => paragraph !== '')(candidate.threat.split(/\n/));
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
@@ -187,26 +192,26 @@ class CandidatePage extends Component {
                   </div>
                   <article className="mb-4">
                     <h3>Motivation for opstilling</h3>
-                    <p>{candidate.motivation}</p>
+                    {motivation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                   <article className="mb-4">
                     <h3>Baggrund</h3>
-                    <p>{candidate.story}</p>
+                    {story.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                   <article className="mb-4">
                     <h3>Politisk erfaring</h3>
-                    <p>{candidate.experience}</p>
+                    {experience.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                   <article>
                     <h3>OBS</h3>
-                    <p>{candidate.threat}</p>
+                    {threat.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                 </div>
                 <div>
                   <h2 className="text-center">Fokusområder</h2>
                   <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
                   <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
-                    {commitment && commitment.commitment}
+                    {commitmentParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </div>
                 </div>
                 {candidate.projects.length > 0 && (

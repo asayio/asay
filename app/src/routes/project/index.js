@@ -81,6 +81,10 @@ class ProjectPage extends Component {
     }
     const user = this.props.user;
     if (project) {
+      const description = R.filter(paragraph => paragraph !== '')(project.description.split(/\n/));
+      const budget = R.filter(paragraph => paragraph !== '')(project.budget.split(/\n/));
+      const argument = R.filter(paragraph => paragraph !== '')(project.argument.split(/\n/));
+      const risk = R.filter(paragraph => paragraph !== '')(project.risk.split(/\n/));
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
@@ -88,21 +92,21 @@ class ProjectPage extends Component {
             <div className="flex flex-wrap md:flex-no-wrap -m-1">
               <div className="w-full m-1">
                 <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
-                  <article className="mb-4">
+                  <article className="mb-8">
                     <h3>Beskrivelse</h3>
-                    <p>{project.description}</p>
+                    {description.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
-                  <article className="mb-4">
+                  <article className="mb-8">
                     <h3>Budgettering</h3>
-                    <p>{project.budget}</p>
+                    {budget.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
-                  <article className="mb-4">
+                  <article className="mb-8">
                     <h3>Begrundelse og argumentation</h3>
-                    <p>{project.argument}</p>
+                    {argument.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                   <article>
                     <h3>Risiko og udfordringer</h3>
-                    <p>{project.risk}</p>
+                    {risk.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                 </div>
               </div>
