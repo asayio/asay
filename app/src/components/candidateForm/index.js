@@ -102,20 +102,13 @@ class candidateForm extends Component {
       constituency: Number(this.state.constituency),
       active: active
     });
-    // const formData = new FormData()
-    // formData.append('image', document.getElementById('image-input').files[0])
-    // fetch(`/api/updatePhoto`, {
-    //   method: 'POST',
-    //   body: formData,
-    //   headers: {
-    //     Authorization: 'Bearer ' + window.localStorage.authToken
-    //   }
-    // });
+    const formData = new FormData()
+    formData.append('image', document.getElementById('image-input').files[0])
+    formData.append('candidate', candidate)
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
-      body: JSON.stringify(candidate),
+      body: formData,
       headers: {
-        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + window.localStorage.authToken
       }
     });
