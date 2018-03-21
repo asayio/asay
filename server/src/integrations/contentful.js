@@ -11,8 +11,10 @@ async function uploadImage(image, user) {
   const client = contentful.createClient({
     accessToken: apiKey
   })
-  return fs.readFile(image.path, function(err, imageBinary) {
-    client.getSpace('ihbts236hb1z')
+  const imageBinary = fs.readFileSync(image.path, function(err, imageBinary) {
+    return imageBinary
+  });
+  const contentfulResponse = await client.getSpace('ihbts236hb1z')
     .then((space) => space.createAssetFromFiles({
       fields: {
         title: {
@@ -32,8 +34,9 @@ async function uploadImage(image, user) {
     }))
     .then((asset) => asset.processForAllLocales())
     .then((asset) => asset.publish())
-    .then((asset) => returm asset) // I might have to do another request to get the URL
-    .catch(console.error)});
+    .then((asset) => asset) // I might have to do another request to get the URL
+    .catch(console.error)
+  return contentfulResponse.fields.file['en-US'].url
 }
 
 // Export

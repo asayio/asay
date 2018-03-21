@@ -1,6 +1,5 @@
 // Import
 const candidate = require('./api/candidate');
-const updatePhoto = require('./api/updatePhoto');
 const candidateSupport = require('./api/candidateSupport');
 const onboarding = require('./api/onboarding');
 const decleration = require('./api/decleration');
@@ -22,7 +21,6 @@ function map(app) {
 
   // POST
   app.post('/api/candidate', candidate);
-  app.post('/api/updatePhoto', updatePhoto);
   app.post('/api/candidate/:id/support', candidateSupport);
   app.post('/api/proposal/:id/vote', vote);
   app.post('/api/proposal/:id/subscription', subscription);

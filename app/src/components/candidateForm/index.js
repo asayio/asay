@@ -3,7 +3,7 @@ import R from 'ramda';
 import Modal from '../modal';
 import LoadingSpinner from '../loadingSpinner';
 import { Link } from 'react-router-dom';
-// import UploadImage from '../uploadImage';
+import UploadImage from '../uploadImage';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
 import FormTextArea from '../formTextArea';
@@ -104,7 +104,7 @@ class candidateForm extends Component {
     });
     const formData = new FormData()
     formData.append('image', document.getElementById('image-input').files[0])
-    formData.append('candidate', candidate)
+    formData.append('candidate', JSON.stringify(candidate))
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
       body: formData,
@@ -172,9 +172,9 @@ class candidateForm extends Component {
                   til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt.{' '}
                   <b>Bemærk, at andre brugere kan se din email.</b>
                 </p>
-                {/*<UploadImage
+                <UploadImage
                   name="image"
-                />*/}
+                />
                 <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
                 <FormInput
                   title="Facebook URL"

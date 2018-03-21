@@ -14,7 +14,7 @@ async function postCandidate(request, response) {
     const user = await getUser(request);
     if (user) {
       const userId = user.id;
-      const candidate = request.body.candidate;
+      const candidate = JSON.parse(request.fields.candidate);
       const image = request.files.image;
       const hasCandidacy = await lookupCandidate(userId);
       const testing = hasCandidacy ? true : false;
@@ -33,7 +33,7 @@ async function postCandidate(request, response) {
             ? await changeCandidateCommitment(userId, commitment)
             : await createCandidateCommitment(userId, commitment));
       });
-      response(candidate);
+      response.sendStatus(201, 'bla', 'blabla');
     } else {
       response.sendStatus(401);
     }
