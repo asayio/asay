@@ -26,6 +26,7 @@ import EditProject from './routes/project/edit';
 import Candidates from './routes/candidates';
 import Candidate from './routes/candidate';
 import EditCandidate from './routes/candidate/edit';
+import EmailVerification from './routes/email-verification';
 
 // components
 import Nav from './components/nav';
@@ -384,12 +385,14 @@ class App extends Component {
                   )
                 }
               />
+              <Route exact path="/email-verification" component={EmailVerification} />
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/auth" component={Auth} />
+              <Route exact path="/email-verification" component={EmailVerification} />
               <Route path="*" component={LoadingSpinner} />
             </Switch>
           )}

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
 import ProposalListFilter from '../../components/proposalListFilter';
 import queryString from 'query-string';
+import NotificationBox from '../../components/notificationBox';
 
 class Search extends Component {
   render() {
@@ -34,6 +35,7 @@ class Search extends Component {
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
+          <NotificationBox />
           <h1>{header}</h1>
           <ProposalListFilter
             updateState={this.props.updateState}
