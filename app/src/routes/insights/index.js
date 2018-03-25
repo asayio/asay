@@ -2,6 +2,7 @@ import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
 import FeatherIcon from '../../components/featherIcon';
+import NotificationBox from '../../components/notificationBox';
 
 class Insights extends Component {
   constructor(props) {
@@ -9,6 +10,13 @@ class Insights extends Component {
     this.state = {
       limitList: true
     };
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
+  }
+  componentDidMount() {
+    this.setState({ showNotificationBox: true });
+  }
+  closeNotificationBox() {
+    this.setState({ showNotificationBox: false });
   }
 
   render() {
@@ -24,9 +32,11 @@ class Insights extends Component {
     }, proposalList);
     const limitList =
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
-    if (!proposalList.length) {
-      return (
-        <div className="flex-auto px-2">
+
+    return (
+      <div className="flex-auto px-2">
+        {this.state.showNotificationBox && <NotificationBox closeNotificationBox={this.closeNotificationBox} />}
+        {!proposalList.length ? (
           <div className="max-w-xl mx-auto text-center">
             <h1>Her ser lidt tomt ud</h1>
             <p className="mx-auto">Du må hellere komme i gang med at stemme på nogle forslag.</p>
@@ -39,11 +49,7 @@ class Insights extends Component {
               <FeatherIcon name="ArrowDown" />Gå til forsiden
             </button>
           </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="flex-auto px-2">
+        ) : (
           <div className="max-w-xl mx-auto">
             <h1>Historik</h1>
             <ProposalList proposalList={limitList ? limitedProposalList : proposalList} />
@@ -55,9 +61,9 @@ class Insights extends Component {
               )}
             </div>
           </div>
-        </div>
-      );
-    }
+        )}
+      </div>
+    );
   }
 }
 

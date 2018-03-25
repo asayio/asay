@@ -3,6 +3,7 @@ import R from 'ramda';
 import FormSelect from '../../components/formSelect';
 import FeatherIcon from '../../components/featherIcon';
 import { Link } from 'react-router-dom';
+import NotificationBox from '../../components/notificationBox';
 
 class Candidates extends Component {
   constructor() {
@@ -13,8 +14,14 @@ class Candidates extends Component {
       sortOrder: 'Flest støtter'
     };
     this.handleChange = this.handleChange.bind(this);
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
   }
-
+  componentDidMount() {
+    this.setState({ showNotificationBox: true });
+  }
+  closeNotificationBox() {
+    this.setState({ showNotificationBox: false });
+  }
   handleChange(event) {
     const target = event.target;
     this.setState({
@@ -48,6 +55,7 @@ class Candidates extends Component {
     const userIsCandidate = user && !!R.find(R.propEq('id', user.id), this.props.candidateList);
     return (
       <div className="flex-auto px-2">
+        {this.state.showNotificationBox && <NotificationBox closeNotificationBox={this.closeNotificationBox} />}
         <div className="max-w-xl mx-auto">
           <h1>Kandidater</h1>
           <div className="flex flex-wrap items-end -mx-1 -mt-2 mb-4">

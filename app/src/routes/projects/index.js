@@ -4,6 +4,7 @@ import R from 'ramda';
 import FeatherIcon from '../../components/featherIcon';
 import ProposalList from '../../components/proposalList';
 import FormSelect from '../../components/formSelect';
+import NotificationBox from '../../components/notificationBox';
 
 class Projects extends Component {
   constructor() {
@@ -13,8 +14,14 @@ class Projects extends Component {
       sort: 'supportDesc'
     };
     this.updateState = this.updateState.bind(this);
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
   }
-
+  componentDidMount() {
+    this.setState({ showNotificationBox: true });
+  }
+  closeNotificationBox() {
+    this.setState({ showNotificationBox: false });
+  }
   updateState(event) {
     const target = event.target;
     this.setState({ [target.name]: target.value });
@@ -43,6 +50,7 @@ class Projects extends Component {
     ];
     return (
       <div className="flex-auto px-2">
+        {this.state.showNotificationBox && <NotificationBox closeNotificationBox={this.closeNotificationBox} />}
         <div className="max-w-xl mx-auto">
           <h1>Projekter</h1>
           <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">

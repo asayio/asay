@@ -1,6 +1,7 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
+import NotificationBox from '../../components/notificationBox';
 
 import FeatherIcon from '../../components/featherIcon';
 import { Link } from 'react-router-dom';
@@ -11,6 +12,13 @@ class Proposals extends Component {
     this.state = {
       limitList: true
     };
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
+  }
+  componentDidMount() {
+    this.setState({ showNotificationBox: true });
+  }
+  closeNotificationBox() {
+    this.setState({ showNotificationBox: false });
   }
 
   render() {
@@ -32,6 +40,7 @@ class Proposals extends Component {
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
     return (
       <div className="flex-auto px-2">
+        {this.state.showNotificationBox && <NotificationBox closeNotificationBox={this.closeNotificationBox} />}
         <div className="max-w-xl mx-auto">
           {!proposalList.length ? (
             <div className="text-center">
