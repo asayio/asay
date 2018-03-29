@@ -103,7 +103,8 @@ class candidateForm extends Component {
       active: active
     });
     const formData = new FormData()
-    formData.append('image', document.getElementById('image-input').files[0])
+    const image = document.getElementById('image-input').files[0]
+    formData.append('image', image)
     formData.append('candidate', JSON.stringify(candidate))
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
@@ -111,9 +112,10 @@ class candidateForm extends Component {
       headers: {
         Authorization: 'Bearer ' + window.localStorage.authToken
       }
-    });
+    })
     if (response.ok) {
-      this.props.updateState({ entityType: 'candidateList', entity: candidate });
+      const responseBody = await response.json()
+      this.props.updateState({ entityType: 'candidateList', entity: Object.assign({}, candidate, responseBody) });
       const modal = active ? 'active' : 'saved';
       this.setState({ showModal: modal });
     } else {

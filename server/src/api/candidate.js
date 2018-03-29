@@ -33,7 +33,7 @@ async function postCandidate(request, response) {
             ? await changeCandidateCommitment(userId, commitment)
             : await createCandidateCommitment(userId, commitment));
       });
-      response.sendStatus(201, 'bla', 'blabla');
+      response.json(image ? {picture} : {});
     } else {
       response.sendStatus(401);
     }
