@@ -174,6 +174,7 @@ class candidateForm extends Component {
                 </p>
                 <UploadImage
                   name="image"
+                  candidate={candidate}
                 />
                 <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
                 <FormInput

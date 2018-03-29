@@ -17,7 +17,7 @@ class uploadImage extends Component {
       <div>
         <h1>upload dit kønne ansigt</h1>
         <input id="image-input" name={this.props.name} onChange={this.updateInput} type="file" accept="image/*"/>
-        <img id="image-to-upload" src={this.state.imageUrl} alt="upload et fedt billede af dit kønne ansigt"></img>
+        <img id="image-to-upload" src={this.state.imageUrl || this.props.candidate.picture || '../../assets/candidate.png'} alt="upload et billede"></img>
       </div>
     );
   }
