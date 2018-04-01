@@ -14,14 +14,26 @@ class Proposals extends Component {
     };
     this.closeNotificationBox = this.closeNotificationBox.bind(this);
   }
-  componentDidMount() {
-    this.setState({ showNotificationBox: true });
-  }
+
   closeNotificationBox() {
-    this.setState({ showNotificationBox: false });
+    this.props.updateState({
+      entityType: 'user',
+      entity: Object.assign({}, this.props.user, { onboardedproposals: true })
+    });
+    fetch('/api/user/onboarding/proposals', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
   }
 
   render() {
+    const user = this.props.user;
+    const showNotificationBox = user && !user.onboardedproposals;
+    console.log(user);
+
     let proposalList = this.props.proposalList;
     proposalList = R.filter(proposal => {
       return proposal.isSubscribing;
@@ -38,9 +50,18 @@ class Proposals extends Component {
     }, proposalList);
     const limitList =
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
+
     return (
       <div className="flex-auto px-2">
-        {this.state.showNotificationBox && <NotificationBox closeNotificationBox={this.closeNotificationBox} />}
+        {showNotificationBox && (
+          <NotificationBox closeNotificationBox={this.closeNotificationBox} title="Forslag skræddersyet til dig">
+            <p className="mb-1">
+              Her finder du politiske forslag inden for de politiske emner du abonnere på. Når der kommer nye forslag i
+              Folketinget, tilføjer dem også til din liste. Du kan altid opdatere dine præferencer og bestemme, hvilke
+              forslag der ryger på din liste.
+            </p>
+          </NotificationBox>
+        )}
         <div className="max-w-xl mx-auto">
           {!proposalList.length ? (
             <div className="text-center">

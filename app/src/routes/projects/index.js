@@ -16,18 +16,30 @@ class Projects extends Component {
     this.updateState = this.updateState.bind(this);
     this.closeNotificationBox = this.closeNotificationBox.bind(this);
   }
-  componentDidMount() {
-    this.setState({ showNotificationBox: true });
-  }
+
   closeNotificationBox() {
-    this.setState({ showNotificationBox: false });
+    this.props.updateState({
+      entityType: 'user',
+      entity: Object.assign({}, this.props.user, { onboardedprojects: true })
+    });
+    fetch('/api/user/onboarding/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
   }
+
   updateState(event) {
     const target = event.target;
     this.setState({ [target.name]: target.value });
   }
 
   render() {
+    const user = this.props.user;
+    const showNotificationBox = user && !user.onboardedprojects;
+
     const sortOrder = this.state.sort === 'supportDesc' || this.state.sort === 'createdonDesc' ? 'desc' : 'asc';
     const sortBy = this.state.sort === 'supportDesc' || this.state.sort === 'supportAsc' ? 'support' : 'createdon';
     const sortProjectList = R.sortWith([sortOrder === 'desc' ? R.descend(R.prop(sortBy)) : R.ascend(R.prop(sortBy))]);
@@ -50,7 +62,13 @@ class Projects extends Component {
     ];
     return (
       <div className="flex-auto px-2">
-        {this.state.showNotificationBox && <NotificationBox closeNotificationBox={this.closeNotificationBox} />}
+        {showNotificationBox && (
+          <NotificationBox
+            title="Projekter fra folk med noget på hjerte"
+            closeNotificationBox={this.closeNotificationBox}>
+            <p className="mb-1">blabla</p>
+          </NotificationBox>
+        )}
         <div className="max-w-xl mx-auto">
           <h1>Projekter</h1>
           <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">

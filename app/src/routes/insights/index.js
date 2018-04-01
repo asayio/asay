@@ -12,14 +12,25 @@ class Insights extends Component {
     };
     this.closeNotificationBox = this.closeNotificationBox.bind(this);
   }
-  componentDidMount() {
-    this.setState({ showNotificationBox: true });
-  }
+
   closeNotificationBox() {
-    this.setState({ showNotificationBox: false });
+    this.props.updateState({
+      entityType: 'user',
+      entity: Object.assign({}, this.props.user, { onboardedinsights: true })
+    });
+    fetch('/api/user/onboarding/insights', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
   }
 
   render() {
+    const user = this.props.user;
+    const showNotificationBox = user && !user.onboardedinsights;
+
     const sortProposalList = R.sortWith([R.descend(R.prop('distanceToDeadline'))]);
     let proposalList = this.props.proposalList;
     proposalList = R.filter(proposal => {
@@ -35,7 +46,7 @@ class Insights extends Component {
 
     return (
       <div className="flex-auto px-2">
-        {this.state.showNotificationBox && <NotificationBox closeNotificationBox={this.closeNotificationBox} />}
+        {showNotificationBox && <NotificationBox title="INsigt" closeNotificationBox={this.closeNotificationBox} />}
         {!proposalList.length ? (
           <div className="max-w-xl mx-auto text-center">
             <h1>Her ser lidt tomt ud</h1>

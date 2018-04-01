@@ -27,7 +27,7 @@ function map(app) {
   app.post('/api/project/:id/edit', project);
   app.post('/api/project/:id/support', projectSupport);
   app.post('/api/preference', preference);
-  app.post('/api/user/onboarding', onboarding);
+  app.post('/api/user/onboarding/:type', onboarding);
   app.post('/api/user/decleration', decleration);
   app.post('/api/user/notificationSettings', notificationSettings);
   app.post('/api/seen/', seen);

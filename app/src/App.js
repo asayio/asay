@@ -195,7 +195,11 @@ class App extends Component {
                       proposalList={this.state.proposalList}
                     />
                   ) : (
-                    <Proposals proposalList={this.state.proposalList} />
+                    <Proposals
+                      proposalList={this.state.proposalList}
+                      user={this.state.user}
+                      updateState={this.updateState}
+                    />
                   )
                 }
               />
@@ -259,6 +263,7 @@ class App extends Component {
                     user={this.state.user}
                     preferenceList={this.state.preferenceList}
                     constituencyList={this.state.constituencyList}
+                    updateState={this.updateState}
                   />
                 )}
               />
@@ -355,7 +360,15 @@ class App extends Component {
                 exact
                 path="/insights"
                 render={props =>
-                  this.state.anonymousUser ? <Unauthorized /> : <Insights proposalList={this.state.proposalList} />
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <Insights
+                      proposalList={this.state.proposalList}
+                      updateState={this.updateState}
+                      user={this.state.user}
+                    />
+                  )
                 }
               />
               <Route
