@@ -30,7 +30,7 @@
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^4.0.0",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "fs": "0.0.1-security",
     "fs-extra": "^3.0.1",
     "jsonwebtoken": "^7.4.3",
@@ -40,7 +40,7 @@
     "open-graph-scraper": "^2.5.5",
     "pg-promise": "^6.10.3",
     "ramda": "^0.24.1",
-    "request": "^2.83.0",
+    "request": "^2.85.0",
     "rollbar": "^2.3.9",
     "scrape-it": "^3.3.3",
     "sendinblue-api": "^1.0.8"
