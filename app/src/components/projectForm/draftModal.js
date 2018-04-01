@@ -11,7 +11,10 @@ class DraftModal extends Component {
           Du kan altid gå tilbage og rette i projektet, også efter det publiceret. Vi holder styr på tidligere versioner
           for dig.
         </p>
-        <Link to={`../../project/${this.props.projectId}`} className="btn btn-primary mt-8 mb-4">
+        <Link
+          to={`../../project/${this.props.projectId}`}
+          onClick={() => this.props.updateState({ entityType: 'modal', entity: false })}
+          className="btn btn-primary mt-8 mb-4">
           OK
         </Link>
       </div>

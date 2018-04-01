@@ -12,7 +12,7 @@ class ErrorModal extends Component {
           </a>.
         </p>
         <button
-          onClick={() => this.props.updateState({ entityType: 'error', entity: false })}
+          onClick={() => this.props.updateState({ entityType: 'modal', entity: false })}
           className="btn btn-primary mt-8 mb-4">
           OK
         </button>

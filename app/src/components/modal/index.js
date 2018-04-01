@@ -11,7 +11,7 @@ class Modal extends Component {
             className="text-right mr-2">
             <span className="pointer mid-gray hover-dark-gray f3 pl3 pb2">✕</span>
           </div>
-          {this.props.content}
+          {this.props.children}
         </div>
       </div>
     );

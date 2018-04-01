@@ -13,7 +13,10 @@ class PublicModal extends Component {
         </p>
         <p>Husk du altid kan dele dit projekt direkte med linket:</p>
         <p>{window.location.origin + '/project/' + projectId}</p>
-        <Link to={`../../project/${projectId}`} className="btn btn-primary mt-8 mb-4">
+        <Link
+          to={`../../project/${projectId}`}
+          onClick={() => this.props.updateState({ entityType: 'modal', entity: false })}
+          className="btn btn-primary mt-8 mb-4">
           OK
         </Link>
       </div>

@@ -14,7 +14,10 @@ class ActiveModal extends Component {
         </p>
         <p>{window.location.origin + '/candidate/' + candidateId}</p>
         <p />
-        <Link to={`../../candidate/${candidateId}`} className="btn btn-primary mt-8 mb-4">
+        <Link
+          to={`../../candidate/${candidateId}`}
+          onClick={() => this.props.updateState({ entityType: 'modal', entity: false })}
+          className="btn btn-primary mt-8 mb-4">
           OK
         </Link>
       </div>

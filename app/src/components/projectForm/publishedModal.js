@@ -13,7 +13,10 @@ class PublishedModal extends Component {
         </p>
         <p>{window.location.origin + '/project/' + projectId}</p>
         <p>Når projektet har samlet støtte fra 15 andre brugere kommer det på projektlisten her på platformen.</p>
-        <Link to={`../../project/${projectId}`} className="btn btn-primary mt-8 mb-4">
+        <Link
+          to={`../../project/${projectId}`}
+          onClick={() => this.props.updateState({ entityType: 'modal', entity: false })}
+          className="btn btn-primary mt-8 mb-4">
           OK
         </Link>
       </div>

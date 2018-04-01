@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Modal from '../modal';
 import R from 'ramda';
-import { Link } from 'react-router-dom';
+import LoadingSpinner from '../loadingSpinner';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
 import FormTextArea from '../formTextArea';
 import DraftModal from './draftModal';
 import PublicModal from './publicModal';
 import PublishedModal from './publishedModal';
+import ConfirmModal from './confirmModal';
 
 class ProjectForm extends Component {
   constructor() {
@@ -65,7 +65,8 @@ class ProjectForm extends Component {
 
   handlePublish() {
     if (!this.state.published) {
-      this.setState({ showModal: 'confirm' });
+      const modal = <ConfirmModal handleSubmit={this.handleSubmit} updateState={this.props.updateState} />;
+      this.props.updateState({ entityType: 'modal', entity: { content: modal } });
     } else {
       this.handleSubmit(true);
     }
@@ -92,15 +93,15 @@ class ProjectForm extends Component {
       this.setState({ id: projectid.id });
       this.props.updateState({ entityType: 'projectList', entity: project });
       const modal = !published ? (
-        <DraftModal projectId={project.id} />
+        <DraftModal projectId={project.id} updateState={this.props.updateState} />
       ) : !this.state.published ? (
-        <PublishedModal projectId={project.id} />
+        <PublishedModal projectId={project.id} updateState={this.props.updateState} />
       ) : (
-        <PublicModal projectId={project.id} />
+        <PublicModal projectId={project.id} updateState={this.props.updateState} />
       );
       this.props.updateState({ entityType: 'modal', entity: { content: modal } });
     } else {
-      this.props.updateState({ entityType: 'error', entity: response.status });
+      this.props.updateState({ entityType: 'modal', entity: response.status });
     }
   }
 
@@ -109,111 +110,87 @@ class ProjectForm extends Component {
     const preferenceList = this.props.preferenceList;
     if (!R.isEmpty(project)) {
       return (
-        <div>
-          {project.showModal === 'confirm' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Er du sikker?</h2>
-                  <p>Du er ved et publicere dit projekt.</p>
-                  <p>
-                    Sammen med projektet publiceres også dit navn og email, så andre kan komme i kontakt med dig og
-                    bidrage til forslaget.
-                  </p>
-                  <div className="mt-6 mb-2">
-                    <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
-                      Gem som kladde
-                    </button>
-                    <button onClick={() => this.handleSubmit(true)} className="btn btn-primary m-2">
-                      Publicer
-                    </button>
-                  </div>
-                </div>
-              }
+        <div className="max-w-md mx-auto">
+          <form onChange={this.handleChange} onSubmit={e => e.preventDefault()} className="-mt-8">
+            <FormInput
+              title="Titel"
+              name="title"
+              value={project.title}
+              placeholder="Giv dit projekt en informativ og fængende titel..."
+              type="text"
             />
-          )}
-          <div className="max-w-md mx-auto">
-            <form onChange={this.handleChange} onSubmit={e => e.preventDefault()} className="-mt-8">
-              <FormInput
-                title="Titel"
-                name="title"
-                value={project.title}
-                placeholder="Giv dit projekt en informativ og fængende titel..."
-                type="text"
+            <label className="block md:w-1/2 my-8">
+              <span className="block font-bold mb-2">Kategori</span>
+              <FormSelect
+                title="Kategori"
+                name="category"
+                value={project.category}
+                onChange={this.handleChange}
+                defaultOption="Vælg kategori"
+                defaultOptionDisabled="yes"
+                options={preferenceList.map(item => (
+                  <option value={item.id} key={item.id}>
+                    {item.title}
+                  </option>
+                ))}
               />
-              <label className="block md:w-1/2 my-8">
-                <span className="block font-bold mb-2">Kategori</span>
-                <FormSelect
-                  title="Kategori"
-                  name="category"
-                  value={project.category}
-                  onChange={this.handleChange}
-                  defaultOption="Vælg kategori"
-                  defaultOptionDisabled="yes"
-                  options={preferenceList.map(item => (
-                    <option value={item.id} key={item.id}>
-                      {item.title}
-                    </option>
-                  ))}
-                />
-              </label>
-              <FormInput
-                title="Bio"
-                name="bio"
-                value={project.bio}
-                placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
-                text="text"
-              />
-              <FormTextArea
-                title="Beskrivelse"
-                name="description"
-                value={project.description}
-                placeholder="Beskriv dit projekt kort men fyldestgørende..."
-              />
-              <FormTextArea
-                title="Budgettering"
-                name="budget"
-                value={project.budget}
-                placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det skal finansieres..."
-              />
-              <FormTextArea
-                title="Begrundelse og argumentation"
-                name="argument"
-                value={project.argument}
-                placeholder="Fremlæg argumentation og begrundelse for, hvorfor forslaget er en god idé..."
-              />
-              <FormTextArea
-                title="Risici og udfordringer"
-                name="risk"
-                value={project.risk}
-                placeholder="Præsenter de identificerede risici, der kan udfordre forslagets mulighed for succes..."
-              />
-            </form>
-            <div className="text-center -my-2">
-              {!project.published && project.isSaveable ? (
-                <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
-                  Gem som kladde
-                </button>
-              ) : (
-                <button className="btn btn-disabled m-2" disabled>
-                  Gem som kladde
-                </button>
-              )}
-              {project.isPublishable ? (
-                <button onClick={() => this.handlePublish()} className="btn btn-primary m-2">
-                  Publicer
-                </button>
-              ) : (
-                <button className="btn btn-disabled m-2" disabled>
-                  Publicer
-                </button>
-              )}
-            </div>
+            </label>
+            <FormInput
+              title="Bio"
+              name="bio"
+              value={project.bio}
+              placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
+              text="text"
+            />
+            <FormTextArea
+              title="Beskrivelse"
+              name="description"
+              value={project.description}
+              placeholder="Beskriv dit projekt kort men fyldestgørende..."
+            />
+            <FormTextArea
+              title="Budgettering"
+              name="budget"
+              value={project.budget}
+              placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det skal finansieres..."
+            />
+            <FormTextArea
+              title="Begrundelse og argumentation"
+              name="argument"
+              value={project.argument}
+              placeholder="Fremlæg argumentation og begrundelse for, hvorfor forslaget er en god idé..."
+            />
+            <FormTextArea
+              title="Risici og udfordringer"
+              name="risk"
+              value={project.risk}
+              placeholder="Præsenter de identificerede risici, der kan udfordre forslagets mulighed for succes..."
+            />
+          </form>
+          <div className="text-center -my-2">
+            {!project.published && project.isSaveable ? (
+              <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
+                Gem som kladde
+              </button>
+            ) : (
+              <button className="btn btn-disabled m-2" disabled>
+                Gem som kladde
+              </button>
+            )}
+            {project.isPublishable ? (
+              <button onClick={() => this.handlePublish()} className="btn btn-primary m-2">
+                Publicer
+              </button>
+            ) : (
+              <button className="btn btn-disabled m-2" disabled>
+                Publicer
+              </button>
+            )}
           </div>
         </div>
       );
     } else {
-      return <div>{'Henter projekt...'}</div>;
+      return <LoadingSpinner />;
     }
   }
 }

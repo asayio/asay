@@ -116,10 +116,14 @@ class candidateForm extends Component {
     });
     if (response.ok) {
       this.props.updateState({ entityType: 'candidateList', entity: candidate });
-      const modal = active ? <ActiveModal candidateId={candidate.id} /> : <SavedModal candidateId={candidate.id} />;
+      const modal = active ? (
+        <ActiveModal candidateId={candidate.id} updateState={this.props.updateState} />
+      ) : (
+        <SavedModal candidateId={candidate.id} updateState={this.props.updateState} />
+      );
       this.props.upadateState({ entityType: 'modal', entity: { content: modal } });
     } else {
-      this.props.updateState({ entityType: 'error', entity: response.status });
+      this.props.updateState({ entityType: 'modal', entity: response.status });
     }
   }
 

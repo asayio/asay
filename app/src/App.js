@@ -65,21 +65,6 @@ class App extends Component {
     this.updateState = this.updateState.bind(this);
   }
 
-  componentWillMount() {
-    window.localStorage.promptAddToHomeScreen === undefined &&
-      navigator.userAgent.match(/iPhone|iPad|iPod/i) &&
-      this.setState({ modal: 'addToHomeScreenIOS' });
-    window.localStorage.promptAddToHomeScreen === undefined &&
-      navigator.userAgent.match(/Android/i) &&
-      this.setState({ modal: 'addToHomeScreenAndroid' });
-    document.addEventListener(
-      'click',
-      function(evnt) {
-        evnt.target.id === 'modal' && this.setState({ modal: false });
-      }.bind(this)
-    );
-  }
-
   async componentDidMount() {
     const mountTimestamp = new Date();
     const mountTime = Date.parse(mountTimestamp);
@@ -153,12 +138,13 @@ class App extends Component {
       }
       return null;
     };
-    // if (this.state.appReady && this.state.anonymousUser) {
-    //   window.localStorage.cacheStateAnonymous = JSON.stringify(this.state);
-    // }
-    // if (this.state.appReady && !this.state.anonymousUser) {
-    //   window.localStorage.cacheStateUser = JSON.stringify(this.state);
-    // }
+    const state = JSON.stringify(Object.assign({}, this.state, { modal: false }));
+    if (this.state.appReady && this.state.anonymousUser) {
+      window.localStorage.cacheStateAnonymous = state;
+    }
+    if (this.state.appReady && !this.state.anonymousUser) {
+      window.localStorage.cacheStateUser = state;
+    }
     return (
       <Router>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
