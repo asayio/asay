@@ -35,7 +35,7 @@ class landingPage extends Component {
             <p className="mb-1">
               {this.state.notificationBox === 'success'
                 ? 'Din e-mail er blevet verificeret. Du kan nu logge ind.'
-                : 'Vi har sendt dig en mail. Klik på linket og bekræft din e-mail for at komme igang.'}
+                : 'Vi har sendt dig en mail. Klik på linket og bekræft din e-mail for at komme i gang.'}
             </p>
           </NotificationBox>
         )}

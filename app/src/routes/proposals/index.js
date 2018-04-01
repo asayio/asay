@@ -54,11 +54,10 @@ class Proposals extends Component {
     return (
       <div className="flex-auto px-2">
         {showNotificationBox && (
-          <NotificationBox closeNotificationBox={this.closeNotificationBox} title="Forslag skræddersyet til dig">
+          <NotificationBox closeNotificationBox={this.closeNotificationBox} title="Aktuelle forslag fra Folketinget">
             <p className="mb-1">
-              Her finder du politiske forslag inden for de politiske emner du abonnere på. Når der kommer nye forslag i
-              Folketinget, tilføjer dem også til din liste. Du kan altid opdatere dine præferencer og bestemme, hvilke
-              forslag der ryger på din liste.
+              Her finder du forslag indenfor de emner, du abonnerer på. Når der kommer nye forslag i Folketinget,
+              tilføjer vi dem også til din liste. Du kan altid opdatere dine præferencer i menuen oppe i højre hjørne.
             </p>
           </NotificationBox>
         )}

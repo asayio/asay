@@ -66,7 +66,14 @@ class Candidates extends Component {
     const userIsCandidate = user && !!R.find(R.propEq('id', user.id), this.props.candidateList);
     return (
       <div className="flex-auto px-2">
-        {showNotificationBox && <NotificationBox title="CANdidatos" closeNotificationBox={this.closeNotificationBox} />}
+        {showNotificationBox && (
+          <NotificationBox title="Initiativets kommende kandidater" closeNotificationBox={this.closeNotificationBox}>
+            <p>
+              Det her er kandidatsiden. Her finder du en liste af borgere, som søger opstilling hos Initiativet. Kig
+              listen igennem – og støt den kandidat, du er gladest for.
+            </p>
+          </NotificationBox>
+        )}
         <div className="max-w-xl mx-auto">
           <h1>Kandidater</h1>
           <div className="flex flex-wrap items-end -mx-1 -mt-2 mb-4">

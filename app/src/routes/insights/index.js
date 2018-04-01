@@ -46,7 +46,11 @@ class Insights extends Component {
 
     return (
       <div className="flex-auto px-2">
-        {showNotificationBox && <NotificationBox title="INsigt" closeNotificationBox={this.closeNotificationBox} />}
+        {showNotificationBox && (
+          <NotificationBox title="Din historik" closeNotificationBox={this.closeNotificationBox}>
+            <p>Her finder du de forslag, som du tidligere har stemt på.</p>
+          </NotificationBox>
+        )}
         {!proposalList.length ? (
           <div className="max-w-xl mx-auto text-center">
             <h1>Her ser lidt tomt ud</h1>

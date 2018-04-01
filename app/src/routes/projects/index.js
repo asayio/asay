@@ -63,10 +63,11 @@ class Projects extends Component {
     return (
       <div className="flex-auto px-2">
         {showNotificationBox && (
-          <NotificationBox
-            title="Projekter fra folk med noget på hjerte"
-            closeNotificationBox={this.closeNotificationBox}>
-            <p className="mb-1">blabla</p>
+          <NotificationBox title="Brugernes politiske projekter" closeNotificationBox={this.closeNotificationBox}>
+            <p>
+              På denne side finder du politiske projekter, som er fremsat af platformens brugere. Du kan også selv
+              oprette og udvikle dit eget politiske projekt her.
+            </p>
           </NotificationBox>
         )}
         <div className="max-w-xl mx-auto">
