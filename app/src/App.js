@@ -33,10 +33,8 @@ import Nav from './components/nav';
 import Footer from './components/footer';
 import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
-import ErrorModal from './components/modal/error';
-import UnauthorizedModal from './components/modal/unauthorized';
-import AddToHomeScreenModal from './components/modal/addToHomeScreen';
 import LandingPage from './components/landingPage';
+import Modal from './components/modal/routes';
 
 class App extends Component {
   constructor(props) {
@@ -44,8 +42,7 @@ class App extends Component {
     this.state = {
       user: {},
       anonymousUser: true,
-      showAddToHomeScreenModal: false,
-      showErrorModal: false,
+      modal: false,
       proposalList: [],
       preferenceList: [],
       voteList: [],
@@ -67,15 +64,6 @@ class App extends Component {
       }
     };
     this.updateState = this.updateState.bind(this);
-  }
-
-  componentWillMount() {
-    window.localStorage.promptAddToHomeScreen === undefined &&
-      navigator.userAgent.match(/iPhone|iPad|iPod/i) &&
-      this.setState({ showAddToHomeScreenModal: 'apple' });
-    window.localStorage.promptAddToHomeScreen === undefined &&
-      navigator.userAgent.match(/Android/i) &&
-      this.setState({ showAddToHomeScreenModal: 'android' });
   }
 
   async componentDidMount() {
@@ -139,11 +127,8 @@ class App extends Component {
       case 'candidateList':
         this.setState(stateBuilder.updateCandidateList(this.state, entity));
         break;
-      case 'error':
-        this.setState({ showErrorModal: entity });
-        break;
-      case 'mobile':
-        this.setState({ showAddToHomeScreenModal: entity });
+      case 'modal':
+        this.setState({ modal: entity });
         break;
       default:
         break;
@@ -160,24 +145,19 @@ class App extends Component {
       }
       return null;
     };
+    const state = JSON.stringify(Object.assign({}, this.state, { modal: false }));
     if (this.state.appReady && this.state.anonymousUser) {
-      window.localStorage.cacheStateAnonymous = JSON.stringify(this.state);
+      window.localStorage.cacheStateAnonymous = state;
     }
     if (this.state.appReady && !this.state.anonymousUser) {
-      window.localStorage.cacheStateUser = JSON.stringify(this.state);
+      window.localStorage.cacheStateUser = state;
     }
     return (
       <Router>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
           <Route path="/" component={logPageView} />
+          <Modal modal={this.state.modal} updateState={this.updateState} />
           <Nav user={this.state.user} candidateList={this.state.candidateList} updateState={this.updateState} />
-          {this.state.showAddToHomeScreenModal && (
-            <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
-          )}
-          {this.state.showErrorModal &&
-            this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
-          {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
-
           {this.state.appReady ? (
             <Switch>
               <Route exact path="/" component={LandingPage} />

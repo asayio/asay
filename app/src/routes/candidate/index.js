@@ -6,7 +6,8 @@ import ProposalList from '../../components/proposalList';
 import Heading from '../../components/headingWithBackBtn';
 import FeatherIcon from '../../components/featherIcon';
 import ProposalTabBar from '../../components/proposalTabBar';
-import Modal from '../../components/modal';
+import ConfirmationModal from './confirmationModal';
+import DeclerationModal from './declerationModal';
 
 class CandidatePage extends Component {
   constructor() {
@@ -31,7 +32,7 @@ class CandidatePage extends Component {
   }
 
   async giveDecleration() {
-    this.setState({ showModal: false });
+    this.props.updateState({ entityType: 'modal', entity: false });
     await fetch('/api/user/decleration', {
       method: 'POST',
       headers: {
@@ -45,20 +46,35 @@ class CandidatePage extends Component {
 
   supportingCandidate(confirmedChange) {
     if (this.props.anonymousUser) {
-      this.props.updateState({ entityType: 'error', entity: 401 });
+      this.props.updateState({ entityType: 'modal', entity: 401 });
     } else {
       const user = this.props.user;
       const userSupportsCandidate = user.supportscandidate;
       const candidateId = Number(this.props.match.params.id);
+      const candidate = R.find(R.propEq('id', candidateId), this.props.candidateList);
       const isSupporting = candidateId === userSupportsCandidate;
       const mustConfirm = userSupportsCandidate && !isSupporting;
       const newCandidateId = isSupporting ? null : candidateId;
+      const confirmationModal = (
+        <ConfirmationModal
+          candidate={candidate}
+          updateState={this.props.updateState}
+          supportingCandidate={this.supportingCandidate}
+        />
+      );
+      const declerationModal = (
+        <DeclerationModal
+          candidate={candidate}
+          updateState={this.props.updateState}
+          giveDecleration={this.giveDecleration}
+        />
+      );
       if (!confirmedChange && mustConfirm) {
-        this.setState({ showModal: 'confirmation' });
+        this.props.updateState({ entityType: 'modal', entity: { content: confirmationModal } });
       } else {
         !user.decleration && !isSupporting
-          ? this.setState({ showModal: 'decleration' })
-          : this.setState({ showModal: false });
+          ? this.props.updateState({ entityType: 'modal', entity: { content: declerationModal } })
+          : this.props.updateState({ entityType: 'modal', entity: false });
         this.supportCandidate(newCandidateId);
       }
     }
@@ -74,7 +90,7 @@ class CandidatePage extends Component {
       }
     });
     if (!response.ok) {
-      this.props.updateState({ entityType: 'error', entity: response.status });
+      this.props.updateState({ entityType: 'modal', entity: response.status });
     }
   }
 
@@ -261,58 +277,6 @@ class CandidatePage extends Component {
               </div>
             </div>
           </div>
-          {this.state.showModal === 'confirmation' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Er du sikker?</h2>
-                  <p>
-                    Du kan kun støtte én kandidat og har allerede støttet en anden. Vælger du at støtte{' '}
-                    {candidate.firstname + ' ' + candidate.lastname} bortfalder den støtte du tidligere har givet til en
-                    anden kandidat.
-                  </p>
-                  <div className="mt-6 mb-2">
-                    <button onClick={() => this.setState({ showModal: false })} className="btn btn-secondary m-2">
-                      Annuller
-                    </button>
-                    <button onClick={() => this.supportingCandidate(true)} className="btn btn-primary m-2">
-                      Bekræft støtte
-                    </button>
-                  </div>
-                </div>
-              }
-            />
-          )}
-          {this.state.showModal === 'decleration' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Vi har registreret din støtte til {candidate.firstname + ' ' + candidate.lastname}</h2>
-                  <p>
-                    For at få kandidaten i Folketinget, har vi også brug for din vælgererklæring, så Initiativet kan
-                    stille op til næste Folketingsvalg.
-                  </p>
-                  <div className="mt-6 mb-2">
-                    <button onClick={() => this.setState({ showModal: false })} className="btn btn-secondary m-2">
-                      Luk vinduet
-                    </button>
-                    <a
-                      href={`https://initiativet.dk/sign/forward?referrer=${window.location}`}
-                      target="_declaration"
-                      onClick={this.giveDecleration}
-                      className="btn btn-primary m-2">
-                      Giv en vælgererklæring
-                    </a>
-                  </div>
-                  <div className="text-center mt-4">
-                    <button onClick={this.giveDecleration} className="text-grey hover:text-grey-dark">
-                      Jeg har allerede støttet
-                    </button>
-                  </div>
-                </div>
-              }
-            />
-          )}
         </div>
       );
     } else {

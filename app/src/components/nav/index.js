@@ -40,7 +40,7 @@ class Nav extends Component {
           </div>
           <SearchBar
             formClass="flex-auto w-96 flex"
-            inputClass="flex-1 w-none border border-grey-lightest rounded-l-sm p-2"
+            inputClass="flex-1 w-none appearance-none border border-grey-lightest rounded-l-sm px-2"
             btnClass="flex-none bg-grey-lightest rounded-r-sm p-2 mr-2"
             updateState={this.props.updateState}
           />

@@ -10,7 +10,7 @@ class ProposalActions extends Component {
 
   async updateSubscription() {
     if (this.props.anonymousUser) {
-      this.props.updateState({ entityType: 'error', entity: 401 });
+      this.props.updateState({ entityType: 'modal', entity: 401 });
     } else {
       const proposal = this.props.proposal;
       const newSubscription = { proposal: proposal.id, subscription: !proposal.isSubscribing };
@@ -26,7 +26,7 @@ class ProposalActions extends Component {
         }
       });
       if (!response.ok) {
-        this.props.updateState({ entityType: 'error', entity: response.status });
+        this.props.updateState({ entityType: 'modal', entity: response.status });
       }
     }
   }

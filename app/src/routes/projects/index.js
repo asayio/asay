@@ -46,7 +46,7 @@ class Projects extends Component {
     let projectList = this.props.projectList;
     projectList = sortProjectList(projectList);
     projectList = R.filter(project => {
-      return project.support >= 15; // show only project with support from 15 or more people
+      return project.support >= 5; // show only project with support from 5 or more people
     }, projectList);
     if (this.state.category !== 'Alle') {
       projectList = R.filter(project => {
@@ -110,7 +110,7 @@ class Projects extends Component {
             ) : (
               <div className="hidden md:flex w-1/4 items-end px-1 py-2 md:py-0">
                 <button
-                  onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
+                  onClick={() => this.props.updateState({ entityType: 'modal', entity: 401 })}
                   className="w-full btn btn-white">
                   <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
                 </button>

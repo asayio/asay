@@ -60,7 +60,8 @@ class Insights extends Component {
                 this.props.history.replace({
                   pathname: '/'
                 })
-              }>
+              }
+              className="btn btn-white">
               <FeatherIcon name="ArrowDown" />Gå til forsiden
             </button>
           </div>
