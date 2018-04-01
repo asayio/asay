@@ -209,7 +209,9 @@ class CandidatePage extends Component {
                 </div>
                 <div>
                   <h2 className="text-center">Fokusområder</h2>
-                  <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
+                  <div className="-mx-1 mb-1">
+                    <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
+                  </div>
                   <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
                     {commitment && commitment.commitment}
                   </div>
