@@ -83,10 +83,12 @@ class ProjectPage extends Component {
     }
     const user = this.props.user;
     if (project) {
-      const description = R.filter(paragraph => paragraph !== '')(project.description.split(/\n/));
-      const budget = R.filter(paragraph => paragraph !== '')(project.budget.split(/\n/));
-      const argument = R.filter(paragraph => paragraph !== '')(project.argument.split(/\n/));
-      const risk = R.filter(paragraph => paragraph !== '')(project.risk.split(/\n/));
+      const description =
+        (project.description && R.filter(paragraph => paragraph !== '')(project.description.split(/\n/))) || [];
+      const budget = (project.budget && R.filter(paragraph => paragraph !== '')(project.budget.split(/\n/))) || [];
+      const argument =
+        (project.argument && R.filter(paragraph => paragraph !== '')(project.argument.split(/\n/))) || [];
+      const risk = (project.risk && R.filter(paragraph => paragraph !== '')(project.risk.split(/\n/))) || [];
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">

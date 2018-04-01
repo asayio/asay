@@ -128,10 +128,12 @@ class CandidatePage extends Component {
       )[0];
       const commitmentParagraphs =
         (commitment && R.filter(paragraph => paragraph !== '')(commitment.commitment.split(/\n/))) || [];
-      const motivation = R.filter(paragraph => paragraph !== '')(candidate.motivation.split(/\n/));
-      const story = R.filter(paragraph => paragraph !== '')(candidate.story.split(/\n/));
-      const experience = R.filter(paragraph => paragraph !== '')(candidate.experience.split(/\n/));
-      const threat = R.filter(paragraph => paragraph !== '')(candidate.threat.split(/\n/));
+      const motivation =
+        (candidate.motivation && R.filter(paragraph => paragraph !== '')(candidate.motivation.split(/\n/))) || [];
+      const story = (candidate.story && R.filter(paragraph => paragraph !== '')(candidate.story.split(/\n/))) || [];
+      const experience =
+        (candidate.experience && R.filter(paragraph => paragraph !== '')(candidate.experience.split(/\n/))) || [];
+      const threat = (candidate.threat && R.filter(paragraph => paragraph !== '')(candidate.threat.split(/\n/))) || [];
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">

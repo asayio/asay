@@ -64,7 +64,11 @@ class ProposalPage extends Component {
       this.seen(proposal);
     }
     const resume = proposal.resume ? proposal.resume.split(/\n/gm) : [];
-    const presentation = proposal.presentation ? proposal.presentation.paragraphs.slice(1, 999) : [];
+    const presentation = proposal.presentation
+      ? proposal.presentation.paragraphs
+        ? proposal.presentation.paragraphs.slice(1, 999)
+        : proposal.presentation.slice(1, 999)
+      : [];
     const proposer = proposal.presentation ? ['Med ord fra ' + proposal.presentation.proposer] : [];
     const purpose = proposer.concat(presentation);
     const tabs = [

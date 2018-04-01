@@ -46,6 +46,7 @@ class Candidates extends Component {
     const sortOrder = ['Flest støtter', 'Færrest støtter'];
     const user = this.props.user;
     const userIsCandidate = user && !!R.find(R.propEq('id', user.id), this.props.candidateList);
+    console.log(candidateList);
     return (
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
@@ -106,35 +107,41 @@ class Candidates extends Component {
           {candidateList.length ? (
             <ul className="list-reset flex flex-wrap -m-1">
               {candidateList.map((candidate, index) => (
-                <li key={index} className="w-full md:w-1/4">
+                <li key={index} className="w-full md:w-1/4 p-1">
                   <Link
                     to={`/candidate/${candidate.id}`}
-                    className="flex flex-row md:flex-col bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden m-1">
+                    className="flex flex-row md:flex-col h-full bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden">
                     <div className="flex-none relative">
                       <img
                         src={candidate.picture ? candidate.picture : '/assets/candidate.png'}
                         alt={candidate.firstname + ' ' + candidate.lastname}
                         className="block w-full max-w-2xs md:max-w-full"
                       />
-                      <h4 className="absolute pin-x pin-b text-center text-white text-xl font-bold bg-transparent-to-black pt-4 pb-2 mb-0">
+                      <h4 className="absolute pin-x pin-b text-center text-white md:text-xl font-bold bg-transparent-to-black pt-4 pb-2 mb-0">
                         {candidate.firstname + ' ' + candidate.lastname}
                       </h4>
                       <span className="absolute pin-t pin-r text-white bg-teal leading-none rounded-sm px-2 py-1 m-1">
                         {candidate.support}
                       </span>
                     </div>
-                    <div className="overflow-hidden flex flex-col justify-center p-4 md:pt-2">
+                    <div className="overflow-hidden flex-auto flex flex-col p-4 md:pt-2">
                       <span className="block md:text-center text-grey uppercase mb-2">
                         {candidate.constituency.constituency}
                       </span>
-                      <ul className="list-reset">
-                        {candidate.commitments.map((commitment, index) => (
-                          <li key={index} className="block leading-normal truncate">
-                            <FeatherIcon name={commitment.category.feathericon} className="text-teal mr-2" />
-                            {commitment.category.title}
-                          </li>
-                        ))}
-                      </ul>
+                      {candidate.commitments.length > 0 ? (
+                        <ul className="list-reset flex-auto flex flex-col justify-center">
+                          {candidate.commitments.map((commitment, index) => (
+                            <li key={index} className="block leading-normal truncate">
+                              <FeatherIcon name={commitment.category.feathericon} className="text-teal mr-2" />
+                              {commitment.category.title}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="flex-auto flex items-center md:justify-center">
+                          <span className="font-bold">Ny kandidat</span>
+                        </div>
+                      )}
                     </div>
                   </Link>
                 </li>
