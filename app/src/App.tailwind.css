@@ -20,6 +20,7 @@ button {
   color: inherit;
   transition: 0.2s ease-out;
 }
+
 svg {
   position: relative;
   margin-bottom: -0.15em;
@@ -29,6 +30,10 @@ svg {
 .auth0-lock-container svg {
   margin-bottom: 0;
   height: auto;
+}
+
+.transition {
+  transition: 0.2s ease-out;
 }
 
 .btn {

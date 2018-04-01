@@ -102,19 +102,19 @@ class candidateForm extends Component {
       constituency: Number(this.state.constituency),
       active: active
     });
-    const formData = new FormData()
-    const image = document.getElementById('image-input').files[0]
-    formData.append('image', image)
-    formData.append('candidate', JSON.stringify(candidate))
+    const formData = new FormData();
+    const image = document.getElementById('image-input').files[0];
+    formData.append('image', image);
+    formData.append('candidate', JSON.stringify(candidate));
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
       body: formData,
       headers: {
         Authorization: 'Bearer ' + window.localStorage.authToken
       }
-    })
+    });
     if (response.ok) {
-      const responseBody = await response.json()
+      const responseBody = await response.json();
       this.props.updateState({ entityType: 'candidateList', entity: Object.assign({}, candidate, responseBody) });
       const modal = active ? 'active' : 'saved';
       this.setState({ showModal: modal });
@@ -171,13 +171,10 @@ class candidateForm extends Component {
                 <h2>Social tilstedeværelse</h2>
                 <p>
                   Hjælp dine støttere med at lære dig bedre at kende, samt følge og komme i kontakt med dig. Der er op
-                  til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt.{' '}
-                  <b>Bemærk, at andre brugere kan se din email.</b>
+                  til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt. Bemærk, at din e-mail
+                  addresse altid er synlig for andre brugere.
                 </p>
-                <UploadImage
-                  name="image"
-                  candidate={candidate}
-                />
+                <UploadImage name="image" candidate={candidate} />
                 <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
                 <FormInput
                   title="Facebook URL"

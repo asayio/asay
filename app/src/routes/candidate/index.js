@@ -125,45 +125,50 @@ class CandidatePage extends Component {
                       className="h-32 w-32 rounded-sm shadow-img"
                     />
                     <div className="flex flex-col justify-center pt-4 sm:pt-0 sm:pl-8">
-                      <span className="my-1">
-                        <FeatherIcon name="Home" className="mr-1" />
+                      <span className="text-grey-darkest my-1">
+                        <FeatherIcon name="Home" className="text-grey mr-1" />
                         {candidate.constituency ? candidate.constituency.constituency : 'Opstillingskreds ikke valgt'}
                       </span>
                       <ul className="list-reset text-grey-dark -mx-2">
                         {candidate.email && (
-                          <li className="inline-block mx-2 my-1">
-                            <a href={`mailto:${candidate.email}`} target="_mail" className="hover:text-grey-darkest">
-                              <FeatherIcon name="Mail" className="text-grey-darkest mr-1" />Email
+                          <li className="inline-block text-grey mx-2 my-1">
+                            <FeatherIcon name="Mail" className="mr-1" />
+                            <a href={`mailto:${candidate.email}`} target="_mail" className="text-grey-darkest">
+                              {candidate.email}
                             </a>
                           </li>
                         )}
                         {candidate.phone && (
-                          <li className="inline-block mx-2 my-1">
-                            <a href={`tel:${candidate.phone}`} target="_phone" className="hover:text-grey-darkest">
-                              <FeatherIcon name="Phone" className="text-grey-darkest mr-1" />Telefon
+                          <li className="inline-block text-grey mx-2 my-1">
+                            <FeatherIcon name="Phone" className="mr-1" />
+                            <a href={`tel:${candidate.phone}`} target="_phone" className="text-grey-darkest">
+                              {candidate.phone}
                             </a>
                           </li>
                         )}
                       </ul>
                       <ul className="list-reset text-grey-dark -mx-2">
                         {candidate.facebook && (
-                          <li className="inline-block mx-2 my-1">
-                            <a href={candidate.facebook} target="_facebook" className="hover:text-grey-darkest">
-                              <FeatherIcon name="Facebook" className="text-grey-darkest mr-1" />Facebook
+                          <li className="inline-block text-grey mx-2 my-1">
+                            <FeatherIcon name="Facebook" className="mr-1" />
+                            <a href={candidate.facebook} target="_facebook" className="text-grey-darkest">
+                              Facebook
                             </a>
                           </li>
                         )}
                         {candidate.linkedin && (
-                          <li className="inline-block mx-2 my-1">
-                            <a href={candidate.linkedin} target="_linkedin" className="hover:text-grey-darkest">
-                              <FeatherIcon name="Linkedin" className="text-grey-darkest mr-1" />LinkedIn
+                          <li className="inline-block text-grey mx-2 my-1">
+                            <FeatherIcon name="Linkedin" className="mr-1" />
+                            <a href={candidate.linkedin} target="_linkedin" className="text-grey-darkest">
+                              LinkedIn
                             </a>
                           </li>
                         )}
                         {candidate.twitter && (
-                          <li className="inline-block mx-2 my-1">
-                            <a href={candidate.twitter} target="_twitter" className="hover:text-grey-darkest">
-                              <FeatherIcon name="Twitter" className="text-grey-darkest mr-1" />Twitter
+                          <li className="inline-block text-grey mx-2 my-1">
+                            <FeatherIcon name="Twitter" className="mr-1" />
+                            <a href={candidate.twitter} target="_twitter" className="text-grey-darkest">
+                              Twitter
                             </a>
                           </li>
                         )}
