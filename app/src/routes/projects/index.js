@@ -27,7 +27,7 @@ class Projects extends Component {
     let projectList = this.props.projectList;
     projectList = sortProjectList(projectList);
     projectList = R.filter(project => {
-      return project.support >= 15; // show only project with support from 15 or more people
+      return project.support >= 5; // show only project with support from 5 or more people
     }, projectList);
     if (this.state.category !== 'Alle') {
       projectList = R.filter(project => {

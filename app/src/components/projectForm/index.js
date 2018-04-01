@@ -153,9 +153,7 @@ class ProjectForm extends Component {
                     til folk i dit netværk og sende dem til din projektside. Det gør det med linket her:
                   </p>
                   <p>{window.location.origin + '/project/' + project.id}</p>
-                  <p>
-                    Når projektet har samlet støtte fra 15 andre brugere kommer det på projektlisten her på platformen.
-                  </p>
+                  <p>Når projektet har samlet støtte fra 5 brugere kommer det på projektlisten her på platformen.</p>
                   <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
                     OK
                   </Link>
