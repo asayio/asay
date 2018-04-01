@@ -15,21 +15,29 @@ class landingPage extends Component {
         pathname: './proposals'
       });
     const urlParams = queryString.parse(window.location.search);
-    const showNotificationBox = urlParams.emailverification === 'success';
-    this.setState({ showNotificationBox: showNotificationBox });
-    if (showNotificationBox) {
-      const email = urlParams.email;
-      fetch(`/api/user/emailverification/${email}`, { method: 'POST' });
-    }
+    const notificationBoxType =
+      (urlParams.emailverification === 'success' || urlParams.emailverification === 'missing') &&
+      urlParams.emailverification;
+    this.setState({ notificationBox: notificationBoxType });
   }
   closeNotificationBox() {
-    this.setState({ showNotificationBox: false });
+    this.setState({ notificationBox: false });
   }
   render() {
+    const notificationBoxTitle = this.state.notificationBox === 'success' ? 'Succes!' : 'Bekræft din e-mail';
     return (
       <div className="relative flex-auto flex flex-col items-center justify-center text-center px-2 pb-10">
-        {this.state.showNotificationBox && (
-          <NotificationBox className="absolute pin-x pin-t" closeNotificationBox={this.closeNotificationBox} />
+        {this.state.notificationBox && (
+          <NotificationBox
+            className="absolute pin-x pin-t"
+            title={notificationBoxTitle}
+            closeNotificationBox={this.closeNotificationBox}>
+            <p className="mb-1">
+              {this.state.notificationBox === 'success'
+                ? 'Din e-mail er blevet verificeret. Du kan nu logge ind.'
+                : 'Vi har sendt dig en mail. Klik på linket og bekræft din e-mail for at komme igang.'}
+            </p>
+          </NotificationBox>
         )}
         <h1 className="mb-10">
           Medbestemmelse. Simpelt.

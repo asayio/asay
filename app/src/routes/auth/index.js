@@ -12,26 +12,28 @@ class Auth extends Component {
         'Content-Type': 'application/json'
       }
     });
+    const authInfo = response.ok && (await response.json());
     if (response.ok) {
-      const authInfo = await response.json();
       window.localStorage.authToken = authToken;
       window.localStorage.exp = authInfo.exp;
-      this.setState({ authorized: true }, function() {
-        if (
-          authInfo.user.onboarded ||
-          window.sessionStorage.redirectUrl.includes('project') ||
-          window.sessionStorage.redirectUrl.includes('candidate')
-        ) {
-          window.location.href = window.sessionStorage.redirectUrl;
-        } else {
-          window.location.href = './onboarding';
-        }
-      });
-    } else {
-      this.props.history.replace({
-        pathname: './401'
-      });
     }
+    let pathname = window.location.origin + '/proposals';
+    if (response.status === 403) {
+      pathname = window.location.origin + '/?emailverification=missing';
+    }
+    if (response.status === 401) {
+      pathname = window.location.origin + '/401';
+    }
+    if (authInfo.user && !authInfo.user.onboarded) {
+      pathname = window.location.origin + '/onboarding';
+    }
+    if (
+      window.sessionStorage.redirectUrl &&
+      (window.sessionStorage.redirectUrl.includes('project') || window.sessionStorage.redirectUrl.includes('candidate'))
+    ) {
+      pathname = window.sessionStorage.redirectUrl;
+    }
+    window.location.replace(pathname);
   }
 
   render() {

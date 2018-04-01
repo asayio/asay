@@ -84,6 +84,12 @@ class App extends Component {
     const expTime = Number(window.localStorage.exp) * 1000 || 0;
     const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
     this.setState({ anonymousUser: loginExpired });
+    if (loginExpired) {
+      window.sessionStorage.clear();
+      window.localStorage.removeItem('authToken');
+      window.localStorage.removeItem('exp');
+      window.localStorage.removeItem('cacheStateUser');
+    }
     if (loginExpired && window.localStorage.cacheStateAnonymous) {
       const cacheState = JSON.parse(window.localStorage.cacheStateAnonymous);
       this.setState(cacheState);
@@ -386,6 +392,7 @@ class App extends Component {
                 }
               />
               <Route exact path="/email-verification" component={EmailVerification} />
+              <Route exact path="/401" component={Unauthorized} />
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
@@ -393,6 +400,7 @@ class App extends Component {
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/auth" component={Auth} />
               <Route exact path="/email-verification" component={EmailVerification} />
+              <Route exact path="/401" component={Unauthorized} />
               <Route path="*" component={LoadingSpinner} />
             </Switch>
           )}
