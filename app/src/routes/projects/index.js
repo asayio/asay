@@ -4,6 +4,7 @@ import R from 'ramda';
 import FeatherIcon from '../../components/featherIcon';
 import ProposalList from '../../components/proposalList';
 import FormSelect from '../../components/formSelect';
+import NotificationBox from '../../components/notificationBox';
 
 class Projects extends Component {
   constructor() {
@@ -13,6 +14,21 @@ class Projects extends Component {
       sort: 'supportDesc'
     };
     this.updateState = this.updateState.bind(this);
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
+  }
+
+  closeNotificationBox() {
+    this.props.updateState({
+      entityType: 'user',
+      entity: Object.assign({}, this.props.user, { onboardedprojects: true })
+    });
+    fetch('/api/user/onboarding/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
   }
 
   updateState(event) {
@@ -21,6 +37,9 @@ class Projects extends Component {
   }
 
   render() {
+    const user = this.props.user;
+    const showNotificationBox = user && !user.onboardedprojects;
+
     const sortOrder = this.state.sort === 'supportDesc' || this.state.sort === 'createdonDesc' ? 'desc' : 'asc';
     const sortBy = this.state.sort === 'supportDesc' || this.state.sort === 'supportAsc' ? 'support' : 'createdon';
     const sortProjectList = R.sortWith([sortOrder === 'desc' ? R.descend(R.prop(sortBy)) : R.ascend(R.prop(sortBy))]);
@@ -43,6 +62,14 @@ class Projects extends Component {
     ];
     return (
       <div className="flex-auto px-2">
+        {showNotificationBox && (
+          <NotificationBox title="Brugernes politiske projekter" closeNotificationBox={this.closeNotificationBox}>
+            <p>
+              På denne side finder du politiske projekter, som er fremsat af platformens brugere. Du kan også selv
+              oprette og udvikle dit eget politiske projekt her.
+            </p>
+          </NotificationBox>
+        )}
         <div className="max-w-xl mx-auto">
           <h1>Projekter</h1>
           <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">

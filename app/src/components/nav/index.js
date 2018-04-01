@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import R from 'ramda';
+import { Link } from 'react-router-dom';
 import Login from '../loginBtn';
 import Logout from '../logoutBtn';
 import MenuItem from './menuItem';
@@ -24,7 +25,7 @@ class Nav extends Component {
       <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter shadow select-none p-2">
         <div className="flex max-w-xl mx-auto relative">
           <div className="absolute pin-y flex items-center -ml-8">
-            <div className="h-4 w-4 bg-teal rounded-full" />
+            <Link to="/" className="block h-4 w-4 bg-teal rounded-full" />
           </div>
           <div className="hidden md:flex flex-grow flex-no-shrink pr-2">
             <ul className="list-reset -mx-1">

@@ -3,6 +3,7 @@ import R from 'ramda';
 import FormSelect from '../../components/formSelect';
 import FeatherIcon from '../../components/featherIcon';
 import { Link } from 'react-router-dom';
+import NotificationBox from '../../components/notificationBox';
 
 class Candidates extends Component {
   constructor() {
@@ -13,6 +14,21 @@ class Candidates extends Component {
       sortOrder: 'Flest støtter'
     };
     this.handleChange = this.handleChange.bind(this);
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
+  }
+
+  closeNotificationBox() {
+    this.props.updateState({
+      entityType: 'user',
+      entity: Object.assign({}, this.props.user, { onboardedcandidates: true })
+    });
+    fetch('/api/user/onboarding/candidates', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
   }
 
   handleChange(event) {
@@ -23,6 +39,9 @@ class Candidates extends Component {
   }
 
   render() {
+    const user = this.props.user;
+    const showNotificationBox = user && !user.onboardedcandidates;
+
     const activeCandidateList = R.filter(candidate => {
       return candidate.active;
     }, this.props.candidateList);
@@ -44,11 +63,18 @@ class Candidates extends Component {
     ]);
     candidateList = sortCandidateList(candidateList);
     const sortOrder = ['Flest støtter', 'Færrest støtter'];
-    const user = this.props.user;
     const userIsCandidate = user && !!R.find(R.propEq('id', user.id), this.props.candidateList);
     console.log(candidateList);
     return (
       <div className="flex-auto px-2">
+        {showNotificationBox && (
+          <NotificationBox title="Initiativets kommende kandidater" closeNotificationBox={this.closeNotificationBox}>
+            <p>
+              Det her er kandidatsiden. Her finder du en liste af borgere, som søger opstilling hos Initiativet. Kig
+              listen igennem – og støt den kandidat, du er gladest for.
+            </p>
+          </NotificationBox>
+        )}
         <div className="max-w-xl mx-auto">
           <h1>Kandidater</h1>
           <div className="flex flex-wrap items-end -mx-1 -mt-2 mb-4">

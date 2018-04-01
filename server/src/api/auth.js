@@ -9,12 +9,17 @@ async function loginPostHandler(request, response) {
   const tokenInfo = await parseAuthToken(authToken);
   if (tokenInfo) {
     const knownUser = await lookupUser(tokenInfo);
-    if (!knownUser) {
-      const newUser = await createUser(tokenInfo);
-      const user = await lookupUser(tokenInfo);
-      response.send({ user: user, exp: tokenInfo.exp });
+    const verified = tokenInfo.email_verified;
+    if (verified) {
+      if (!knownUser) {
+        const newUser = await createUser(tokenInfo);
+        const user = await lookupUser(tokenInfo);
+        response.send({ user: user, exp: tokenInfo.exp });
+      } else {
+        response.send({ user: knownUser, exp: tokenInfo.exp });
+      }
     } else {
-      response.send({ user: knownUser, exp: tokenInfo.exp });
+      response.sendStatus(403);
     }
   } else {
     response.sendStatus(401);

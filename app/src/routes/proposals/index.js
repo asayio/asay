@@ -1,6 +1,7 @@
 import R from 'ramda';
 import React, { Component } from 'react';
 import ProposalList from '../../components/proposalList';
+import NotificationBox from '../../components/notificationBox';
 
 import FeatherIcon from '../../components/featherIcon';
 import { Link } from 'react-router-dom';
@@ -11,9 +12,28 @@ class Proposals extends Component {
     this.state = {
       limitList: true
     };
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
+  }
+
+  closeNotificationBox() {
+    this.props.updateState({
+      entityType: 'user',
+      entity: Object.assign({}, this.props.user, { onboardedproposals: true })
+    });
+    fetch('/api/user/onboarding/proposals', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
   }
 
   render() {
+    const user = this.props.user;
+    const showNotificationBox = user && !user.onboardedproposals;
+    console.log(user);
+
     let proposalList = this.props.proposalList;
     proposalList = R.filter(proposal => {
       return proposal.isSubscribing;
@@ -30,8 +50,17 @@ class Proposals extends Component {
     }, proposalList);
     const limitList =
       this.state.limitList && limitedProposalList.length !== proposalList.length && limitedProposalList.length > 0;
+
     return (
       <div className="flex-auto px-2">
+        {showNotificationBox && (
+          <NotificationBox closeNotificationBox={this.closeNotificationBox} title="Aktuelle forslag fra Folketinget">
+            <p className="mb-1">
+              Her finder du forslag indenfor de emner, du abonnerer på. Når der kommer nye forslag i Folketinget,
+              tilføjer vi dem også til din liste. Du kan altid opdatere dine præferencer i menuen oppe i højre hjørne.
+            </p>
+          </NotificationBox>
+        )}
         <div className="max-w-xl mx-auto">
           {!proposalList.length ? (
             <div className="text-center">

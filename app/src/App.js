@@ -26,6 +26,7 @@ import EditProject from './routes/project/edit';
 import Candidates from './routes/candidates';
 import Candidate from './routes/candidate';
 import EditCandidate from './routes/candidate/edit';
+import EmailVerification from './routes/email-verification';
 
 // components
 import Nav from './components/nav';
@@ -71,6 +72,12 @@ class App extends Component {
     const expTime = Number(window.localStorage.exp) * 1000 || 0;
     const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
     this.setState({ anonymousUser: loginExpired });
+    if (loginExpired) {
+      window.sessionStorage.clear();
+      window.localStorage.removeItem('authToken');
+      window.localStorage.removeItem('exp');
+      window.localStorage.removeItem('cacheStateUser');
+    }
     if (loginExpired && window.localStorage.cacheStateAnonymous) {
       const cacheState = JSON.parse(window.localStorage.cacheStateAnonymous);
       this.setState(cacheState);
@@ -168,7 +175,11 @@ class App extends Component {
                       proposalList={this.state.proposalList}
                     />
                   ) : (
-                    <Proposals proposalList={this.state.proposalList} />
+                    <Proposals
+                      proposalList={this.state.proposalList}
+                      user={this.state.user}
+                      updateState={this.updateState}
+                    />
                   )
                 }
               />
@@ -232,6 +243,7 @@ class App extends Component {
                     user={this.state.user}
                     preferenceList={this.state.preferenceList}
                     constituencyList={this.state.constituencyList}
+                    updateState={this.updateState}
                   />
                 )}
               />
@@ -328,7 +340,15 @@ class App extends Component {
                 exact
                 path="/insights"
                 render={props =>
-                  this.state.anonymousUser ? <Unauthorized /> : <Insights proposalList={this.state.proposalList} />
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <Insights
+                      proposalList={this.state.proposalList}
+                      updateState={this.updateState}
+                      user={this.state.user}
+                    />
+                  )
                 }
               />
               <Route
@@ -364,12 +384,16 @@ class App extends Component {
                   )
                 }
               />
+              <Route exact path="/email-verification" component={EmailVerification} />
+              <Route exact path="/401" component={Unauthorized} />
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/auth" component={Auth} />
+              <Route exact path="/email-verification" component={EmailVerification} />
+              <Route exact path="/401" component={Unauthorized} />
               <Route path="*" component={LoadingSpinner} />
             </Switch>
           )}
