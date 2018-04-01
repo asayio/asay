@@ -83,7 +83,7 @@ class Projects extends Component {
             ) : (
               <div className="hidden md:flex w-1/4 items-end px-1 py-2 md:py-0">
                 <button
-                  onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
+                  onClick={() => this.props.updateState({ entityType: 'modal', entity: 401 })}
                   className="w-full btn btn-white">
                   <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
                 </button>

@@ -2,22 +2,24 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import R from 'ramda';
 import LoadingSpinner from '../../components/loadingSpinner';
-import Modal from '../../components/modal';
 import Heading from '../../components/headingWithBackBtn';
 import FeatherIcon from '../../components/featherIcon';
+import DeclerationModal from './declerationModal';
 
 class ProjectPage extends Component {
   constructor() {
     super();
-    this.state = {
-      showModal: false
-    };
     this.supportProject = this.supportProject.bind(this);
     this.giveDecleration = this.giveDecleration.bind(this);
   }
 
   async giveDecleration() {
-    this.setState({ showModal: false });
+    this.props.updateState({
+      entityType: 'modal',
+      entity: {
+        content: <DeclerationModal updateState={this.props.updateState} giveDecleration={this.giveDecleration} />
+      }
+    });
     await fetch('/api/user/decleration', {
       method: 'POST',
       headers: {
@@ -31,7 +33,7 @@ class ProjectPage extends Component {
 
   async supportProject() {
     if (this.props.anonymousUser) {
-      this.props.updateState({ entityType: 'error', entity: 401 });
+      this.props.updateState({ entityType: 'modal', entity: 401 });
     } else {
       const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
 
@@ -53,7 +55,7 @@ class ProjectPage extends Component {
         }
       });
       if (!response.ok) {
-        this.props.updateState({ entityType: 'error', entity: response.status });
+        this.props.updateState({ entityType: 'modal', entity: response.status });
       }
     }
   }
@@ -152,29 +154,6 @@ class ProjectPage extends Component {
               </div>
             </div>
           </div>
-          {this.state.showModal && (
-            <Modal
-              content={
-                <div>
-                  <h2>Vi har registreret din støtte til projektet</h2>
-                  <p>Men for at det kan nå ind i Folketinget, har vi også brug for din vælgererklæring.</p>
-                  <p>Så Initiativet kan stille op til næste Folketingsvalg.</p>
-                  <div className="mt-6 mb-2">
-                    <button onClick={this.giveDecleration} className="btn btn-secondary m-2">
-                      Luk vinduet
-                    </button>
-                    <a
-                      href={`https://initiativet.dk/sign/forward?referrer=${window.location}`}
-                      target="_decleration"
-                      onClick={this.giveDecleration}
-                      className="btn btn-primary m-2">
-                      Giv en vælgererklæring
-                    </a>
-                  </div>
-                </div>
-              }
-            />
-          )}
         </div>
       );
     } else {

@@ -18,7 +18,7 @@ class PreferenceList extends Component {
       }
     });
     if (!response.ok) {
-      this.props.updateState({ entityType: 'error', entity: response.status });
+      this.props.updateState({ entityType: 'modal', entity: response.status });
     }
   }
 

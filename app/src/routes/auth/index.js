@@ -22,7 +22,7 @@ class Auth extends Component {
           window.sessionStorage.redirectUrl.includes('project') ||
           window.sessionStorage.redirectUrl.includes('candidate')
         ) {
-          window.location.href = window.sessionStorage.redirectUrl;
+          window.location.href = window.sessionStorage.redirectUrl || './proposals';
         } else {
           window.location.href = './onboarding';
         }
