@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import Modal from '../modal';
-import LoadingSpinner from '../loadingSpinner';
 import R from 'ramda';
-import { Link } from 'react-router-dom';
+import LoadingSpinner from '../loadingSpinner';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
 import FormTextArea from '../formTextArea';
+import DraftModal from './draftModal';
+import PublicModal from './publicModal';
+import PublishedModal from './publishedModal';
+import ConfirmModal from './confirmModal';
 
 class ProjectForm extends Component {
   constructor() {
@@ -63,14 +65,15 @@ class ProjectForm extends Component {
 
   handlePublish() {
     if (!this.state.published) {
-      this.setState({ showModal: 'confirm' });
+      const modal = <ConfirmModal handleSubmit={this.handleSubmit} updateState={this.props.updateState} />;
+      this.props.updateState({ entityType: 'modal', entity: { content: modal } });
     } else {
       this.handleSubmit(true);
     }
   }
 
   async handleSubmit(published) {
-    this.setState({ showModal: 'loading' });
+    this.props.updateState({ entityType: 'modal', entity: 'loading' });
     const body = Object.assign({}, this.state, { published: published });
     const response = await fetch(`/api/project/${this.state.id}/edit`, {
       method: 'POST',
@@ -89,11 +92,16 @@ class ProjectForm extends Component {
       });
       this.setState({ id: projectid.id });
       this.props.updateState({ entityType: 'projectList', entity: project });
-      const modal = !published ? 'draft' : !this.state.published ? 'published' : 'public';
-      this.setState({ showModal: modal });
+      const modal = !published ? (
+        <DraftModal projectId={project.id} updateState={this.props.updateState} />
+      ) : !this.state.published ? (
+        <PublishedModal projectId={project.id} updateState={this.props.updateState} />
+      ) : (
+        <PublicModal projectId={project.id} updateState={this.props.updateState} />
+      );
+      this.props.updateState({ entityType: 'modal', entity: { content: modal } });
     } else {
-      this.props.updateState({ entityType: 'error', entity: response.status });
-      this.setState({ showModal: false });
+      this.props.updateState({ entityType: 'modal', entity: response.status });
     }
   }
 
@@ -102,167 +110,87 @@ class ProjectForm extends Component {
     const preferenceList = this.props.preferenceList;
     if (!R.isEmpty(project)) {
       return (
-        <div>
-          {project.showModal === 'confirm' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Er du sikker?</h2>
-                  <p>Du er ved et publicere dit projekt.</p>
-                  <p>
-                    Sammen med projektet publiceres også dit navn og email, så andre kan komme i kontakt med dig og
-                    bidrage til forslaget.
-                  </p>
-                  <div className="mt-6 mb-2">
-                    <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
-                      Gem som kladde
-                    </button>
-                    <button onClick={() => this.handleSubmit(true)} className="btn btn-primary m-2">
-                      Publicer
-                    </button>
-                  </div>
-                </div>
-              }
+        <div className="max-w-md mx-auto">
+          <form onChange={this.handleChange} onSubmit={e => e.preventDefault()} className="-mt-8">
+            <FormInput
+              title="Titel"
+              name="title"
+              value={project.title}
+              placeholder="Giv dit projekt en informativ og fængende titel..."
+              type="text"
             />
-          )}
-          {project.showModal === 'loading' && <Modal content={<LoadingSpinner />} />}
-          {project.showModal === 'draft' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Projektet blev gemt</h2>
-                  <p>Dit projekt er gemt som kladde, så det kun er synligt for dig.</p>
-                  <p>
-                    Du kan altid gå tilbage og rette i projektet, også efter det publiceret. Vi holder styr på tidligere
-                    versioner for dig.
-                  </p>
-                  <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
-                </div>
-              }
+            <label className="block md:w-1/2 my-8">
+              <span className="block font-bold mb-2">Kategori</span>
+              <FormSelect
+                title="Kategori"
+                name="category"
+                value={project.category}
+                onChange={this.handleChange}
+                defaultOption="Vælg kategori"
+                defaultOptionDisabled="yes"
+                options={preferenceList.map(item => (
+                  <option value={item.id} key={item.id}>
+                    {item.title}
+                  </option>
+                ))}
+              />
+            </label>
+            <FormInput
+              title="Bio"
+              name="bio"
+              value={project.bio}
+              placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
+              text="text"
             />
-          )}
-          {project.showModal === 'published' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Succes! Projektet blev publiceret</h2>
-                  <p>
-                    Dit projekt er nu offentligt og du skal samle opbakning til dit forslag. Det gør du ved at række ud
-                    til folk i dit netværk og sende dem til din projektside. Det gør det med linket her:
-                  </p>
-                  <p>{window.location.origin + '/project/' + project.id}</p>
-                  <p>
-                    Når projektet har samlet støtte fra 15 andre brugere kommer det på projektlisten her på platformen.
-                  </p>
-                  <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
-                </div>
-              }
+            <FormTextArea
+              title="Beskrivelse"
+              name="description"
+              value={project.description}
+              placeholder="Beskriv dit projekt kort men fyldestgørende..."
             />
-          )}
-          {project.showModal === 'public' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Projektet blev publiceret</h2>
-                  <p>
-                    Du kan altid gå tilbage og rette i projektet, som du bliver klogere undervejs. Vi holder styr på
-                    tidligere versioner for dig.
-                  </p>
-                  <p>Husk du altid kan dele dit projekt direkte med linket:</p>
-                  <p>{window.location.origin + '/project/' + project.id}</p>
-                  <Link to={`../../project/${project.id}`} className="btn btn-primary mt-8 mb-4">
-                    OK
-                  </Link>
-                </div>
-              }
+            <FormTextArea
+              title="Budgettering"
+              name="budget"
+              value={project.budget}
+              placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det skal finansieres..."
             />
-          )}
-          <div className="max-w-md mx-auto">
-            <form onChange={this.handleChange} onSubmit={e => e.preventDefault()} className="-mt-8">
-              <FormInput
-                title="Titel"
-                name="title"
-                value={project.title}
-                placeholder="Giv dit projekt en informativ og fængende titel..."
-                type="text"
-              />
-              <label className="block md:w-1/2 my-8">
-                <span className="block font-bold mb-2">Kategori</span>
-                <FormSelect
-                  title="Kategori"
-                  name="category"
-                  value={project.category}
-                  onChange={this.handleChange}
-                  defaultOption="Vælg kategori"
-                  defaultOptionDisabled="yes"
-                  options={preferenceList.map(item => (
-                    <option value={item.id} key={item.id}>
-                      {item.title}
-                    </option>
-                  ))}
-                />
-              </label>
-              <FormInput
-                title="Bio"
-                name="bio"
-                value={project.bio}
-                placeholder="Fortæl din baggrund for at være initiativtager til dette forslag..."
-                text="text"
-              />
-              <FormTextArea
-                title="Beskrivelse"
-                name="description"
-                value={project.description}
-                placeholder="Beskriv dit projekt kort men fyldestgørende..."
-              />
-              <FormTextArea
-                title="Budgettering"
-                name="budget"
-                value={project.budget}
-                placeholder="Gør rede for forslagets økonomisk omfang samt hvordan det skal finansieres..."
-              />
-              <FormTextArea
-                title="Begrundelse og argumentation"
-                name="argument"
-                value={project.argument}
-                placeholder="Fremlæg argumentation og begrundelse for, hvorfor forslaget er en god idé..."
-              />
-              <FormTextArea
-                title="Risici og udfordringer"
-                name="risk"
-                value={project.risk}
-                placeholder="Præsenter de identificerede risici, der kan udfordre forslagets mulighed for succes..."
-              />
-            </form>
-            <div className="text-center -my-2">
-              {!project.published && project.isSaveable ? (
-                <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
-                  Gem som kladde
-                </button>
-              ) : (
-                <button className="btn btn-disabled m-2" disabled>
-                  Gem som kladde
-                </button>
-              )}
-              {project.isPublishable ? (
-                <button onClick={() => this.handlePublish()} className="btn btn-primary m-2">
-                  Publicer
-                </button>
-              ) : (
-                <button className="btn btn-disabled m-2" disabled>
-                  Publicer
-                </button>
-              )}
-            </div>
+            <FormTextArea
+              title="Begrundelse og argumentation"
+              name="argument"
+              value={project.argument}
+              placeholder="Fremlæg argumentation og begrundelse for, hvorfor forslaget er en god idé..."
+            />
+            <FormTextArea
+              title="Risici og udfordringer"
+              name="risk"
+              value={project.risk}
+              placeholder="Præsenter de identificerede risici, der kan udfordre forslagets mulighed for succes..."
+            />
+          </form>
+          <div className="text-center -my-2">
+            {!project.published && project.isSaveable ? (
+              <button onClick={() => this.handleSubmit(false)} className="btn btn-secondary m-2">
+                Gem som kladde
+              </button>
+            ) : (
+              <button className="btn btn-disabled m-2" disabled>
+                Gem som kladde
+              </button>
+            )}
+            {project.isPublishable ? (
+              <button onClick={() => this.handlePublish()} className="btn btn-primary m-2">
+                Publicer
+              </button>
+            ) : (
+              <button className="btn btn-disabled m-2" disabled>
+                Publicer
+              </button>
+            )}
           </div>
         </div>
       );
     } else {
-      return <div>Henter projekt...</div>;
+      return <LoadingSpinner />;
     }
   }
 }

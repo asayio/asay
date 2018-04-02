@@ -4,6 +4,7 @@ import R from 'ramda';
 import FeatherIcon from '../../components/featherIcon';
 import ProposalList from '../../components/proposalList';
 import FormSelect from '../../components/formSelect';
+import NotificationBox from '../../components/notificationBox';
 
 class Projects extends Component {
   constructor() {
@@ -13,6 +14,21 @@ class Projects extends Component {
       sort: 'supportDesc'
     };
     this.updateState = this.updateState.bind(this);
+    this.closeNotificationBox = this.closeNotificationBox.bind(this);
+  }
+
+  closeNotificationBox() {
+    this.props.updateState({
+      entityType: 'user',
+      entity: Object.assign({}, this.props.user, { onboardedprojects: true })
+    });
+    fetch('/api/user/onboarding/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + window.localStorage.authToken
+      }
+    });
   }
 
   updateState(event) {
@@ -21,13 +37,16 @@ class Projects extends Component {
   }
 
   render() {
+    const user = this.props.user;
+    const showNotificationBox = user && !user.onboardedprojects;
+
     const sortOrder = this.state.sort === 'supportDesc' || this.state.sort === 'createdonDesc' ? 'desc' : 'asc';
     const sortBy = this.state.sort === 'supportDesc' || this.state.sort === 'supportAsc' ? 'support' : 'createdon';
     const sortProjectList = R.sortWith([sortOrder === 'desc' ? R.descend(R.prop(sortBy)) : R.ascend(R.prop(sortBy))]);
     let projectList = this.props.projectList;
     projectList = sortProjectList(projectList);
     projectList = R.filter(project => {
-      return project.support >= 15; // show only project with support from 15 or more people
+      return project.support >= 5; // show only project with support from 5 or more people
     }, projectList);
     if (this.state.category !== 'Alle') {
       projectList = R.filter(project => {
@@ -43,6 +62,14 @@ class Projects extends Component {
     ];
     return (
       <div className="flex-auto px-2">
+        {showNotificationBox && (
+          <NotificationBox title="Brugernes politiske projekter" closeNotificationBox={this.closeNotificationBox}>
+            <p>
+              På denne side finder du politiske projekter, som er fremsat af platformens brugere. Du kan også selv
+              oprette og udvikle dit eget politiske projekt her.
+            </p>
+          </NotificationBox>
+        )}
         <div className="max-w-xl mx-auto">
           <h1>Projekter</h1>
           <div className="flex flex-wrap md:flex-no-wrap -mx-1 -mt-2 mb-4">
@@ -83,7 +110,7 @@ class Projects extends Component {
             ) : (
               <div className="hidden md:flex w-1/4 items-end px-1 py-2 md:py-0">
                 <button
-                  onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
+                  onClick={() => this.props.updateState({ entityType: 'modal', entity: 401 })}
                   className="w-full btn btn-white">
                   <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
                 </button>

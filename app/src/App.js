@@ -26,16 +26,15 @@ import EditProject from './routes/project/edit';
 import Candidates from './routes/candidates';
 import Candidate from './routes/candidate';
 import EditCandidate from './routes/candidate/edit';
+import EmailVerification from './routes/email-verification';
 
 // components
 import Nav from './components/nav';
 import Footer from './components/footer';
 import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
-import ErrorModal from './components/modal/error';
-import UnauthorizedModal from './components/modal/unauthorized';
-import AddToHomeScreenModal from './components/modal/addToHomeScreen';
 import LandingPage from './components/landingPage';
+import Modal from './components/modal/routes';
 
 class App extends Component {
   constructor(props) {
@@ -43,8 +42,7 @@ class App extends Component {
     this.state = {
       user: {},
       anonymousUser: true,
-      showAddToHomeScreenModal: false,
-      showErrorModal: false,
+      modal: false,
       proposalList: [],
       preferenceList: [],
       voteList: [],
@@ -68,21 +66,18 @@ class App extends Component {
     this.updateState = this.updateState.bind(this);
   }
 
-  componentWillMount() {
-    window.localStorage.promptAddToHomeScreen === undefined &&
-      navigator.userAgent.match(/iPhone|iPad|iPod/i) &&
-      this.setState({ showAddToHomeScreenModal: 'apple' });
-    window.localStorage.promptAddToHomeScreen === undefined &&
-      navigator.userAgent.match(/Android/i) &&
-      this.setState({ showAddToHomeScreenModal: 'android' });
-  }
-
   async componentDidMount() {
     const mountTimestamp = new Date();
     const mountTime = Date.parse(mountTimestamp);
     const expTime = Number(window.localStorage.exp) * 1000 || 0;
     const loginExpired = (expTime - mountTime) / (1000 * 60 * 60) <= 1; // 1 hours;
     this.setState({ anonymousUser: loginExpired });
+    if (loginExpired) {
+      window.sessionStorage.clear();
+      window.localStorage.removeItem('authToken');
+      window.localStorage.removeItem('exp');
+      window.localStorage.removeItem('cacheStateUser');
+    }
     if (loginExpired && window.localStorage.cacheStateAnonymous) {
       const cacheState = JSON.parse(window.localStorage.cacheStateAnonymous);
       this.setState(cacheState);
@@ -132,11 +127,8 @@ class App extends Component {
       case 'candidateList':
         this.setState(stateBuilder.updateCandidateList(this.state, entity));
         break;
-      case 'error':
-        this.setState({ showErrorModal: entity });
-        break;
-      case 'mobile':
-        this.setState({ showAddToHomeScreenModal: entity });
+      case 'modal':
+        this.setState({ modal: entity });
         break;
       default:
         break;
@@ -153,24 +145,19 @@ class App extends Component {
       }
       return null;
     };
+    const state = JSON.stringify(Object.assign({}, this.state, { modal: false }));
     if (this.state.appReady && this.state.anonymousUser) {
-      window.localStorage.cacheStateAnonymous = JSON.stringify(this.state);
+      window.localStorage.cacheStateAnonymous = state;
     }
     if (this.state.appReady && !this.state.anonymousUser) {
-      window.localStorage.cacheStateUser = JSON.stringify(this.state);
+      window.localStorage.cacheStateUser = state;
     }
     return (
       <Router>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
           <Route path="/" component={logPageView} />
+          <Modal modal={this.state.modal} updateState={this.updateState} />
           <Nav user={this.state.user} candidateList={this.state.candidateList} updateState={this.updateState} />
-          {this.state.showAddToHomeScreenModal && (
-            <AddToHomeScreenModal type={this.state.showAddToHomeScreenModal} updateState={this.updateState} />
-          )}
-          {this.state.showErrorModal &&
-            this.state.showErrorModal !== 401 && <ErrorModal updateState={this.updateState} />}
-          {this.state.showErrorModal === 401 && <UnauthorizedModal updateState={this.updateState} />}
-
           {this.state.appReady ? (
             <Switch>
               <Route exact path="/" component={LandingPage} />
@@ -188,7 +175,11 @@ class App extends Component {
                       proposalList={this.state.proposalList}
                     />
                   ) : (
-                    <Proposals proposalList={this.state.proposalList} />
+                    <Proposals
+                      proposalList={this.state.proposalList}
+                      user={this.state.user}
+                      updateState={this.updateState}
+                    />
                   )
                 }
               />
@@ -252,6 +243,7 @@ class App extends Component {
                     user={this.state.user}
                     preferenceList={this.state.preferenceList}
                     constituencyList={this.state.constituencyList}
+                    updateState={this.updateState}
                   />
                 )}
               />
@@ -348,7 +340,15 @@ class App extends Component {
                 exact
                 path="/insights"
                 render={props =>
-                  this.state.anonymousUser ? <Unauthorized /> : <Insights proposalList={this.state.proposalList} />
+                  this.state.anonymousUser ? (
+                    <Unauthorized />
+                  ) : (
+                    <Insights
+                      proposalList={this.state.proposalList}
+                      updateState={this.updateState}
+                      user={this.state.user}
+                    />
+                  )
                 }
               />
               <Route
@@ -384,12 +384,16 @@ class App extends Component {
                   )
                 }
               />
+              <Route exact path="/email-verification" component={EmailVerification} />
+              <Route exact path="/401" component={Unauthorized} />
               <Route path="*" component={Lost} />
             </Switch>
           ) : (
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/auth" component={Auth} />
+              <Route exact path="/email-verification" component={EmailVerification} />
+              <Route exact path="/401" component={Unauthorized} />
               <Route path="*" component={LoadingSpinner} />
             </Switch>
           )}

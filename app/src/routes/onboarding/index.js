@@ -5,8 +5,8 @@ import PreferenceList from '../../components/preferenceList';
 import { ArrowRight } from 'react-feather';
 
 class Onboarding extends Component {
-  async componentDidMount() {
-    await fetch('/api/user/onboarding', {
+  componentDidMount() {
+    fetch('/api/user/onboarding/:user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

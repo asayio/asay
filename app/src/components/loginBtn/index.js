@@ -50,7 +50,7 @@ class Login extends Component {
       window.location.href !== window.location.origin + '/401' &&
       window.location.href !== window.location.origin + '/404'
     ) {
-      window.sessionStorage.redirectUrl = window.location;
+      window.sessionStorage.redirectUrl = window.location.href;
     }
     const lock = new Lock(clientId, domain, options);
     lock.show(); //show password dialog from Auth0

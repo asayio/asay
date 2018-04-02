@@ -106,7 +106,13 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
     const category = Number.isInteger(project.category)
       ? R.find(R.propEq('id', project.category))(preferenceList)
       : project.category;
-    const initiator = { name: project.firstname + ' ' + project.lastname, bio: project.bio, email: project.email };
+    const initiator = project.initiator
+      ? project.initiator
+      : {
+          name: project.firstname + ' ' + project.lastname,
+          bio: project.bio,
+          email: project.email
+        };
     const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
     const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
     const cleanProject = R.omit(['firstname', 'email', 'lastname', 'bio'], project);

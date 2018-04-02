@@ -6,7 +6,8 @@ import ProposalList from '../../components/proposalList';
 import Heading from '../../components/headingWithBackBtn';
 import FeatherIcon from '../../components/featherIcon';
 import ProposalTabBar from '../../components/proposalTabBar';
-import Modal from '../../components/modal';
+import ConfirmationModal from './confirmationModal';
+import DeclerationModal from './declerationModal';
 
 class CandidatePage extends Component {
   constructor() {
@@ -31,7 +32,7 @@ class CandidatePage extends Component {
   }
 
   async giveDecleration() {
-    this.setState({ showModal: false });
+    this.props.updateState({ entityType: 'modal', entity: false });
     await fetch('/api/user/decleration', {
       method: 'POST',
       headers: {
@@ -45,27 +46,41 @@ class CandidatePage extends Component {
 
   supportingCandidate(confirmedChange) {
     if (this.props.anonymousUser) {
-      this.props.updateState({ entityType: 'error', entity: 401 });
+      this.props.updateState({ entityType: 'modal', entity: 401 });
     } else {
       const user = this.props.user;
       const userSupportsCandidate = user.supportscandidate;
       const candidateId = Number(this.props.match.params.id);
+      const candidate = R.find(R.propEq('id', candidateId), this.props.candidateList);
       const isSupporting = candidateId === userSupportsCandidate;
       const mustConfirm = userSupportsCandidate && !isSupporting;
       const newCandidateId = isSupporting ? null : candidateId;
+      const confirmationModal = (
+        <ConfirmationModal
+          candidate={candidate}
+          updateState={this.props.updateState}
+          supportingCandidate={this.supportingCandidate}
+        />
+      );
+      const declerationModal = (
+        <DeclerationModal
+          candidate={candidate}
+          updateState={this.props.updateState}
+          giveDecleration={this.giveDecleration}
+        />
+      );
       if (!confirmedChange && mustConfirm) {
-        this.setState({ showModal: 'confirmation' });
+        this.props.updateState({ entityType: 'modal', entity: { content: confirmationModal } });
       } else {
         !user.decleration && !isSupporting
-          ? this.setState({ showModal: 'decleration' })
-          : this.setState({ showModal: false });
+          ? this.props.updateState({ entityType: 'modal', entity: { content: declerationModal } })
+          : this.props.updateState({ entityType: 'modal', entity: false });
         this.supportCandidate(newCandidateId);
       }
     }
   }
 
   async supportCandidate(candidateId) {
-    // const newUser = Object.assign({}, this.props.user, { supportscandidate: candidateId });
     this.props.updateState({ entityType: 'user', entity: { supportscandidate: candidateId } });
     const response = await fetch(`/api/candidate/${candidateId}/support`, {
       method: 'POST',
@@ -75,7 +90,7 @@ class CandidatePage extends Component {
       }
     });
     if (!response.ok) {
-      this.props.updateState({ entityType: 'error', entity: response.status });
+      this.props.updateState({ entityType: 'modal', entity: response.status });
     }
   }
 
@@ -111,6 +126,14 @@ class CandidatePage extends Component {
       const commitment = R.filter(commitment => commitment.category.title === this.state.selectedTab)(
         candidate.commitments
       )[0];
+      const commitmentParagraphs =
+        (commitment && R.filter(paragraph => paragraph !== '')(commitment.commitment.split(/\n/))) || [];
+      const motivation =
+        (candidate.motivation && R.filter(paragraph => paragraph !== '')(candidate.motivation.split(/\n/))) || [];
+      const story = (candidate.story && R.filter(paragraph => paragraph !== '')(candidate.story.split(/\n/))) || [];
+      const experience =
+        (candidate.experience && R.filter(paragraph => paragraph !== '')(candidate.experience.split(/\n/))) || [];
+      const threat = (candidate.threat && R.filter(paragraph => paragraph !== '')(candidate.threat.split(/\n/))) || [];
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto">
@@ -192,19 +215,19 @@ class CandidatePage extends Component {
                   </div>
                   <article className="mb-4">
                     <h3>Motivation for opstilling</h3>
-                    <p>{candidate.motivation}</p>
+                    {motivation.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                   <article className="mb-4">
                     <h3>Baggrund</h3>
-                    <p>{candidate.story}</p>
+                    {story.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                   <article className="mb-4">
                     <h3>Politisk erfaring</h3>
-                    <p>{candidate.experience}</p>
+                    {experience.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                   <article>
                     <h3>OBS</h3>
-                    <p>{candidate.threat}</p>
+                    {threat.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </article>
                 </div>
                 <div>
@@ -213,7 +236,7 @@ class CandidatePage extends Component {
                     <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
                   </div>
                   <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
-                    {commitment && commitment.commitment}
+                    {commitmentParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </div>
                 </div>
                 {candidate.projects.length > 0 && (
@@ -261,58 +284,6 @@ class CandidatePage extends Component {
               </div>
             </div>
           </div>
-          {this.state.showModal === 'confirmation' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Er du sikker?</h2>
-                  <p>
-                    Du kan kun støtte én kandidat og har allerede støttet en anden. Vælger du at støtte{' '}
-                    {candidate.firstname + ' ' + candidate.lastname} bortfalder den støtte du tidligere har givet til en
-                    anden kandidat.
-                  </p>
-                  <div className="mt-6 mb-2">
-                    <button onClick={() => this.setState({ showModal: false })} className="btn btn-secondary m-2">
-                      Annuller
-                    </button>
-                    <button onClick={() => this.supportingCandidate(true)} className="btn btn-primary m-2">
-                      Bekræft støtte
-                    </button>
-                  </div>
-                </div>
-              }
-            />
-          )}
-          {this.state.showModal === 'decleration' && (
-            <Modal
-              content={
-                <div>
-                  <h2>Vi har registreret din støtte til {candidate.firstname + ' ' + candidate.lastname}</h2>
-                  <p>
-                    For at få kandidaten i Folketinget, har vi også brug for din vælgererklæring, så Initiativet kan
-                    stille op til næste Folketingsvalg.
-                  </p>
-                  <div className="mt-6 mb-2">
-                    <button onClick={() => this.setState({ showModal: false })} className="btn btn-secondary m-2">
-                      Luk vinduet
-                    </button>
-                    <a
-                      href={`https://initiativet.dk/sign/forward?referrer=${window.location}`}
-                      target="_declaration"
-                      onClick={this.giveDecleration}
-                      className="btn btn-primary m-2">
-                      Giv en vælgererklæring
-                    </a>
-                  </div>
-                  <div className="text-center mt-4">
-                    <button onClick={this.giveDecleration} className="text-grey hover:text-grey-dark">
-                      Jeg har allerede støttet
-                    </button>
-                  </div>
-                </div>
-              }
-            />
-          )}
         </div>
       );
     } else {

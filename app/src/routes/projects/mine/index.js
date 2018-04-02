@@ -27,7 +27,7 @@ class Projects extends Component {
               </Link>
             ) : (
               <button
-                onClick={() => this.props.updateState({ entityType: 'error', entity: 401 })}
+                onClick={() => this.props.updateState({ entityType: 'modal', entity: 401 })}
                 className="btn btn-white">
                 <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
               </button>
