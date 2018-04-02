@@ -96,6 +96,7 @@ class CandidatePage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
+    console.log(candidate);
     if (!candidate) {
       return (
         <div className="flex-auto px-2">
@@ -143,7 +144,9 @@ class CandidatePage extends Component {
                 <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
                   <div className="flex flex-col sm:flex-row mb-8">
                     <img
-                      src={candidate.picture ? candidate.picture : '../../assets/candidate.png'}
+                      src={
+                        candidate.picture ? candidate.picture + '?w=256&h=256&fit=fill' : '../../assets/candidate.png'
+                      }
                       alt={candidate.firstname + ' ' + candidate.lastname}
                       className="h-32 w-32 rounded-sm shadow-img"
                     />
