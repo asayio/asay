@@ -21,9 +21,8 @@ const port = 3001; // Note: must match port of the "proxy" URL in app/package.js
 const app = express();
 
 const bodyParser = require('body-parser');
-const formidable = require('express-formidable');
 app.use(bodyParser.json());
-app.use(formidable());
+
 routes.map(app);
 
 const path = require('path');

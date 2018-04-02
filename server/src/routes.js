@@ -12,15 +12,17 @@ const subscription = require('./api/subscription');
 const appData = require('./api/appData');
 const seen = require('./api/notification');
 const projectSupport = require('./api/projectSupport');
+const formidable = require('express-formidable');
 
 // Routes
 function map(app) {
+  const form = app.use(formidable());
   // GET
   app.get('/api/auth/:authToken', auth);
   app.get('/api/appDataBundle', appData);
 
   // POST
-  app.post('/api/candidate', candidate);
+  form.post('/api/candidate', candidate);
   app.post('/api/candidate/:id/support', candidateSupport);
   app.post('/api/proposal/:id/vote', vote);
   app.post('/api/proposal/:id/subscription', subscription);
