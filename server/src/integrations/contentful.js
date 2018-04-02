@@ -1,6 +1,7 @@
 // Import
 const fs = require('fs');
-const apiKey = process.env.CONTENTFUL;
+const apiKey = process.env.CONTENTFULAPI;
+const spaceId = process.env.CONTENTFULSPACE;
 const fetch = require('node-fetch');
 const request = require('request');
 const R = require('ramda');
@@ -15,7 +16,7 @@ async function uploadImage(image, user) {
     return imageBinary;
   });
   const contentfulResponse = await client
-    .getSpace('ihbts236hb1z')
+    .getSpace(spaceId)
     .then(space =>
       space.createAssetFromFiles({
         fields: {
