@@ -13,17 +13,22 @@ class uploadImage extends Component {
   }
 
   render() {
+    let profilePicStyle = {
+      backgroundImage:
+        'url(' + (this.state.imageUrl || this.props.candidate.picture || '../../assets/candidate.png') + ')'
+    };
+
     return (
       <div className="block my-8">
         <span className="block font-bold mb-2">Profilbillede*</span>
 
-        <label htmlFor="image-input" className="relative block w-48 h-48">
-          <img
-            id="image-to-upload"
-            src={this.state.imageUrl || this.props.candidate.picture || '../../assets/candidate.png'}
-            alt="Dit profilbillede"
-          />
-          <span className="absolute pin-x pin-b btn btn-primary cursor-pointer transition">Skift foto</span>
+        <p className="max-w-xs text-sm mb-3">
+          Vælg et profilbillede med dit ansigt i midten, som er minimum 400x400px og under 2mb stort.
+        </p>
+
+        <div style={profilePicStyle} class="h-48 w-48 bg-cover bg-center rounded-sm mb-2" />
+
+        <div>
           <input
             id="image-input"
             name={this.props.name}
@@ -32,7 +37,12 @@ class uploadImage extends Component {
             accept="image/*"
             className="hidden"
           />
-        </label>
+          <button>
+            <label htmlFor="image-input" className="relative btn btn-primary cursor-pointer transition">
+              Skift foto
+            </label>
+          </button>
+        </div>
       </div>
     );
   }
