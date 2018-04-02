@@ -121,7 +121,7 @@ class candidateForm extends Component {
       ) : (
         <SavedModal candidateId={candidate.id} updateState={this.props.updateState} />
       );
-      this.props.upadateState({ entityType: 'modal', entity: { content: modal } });
+      this.props.updateState({ entityType: 'modal', entity: { content: modal } });
     } else {
       this.props.updateState({ entityType: 'modal', entity: response.status });
     }

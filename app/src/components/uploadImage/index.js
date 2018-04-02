@@ -16,6 +16,7 @@ class uploadImage extends Component {
     return (
       <div className="block my-8">
         <span className="block font-bold mb-2">Profilbillede*</span>
+
         <label htmlFor="image-input" className="relative block w-48 h-48">
           <img
             id="image-to-upload"
