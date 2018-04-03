@@ -9,7 +9,10 @@ async function loginPostHandler(request, response) {
   const tokenInfo = await parseAuthToken(authToken);
   if (tokenInfo) {
     const knownUser = await lookupUser(tokenInfo);
-    const verified = tokenInfo.email_verified;
+    const userCreated = new Date(tokenInfo.created_at)
+    const emailVerificationRollout = new Date('2018-04-02')
+    const isEarlyAdapter = userCreated <= emailVerificationRollout
+    const verified = tokenInfo.email_verified || isEarlyAdapter;
     if (verified) {
       if (!knownUser) {
         const newUser = await createUser(tokenInfo);
