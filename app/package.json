@@ -4,10 +4,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "auth0-js": "^9.4.2",
     "auth0-lock": "^10.24.3",
     "fuse.js": "^3.2.0",
     "immutability-helper": "^2.6.6",
-    "query-string": "^6.0.0",
+    "query-string": "^5.1.1",
     "ramda": "^0.24.1",
     "react": "^16.3.0",
     "react-document-meta": "^2.1.2",
