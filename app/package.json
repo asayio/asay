@@ -6,6 +6,7 @@
   "dependencies": {
     "auth0-js": "^9.4.2",
     "auth0-lock": "^10.24.3",
+    "clean-css": "^4.1.11",
     "fuse.js": "^3.2.0",
     "immutability-helper": "^2.6.6",
     "query-string": "^5.1.1",
