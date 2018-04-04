@@ -26,6 +26,14 @@ app.use(bodyParser.json());
 routes.map(app);
 
 const path = require('path');
+app.use(function (request, res, next) {
+  console.log(request.headers['user-agent']);
+  if (request.headers['user-agent'].includes('facebook')) {
+    res.send('<meta property="og:title" content="Hej fra Holger og Lars" />')
+  } else {
+    next();
+  }
+})
 app.use(express.static('app')); // Note: serve app as static assets
 
 // Initate webserver
