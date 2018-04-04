@@ -28,6 +28,10 @@ routes.map(app);
 const path = require('path');
 app.use(express.static('app')); // Note: serve app as static assets
 
+app.get('*', function(request, response) {
+  response.sendFile(path.join(__dirname, './app/index.html'));
+});
+
 // Initate webserver
 function listeningHandler() {
   console.log(`Server is listening on port ${port}. Environment set to ${environment}.`);
