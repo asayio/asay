@@ -27,9 +27,6 @@ routes.map(app);
 
 const path = require('path');
 app.use(express.static('app')); // Note: serve app as static assets
-app.get('*', function(request, response) {
-  response.sendFile(path.join(__dirname, './app/index.html'));
-});
 
 // Initate webserver
 function listeningHandler() {
@@ -38,7 +35,6 @@ function listeningHandler() {
   const mailBatcher = require('./src/mail/mailBatch');
   const schedule = require('node-schedule');
   if (environment === 'production') {
-    ftBatchFetcher(); // initial load
     schedule.scheduleJob('0 0 10 * * 2', () => {
       console.log('running weekly email batch job');
       mailBatcher('weekly');
