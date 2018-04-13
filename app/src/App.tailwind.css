@@ -59,6 +59,18 @@ svg {
 .btn-disabled {
   @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-not-allowed;
 }
+.btn-facebook {
+  @apply .text-white .bg-blue-facebook .border-blue-facebook;
+}
+.btn-facebook:hover {
+  @apply .bg-blue-facebook-light;
+}
+.btn-twitter {
+  @apply .text-white .bg-blue-twitter .border-blue-twitter;
+}
+.btn-twitter:hover {
+  @apply .bg-blue-twitter-light;
+}
 
 .inline-link {
   @apply .text-blue-dark;
