@@ -1,3 +1,7 @@
+// Read .env file
+const environment = process.env.NODE_ENV || 'development';
+require('dotenv').config({ path: `./.env.${environment}` });
+
 // Import
 const os = require('os')
 const routes = require('./src/routes.js');
@@ -6,10 +10,6 @@ const formDataParser = require('./src/middleware/formDataParser')
 const express = require('express');
 const Rollbar = require('rollbar');
 const path = require('path');
-
-// Read .env file
-const environment = process.env.NODE_ENV || 'development';
-require('dotenv').config({ path: `./.env.${environment}` });
 
 // Load error logging
 if (environment === 'production') {
