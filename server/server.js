@@ -1,10 +1,18 @@
+// Import
+const os = require('os')
+const routes = require('./src/routes.js');
+const bodyParser = require('body-parser');
+const formDataParser = require('./src/middleware/formDataParser')
+const express = require('express');
+const Rollbar = require('rollbar');
+const path = require('path');
+
 // Read .env file
 const environment = process.env.NODE_ENV || 'development';
 require('dotenv').config({ path: `./.env.${environment}` });
 
 // Load error logging
 if (environment === 'production') {
-  const Rollbar = require('rollbar');
   const rollbar = new Rollbar({
     accessToken: process.env.ROLLBAR,
     captureUncaught: true,
@@ -12,20 +20,15 @@ if (environment === 'production') {
   });
 }
 
-// Import
-const routes = require('./src/routes.js');
-
 // Variables
-const express = require('express');
 const port = 3001; // Note: must match port of the "proxy" URL in app/package.json
 const app = express();
 
-const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+app.use(formDataParser)
 
 routes.map(app);
 
-const path = require('path');
 app.use(express.static('app')); // Note: serve app as static assets
 
 app.get('*', function(request, response) {
