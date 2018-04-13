@@ -85,22 +85,20 @@ class ProposalPage extends Component {
       <div className="flex-auto px-2">
         <div className="max-w-xl mx-auto">
           <Heading title={proposal.shortTitel.replace('.', '')} />
-          <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
           <div className="flex flex-wrap md:flex-no-wrap -m-1">
             <div className="w-full">
+              <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
               {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
               {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
               {this.state.selectedTab === 'Resultater' && (
-                <div>
-                  <div className="-m-1">
-                    {!!results && <ProposalResults titel="Platformens afstemning" results={results} />}
-                    {!!proposal.actualResults && (
-                      <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
-                    )}
-                  </div>
+                <div className="-m-1">
+                  {!!results && <ProposalResults titel="Platformens afstemning" results={results} />}
+                  {!!proposal.actualResults && (
+                    <ProposalResults titel="Folketingets afstemning" results={proposal.actualResults} />
+                  )}
                   {!results &&
                     !proposal.actualResults && (
-                      <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 mx-1 my-2">
+                      <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-2">
                         <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
                       </div>
                     )}
