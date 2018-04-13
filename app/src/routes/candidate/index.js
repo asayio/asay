@@ -96,7 +96,6 @@ class CandidatePage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-    console.log(candidate);
     if (!candidate) {
       return (
         <div className="flex-auto px-2">
@@ -144,57 +143,50 @@ class CandidatePage extends Component {
                 <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
                   <div className="flex flex-col sm:flex-row mb-8">
                     <img
-                      src={
-                        candidate.picture ? candidate.picture + '?w=256&h=256&fit=fill' : '../../assets/candidate.png'
-                      }
+                      src={candidate.picture ? candidate.picture : '../../assets/candidate.png'}
                       alt={candidate.firstname + ' ' + candidate.lastname}
                       className="h-32 w-32 rounded-sm shadow-img"
                     />
                     <div className="flex flex-col justify-center pt-4 sm:pt-0 sm:pl-8">
-                      <span className="text-grey-darkest my-1">
-                        <FeatherIcon name="Home" className="text-grey mr-1" />
+                      <span className="my-1">
+                        <FeatherIcon name="Home" className="mr-1" />
                         {candidate.constituency ? candidate.constituency.constituency : 'Opstillingskreds ikke valgt'}
                       </span>
                       <ul className="list-reset text-grey-dark -mx-2">
                         {candidate.email && (
-                          <li className="inline-block text-grey mx-2 my-1">
-                            <FeatherIcon name="Mail" className="mr-1" />
-                            <a href={`mailto:${candidate.email}`} target="_mail" className="text-grey-darkest">
-                              {candidate.email}
+                          <li className="inline-block mx-2 my-1">
+                            <a href={`mailto:${candidate.email}`} target="_mail" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Mail" className="text-grey-darkest mr-1" />Email
                             </a>
                           </li>
                         )}
                         {candidate.phone && (
-                          <li className="inline-block text-grey mx-2 my-1">
-                            <FeatherIcon name="Phone" className="mr-1" />
-                            <a href={`tel:${candidate.phone}`} target="_phone" className="text-grey-darkest">
-                              {candidate.phone}
+                          <li className="inline-block mx-2 my-1">
+                            <a href={`tel:${candidate.phone}`} target="_phone" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Phone" className="text-grey-darkest mr-1" />Telefon
                             </a>
                           </li>
                         )}
                       </ul>
                       <ul className="list-reset text-grey-dark -mx-2">
                         {candidate.facebook && (
-                          <li className="inline-block text-grey mx-2 my-1">
-                            <FeatherIcon name="Facebook" className="mr-1" />
-                            <a href={candidate.facebook} target="_facebook" className="text-grey-darkest">
-                              Facebook
+                          <li className="inline-block mx-2 my-1">
+                            <a href={candidate.facebook} target="_facebook" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Facebook" className="text-grey-darkest mr-1" />Facebook
                             </a>
                           </li>
                         )}
                         {candidate.linkedin && (
-                          <li className="inline-block text-grey mx-2 my-1">
-                            <FeatherIcon name="Linkedin" className="mr-1" />
-                            <a href={candidate.linkedin} target="_linkedin" className="text-grey-darkest">
-                              LinkedIn
+                          <li className="inline-block mx-2 my-1">
+                            <a href={candidate.linkedin} target="_linkedin" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Linkedin" className="text-grey-darkest mr-1" />LinkedIn
                             </a>
                           </li>
                         )}
                         {candidate.twitter && (
-                          <li className="inline-block text-grey mx-2 my-1">
-                            <FeatherIcon name="Twitter" className="mr-1" />
-                            <a href={candidate.twitter} target="_twitter" className="text-grey-darkest">
-                              Twitter
+                          <li className="inline-block mx-2 my-1">
+                            <a href={candidate.twitter} target="_twitter" className="hover:text-grey-darkest">
+                              <FeatherIcon name="Twitter" className="text-grey-darkest mr-1" />Twitter
                             </a>
                           </li>
                         )}
@@ -235,9 +227,7 @@ class CandidatePage extends Component {
                 </div>
                 <div>
                   <h2 className="text-center">Fokusområder</h2>
-                  <div className="-mx-1 mb-1">
-                    <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
-                  </div>
+                  <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
                   <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8">
                     {commitmentParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
                   </div>

@@ -139,7 +139,7 @@ class Candidates extends Component {
                     className="flex flex-row md:flex-col h-full bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden">
                     <div className="flex-none relative">
                       <img
-                        src={candidate.picture ? candidate.picture + '?w=464&h=464&fit=fill' : '/assets/candidate.png'}
+                        src={candidate.picture ? candidate.picture : '/assets/candidate.png'}
                         alt={candidate.firstname + ' ' + candidate.lastname}
                         className="block w-full max-w-2xs md:max-w-full"
                       />

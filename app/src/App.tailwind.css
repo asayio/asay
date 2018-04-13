@@ -20,19 +20,15 @@ button {
   color: inherit;
   transition: 0.2s ease-out;
 }
-
 svg {
-  transform: translateY(0.15em);
+  position: relative;
+  margin-bottom: -0.15em;
   height: 1em;
   width: auto;
 }
 .auth0-lock-container svg {
-  transform: translateY(0);
+  margin-bottom: 0;
   height: auto;
-}
-
-.transition {
-  transition: 0.2s ease-out;
 }
 
 .btn {
@@ -76,9 +72,6 @@ svg {
 }
 
 @responsive {
-  .translate-y-005 {
-    transform: translateY(0.05em);
-  }
   .sticky {
     position: sticky;
   }
