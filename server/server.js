@@ -22,6 +22,7 @@ if (environment === 'production') {
 // Config web server
 const port = 3001; // Note: must match port of the "proxy" URL in app/package.json
 const app = express();
+app.use(bodyParser.json());
 app.use(formDataParser)
 routes.map(app);
 app.use(express.static('app')); // Note: serve app as static assets
