@@ -8,7 +8,7 @@ class ProposalInfo extends Component {
     ];
     const paragraphs = this.props.paragraphs.length > 0 ? this.props.paragraphs : emptyParagraphHandler;
     return (
-      <article className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-1">
+      <article className="flex-auto bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-1">
         {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
       </article>
     );
