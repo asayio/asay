@@ -299,7 +299,7 @@ class CandidatePage extends Component {
                     target="_fbshare"
                     rel="noopener noreferrer"
                     className="btn btn-facebook w-full mb-2">
-                    Del på Facebook
+                    Del kandidaten på Facebook
                   </a>
                   <a
                     href={`https://twitter.com/intent/tweet?text=Støt%20${candidate.firstname}%20${
@@ -310,7 +310,7 @@ class CandidatePage extends Component {
                     target="_twittershare"
                     rel="noopener noreferrer"
                     className="btn btn-twitter w-full">
-                    Del på Twitter
+                    Del kandidaten på Twitter
                   </a>
                 </div>
               </div>

@@ -125,31 +125,49 @@ class ProjectPage extends Component {
                     </a>
                   </div>
                 </div>
-                <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
-                  <h4 className="text-center border-b border-grey-lighter p-2">Projekt</h4>
-                  <div className="text-center text-grey-darker p-4">
-                    <span className="block mb-4">Kategori: {project.category.title}</span>
-                    <span className="block mb-4">Støtter: {project.support} brugere</span>
-                    {user && project.initiator.email === user.email ? (
-                      <Link to={`${project.id}/edit`} className="btn btn-primary">
-                        Rediger projekt
-                      </Link>
-                    ) : project.isSupporting ? (
-                      <button
-                        onClick={this.supportProject}
-                        onMouseDown={e => e.preventDefault()}
-                        className="btn btn-secondary">
-                        Træk støtte tilbage
-                      </button>
-                    ) : (
-                      <button
-                        onClick={this.supportProject}
-                        onMouseDown={e => e.preventDefault()}
-                        className="btn btn-primary">
-                        Støt projektet
-                      </button>
-                    )}
+                <div className="md:sticky md:top-15">
+                  <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
+                    <h4 className="text-center border-b border-grey-lighter p-2">Projekt</h4>
+                    <div className="text-center text-grey-darker p-4">
+                      <span className="block mb-4">Kategori: {project.category.title}</span>
+                      <span className="block mb-4">Støtter: {project.support} brugere</span>
+                      {user && project.initiator.email === user.email ? (
+                        <Link to={`${project.id}/edit`} className="btn btn-primary">
+                          Rediger projekt
+                        </Link>
+                      ) : project.isSupporting ? (
+                        <button
+                          onClick={this.supportProject}
+                          onMouseDown={e => e.preventDefault()}
+                          className="btn btn-secondary">
+                          Træk støtte tilbage
+                        </button>
+                      ) : (
+                        <button
+                          onClick={this.supportProject}
+                          onMouseDown={e => e.preventDefault()}
+                          className="btn btn-primary">
+                          Støt projektet
+                        </button>
+                      )}
+                    </div>
                   </div>
+                  <a
+                    href={`https://facebook.com/sharer/sharer.php?u=https://app.initiativet.dk/project/${project.id}`}
+                    target="_fbshare"
+                    rel="noopener noreferrer"
+                    className="btn btn-facebook w-full mb-2">
+                    Del projektet på Facebook
+                  </a>
+                  <a
+                    href={`https://twitter.com/intent/tweet?text=Spændende%20projekt%20på%20Initiativets%20platform:%20${
+                      project.title
+                    }!&url=https://app.initiativet.dk/project/${project.id}&via=initiativetdk`}
+                    target="_twittershare"
+                    rel="noopener noreferrer"
+                    className="btn btn-twitter w-full">
+                    Del projektet på Twitter
+                  </a>
                 </div>
               </div>
             </div>
