@@ -293,14 +293,20 @@ class CandidatePage extends Component {
                     )}
                   </div>
                   <a
-                    href="https://facebook.com"
+                    href={`https://facebook.com/sharer/sharer.php?u=https://app.initiativet.dk/candidate/${
+                      candidate.id
+                    }`}
                     target="_fbshare"
                     rel="noopener noreferrer"
                     className="btn btn-facebook w-full mb-2">
                     Del på Facebook
                   </a>
                   <a
-                    href="https://twitter.com"
+                    href={`https://twitter.com/intent/tweet?text=Støt%20${candidate.firstname}%20${
+                      candidate.lastname
+                    }s%20kandidatur%20hos%20Initiativet!&url=https://app.initiativet.dk/candidate/${
+                      candidate.id
+                    }&via=initiativetdk`}
                     target="_twittershare"
                     rel="noopener noreferrer"
                     className="btn btn-twitter w-full">

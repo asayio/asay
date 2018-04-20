@@ -35,50 +35,6 @@ svg {
   transition: 0.2s ease-out;
 }
 
-.btn {
-  @apply .inline-block .min-w-48 .leading-tight .text-center .border .rounded-sm .px-3 .py-2;
-}
-.btn-primary {
-  @apply .text-white .bg-blue-dark .border-blue-dark;
-}
-.btn-primary:hover {
-  @apply .bg-blue;
-}
-.btn-secondary {
-  @apply .text-blue-dark .border-blue-dark;
-}
-.btn-secondary:hover {
-  @apply .text-blue .border-blue;
-}
-.btn-white {
-  @apply .text-black .bg-white .border-grey-lighter .shadow;
-}
-.btn-white:hover {
-  @apply .shadow-md;
-}
-.btn-disabled {
-  @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-not-allowed;
-}
-.btn-facebook {
-  @apply .text-white .bg-blue-facebook .border-blue-facebook;
-}
-.btn-facebook:hover {
-  @apply .bg-blue-facebook-light;
-}
-.btn-twitter {
-  @apply .text-white .bg-blue-twitter .border-blue-twitter;
-}
-.btn-twitter:hover {
-  @apply .bg-blue-twitter-light;
-}
-
-.inline-link {
-  @apply .text-blue-dark;
-}
-.inline-link:hover {
-  @apply .text-blue;
-}
-
 .bg-transparent-to-black {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.45));
 }
@@ -124,4 +80,48 @@ h3 {
 }
 h4 {
   @apply .text-base;
+}
+
+.btn {
+  @apply .inline-block .min-w-48 .leading-tight .text-center .border .rounded-sm .px-3 .py-2;
+}
+.btn-primary {
+  @apply .text-white .bg-blue-dark .border-blue-dark;
+}
+.btn-primary:hover {
+  @apply .bg-blue;
+}
+.btn-secondary {
+  @apply .text-blue-dark .border-blue-dark;
+}
+.btn-secondary:hover {
+  @apply .text-blue .border-blue;
+}
+.btn-white {
+  @apply .text-black .bg-white .border-grey-lighter .shadow;
+}
+.btn-white:hover {
+  @apply .shadow-md;
+}
+.btn-disabled {
+  @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-not-allowed;
+}
+.btn-facebook {
+  @apply .text-white .bg-blue-facebook .border-blue-facebook;
+}
+.btn-facebook:hover {
+  @apply .bg-blue-facebook-light;
+}
+.btn-twitter {
+  @apply .text-white .bg-blue-twitter .border-blue-twitter;
+}
+.btn-twitter:hover {
+  @apply .bg-blue-twitter-light;
+}
+
+.inline-link {
+  @apply .text-blue-dark;
+}
+.inline-link:hover {
+  @apply .text-blue;
 }

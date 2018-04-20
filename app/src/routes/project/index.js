@@ -125,7 +125,7 @@ class ProjectPage extends Component {
                     </a>
                   </div>
                 </div>
-                <div className="bg-white border border-grey-lighter rounded-sm shadow mb-2">
+                <div className="md:sticky md:top-15 bg-white border border-grey-lighter rounded-sm shadow mb-2">
                   <h4 className="text-center border-b border-grey-lighter p-2">Projekt</h4>
                   <div className="text-center text-grey-darker p-4">
                     <span className="block mb-4">Kategori: {project.category.title}</span>
