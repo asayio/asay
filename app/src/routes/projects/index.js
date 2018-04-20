@@ -120,7 +120,9 @@ class Projects extends Component {
           {projectList.length ? (
             <ProposalList proposalList={projectList} />
           ) : (
-            <p className="text-center mx-auto my-12">Her ser lidt tomt ud. Prøv at udvide din søgning.</p>
+            <p className="text-center mx-auto my-12">
+              Her ser lidt tomt ud. Klik på knappen ovenfor for at oprette dit eget projekt!
+            </p>
           )}
         </div>
       </div>

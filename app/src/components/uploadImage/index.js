@@ -15,7 +15,11 @@ class uploadImage extends Component {
   render() {
     let profilePicStyle = {
       backgroundImage:
-        'url(' + (this.state.imageUrl || this.props.candidate.picture || '../../assets/candidate.png') + ')'
+        'url(' +
+        (this.state.imageUrl ||
+          this.props.candidate.picture + '?w=384&h=384&fit=fill' ||
+          '../../assets/candidate.png') +
+        ')'
     };
 
     return (
