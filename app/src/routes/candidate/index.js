@@ -200,10 +200,24 @@ class CandidatePage extends Component {
                       </ul>
                       <div className="md:hidden py-2">
                         <div className="flex -mx-1 mt-2 mb-4">
-                          <a href="" className="btn btn-facebook w-full min-w-0 mx-1">
+                          <a
+                            href={`https://facebook.com/sharer/sharer.php?u=https://app.initiativet.dk/candidate/${
+                              candidate.id
+                            }`}
+                            target="_fbshare"
+                            rel="noopener noreferrer"
+                            className="btn btn-facebook w-full min-w-0 mx-1">
                             Del på Facebook
                           </a>
-                          <a href="" className="btn btn-twitter w-full min-w-0 mx-1">
+                          <a
+                            href={`https://twitter.com/intent/tweet?text=Støt%20${candidate.firstname}%20${
+                              candidate.lastname
+                            }s%20kandidatur%20hos%20Initiativet!&url=https://app.initiativet.dk/candidate/${
+                              candidate.id
+                            }&via=initiativetdk`}
+                            target="_twittershare"
+                            rel="noopener noreferrer"
+                            className="btn btn-twitter w-full min-w-0 mx-1">
                             Del på Twitter
                           </a>
                         </div>
