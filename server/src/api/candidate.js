@@ -14,16 +14,16 @@ async function postCandidate(request, response) {
     const user = await getUser(request);
     if (user) {
       const userId = user.id;
-      const candidate = request.body;
-      if (candidate.image) {
-        await contentful.uploadImage(candidate.image)
-      }
+      const candidate = JSON.parse(request.fields.candidate);
+      const image = request.files.image;
       const hasCandidacy = await lookupCandidate(userId);
       const testing = hasCandidacy ? true : false;
+      const picture = image ? await contentful.uploadImage(image, user) : {};
+      Object.assign(candidate, { picture });
       if (hasCandidacy) {
         await changeCandidate(userId, candidate);
       } else {
-        const candidate = await createCandidate(userId, candidate);
+        candidate = await createCandidate(userId, candidate);
       }
       candidate.commitments.map(async commitment => {
         const isValid = Number.isInteger(commitment.category);
@@ -33,7 +33,7 @@ async function postCandidate(request, response) {
             ? await changeCandidateCommitment(userId, commitment)
             : await createCandidateCommitment(userId, commitment));
       });
-      response.sendStatus(200);
+      response.json(image ? { picture } : {});
     } else {
       response.sendStatus(401);
     }

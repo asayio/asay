@@ -2,9 +2,16 @@
 const environment = process.env.NODE_ENV || 'development';
 require('dotenv').config({ path: `./.env.${environment}` });
 
+// Import
+const routes = require('./src/routes.js');
+const bodyParser = require('body-parser');
+const formDataParser = require('./src/middleware/formDataParser');
+const express = require('express');
+const Rollbar = require('rollbar');
+const path = require('path');
+
 // Load error logging
 if (environment === 'production') {
-  const Rollbar = require('rollbar');
   const rollbar = new Rollbar({
     accessToken: process.env.ROLLBAR,
     captureUncaught: true,
@@ -12,29 +19,25 @@ if (environment === 'production') {
   });
 }
 
-// Import
-const routes = require('./src/routes.js');
-
-// Variables
-const express = require('express');
+// Config web server
 const port = 3001; // Note: must match port of the "proxy" URL in app/package.json
 const app = express();
-
-const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-
+app.use(formDataParser);
 routes.map(app);
 
-const path = require('path');
-app.use(function (request, res, next) {
+app.use(function(request, res, next) {
   console.log(request.headers['user-agent']);
   if (request.headers['user-agent'].includes('facebook')) {
-    res.send('<meta property="og:title" content="Hej fra Holger og Lars" />')
+    res.send('<meta property="og:title" content="Hej fra Holger og Lars" />');
   } else {
     next();
   }
-})
+});
 app.use(express.static('app')); // Note: serve app as static assets
+app.get('*', function(request, response) {
+  response.sendFile(path.join(__dirname, './app/index.html'));
+});
 
 // Initate webserver
 function listeningHandler() {

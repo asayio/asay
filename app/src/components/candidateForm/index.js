@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 import LoadingSpinner from '../loadingSpinner';
-// import UploadImage from '../uploadImage';
-import getImageBinary from '../uploadImage/getImageBinary';
+import UploadImage from '../uploadImage';
 import FormInput from '../formInput';
 import FormSelect from '../formSelect';
 import FormTextArea from '../formTextArea';
@@ -73,9 +72,6 @@ class candidateForm extends Component {
       case 'checkbox':
         value = target.checked;
         break;
-      case 'file':
-        value = getImageBinary(document.getElementById('image-to-upload'));
-        break;
       default:
         value = target.value;
     }
@@ -106,22 +102,26 @@ class candidateForm extends Component {
       constituency: Number(this.state.constituency),
       active: active
     });
+    const formData = new FormData();
+    const image = document.getElementById('image-input').files[0];
+    formData.append('image', image);
+    formData.append('candidate', JSON.stringify(candidate));
     const response = await fetch(`/api/candidate`, {
       method: 'POST',
-      body: JSON.stringify(candidate),
+      body: formData,
       headers: {
-        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + window.localStorage.authToken
       }
     });
     if (response.ok) {
-      this.props.updateState({ entityType: 'candidateList', entity: candidate });
+      const responseBody = await response.json();
+      this.props.updateState({ entityType: 'candidateList', entity: Object.assign({}, candidate, responseBody) });
       const modal = active ? (
         <ActiveModal candidateId={candidate.id} updateState={this.props.updateState} />
       ) : (
         <SavedModal candidateId={candidate.id} updateState={this.props.updateState} />
       );
-      this.props.upadateState({ entityType: 'modal', entity: { content: modal } });
+      this.props.updateState({ entityType: 'modal', entity: { content: modal } });
     } else {
       this.props.updateState({ entityType: 'modal', entity: response.status });
     }
@@ -140,12 +140,10 @@ class candidateForm extends Component {
                 <h2>Social tilstedeværelse</h2>
                 <p>
                   Hjælp dine støttere med at lære dig bedre at kende, samt følge og komme i kontakt med dig. Der er op
-                  til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt.{' '}
-                  <b>Bemærk, at andre brugere kan se din email.</b>
+                  til dig hvad du vil dele, men vi anbefaler at udfylde så meget som muligt. Bemærk, at din e-mail
+                  addresse altid er synlig for andre brugere.
                 </p>
-                {/* <UploadImage
-                  name="image"
-                /> */}
+                <UploadImage name="image" candidate={candidate} />
                 <FormInput title="Telefon" name="phone" value={candidate.phone} placeholder="Telefon nr." type="text" />
                 <FormInput
                   title="Facebook URL"

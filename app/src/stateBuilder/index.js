@@ -116,13 +116,11 @@ function buildProjectList({ projectList, preferenceList, projectSupportList, use
     const support = R.path(['support'], R.find(R.propEq('project', project.id))(projectSupportList)) || 0;
     const isSupporting = !!R.find(R.propEq('project', project.id))(userProjectSupportList) || false;
     const cleanProject = R.omit(['firstname', 'email', 'lastname', 'bio'], project);
-    const createdon = isNaN(Date.parse(project.createdon)) ? Date.now() : Date.parse(project.createdon);
     const newProject = Object.assign({}, cleanProject, {
       category,
       initiator,
       support,
-      isSupporting,
-      createdon
+      isSupporting
     });
     return newProject;
   });

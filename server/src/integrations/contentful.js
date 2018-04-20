@@ -1,54 +1,49 @@
 // Import
-const apiKey = process.env.CONTENTFUL;
+const fs = require('fs');
+const apiKey = process.env.CONTENTFULAPI;
+const spaceId = process.env.CONTENTFULSPACE;
 const fetch = require('node-fetch');
-const request = require('request')
-const R = require('ramda')
+const request = require('request');
+const R = require('ramda');
+const contentful = require('contentful-management');
 
 // Functions
-async function uploadImage(image) {
-  request({
-    url: "https://upload.contentful.com/spaces/ihbts236hb1z/uploads",
-    headers: {
-      "Authorization": "Bearer " + apiKey,
-      "Content-Type": "application/octet-stream"
-    },
-    method: "POST",
-    body: image
-  }, function (error, response, body){
-    request({
-      url: "https://upload.contentful.com/spaces/ihbts236hb1z/assets",
-      headers: {
-        "Authorization": "Bearer " + apiKey,
-        "Content-Type": "application/vnd.contentful.management.v1+json"
-      },
-      method: "POST",
-      body: {
-        "fields": {
-          "title": {
-            "en-US": "My cute cat pic"
+async function uploadImage(image, user) {
+  const client = contentful.createClient({
+    accessToken: apiKey
+  });
+  const imageBinary = await fs.readFileSync(image.path, function(err, imageBinary) {
+    return imageBinary;
+  });
+  const contentfulResponse = await client
+    .getSpace(spaceId)
+    .then(space =>
+      space.createAssetFromFiles({
+        fields: {
+          title: {
+            'en-US': user.firstname + user.lastname
           },
-          "file": {
-            "en-US": {
-              "contentType": "image/png",
-              "fileName": "cute_cat.png",
-              "uploadFrom": {
-                "sys": {
-                  "type": "Link",
-                  "linkType": "Upload",
-                  "id": JSON.parse(body).sys.id
-                }
-              }
+          description: {
+            'en-US': 'profile image for candidate'
+          },
+          file: {
+            'en-US': {
+              contentType: 'image/svg+xml',
+              fileName: user.firstname + user.lastname + '.jpg',
+              file: imageBinary
             }
           }
         }
-      }
-    }, function (error, response, body){
-      console.log(body);
-    });
-  });
+      })
+    )
+    .then(asset => asset.processForAllLocales())
+    .then(asset => asset.publish())
+    .then(asset => asset) // I might have to do another request to get the URL
+    .catch(console.error);
+  return contentfulResponse.fields.file['en-US'].url;
 }
 
 // Export
 module.exports = {
   uploadImage
-}
+};
