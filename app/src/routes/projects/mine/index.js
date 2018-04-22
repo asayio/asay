@@ -13,14 +13,14 @@ class Projects extends Component {
     }, projectList);
     return (
       <div className="flex-auto px-2">
-        <div className="max-w-xl mx-auto">
+        <div className="max-w-xl text-center mx-auto">
           <h1>Mine projekter</h1>
           {projectList.length ? (
             <ProposalList proposalList={projectList} />
           ) : (
-            <p className="text-center mx-auto my-12">Det ser ikke ud til, at du har oprettet nogle projekter endnu.</p>
+            <p className="mx-auto my-12">Det ser ikke ud til, at du har oprettet nogle projekter endnu.</p>
           )}
-          <div className="text-center my-4">
+          <div className="my-4">
             {user ? (
               <Link to="/projects/new" className="btn btn-white">
                 <FeatherIcon name="PlusCircle" className="mr-2" />Opret projekt
