@@ -24,7 +24,7 @@ class ProposalListItem extends Component {
           {isProject ? (
             <div className="text-sm text-grey-darker">
               <span className="mr-4">
-                <b>Oprettet:</b> {proposal.createdon.substr(0, 10)}
+                <b>Oprettet:</b> {proposal.createdon}
               </span>
               <span>
                 <b>Støtter:</b> {proposal.support}

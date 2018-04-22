@@ -6,6 +6,8 @@ require('dotenv').config({ path: `./.env.${environment}` });
 const routes = require('./src/routes.js');
 const bodyParser = require('body-parser');
 const formDataParser = require('./src/middleware/formDataParser');
+const botMetaTagServer = require('./src/middleware/botMetaTagServer');
+const crawlerIdentifier = require('./src/middleware/crawlerIdentifier');
 const express = require('express');
 const Rollbar = require('rollbar');
 const path = require('path');
@@ -24,19 +26,19 @@ const port = 3001; // Note: must match port of the "proxy" URL in app/package.js
 const app = express();
 app.use(bodyParser.json());
 app.use(formDataParser);
-routes.map(app);
 
-app.use(function(request, res, next) {
-  console.log(request.headers['user-agent']);
-  if (request.headers['user-agent'].includes('facebook')) {
-    res.send('<meta property="og:title" content="Hej fra Holger og Lars" />');
+routes.map(app);
+app.use(express.static('app'));
+app.get('*', async function(request, response) {
+  const isBot = await crawlerIdentifier(request);
+  if (isBot) {
+    const host = request.protocol + '://' + request.get('host');
+    const path = request.url;
+    const html = await botMetaTagServer(host, path);
+    response.send(html);
   } else {
-    next();
+    response.sendFile(path.join(__dirname, './app/index.html'));
   }
-});
-app.use(express.static('app')); // Note: serve app as static assets
-app.get('*', function(request, response) {
-  response.sendFile(path.join(__dirname, './app/index.html'));
 });
 
 // Initate webserver
