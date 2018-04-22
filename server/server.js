@@ -5,7 +5,7 @@ require('dotenv').config({ path: `./.env.${environment}` });
 // Import
 const routes = require('./src/routes.js');
 const bodyParser = require('body-parser');
-const formDataParser = require('./src/middleware/formDataParser')
+const formDataParser = require('./src/middleware/formDataParser');
 const express = require('express');
 const Rollbar = require('rollbar');
 const path = require('path');
@@ -23,7 +23,7 @@ if (environment === 'production') {
 const port = 3001; // Note: must match port of the "proxy" URL in app/package.json
 const app = express();
 app.use(bodyParser.json());
-app.use(formDataParser)
+app.use(formDataParser);
 routes.map(app);
 app.use(express.static('app')); // Note: serve app as static assets
 app.get('*', function(request, response) {
@@ -37,14 +37,14 @@ function listeningHandler() {
   const mailBatcher = require('./src/mail/mailBatch');
   const schedule = require('node-schedule');
   if (environment === 'production') {
-    schedule.scheduleJob('0 0 10 * * 2', () => {
-      console.log('running weekly email batch job');
-      mailBatcher('weekly');
-    });
-    schedule.scheduleJob('0 0 0 1 * *', () => {
-      console.log('running monthly email batch job');
-      mailBatcher('monthly');
-    });
+    // schedule.scheduleJob('0 0 10 * * 2', () => {
+    //   console.log('running weekly email batch job');
+    //   mailBatcher('weekly');
+    // });
+    // schedule.scheduleJob('0 0 0 1 * *', () => {
+    //   console.log('running monthly email batch job');
+    //   mailBatcher('monthly');
+    // });
     schedule.scheduleJob('0 0 0 * * *', () => {
       ftBatchFetcher();
     });
