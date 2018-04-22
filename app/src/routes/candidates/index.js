@@ -64,7 +64,6 @@ class Candidates extends Component {
     candidateList = sortCandidateList(candidateList);
     const sortOrder = ['Flest støtter', 'Færrest støtter'];
     const userIsCandidate = user && !!R.find(R.propEq('id', user.id), this.props.candidateList);
-    console.log(candidateList);
     return (
       <div className="flex-auto px-2">
         {showNotificationBox && (

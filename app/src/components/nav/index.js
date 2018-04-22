@@ -85,7 +85,7 @@ class Nav extends Component {
                         <DropdownItem to={`/candidate/${user.id}`} itemName="Mit kandidatur" onClick={toggleMenu} />
                       )}
                       <DropdownItem to="/preferences" itemName="Mine præferencer" onClick={toggleMenu} />
-                      <DropdownItem to="/settings" itemName="Mine indstillinger" onClick={toggleMenu} />
+                      {/* <DropdownItem to="/settings" itemName="Mine indstillinger" onClick={toggleMenu} /> */}
                     </ul>
                     <div className="p-2">
                       <Logout
