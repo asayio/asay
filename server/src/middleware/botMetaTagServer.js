@@ -11,8 +11,10 @@ async function botMetaTagServer(host, path) {
     // default and fall-back og:
     title: 'Initiativets digitale platform | Initiativet',
     description:
-      'Velkommen til Initiativets digitale platform. Her kan du følge med i alle forslag fra Folketinget, finde borgernes egne politiske projekter, udvikle dine egne projekter eller stille op som kandidat.',
+      'På Initiativets digitale platform kan du følge med i alle forslag fra Folketinget, finde borgernes egne politiske projekter, udvikle dine egne projekter eller stille op som kandidat.',
     image: host + '/initiativet_og.png',
+    height: 630,
+    width: 1200,
     alt: 'Initiativets logo på en stor grå baggrund',
     url: host + path,
     host: host
@@ -23,7 +25,9 @@ async function botMetaTagServer(host, path) {
       og = {
         title: candidate.firstname + ' ' + candidate.lastname + ' | Initiativet',
         description: candidate.motivation,
-        image: candidate.picture + '?w=256&h=256&fit=fill',
+        image: candidate.picture + '?w=476&h=476&fit=fill',
+        height: 476,
+        width: 476,
         alt: candidate.firstname + ' ' + candidate.lastname + ' | Initiativet',
         url: host + path,
         host: host
@@ -34,8 +38,10 @@ async function botMetaTagServer(host, path) {
     og = {
       title: 'Initiativets kandidater | Initiativet',
       description:
-        'Velkommen til Initiativets digitale platform. Her kan du finde Initiativets kandidater, læse om deres motivation og kvalifikationer, støtte den bedste, eller tilmelde dig opstilling på Initiativets liste.',
+        'På Initiativets digitale platform kan du finde Initiativets kandidater, læse om deres motivation og kvalifikationer, støtte den bedste, eller tilmelde dig opstilling på Initiativets liste.',
       image: host + '/initiativet_og.png',
+      height: 630,
+      width: 1200,
       alt: 'Initiativets logo på en stor grå baggrund',
       url: host + path,
       host: host
@@ -47,7 +53,9 @@ async function botMetaTagServer(host, path) {
       og = {
         title: project.title + ' | Initiativet',
         description: project.description,
-        image: host + '/assets/category_images/' + project.category,
+        image: host + '/assets/category-images/' + project['category_id'] + '.png',
+        height: 630,
+        width: 1200,
         alt: project.title + ' | Initiativet',
         url: host + path,
         host: host
@@ -58,8 +66,10 @@ async function botMetaTagServer(host, path) {
     og = {
       title: 'Politiske projekter | Initiativet',
       description:
-        'Velkommen til Initiativets digitale platform. Her kan du finde borgernes politiske projekter, støtte de bedste, eller udvikle dit eget projekt.',
+        'På Initiativets digitale platform kan du finde borgernes politiske projekter, støtte de bedste, eller udvikle dit eget projekt.',
       image: host + '/initiativet_og.png',
+      height: 630,
+      width: 1200,
       alt: 'Initiativets logo på en stor grå baggrund',
       url: host + path,
       host: host
@@ -71,7 +81,9 @@ async function botMetaTagServer(host, path) {
       og = {
         title: proposal.shortTitel + ' | Initiativet',
         description: proposal.resume,
-        image: host + '/assets/category_images/' + proposal.category,
+        image: host + '/assets/category-images/' + proposal.category + '.png',
+        height: 630,
+        width: 1200,
         alt: proposal.shortTitel + ' | Initiativet',
         url: host + path,
         host: host
@@ -82,8 +94,10 @@ async function botMetaTagServer(host, path) {
     og = {
       title: 'Forslag fra Folketinget | Initiativet',
       description:
-        'Velkommen til Initiativets digitale platform. Her kan du følge med i alle forslag fra Folketinget, læse deres resumeer og formål, give din mening til kende og se afstemningsresultaterne.',
+        'På Initiativets digitale platformm kan du følge med i alle forslag fra Folketinget, læse deres resumeer og formål, give din mening til kende og se afstemningsresultaterne.',
       image: host + '/initiativet_og.png',
+      height: 630,
+      width: 1200,
       alt: 'Initiativets logo på en stor grå baggrund',
       url: host + path,
       host: host

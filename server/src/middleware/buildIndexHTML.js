@@ -1,4 +1,4 @@
-function buildIndexHTML({ title, description, image, alt, url, host }) {
+function buildIndexHTML({ title, description, image, height, width, alt, url, host }) {
   return `<html lang="da">
     <head>
       <meta charset="utf-8">
@@ -7,6 +7,8 @@ function buildIndexHTML({ title, description, image, alt, url, host }) {
       <meta property="og:description" content="${description}">
       <meta property="og:url" content="${url}">
       <meta property="og:image" content="${image}">
+      <meta property="og:image:width" content=${width}>
+      <meta property="og:image:height" content=${height}>
       <meta property="og:image:alt" content=${alt}>
       <meta property="og:type" content="website">
       <meta property="fb:app_id" content="211835762924678">
