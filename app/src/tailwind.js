@@ -73,6 +73,10 @@ let colors = {
   'blue-light': '#6cb2eb',
   'blue-lighter': '#bcdefa',
   'blue-lightest': '#eff8ff',
+  'blue-facebook': '#3b5998',
+  'blue-facebook-light': '#4c70ba',
+  'blue-twitter': '#00aced',
+  'blue-twitter-light': '#32bcf0',
 
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
@@ -467,7 +471,7 @@ module.exports = {
   */
 
   minWidth: {
-    '0': '0',
+    '0': '0 !important',
     '48': '12rem',
     full: '100%'
   },

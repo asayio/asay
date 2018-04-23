@@ -54,7 +54,7 @@ class Insights extends Component {
         {!proposalList.length ? (
           <div className="max-w-xl mx-auto text-center">
             <h1>Her ser lidt tomt ud</h1>
-            <p className="mx-auto">Du må hellere komme i gang med at stemme på nogle forslag.</p>
+            <p className="mx-auto my-12">Du må hellere komme i gang med at stemme på nogle forslag.</p>
             <button
               onClick={() =>
                 this.props.history.replace({
@@ -62,7 +62,7 @@ class Insights extends Component {
                 })
               }
               className="btn btn-white">
-              <FeatherIcon name="ArrowDown" />Gå til forsiden
+              <FeatherIcon name="ArrowLeft" className="mr-2" />Gå til forsiden
             </button>
           </div>
         ) : (

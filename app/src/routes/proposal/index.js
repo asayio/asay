@@ -86,7 +86,7 @@ class ProposalPage extends Component {
         <div className="max-w-xl mx-auto">
           <Heading title={proposal.shortTitel.replace('.', '')} />
           <div className="flex flex-wrap md:flex-no-wrap -m-1">
-            <div className="w-full">
+            <div className="flex flex-col w-full">
               <ProposalTabBar tabs={tabs} selectTab={this.selectTab} selectedTab={this.state.selectedTab} />
               {this.state.selectedTab === 'Resume' && <ProposalInfo paragraphs={resume} />}
               {this.state.selectedTab === 'Formål' && <ProposalInfo paragraphs={purpose} />}
@@ -98,9 +98,9 @@ class ProposalPage extends Component {
                   )}
                   {!results &&
                     !proposal.actualResults && (
-                      <div className="bg-white border border-grey-lighter rounded-sm shadow px-4 md:px-8 py-8 m-2">
-                        <p>Der er desværre ikke kommet nogle resultater for dette forslag endnu.</p>
-                      </div>
+                      <p className="text-grey-dark text-center px-4 mx-auto my-12">
+                        Der er desværre ikke kommet nogle resultater for dette forslag endnu.
+                      </p>
                     )}
                 </div>
               )}
@@ -140,6 +140,23 @@ class ProposalPage extends Component {
                     updateState={this.props.updateState}
                   />
                 </div>
+                <a
+                  href={`https://facebook.com/sharer/sharer.php?u=https://app.initiativet.dk/proposal/${proposal.id}`}
+                  target="_fbshare"
+                  rel="noopener noreferrer"
+                  className="btn btn-facebook w-full my-2">
+                  Del forslaget på Facebook
+                </a>
+                <a
+                  href={`https://twitter.com/intent/tweet?text=Spændende%20forslag%20fra%20Folketinget:%20${proposal.shortTitel.replace(
+                    '.',
+                    '!'
+                  )}&url=https://app.initiativet.dk/proposal/${proposal.id}&via=initiativetdk`}
+                  target="_twittershare"
+                  rel="noopener noreferrer"
+                  className="btn btn-twitter w-full">
+                  Del forslaget på Twitter
+                </a>
               </div>
             </div>
           </div>

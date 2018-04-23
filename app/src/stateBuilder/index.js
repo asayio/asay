@@ -34,6 +34,7 @@ async function initialState() {
       notificationList,
       preferenceList
     });
+
     const projectList = buildProjectList({
       projectList: rawProjectList,
       preferenceList,
@@ -174,7 +175,11 @@ function buildProposalList({
       participation
     });
   });
-  return sortProposalList(newProposalList);
+  const validProposalList = R.filter(
+    proposal => proposal.resume !== '' || (proposal.presentation && proposal.presentation.paragraphs.length !== 0)
+  )(newProposalList);
+
+  return sortProposalList(validProposalList);
 }
 
 const sortProposalList = R.sortWith([

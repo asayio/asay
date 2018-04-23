@@ -48,14 +48,14 @@ function listeningHandler() {
   const mailBatcher = require('./src/mail/mailBatch');
   const schedule = require('node-schedule');
   if (environment === 'production') {
-    schedule.scheduleJob('0 0 10 * * 2', () => {
-      console.log('running weekly email batch job');
-      mailBatcher('weekly');
-    });
-    schedule.scheduleJob('0 0 0 1 * *', () => {
-      console.log('running monthly email batch job');
-      mailBatcher('monthly');
-    });
+    // schedule.scheduleJob('0 0 10 * * 2', () => {
+    //   console.log('running weekly email batch job');
+    //   mailBatcher('weekly');
+    // });
+    // schedule.scheduleJob('0 0 0 1 * *', () => {
+    //   console.log('running monthly email batch job');
+    //   mailBatcher('monthly');
+    // });
     schedule.scheduleJob('0 0 0 * * *', () => {
       ftBatchFetcher();
     });
