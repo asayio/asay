@@ -1,4 +1,7 @@
-function buildIndexHTML({ title, description, image, height, width, alt, url, host }) {
+function buildIndexHTML({ title, description, image, square, alt, url, host }) {
+  const width = square ? 476 : 1200;
+  const height = square ? 476 : 630;
+  const twitterCard = square ? 'summary' : 'summary_large_image';
   return `<html lang="da">
     <head>
       <meta charset="utf-8">
@@ -12,7 +15,7 @@ function buildIndexHTML({ title, description, image, height, width, alt, url, ho
       <meta property="og:image:alt" content=${alt}>
       <meta property="og:type" content="website">
       <meta property="fb:app_id" content="211835762924678">
-      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:card" content=${twitterCard}>
       <meta name="twitter:image" content="${image}">
       <meta name="twitter:site" content="@initiativetdk">
       <meta name="twitter:creator" content="@initiativetdk" />

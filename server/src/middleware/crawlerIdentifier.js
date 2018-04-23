@@ -1,5 +1,5 @@
 async function crawlerIdentifier(request) {
-  const userAgent = request.headers['user-agent'];
+  const userAgent = request.headers['user-agent'].toLowerCase();
   const botList = [
     'googlebot',
     'bingbot',
