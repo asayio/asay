@@ -22,7 +22,7 @@ class Nav extends Component {
       this.setState({ showMenu: !this.state.showMenu });
     };
     return (
-      <nav className="fixed pin-t pin-x z-10 bg-white border-b border-grey-lighter shadow select-none p-2">
+      <nav className="fixed pin-t pin-x z-10 bg-white shadow select-none p-2">
         <div className="flex max-w-xl mx-auto relative">
           <div className="absolute pin-y flex items-center -ml-8">
             <Link to="/" className="block h-4 w-4 bg-teal rounded-full" />
@@ -103,7 +103,7 @@ class Nav extends Component {
                   <button
                     className={
                       (this.state.showMenu ? 'text-white bg-grey-darkest' : 'bg-grey-lightest') +
-                      ' inline-block leading-tight font-bold rounded-sm relative z-30 p-2'
+                      ' inline-block leading-tight font-bold rounded-sm relative z-30 px-4 py-2'
                     }
                     onClick={toggleMenu}
                     onMouseDown={e => e.preventDefault()}>
@@ -132,7 +132,7 @@ class Nav extends Component {
                 </div>
                 <Login
                   type="login"
-                  className="hidden md:inline-block font-bold leading-tight bg-grey-lightest rounded-sm p-2"
+                  className="hidden md:inline-block font-bold leading-tight text-white bg-blue-dark hover:bg-blue rounded-sm px-4 py-2"
                 />
               </div>
             )}

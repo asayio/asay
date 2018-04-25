@@ -65,7 +65,7 @@ class Proposals extends Component {
             <div className="text-center">
               <h1>Her ser lidt tomt ud</h1>
               <p className="mx-auto">Du må hellere opdatere dine præferencer, så vi kan finde nogle forslag til dig.</p>
-              <Link to="./preferences">
+              <Link to="./preferences" className="btn btn-white mt-4">
                 <FeatherIcon name="Settings" className="mr-2" />Opdater præferencer
               </Link>
             </div>

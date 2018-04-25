@@ -14,7 +14,7 @@ class ProposalListItem extends Component {
       <Link
         key={proposal.id}
         to={isProject ? `/project/${proposal.id}` : `/proposal/${proposal.id}`}
-        className="block relative flex flex-col md:flex-row md:h-32 bg-white border border-grey-lighter rounded-sm my-2 shadow hover:shadow-md">
+        className="block relative flex flex-col md:flex-row md:h-32 bg-white rounded-sm my-2 shadow hover:shadow-md">
         <div className="flex flex-col justify-center md:w-48 flex-none text-center border-b md:border-b-0 md:border-r border-grey-lighter px-4 py-2">
           <FeatherIcon name={proposal.category.feathericon} className="text-teal text-2xl" />
           <span className="text-grey-dark mt-2">{proposal.category.title}</span>

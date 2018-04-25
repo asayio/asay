@@ -135,7 +135,7 @@ class Candidates extends Component {
                 <li key={index} className="w-full md:w-1/4 p-1">
                   <Link
                     to={`/candidate/${candidate.id}`}
-                    className="flex flex-row md:flex-col h-full bg-white border border-grey-lighter rounded-sm shadow hover:shadow-md overflow-hidden">
+                    className="flex flex-row md:flex-col h-full bg-white rounded-sm shadow hover:shadow-md overflow-hidden">
                     <div className="flex-none relative">
                       <img
                         src={candidate.picture ? candidate.picture + '?w=464&h=464&fit=fill' : '/assets/candidate.png'}

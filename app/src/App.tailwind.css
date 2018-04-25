@@ -89,7 +89,7 @@ h4 {
   @apply .text-white .bg-blue-dark .border-blue-dark;
 }
 .btn-primary:hover {
-  @apply .bg-blue;
+  @apply .bg-blue .border-blue;
 }
 .btn-secondary {
   @apply .text-blue-dark .border-blue-dark;
@@ -98,25 +98,25 @@ h4 {
   @apply .text-blue .border-blue;
 }
 .btn-white {
-  @apply .text-black .bg-white .border-grey-lighter .shadow;
+  @apply .text-black .bg-white .border-white .shadow;
 }
 .btn-white:hover {
   @apply .shadow-md;
 }
 .btn-disabled {
-  @apply .text-grey-dark .bg-grey-lighter .border-grey-light .cursor-not-allowed;
+  @apply .text-grey-dark .bg-grey-lighter .border-grey-lighter .cursor-not-allowed;
 }
 .btn-facebook {
   @apply .text-white .bg-blue-facebook .border-blue-facebook;
 }
 .btn-facebook:hover {
-  @apply .bg-blue-facebook-light;
+  @apply .bg-blue-facebook-light .border-blue-facebook-light;
 }
 .btn-twitter {
   @apply .text-white .bg-blue-twitter .border-blue-twitter;
 }
 .btn-twitter:hover {
-  @apply .bg-blue-twitter-light;
+  @apply .bg-blue-twitter-light .border-blue-twitter-light;
 }
 
 .inline-link {
