@@ -23,7 +23,7 @@ function buildIndexHTML({ title, description, image, square, alt, url, host }) {
       <meta name="twitter:description" content="${description}">
       <meta name="twitter:title" content="${title}">
       <link rel="shortcut icon" href="${host}/favicon.png">
-      <title>Initiativet</title>
+      <title>${title}</title>
 
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="apple-mobile-web-app-status-bar-style" content="default">
