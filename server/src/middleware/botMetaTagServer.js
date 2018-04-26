@@ -24,7 +24,7 @@ async function botMetaTagServer(host, path) {
       og = {
         title: candidate.firstname + ' ' + candidate.lastname + ' | Initiativet',
         description: candidate.motivation,
-        image: candidate.picture + '?w=476&h=476&fit=fill',
+        image: candidate.picture + '?w=1200',
         square: true,
         alt: candidate.firstname + ' ' + candidate.lastname + ' | Initiativet',
         url: host + path,
