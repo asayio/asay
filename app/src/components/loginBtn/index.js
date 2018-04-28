@@ -17,6 +17,13 @@ class Login extends Component {
   login = async () => {
     const clientId = '1SQLoULbKUTpJC0T5zv2ailBYb3Jw51u';
     const domain = 'initiativet.eu.auth0.com';
+    const params = [
+      'client=' + clientId,
+      'logoURL=' + window.location.origin + '/auth_logo.svg',
+      'initialScreen=' + this.props.type
+    ];
+    const URL = 'https://' + domain + '/login?' + params.join('&');
+    // https://initiativet.eu.auth0.com/login?client=1SQLoULbKUTpJC0T5zv2ailBYb3Jw51u&logoURL=https://app.initiativet.dk/auth_logo.svg&initialScreen=signUp
     const options = {
       auth: {
         redirectUrl: window.location.origin + '/auth',
