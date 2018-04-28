@@ -31,7 +31,7 @@ class Proposals extends Component {
 
   render() {
     const user = this.props.user;
-    const showNotificationBox = user && !user.onboardedproposals;
+    const showNotificationBox = user && !user.onboardedproposals && !this.props.anonymousUser;
 
     let proposalList = this.props.proposalList;
     proposalList = R.filter(proposal => {

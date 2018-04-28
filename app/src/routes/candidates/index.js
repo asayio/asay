@@ -40,7 +40,7 @@ class Candidates extends Component {
 
   render() {
     const user = this.props.user;
-    const showNotificationBox = user && !user.onboardedcandidates;
+    const showNotificationBox = user && !user.onboardedprojects && !this.props.anonymousUser;
 
     const activeCandidateList = R.filter(candidate => {
       return candidate.active;

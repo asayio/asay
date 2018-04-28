@@ -7,6 +7,7 @@ import { ArrowLeft } from 'react-feather';
 import ProposalTabBar from '../../components/proposalTabBar';
 import { Link } from 'react-router-dom';
 import ProposalResults from '../../components/proposalResults';
+import LoadingSpinner from '../../components/loadingSpinner';
 
 class ProposalPage extends Component {
   constructor() {
@@ -41,7 +42,11 @@ class ProposalPage extends Component {
 
   render() {
     const proposal = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.proposalList);
-    if (!proposal) {
+    const appReady = this.props.appReady;
+    if (!proposal && (!appReady || appReady === 'cache')) {
+      return <LoadingSpinner />;
+    }
+    if (!proposal && appReady && appReady !== 'cache') {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto text-center">

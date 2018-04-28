@@ -62,7 +62,11 @@ class ProjectPage extends Component {
 
   render() {
     const project = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.projectList);
-    if (!project) {
+    const appReady = this.props.appReady;
+    if (!project && (!appReady || appReady === 'cache')) {
+      return <LoadingSpinner />;
+    }
+    if (!project && appReady && appReady !== 'cache') {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto text-center">
@@ -194,8 +198,6 @@ class ProjectPage extends Component {
           </div>
         </div>
       );
-    } else {
-      return <LoadingSpinner />;
     }
   }
 }
