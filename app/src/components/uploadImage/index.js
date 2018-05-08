@@ -30,7 +30,7 @@ class uploadImage extends Component {
           Vælg et profilbillede med dit ansigt i midten, som er minimum 400x400px og under 2mb stort.
         </p>
 
-        <div style={profilePicStyle} class="h-48 w-48 bg-cover bg-center rounded-sm mb-2" />
+        <div style={profilePicStyle} className="h-48 w-48 bg-cover bg-center rounded-sm mb-2" />
 
         <div>
           <input

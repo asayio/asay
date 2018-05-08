@@ -19,7 +19,9 @@ async function postCandidate(request, response) {
       const hasCandidacy = await lookupCandidate(userId);
       const testing = hasCandidacy ? true : false;
       const picture = image ? await contentful.uploadImage(image, user) : {};
+      console.log(picture);
       Object.assign(candidate, { picture });
+      console.log(candidate);
       if (hasCandidacy) {
         await changeCandidate(userId, candidate);
       } else {

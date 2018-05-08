@@ -12,20 +12,20 @@ const getVoteResults = require('../../db/vote/getVoteResults');
 
 // Functions
 async function ftBatchFetcher() {
-  console.log('ftBatchFetcher started');
+  // console.log('ftBatchFetcher started');
   const proposalExpand = '&$expand=Sagsstatus,Periode,Sagstype,SagAkt%C3%B8r,Sagstrin/Afstemning';
   const proposalFilter = '&$filter=(typeid eq 3 or typeid eq 5) and periodeid eq 146';
   const proposalUrl = 'http://oda.ft.dk/api/Sag?$orderby=id desc' + proposalExpand + proposalFilter;
   const proposalList = await odaFetcher.fetchAllPages(proposalUrl);
-  console.log('oda.ft.dk responded with proposalList');
+  // console.log('oda.ft.dk responded with proposalList');
   const filteredProposalList = R.filter(function(proposal) {
     const doesExist = !R.isNil(proposal);
-    !doesExist && console.log('Filterd out empty proposal');
+    // !doesExist && console.log('Filterd out empty proposal');
     const hasCommittee = R.path(['SagAktør'], proposal).length;
-    !hasCommittee && console.log('Filtered out proposal (' + proposal.nummer + ') because of missing committee');
+    // !hasCommittee && console.log('Filtered out proposal (' + proposal.nummer + ') because of missing committee');
     return doesExist && hasCommittee;
   }, proposalList);
-  console.log('proposal list was filtered for bad apples');
+  // console.log('proposal list was filtered for bad apples');
   const existingProposalList = await getProposalList();
   for (const proposal of existingProposalList) {
     const hasJustClosed = proposal.deadline === 'Afsluttet' && !proposal.state;
@@ -44,10 +44,10 @@ async function ftBatchFetcher() {
         proposer: '.Fremsaetter'
       });
       if (!presentation.paragraphs.length) {
-        console.log('We could not find a presentation for proposal: ' + proposal.id);
+        // console.log('We could not find a presentation for proposal: ' + proposal.id);
         return null;
       } else {
-        console.log('I found a presentation!');
+        // console.log('I found a presentation!');
         return presentation;
       }
     }
@@ -55,7 +55,7 @@ async function ftBatchFetcher() {
     const results = stageInfo.status === 'Afsluttet' && (await getVoteResults(proposal.id));
     const existingPresentation = R.path(['data', 'presentation'], existingProposal);
     const doNotLookForPresentation = existingPresentation || proposal.nummerprefix === 'B'; // beslutningforslag will never get a presentation
-    if (!doNotLookForPresentation) console.log('I am looking for a presentation...');
+    if (!doNotLookForPresentation); // console.log('I am looking for a presentation...');
     const upsertedProposal = {
       id: proposal.id,
       data: {
@@ -82,13 +82,13 @@ async function ftBatchFetcher() {
     };
     if (existingProposal) {
       await changeProposal(upsertedProposal.id, upsertedProposal.data);
-      console.log('Updated proposal with id: ' + proposal.id);
+      // console.log('Updated proposal with id: ' + proposal.id);
     } else {
       await createProposal(upsertedProposal.id, upsertedProposal.data);
-      console.log('Inserted new proposal with id: ' + proposal.id);
+      // console.log('Inserted new proposal with id: ' + proposal.id);
     }
   }
-  console.log('ftBatchFetcher finished');
+  // console.log('ftBatchFetcher finished');
 }
 
 // Export

@@ -40,6 +40,8 @@ async function uploadImage(image, user) {
     .then(asset => asset.publish())
     .then(asset => asset) // I might have to do another request to get the URL
     .catch(console.error);
+  console.log(contentfulResponse);
+  console.log(contentfulResponse.fields.file['en-US']);
   return contentfulResponse.fields.file['en-US'].url;
 }
 
