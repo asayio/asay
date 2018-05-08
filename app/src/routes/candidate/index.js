@@ -96,7 +96,11 @@ class CandidatePage extends Component {
 
   render() {
     const candidate = R.find(R.propEq('id', Number(this.props.match.params.id)), this.props.candidateList);
-    if (!candidate) {
+    const appReady = this.props.appReady;
+    if (!candidate && (!appReady || appReady === 'cache')) {
+      return <LoadingSpinner />;
+    }
+    if (!candidate && appReady && appReady !== 'cache') {
       return (
         <div className="flex-auto px-2">
           <div className="max-w-xl mx-auto text-center">
@@ -330,8 +334,6 @@ class CandidatePage extends Component {
           </div>
         </div>
       );
-    } else {
-      return <LoadingSpinner />;
     }
   }
 }

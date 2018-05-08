@@ -38,7 +38,7 @@ class Projects extends Component {
 
   render() {
     const user = this.props.user;
-    const showNotificationBox = user && !user.onboardedprojects;
+    const showNotificationBox = user && !user.onboardedprojects && !this.props.anonymousUser;
 
     const sortOrder = this.state.sort === 'supportDesc' || this.state.sort === 'createdonDesc' ? 'desc' : 'asc';
     const sortBy = this.state.sort === 'supportDesc' || this.state.sort === 'supportAsc' ? 'support' : 'createdon';
@@ -96,7 +96,7 @@ class Projects extends Component {
                 ))}
               />
             </div>
-            {this.props.user ? (
+            {this.props.user && !this.props.anonymousUser ? (
               <div className="w-full md:w-1/2 flex items-end py-2 md:py-0">
                 <Link to="/projects/mine" className="w-full btn btn-white mx-1">
                   <FeatherIcon name="User" className="mr-2" />Mine projekter

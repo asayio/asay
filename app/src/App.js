@@ -81,12 +81,12 @@ class App extends Component {
     if (loginExpired && window.localStorage.cacheStateAnonymous) {
       const cacheState = JSON.parse(window.localStorage.cacheStateAnonymous);
       this.setState(cacheState);
-      this.setState({ appReady: true });
+      this.setState({ appReady: 'cache' });
     }
     if (!loginExpired && window.localStorage.cacheStateUser) {
       const cacheState = JSON.parse(window.localStorage.cacheStateUser);
       this.setState(cacheState);
-      this.setState({ appReady: true });
+      this.setState({ appReady: 'cache' });
     }
     const initialState = await stateBuilder.initialState();
     if (initialState) {
@@ -148,10 +148,22 @@ class App extends Component {
     };
     const state = JSON.stringify(Object.assign({}, this.state, { modal: false }));
     if (this.state.appReady && this.state.anonymousUser) {
-      window.localStorage.cacheStateAnonymous = state;
+      try {
+        window.localStorage.cacheStateAnonymous = state;
+      } catch (e) {
+        console.log(
+          'Your web browser does not support storing settings locally. Some settings may not save or some features may not work properly for you.'
+        );
+      }
     }
     if (this.state.appReady && !this.state.anonymousUser) {
-      window.localStorage.cacheStateUser = state;
+      try {
+        window.localStorage.cacheStateUser = state;
+      } catch (e) {
+        console.log(
+          'Your web browser does not support storing settings locally. Some settings may not save or some features may not work properly for you.'
+        );
+      }
     }
     return (
       <Router>
@@ -203,6 +215,7 @@ class App extends Component {
                 render={props => (
                   <Proposal
                     match={props.match}
+                    appReady={this.state.appReady}
                     anonymousUser={this.state.anonymousUser}
                     proposalList={this.state.proposalList}
                     updateState={this.updateState}
@@ -214,6 +227,7 @@ class App extends Component {
                 path="/projects"
                 render={props => (
                   <Projects
+                    anonymousUser={this.state.anonymousUser}
                     updateState={this.updateState}
                     preferenceList={this.state.preferenceList}
                     projectList={this.state.projectList}
@@ -254,6 +268,7 @@ class App extends Component {
                 render={props => (
                   <Candidate
                     match={props.match}
+                    appReady={this.state.appReady}
                     anonymousUser={this.state.anonymousUser}
                     candidateList={this.state.candidateList}
                     updateState={this.updateState}
