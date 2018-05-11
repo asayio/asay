@@ -141,7 +141,7 @@ class ProjectPage extends Component {
                   <h4 className="text-center border-b border-grey-lighter p-2">Initiativtager</h4>
                   <div className="text-center text-grey-darker p-4">
                     <span className="block mb-4">{project.initiator.name}</span>
-                    <span className="block mb-4">{project.initiator.bio}</span>
+                    <p className="break-words mb-4">{project.initiator.bio}</p>
                     <a href={`mailto:${project.initiator.email}`} className="btn btn-secondary">
                       Kontakt initiativtager
                     </a>
