@@ -23,21 +23,21 @@ class ProposalPage extends Component {
   }
 
   async seen(proposal) {
-    proposal.seeNotification &&
-      this.props.updateState(
-        { entityType: 'notificationList', entity: { proposal_id: proposal.id, type: 'seen' } },
-        await fetch('/api/seen/', {
-          method: 'POST',
-          body: JSON.stringify({
-            proposalId: proposal.id,
-            hasResults: !!proposal.results
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + window.localStorage.authToken
-          }
-        })
-      );
+    return (
+      proposal.seeNotification &&
+      (this.props.updateState({ entityType: 'notificationList', entity: { proposal_id: proposal.id, type: 'seen' } }),
+      await fetch('/api/seen/', {
+        method: 'POST',
+        body: JSON.stringify({
+          proposalId: proposal.id,
+          hasResults: !!proposal.results
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + window.localStorage.authToken
+        }
+      }))
+    );
   }
 
   render() {
