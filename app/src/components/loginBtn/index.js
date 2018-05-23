@@ -37,6 +37,18 @@ class Login extends Component {
         {
           name: 'lastname',
           placeholder: 'Efternavn'
+        },
+        {
+          name: 'terms',
+          type: 'checkbox',
+          placeholder:
+            'Jeg accepterer <a style="text-decoration: underline" href="https://initiativet.dk/privacy">Initiativets privatlivspolitik</a>',
+          prefill: 'true',
+          validator: function(terms) {
+            return {
+              valid: terms === 'true'
+            };
+          }
         }
       ],
       languageDictionary: Da,
