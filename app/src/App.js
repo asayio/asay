@@ -35,6 +35,7 @@ import Onboarding from './routes/onboarding';
 import LoadingSpinner from './components/loadingSpinner';
 import LandingPage from './components/landingPage';
 import Modal from './components/modal/routes';
+import CookieBanner from './components/cookieBanner';
 
 class App extends Component {
   constructor(props) {
@@ -147,24 +148,18 @@ class App extends Component {
       return null;
     };
     const state = JSON.stringify(Object.assign({}, this.state, { modal: false }));
-    if (this.state.appReady && this.state.anonymousUser) {
-      try {
+    try {
+      if (this.state.appReady && this.state.anonymousUser) {
         window.localStorage.cacheStateAnonymous = state;
-      } catch (e) {
-        console.log(
-          'Your web browser does not support storing settings locally. Some settings may not save or some features may not work properly for you.'
-        );
-      }
-    }
-    if (this.state.appReady && !this.state.anonymousUser) {
-      try {
+      } else if (this.state.appReady && !this.state.anonymousUser) {
         window.localStorage.cacheStateUser = state;
-      } catch (e) {
-        console.log(
-          'Your web browser does not support storing settings locally. Some settings may not save or some features may not work properly for you.'
-        );
       }
+    } catch (e) {
+      console.log(
+        'Your web browser does not support storing settings locally. Some settings may not save or some features may not work properly for you.'
+      );
     }
+
     return (
       <Router>
         <div className="min-h-screen flex flex-col bg-grey-lightest pt-13">
@@ -414,6 +409,7 @@ class App extends Component {
             </Switch>
           )}
           <Footer />
+          {this.state.anonymousUser && <CookieBanner updateState={this.updateState} />}
         </div>
       </Router>
     );
