@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import FeatherIcon from '../../../components/featherIcon';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import FeatherIcon from "../../../components/featherIcon";
 
 class SubmissionModal extends Component {
   render() {
@@ -8,15 +9,17 @@ class SubmissionModal extends Component {
         <h2>Din valghandling er registreret</h2>
         <p>Du sendes nu tilbage til forslagslisten.</p>
         <div className="mt-8 mb-4">
-          <a
+          <Link
             to="../../proposals"
             onClick={() => {
-              this.props.updateState({ entityType: 'modal', entity: false });
+              this.props.updateState({ entityType: "modal", entity: false });
               window.history.go(-2);
             }}
-            className="btn btn-primary">
-            <FeatherIcon name="ArrowLeft" className="mr-2" />Tilbage til mine forslag
-          </a>
+            className="btn btn-primary"
+          >
+            <FeatherIcon name="ArrowLeft" className="mr-2" />
+            Tilbage til mine forslag
+          </Link>
         </div>
       </div>
     );
